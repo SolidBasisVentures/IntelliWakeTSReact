@@ -9,47 +9,10 @@
  * 		First, call and store the arrayIDMapsForArrayWithID() value so that it can generate the UUIDs for the known entities.  This function should be called every time a new row is inserted or an ID is saved on an existing row.  Only a single id=undefined|null|0 should exist in the array at any one time, so that on a subsequent save it will be matched to the UUID with undefined|null|0 on it.
  * 		Second, use the mapFromArrayIDMaps() as the map() function for displaying the array values with a consistent index
  */
-import {ReactNode, ReactNodeArray} from 'react'
-import {GenerateUUID} from '@solidbasisventures/intelliwaketsfoundation'
-
+import { ReactNode, ReactNodeArray } from 'react';
 export interface IArrayIDMap {
-	originalID: number | null
-	uuid: string
+    originalID: number | null;
+    uuid: string;
 }
-
-export const arrayIDMapsForArrayWithID = (arrayValues: any[], existingArrayIDMaps: IArrayIDMap[]): IArrayIDMap[] => {
-	const idName = 'id'
-	const originalIDs = existingArrayIDMaps.map((existingArrayIDMap) => existingArrayIDMap.originalID)
-	
-	const newArrayIDMaps = [
-		...existingArrayIDMaps,
-		...arrayValues
-			.filter((arrayValue) => !originalIDs.includes(arrayValue[idName]))
-			.map((arrayValue) => {
-				const arrayIDMap: IArrayIDMap = {
-					originalID: arrayValue,
-					uuid: GenerateUUID()
-				}
-				return arrayIDMap
-			})
-	]
-	
-	const arrayValueIDs = arrayValues.map((arrayValue) => arrayValue[idName])
-	
-	return newArrayIDMaps.filter((arrayIDMap) => arrayValueIDs.includes(arrayIDMap.originalID))
-}
-
-export const arrayMapWithMapIDIndex = <T>(
-	arrayValues: T[],
-	arrayIDMaps: IArrayIDMap[],
-	map: (arrayValue: T, idx: string) => ReactNode
-): ReactNodeArray => {
-	const idName = 'id'
-	
-	return arrayValues.map((arrayValue) =>
-		map(
-			arrayValue,
-			arrayIDMaps.find((arrayIDMap) => arrayIDMap.originalID === arrayValue[idName])?.uuid ?? GenerateUUID()
-		)
-	)
-}
+export declare const arrayIDMapsForArrayWithID: (arrayValues: any[], existingArrayIDMaps: IArrayIDMap[]) => IArrayIDMap[];
+export declare const arrayMapWithMapIDIndex: <T>(arrayValues: T[], arrayIDMaps: IArrayIDMap[], map: (arrayValue: T, idx: string) => ReactNode) => ReactNodeArray;

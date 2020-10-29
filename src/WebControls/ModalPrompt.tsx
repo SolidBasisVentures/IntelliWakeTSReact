@@ -1,6 +1,6 @@
 import React, {ReactNode, useCallback, useMemo} from 'react'
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from 'reactstrap'
-import {EvaluateString, TVariables} from '../Evaluator'
+import {EvaluateString, TVariables} from '@solidbasisventures/intelliwaketsfoundation'
 
 export interface IModalPromptResponse {
 	label: ReactNode

@@ -1,7 +1,8 @@
 import React from 'react'
 import {Input} from 'reactstrap'
-import {CleanNumber, ElementCustomValue} from '../Functions'
+import {ElementCustomValue} from '../Functions'
 import {Link} from 'react-router-dom'
+import {CleanNumber} from '@solidbasisventures/intelliwaketsfoundation'
 
 export interface IPropsSelect {
 	name?: string

@@ -1,7 +1,12 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react'
 import {Input} from 'reactstrap'
-import {MomentDateString, MomentDisplayDayDate, MomentDisplayDayDateTime, MomentTimeString} from '../Functions'
 import {IIWInputProps, reduceInputProps} from './IWInputProps'
+import {
+	MomentDateString,
+	MomentDisplayDayDate,
+	MomentDisplayDayDateTime,
+	MomentTimeString
+} from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps extends IIWInputProps {
 	showTime?: boolean

@@ -1,0 +1,54 @@
+import { AxiosError, AxiosResponse } from 'axios';
+import { Dispatch, ReactNode, ReactNodeArray, SetStateAction } from 'react';
+export declare type TServerData<T = any> = T | undefined | null;
+export interface IServerDataUpdatedState<U = any> {
+    item?: string;
+    updateVerb: string;
+    updateRequest: any;
+    updateMessage?: string;
+    setUpdateResponse?: Dispatch<SetStateAction<U | null>>;
+    updatedAction?: (response: U) => void;
+    startingAction?: () => void;
+    catchAction?: (err: AxiosError) => void;
+    finallyAction?: () => void;
+    failedAction?: (serverStatus: any) => void;
+    globalActivityOverlay?: boolean;
+    noAuthenticationNeeded?: boolean;
+    noActivityOverlay?: boolean;
+}
+export declare type TServerDataUpdatedState<U = any> = IServerDataUpdatedState<U> | null;
+export interface IIWQueryProps<G = any, U = any> {
+    item?: string;
+    verb?: string;
+    urlPrefix?: string;
+    authorizationHeader?: any;
+    noAuthenticationNeeded?: boolean;
+    request?: any;
+    response?: TServerData<G>;
+    setResponse?: Dispatch<SetStateAction<G | null>>;
+    responseMessage?: string;
+    noRefreshOnRequestChange?: boolean;
+    globalActivityOverlay?: boolean;
+    noActivityOverlay?: boolean;
+    updateVerb?: string;
+    updateRequest?: any;
+    setUpdateResponse?: Dispatch<SetStateAction<U | null>>;
+    updateMessage?: string;
+    updatedAction?: (response: U) => void;
+    forceRefresh?: any;
+    forceCancel?: boolean;
+    children?: false | ReactNodeArray | ReactNode;
+    loadingReactNodes?: ReactNodeArray | ReactNode;
+    failedReactNodes?: ReactNodeArray | ReactNode;
+    startingAction?: () => void;
+    axiosResponseAction?: (axiosResponse: AxiosResponse) => void;
+    catchAction?: (err: AxiosError) => void;
+    finallyAction?: () => void;
+    handleServerData?: (serverData: any) => boolean;
+    showUserMessage?: (message: string, failed?: boolean) => void;
+    failedAction?: (serverStatus: any) => void;
+    verboseConsole?: boolean;
+    superVerboseConsole?: boolean;
+    noCredentials?: boolean;
+}
+export declare const IWServerData: <G, U>(props: IIWQueryProps<G, U>) => JSX.Element;

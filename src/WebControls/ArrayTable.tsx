@@ -6,8 +6,8 @@ import {
     WriteBodyTR, WriteFootTR,
     WriteHeadTR
 } from './ArrayStructure';
-import {ClassNames} from "../Functions";
 import {initialSortProperties, ISortProperties, SortObjects} from "./ArrayManipulators";
+import {ClassNames} from '../Functions'
 
 export interface IPropsArrayTable {
     arrayData: any[] | null,

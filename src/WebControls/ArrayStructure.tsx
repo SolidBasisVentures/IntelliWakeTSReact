@@ -1,15 +1,15 @@
-import moment from "moment";
+import moment from 'moment'
+import {ISortProperties, SetSort} from './ArrayManipulators'
+import React from 'react'
 import {
-    ClassNames,
-    ToCurrency,
-    ToCurrencyBlank,
-    ToCurrencyDash,
-    ToDigits,
-    ToDigitsBlank,
-    ToDigitsDash
-} from "../Functions";
-import {ISortProperties, SetSort} from "./ArrayManipulators";
-import React from "react";
+	ToCurrency,
+	ToCurrencyBlank,
+	ToCurrencyDash,
+	ToDigits,
+	ToDigitsBlank,
+	ToDigitsDash
+} from '@solidbasisventures/intelliwaketsfoundation'
+import {ClassNames} from '../Functions'
 
 export interface IArrayColumn {
     fieldName: string,

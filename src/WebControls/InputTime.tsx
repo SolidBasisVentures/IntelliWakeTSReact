@@ -1,13 +1,11 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react'
 import {Input} from 'reactstrap'
+import {IIWInputProps, reduceInputProps} from './IWInputProps'
 import {
 	MOMENT_FORMAT_TIME_NO_SECONDS,
-	MOMENT_FORMAT_TIME_SECONDS,
-	MomentDateString,
-	MomentDisplayTime,
-	MomentTimeString
-} from '../Functions'
-import {IIWInputProps, reduceInputProps} from './IWInputProps'
+	MOMENT_FORMAT_TIME_SECONDS, MomentDateString,
+	MomentDisplayTime, MomentTimeString
+} from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps extends IIWInputProps {
 	includeDate?: boolean

@@ -1,11 +1,9 @@
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios'
 import moment from 'moment'
 import React, {Dispatch, ReactNode, ReactNodeArray, SetStateAction, useEffect, useMemo, useRef, useState} from 'react'
-import {IsStageDevFocused} from '../Stage'
-import {IHeaderServerStatus} from '../APISignatures/Headers'
 import {ActivityOverlayControl} from './ActivityOverlayControl'
-import {JSONParse, MOMENT_FORMAT_DATE_TIME} from '../Functions'
 import deepEqual from 'deep-equal'
+import {IsStageDevFocused, JSONParse, MOMENT_FORMAT_DATE_TIME} from '@solidbasisventures/intelliwaketsfoundation'
 
 export type TServerData<T = any> = T | undefined | null
 
@@ -197,9 +195,9 @@ export const IWServerData = <G, U>(props: IIWQueryProps<G, U>) => {
 								}
 							}
 
-							const serverStatus: IHeaderServerStatus = JSONParse(
+							const serverStatus: any = JSONParse(
 								response.headers.serverstatus ?? '{}'
-							) as IHeaderServerStatus
+							)
 							const resultsData = (response.data ?? {}) as G | U
 
 							if (isMounted.current) {

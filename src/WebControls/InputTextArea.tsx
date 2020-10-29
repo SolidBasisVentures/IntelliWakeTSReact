@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
-import {CleanScripts, ReplaceLinks} from '../Functions'
 import {handleChangeValue, IIWInputProps, reduceInputProps} from './IWInputProps'
+import {CleanScripts, ReplaceLinks} from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps extends IIWInputProps {
 	bordered?: boolean

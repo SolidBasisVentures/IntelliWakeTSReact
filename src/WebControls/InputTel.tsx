@@ -1,10 +1,10 @@
 import React, {useMemo} from 'react'
 import {Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap'
-import {FormatPhoneNumber} from '../Functions'
 import {IconProp} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPhone} from '@fortawesome/pro-regular-svg-icons'
 import {handleChangeValue, IIWInputProps, reduceInputProps} from './IWInputProps'
+import {FormatPhoneNumber} from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps extends IIWInputProps {
 	showFAIcon?: boolean | IconProp

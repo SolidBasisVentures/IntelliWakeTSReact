@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef} from 'react';
 import {Alert} from "reactstrap";
-import {TextToHTML} from "../Functions";
 import {initialMessageBoxState, MessageBoxState} from '../Stores/message_box'
+import {TextToHTML} from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps {
     messageBoxState: MessageBoxState | string,

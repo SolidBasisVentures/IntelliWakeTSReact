@@ -1,13 +1,11 @@
 import React from 'react'
-import {
-	MOMENT_FORMAT_DATE,
-	MomentDateString,
-	MomentDisplayDayDate,
-	MomentDisplayDayDateTime,
-	MomentTimeString
-} from '../Functions'
 import ReactDatePicker from 'react-datepicker'
 import moment from 'moment'
+import {
+	MOMENT_FORMAT_DATE, MomentDateString,
+	MomentDisplayDayDate,
+	MomentDisplayDayDateTime, MomentTimeString
+} from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps {
 	value: string

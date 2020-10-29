@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
-import {FormatZip} from '../Functions'
 import {IIWInputProps, reduceInputProps, handleChangeValue} from './IWInputProps'
+import {FormatZip} from '@solidbasisventures/intelliwaketsfoundation'
 
 export interface IZipProps extends IIWInputProps {
 	withNine?: boolean

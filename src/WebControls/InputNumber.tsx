@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import Cleave from 'cleave.js/react'
-import {CleanNumber, ToCurrency, ToDigits} from '../Functions'
+import {CleanNumber, ToCurrency, ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
 
 export interface IPropsInputNumber {
 	name?: string
