@@ -3,8 +3,11 @@ import {Input} from 'reactstrap'
 import {IIWInputProps, reduceInputProps} from './IWInputProps'
 import {
 	MOMENT_FORMAT_TIME_NO_SECONDS,
-	MOMENT_FORMAT_TIME_SECONDS, MomentDateString,
-	MomentDisplayTime, MomentTimeString
+	MOMENT_FORMAT_TIME_SECONDS,
+	MomentDateString,
+	MomentDisplayTime,
+	MomentFormatString,
+	MomentTimeString
 } from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps extends IIWInputProps {
@@ -33,7 +36,7 @@ export const InputTime = (props: IProps) => {
 			lastTimeValue.current = MomentTimeString((props.value ?? '') as string) ?? ''
 			nextTimeValue.current = lastTimeValue.current
 			setOverrideValue(
-				MomentTimeString(
+				MomentFormatString(
 					lastTimeValue.current,
 					!!props.editSeconds ? MOMENT_FORMAT_TIME_SECONDS : MOMENT_FORMAT_TIME_NO_SECONDS
 				) ?? ''

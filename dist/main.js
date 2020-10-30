@@ -1322,7 +1322,7 @@ var InputTime = function (props) {
         if (![lastTimeValue.current, nextTimeValue.current].includes((_a = intelliwaketsfoundation.MomentTimeString(props.value)) !== null && _a !== void 0 ? _a : '')) {
             lastTimeValue.current = (_c = intelliwaketsfoundation.MomentTimeString(((_b = props.value) !== null && _b !== void 0 ? _b : ''))) !== null && _c !== void 0 ? _c : '';
             nextTimeValue.current = lastTimeValue.current;
-            setOverrideValue((_d = intelliwaketsfoundation.MomentTimeString(lastTimeValue.current, !!props.editSeconds ? intelliwaketsfoundation.MOMENT_FORMAT_TIME_SECONDS : intelliwaketsfoundation.MOMENT_FORMAT_TIME_NO_SECONDS)) !== null && _d !== void 0 ? _d : '');
+            setOverrideValue((_d = intelliwaketsfoundation.MomentFormatString(lastTimeValue.current, !!props.editSeconds ? intelliwaketsfoundation.MOMENT_FORMAT_TIME_SECONDS : intelliwaketsfoundation.MOMENT_FORMAT_TIME_NO_SECONDS)) !== null && _d !== void 0 ? _d : '');
         }
         else {
             lastTimeValue.current = (_f = intelliwaketsfoundation.MomentTimeString(((_e = props.value) !== null && _e !== void 0 ? _e : ''))) !== null && _f !== void 0 ? _f : '';
