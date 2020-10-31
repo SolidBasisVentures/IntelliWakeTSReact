@@ -2,8 +2,8 @@ import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios'
 import moment from 'moment'
 import React, {Dispatch, ReactNode, ReactNodeArray, SetStateAction, useEffect, useMemo, useRef, useState} from 'react'
 import {ActivityOverlayControl} from './ActivityOverlayControl'
-import deepEqual from 'deep-equal'
 import {IsStageDevFocused, JSONParse, MOMENT_FORMAT_DATE_TIME} from '@solidbasisventures/intelliwaketsfoundation'
+import _ from 'lodash'
 
 export type TServerData<T = any> = T | undefined | null
 
@@ -94,7 +94,7 @@ export const IWServerData = <G, U>(props: IIWQueryProps<G, U>) => {
 		!!setResponse &&
 		(props.response === undefined ||
 			forceRefreshRef.current !== props.forceRefresh ||
-			(!props.noRefreshOnRequestChange && !deepEqual(props.request, lastRequest.current)))
+			(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current)))
 	const isUpdate = !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse
 
 	if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
@@ -125,7 +125,7 @@ export const IWServerData = <G, U>(props: IIWQueryProps<G, U>) => {
 					console.log('!WARNING!', props.item, props.verb, 'processed less than a second ago!')
 					if (props.response === undefined) console.log('Get re-run due to undefined response')
 					if (forceRefreshRef.current !== props.forceRefresh) console.log('Get re-run due to forceRefresh flag')
-					if (!props.noRefreshOnRequestChange && !deepEqual(props.request, lastRequest.current))
+					if (!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))
 						console.log('Get re-run due to request change')
 					if (isUpdate) console.log('Update re-run')
 				}

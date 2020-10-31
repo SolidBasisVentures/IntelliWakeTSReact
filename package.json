@@ -6,9 +6,7 @@
   "types": "dist/main.d.ts",
   "scripts": {
     "BuildAndPublish": "rollup -c && npm version patch --no-git-tag-version && npm publish",
-    "start": "rollup -c -w",
-    "yarninstall": "yarn install && yarn upgrade @solidbasisventures/intelliwaketsfoundation",
-    "test": "node ./src/test.ts"
+    "YarnInstall": "yarn install && yarn upgrade @solidbasisventures/intelliwaketsfoundation"
   },
   "files": [
     "dist",
@@ -20,16 +18,14 @@
     "type": "git",
     "url": "https://github.com/SolidBasisVentures/IntelliWakeTSReact.git"
   },
-  "peerDependencies": {
-    "deep-equal": "^2.0.3"
-  },
+  "peerDependencies": {},
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/pro-regular-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
     "@solidbasisventures/intelliwaketsfoundation": "^2.0.0",
     "@types/cleave.js": "^1.4.1",
-    "@types/deep-equal": "^1.0.1",
+    "@types/lodash": "^4.14.164",
     "@types/node": "^14.0.5",
     "@types/qrcode.react": "^1.0.1",
     "@types/react": "^16.9.35",
@@ -41,6 +37,7 @@
     "babel-runtime": "^6.26.0",
     "cleave.js": "^1.5.10",
     "deep-equal": "^2.0.3",
+    "lodash": "^4.17.20",
     "moment": "^2.26.0",
     "moment-timezone": "^0.5.31",
     "prettier": "^2.0.5",

@@ -1,4 +1,4 @@
-import deepEqual from "deep-equal";
+import _ from 'lodash'
 
 export interface MessageBoxState {
     message: string | null
@@ -32,7 +32,7 @@ export function reducerMessageBox(
 ): MessageBoxState {
     switch (action.type) {
         case MESSAGE_BOX_SHOW: {
-            if (deepEqual(state, action.payload)) {
+            if (_.isEqual(state, action.payload)) {
                 return state;
             }
 
