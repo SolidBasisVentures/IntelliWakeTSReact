@@ -66,9 +66,9 @@
     picomatch "^2.2.2"
 
 "@solidbasisventures/intelliwaketsfoundation@^2.0.0":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@solidbasisventures/intelliwaketsfoundation/-/intelliwaketsfoundation-2.0.8.tgz#5274d9975544cd47b6abe397f8ca0eef7f7299ec"
-  integrity sha512-dsBgnsm7Zi/KBQsxtAT0WrxaOVSQDmIE+A21mp43L9iSGu1j107jgzfNB/1qJbvuvuLe3HIvYWk2yGCXpxR0ZA==
+  version "2.0.15"
+  resolved "https://registry.yarnpkg.com/@solidbasisventures/intelliwaketsfoundation/-/intelliwaketsfoundation-2.0.15.tgz#aec8399214aa195b35d99ad97b08bd9a7ec3420d"
+  integrity sha512-E9T5o3+2AHSMChImpHEPtyp7TJ7cfD59p1RZZ2lMPLjqV+hmm9BynLVw9J59K5XOLVYTl89zywTaJYkSY9I1mw==
 
 "@types/cleave.js@^1.4.1":
   version "1.4.3"
