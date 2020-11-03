@@ -431,6 +431,10 @@ table.table-sortable thead th {
   text-decoration: underline;
 }
 
+.x-small {
+  font-size: 50% !important;
+}
+
 .ellipses-truncate {
   display: inline-block;
   white-space: nowrap;
@@ -453,10 +457,6 @@ table.table-sortable thead th {
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 15px;
-}
-
-.x-small {
-  font-size: 50% !important;
 }
 
 .noFocusRing:focus {
