@@ -11,6 +11,10 @@ import {
 } from '@solidbasisventures/intelliwaketsfoundation'
 import {ClassNames} from '../Functions'
 
+/**
+ * Functions to write Table rows and columns
+ */
+
 export interface IArrayColumn {
     fieldName: string,
     title: string,

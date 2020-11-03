@@ -8,6 +8,8 @@ export const KEY_RIGHT_ARROW = 39
 export const KEY_SPACE = 32
 export const KEY_ENTER = 13
 export const KEY_TAB = 9
+export const KEY_BACKSPACE = 8
+export const KEY_ESCAPE = 27
 
 export const ElementCustomValue = (e: React.ChangeEvent<HTMLInputElement>): any => {
 	const target: any = e.target
