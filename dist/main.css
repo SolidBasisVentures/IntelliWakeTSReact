@@ -300,7 +300,7 @@ table.table-sortable thead th {
   padding: 15px; }
 
 .x-small {
-  font-size: 50%; }
+  font-size: 50% !important; }
 
 .noFocusRing:focus {
   outline: none !important;

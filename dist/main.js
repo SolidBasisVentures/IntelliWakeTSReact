@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var intelliwaketsfoundation = require('@solidbasisventures/intelliwaketsfoundation');
 var moment = require('moment');
-var deepEqual = require('deep-equal');
+var _ = require('lodash');
 var React = require('react');
 var reactstrap = require('reactstrap');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
@@ -18,7 +18,7 @@ var axios = require('axios');
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
-var deepEqual__default = /*#__PURE__*/_interopDefaultLegacy(deepEqual);
+var ___default = /*#__PURE__*/_interopDefaultLegacy(_);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var ReactDatePicker__default = /*#__PURE__*/_interopDefaultLegacy(ReactDatePicker);
 var Cleave__default = /*#__PURE__*/_interopDefaultLegacy(Cleave);
@@ -412,7 +412,7 @@ function reducerMessageBox(state, action) {
     if (state === void 0) { state = initialMessageBoxState; }
     switch (action.type) {
         case MESSAGE_BOX_SHOW: {
-            if (deepEqual__default['default'](state, action.payload)) {
+            if (___default['default'].isEqual(state, action.payload)) {
                 return state;
             }
             return __assign(__assign({}, state), action.payload);
@@ -1414,7 +1414,7 @@ var IWServerData = function (props) {
         !!setResponse &&
         (props.response === undefined ||
             forceRefreshRef.current !== props.forceRefresh ||
-            (!props.noRefreshOnRequestChange && !deepEqual__default['default'](props.request, lastRequest.current)));
+            (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current)));
     var isUpdate = !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse;
     if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
         console.log('IWServerData-Local', props.item, props.verb, props.updateVerb, 'isGet', isGet, 'isUpdate', isUpdate, 'inProgress', inProgress.current, 'starting', (isGet || isUpdate) && !inProgress.current);
@@ -1431,7 +1431,7 @@ var IWServerData = function (props) {
                         console.log('Get re-run due to undefined response');
                     if (forceRefreshRef.current !== props.forceRefresh)
                         console.log('Get re-run due to forceRefresh flag');
-                    if (!props.noRefreshOnRequestChange && !deepEqual__default['default'](props.request, lastRequest.current))
+                    if (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current))
                         console.log('Get re-run due to request change');
                     if (isUpdate)
                         console.log('Update re-run');
