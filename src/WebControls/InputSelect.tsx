@@ -3,6 +3,7 @@ import {Input} from 'reactstrap'
 import {ElementCustomValue} from '../Functions'
 import {Link} from 'react-router-dom'
 import {CleanNumber} from '@solidbasisventures/intelliwaketsfoundation'
+import {TChangeValueFunction} from './IWInputProps'
 
 export interface IPropsSelect {
 	name?: string
@@ -22,7 +23,7 @@ export interface IPropsSelect {
 	plainTextURL?: string
 	plainOnClick?: () => void
 	invalid?: boolean
-	changeValue?: (value: any, name?: string) => void
+	changeValue?: TChangeValueFunction
 }
 
 export const InputSelect = (props: IPropsSelect) => {

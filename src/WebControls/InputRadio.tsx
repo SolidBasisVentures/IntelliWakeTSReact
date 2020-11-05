@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {CustomInput} from 'reactstrap'
-import {handleChangeValue} from './IWInputProps'
+import {handleChangeValue, TChangeValueFunction} from './IWInputProps'
 
 interface IProps {
 	name?: string
@@ -11,7 +11,7 @@ interface IProps {
 	className?: string
 	id?: string
 	plainText?: boolean
-	changeValue?: (value: any, name?: string) => void
+	changeValue?: TChangeValueFunction
 }
 
 export const InputRadio = (props: IProps) => {

@@ -6,6 +6,7 @@ import {
 	MomentDisplayDayDate,
 	MomentDisplayDayDateTime, MomentTimeString
 } from '@solidbasisventures/intelliwaketsfoundation'
+import {TChangeValueFunction} from './IWInputProps'
 
 interface IProps {
 	value: string
@@ -14,7 +15,7 @@ interface IProps {
 	plainText?: boolean
 	plainTextURL?: string
 	plainTextProps?: any
-	changeValue?: (value: any, name?: string) => void
+	changeValue?: TChangeValueFunction
 	showTime?: boolean
 	noTodayButton?: boolean
 }

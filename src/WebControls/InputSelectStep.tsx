@@ -1,4 +1,5 @@
 import React, {ReactNode, useMemo} from 'react'
+import {TChangeValueFunction} from './IWInputProps'
 
 export interface IOption {
 	key: any
@@ -20,7 +21,7 @@ interface IProps {
 	options: IOption[]
 	value: any
 	name?: string
-	changeValue?: (value: any, name?: string) => void
+	changeValue?: TChangeValueFunction
 	plainText?: boolean
 }
 

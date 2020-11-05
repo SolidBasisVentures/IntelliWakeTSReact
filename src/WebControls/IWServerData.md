@@ -8,7 +8,7 @@ The best practice is to provide a higher-order-component in the consuming app, g
 
 In general, there are 3 ways to utilize the resulting `<ServerData/>` control that uses `<IWServerData/>`:
 
-## Simple Retrieval of a JSON dataset from an API
+## Scenario #1: Simple Retrieval of a JSON dataset from an API
 
 Let's say that you have an api at the following address: `https://mysite/Employee/Get` 
 
@@ -138,4 +138,104 @@ A control that would show in the children section while the API is running.
 
 A control that would show if the response is blank (e.g. an error returned from the server).
 
+## Scenario #2: Execute an API from a function
+
+The next scenario handles the case where you want to call an API for the server to execute some process, like for instance updating the Employee record.  Consider the URL `https://mysite/Employee/Save`.
+
+For this example, we are going to pass an object of changes we want to make to the server, and we expect to receive an object with the changes from the server back (although, in some cases this may just be an empty object if no data is needed from the server).
+
+An example of how this could be coded would be as follows:
+
+    interface Iemployee {
+        id: number
+        name: string
+        start_date: string
+    }
+
+    interface API_Employee_Save_Request extends Iemployee {}
+
+    interface API_Employee_Save_Response extends Iemployee {}
+
+    export const MyControl = (props: IProps) => {
+        const [employee, setEmployee] = useState({id: 1, name: 'Bob', start_date: '2020-01-01'} as Iemployee)
+        const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedStateLocal)
+    	
+    	const changeValue = (value: any, name?: string) => {
+    	    if (!!name) {
+                setEmployee((prevState) => ({
+                    ...prevState,
+                    [name]: value
+                }))
+    	    }
+    	}
+    	
+    	const saveEmployee = () => {
+    	    setServerDataUpdateProps({
+                item: 'Employee',
+                updateVerb: 'Save',
+                updateRequest: employee as API_Employee_Save_Request,
+                updateMessage: 'Saved!',
+                updatedAction: (result) => {
+                    setEmployee(result as API_Employee_Save_Response as Iemployee)
+                }
+            })
+    	}
+    	
+    	return (
+    	    <>
+                <ServerData {...serverDataUpdateProps} setUpdateResponse={setServerDataUpdateProps} />
+                <InputText value={employee.name} name="name" changeValue={changeValue} placeholder="Employee Name"/>
+                <Button type="button" onClick={saveEmployee}>
+                    Save
+                </Button>
+            </>
+    	)
+    }
+
+Let's walk through each part of this:
+
+#### `interface Iemployee`, `API_Employee_Save_(Request / Response) extends Iemployee {}`
+
+These are the main interfaces defining the data we want to send back and forth to the server.
+
+#### `const [employee, setEmployee]`
+
+Track the state of the employee information in the control.  This will be used to send to the server to save.
+
+#### `const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedStateLocal)`
+
+**This is code you want to reuse!**
+
+This is a state object with a special definition of properties that make it easy to set parameters for the API to call.
+
+It starts in a null state, which means the API will not fire anything until you actually set values through the `setServerDataUpdateProps` function, which we'll see in a minute.
+
+#### `const changeValue = (value: any, name?: string) => {}`
+
+This method simply gets the values from the local input, and updates the state.
+
+#### `saveEmployee` => `setServerDataUpdateProps`
+
+Here's where the `serverDataUpdateProps` state is changed to tell `<ServerData/>` to perform the API call. 
+
+Let's look at the properties being set:
+
+`item` and `updateVerb` are used to build the API, similar to the `item` and `verb` properties in the previous section.  `updateVerb` and `verb` behave identically, but are separate for reasons discussed in the 3rd scenario.
+
+`updateRequest` is the request json package being sent to the server.  In this example, we are passing in the updated employee information for the server to save to the database.
+
+`updateMessage` is optional but displays a short message to the user telling them the API executed successfully.
+
+`updatedAction` receives the results back from the server, and in this example updates the employee state in case any changes had happened on the server.
+
+#### `<ServerData {...serverDataUpdateProps} setUpdateResponse={setServerDataUpdateProps} />`
+
+**This is code you want to reuse!**
+
+This is the control that actually runs the API.  It reads in the state of the `serverDataUpdateProps` which contains everything the control needs to execute the API.  However, it also sets the state of that control back to `null` when the API is completed in the `setUpdateResponse` property, telling it not to fire again.
+
+For a simple example, please see the `IWServerDataHOCExample.tsx` file in the current directory.
+
 ## `<ServerData/>` Higher-Order-Component best practices
+
+

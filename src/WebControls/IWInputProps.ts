@@ -2,11 +2,13 @@ import {InputProps} from 'reactstrap'
 import React from 'react'
 import {ElementCustomValue} from '../Functions'
 
+export type TChangeValueFunction = (value: any, name?: string) => void
+
 export interface IIWInputProps extends InputProps {
 	plainText?: boolean
 	plainTextURL?: string
 	plainTextProps?: any
-	changeValue?: (value: any, name?: string) => void
+	changeValue?: TChangeValueFunction
 }
 
 export const reduceInputProps = (props: IIWInputProps): InputProps => {

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Cleave from 'cleave.js/react'
 import {CleanNumber, ToCurrency, ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
+import {TChangeValueFunction} from './IWInputProps'
 
 export interface IPropsInputNumber {
 	name?: string
@@ -26,7 +27,7 @@ export interface IPropsInputNumber {
 	plainText?: boolean
 	plainTextProps?: any
 	invalid?: boolean
-	changeValue?: (value: any, name?: string) => void
+	changeValue?: TChangeValueFunction
 }
 
 export const InputNumber = (props: IPropsInputNumber) => {

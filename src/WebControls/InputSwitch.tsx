@@ -1,5 +1,6 @@
 import React, {useMemo} from 'react'
 import {CustomInput} from 'reactstrap'
+import {TChangeValueFunction} from './IWInputProps'
 
 interface IInputSwitchProps {
 	name?: string
@@ -9,7 +10,7 @@ interface IInputSwitchProps {
 	className?: string
 	id?: string
 	plainText?: boolean
-	changeValue?: (value: any, name?: string) => void
+	changeValue?: TChangeValueFunction
 }
 
 export const InputSwitch = (props: IInputSwitchProps) => {
