@@ -5,6 +5,12 @@ import {ActivityOverlayControl} from './ActivityOverlayControl'
 import {IsStageDevFocused, JSONParse, MOMENT_FORMAT_DATE_TIME} from '@solidbasisventures/intelliwaketsfoundation'
 import _ from 'lodash'
 
+/**
+ * The IWServerData control is a React control that calls API's to a server and manages the state of the data in its control.
+ *
+ * See the accompanying IWServerData.md documentation for examples how to use this control.
+ */
+
 export type TServerData<T = any> = T | undefined | null
 
 export interface IServerDataUpdatedState<U = any> {
@@ -19,27 +25,27 @@ export interface IServerDataUpdatedState<U = any> {
 	finallyAction?: () => void
 	failedAction?: (serverStatus: any) => void
 	globalActivityOverlay?: boolean
-	noAuthenticationNeeded?: boolean
 	noActivityOverlay?: boolean
 }
 
 export type TServerDataUpdatedState<U = any> = IServerDataUpdatedState<U> | null
 
+// G = Get, U = Update
 export interface IIWQueryProps<G = any, U = any> {
+	noActivityOverlay?: boolean
+	globalActivityOverlay?: boolean
+
 	item?: string
 	verb?: string
-	urlPrefix?: string
-	authorizationHeader?: any
-
-	noAuthenticationNeeded?: boolean
 	request?: any
 	response?: TServerData<G>
 	setResponse?: Dispatch<SetStateAction<G | null>>
 	responseMessage?: string
 	noRefreshOnRequestChange?: boolean
-
-	globalActivityOverlay?: boolean
-	noActivityOverlay?: boolean
+	forceRefresh?: any
+	startingAction?: () => void
+	failedAction?: (serverStatus: any) => void
+	finallyAction?: () => void
 
 	updateVerb?: string
 	updateRequest?: any
@@ -47,25 +53,21 @@ export interface IIWQueryProps<G = any, U = any> {
 	updateMessage?: string
 	updatedAction?: (response: U) => void
 
-	forceRefresh?: any
-	forceCancel?: boolean
-
 	children?: false | ReactNodeArray | ReactNode
 	loadingReactNodes?: ReactNodeArray | ReactNode
 	failedReactNodes?: ReactNodeArray | ReactNode
-
-	startingAction?: () => void
+	
+	urlPrefix?: string
+	authorizationHeader?: any
+	
 	axiosResponseAction?: (axiosResponse: AxiosResponse) => void
-	catchAction?: (err: AxiosError) => void
-	finallyAction?: () => void
 	handleServerData?: (serverData: any) => boolean
 	showUserMessage?: (message: string, failed?: boolean) => void
-	failedAction?: (serverStatus: any) => void
+	catchAction?: (err: AxiosError) => void
 
 	verboseConsole?: boolean
 	superVerboseConsole?: boolean
 	noCredentials?: boolean
-	// noCrossDomain?: boolean
 }
 
 export const IWServerData = <G, U>(props: IIWQueryProps<G, U>) => {
