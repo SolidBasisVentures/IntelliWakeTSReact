@@ -1,4 +1,5 @@
 import React from 'react';
+import { TChangeValueFunction } from './IWInputProps';
 interface IInputSwitchProps {
     name?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -7,7 +8,7 @@ interface IInputSwitchProps {
     className?: string;
     id?: string;
     plainText?: boolean;
-    changeValue?: (value: any, name?: string) => void;
+    changeValue?: TChangeValueFunction;
 }
 export declare const InputSwitch: (props: IInputSwitchProps) => JSX.Element;
 export {};

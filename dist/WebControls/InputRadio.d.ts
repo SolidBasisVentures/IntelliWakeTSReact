@@ -1,4 +1,5 @@
 import React from 'react';
+import { TChangeValueFunction } from './IWInputProps';
 interface IProps {
     name?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -8,7 +9,7 @@ interface IProps {
     className?: string;
     id?: string;
     plainText?: boolean;
-    changeValue?: (value: any, name?: string) => void;
+    changeValue?: TChangeValueFunction;
 }
 export declare const InputRadio: (props: IProps) => any;
 export {};

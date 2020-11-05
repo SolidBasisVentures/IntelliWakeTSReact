@@ -1,4 +1,5 @@
 /// <reference types="react" />
+import { TChangeValueFunction } from './IWInputProps';
 interface IProps {
     value: string;
     name?: string;
@@ -6,7 +7,7 @@ interface IProps {
     plainText?: boolean;
     plainTextURL?: string;
     plainTextProps?: any;
-    changeValue?: (value: any, name?: string) => void;
+    changeValue?: TChangeValueFunction;
     showTime?: boolean;
     noTodayButton?: boolean;
 }

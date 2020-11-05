@@ -1,9 +1,9 @@
 /// <reference types="react" />
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { IIWInputProps } from './IWInputProps';
+import { IIWInputProps, TChangeValueFunction } from './IWInputProps';
 interface IProps extends IIWInputProps {
     showFAIcon?: boolean | IconProp;
-    changeValue?: (value: any, name?: string) => void;
+    changeValue?: TChangeValueFunction;
 }
 export declare const InputTel: (props: IProps) => JSX.Element;
 export {};

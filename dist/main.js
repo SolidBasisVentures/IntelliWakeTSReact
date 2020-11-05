@@ -1393,6 +1393,9 @@ var InputZip = function (props) {
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.FormatZip(((_a = props.value) !== null && _a !== void 0 ? _a : '').toString()))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputZip" }, inputProps, { onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); } })))));
 };
 
+/**
+ * The IWServerData control is a React control that calls API's to a server and manages the state of the data in its control.
+ */
 var IWServerData = function (props) {
     var isMounted = React.useRef(true);
     var forceRefreshRef = React.useRef(props.forceRefresh);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { TChangeValueFunction } from './IWInputProps';
 export interface IPropsInputNumber {
     name?: string;
     value: number | null;
@@ -23,6 +24,6 @@ export interface IPropsInputNumber {
     plainText?: boolean;
     plainTextProps?: any;
     invalid?: boolean;
-    changeValue?: (value: any, name?: string) => void;
+    changeValue?: TChangeValueFunction;
 }
 export declare const InputNumber: (props: IPropsInputNumber) => JSX.Element;

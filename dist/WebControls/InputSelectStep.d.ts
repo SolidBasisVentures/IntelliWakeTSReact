@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { TChangeValueFunction } from './IWInputProps';
 export interface IOption {
     key: any;
     description: ReactNode;
@@ -22,7 +23,7 @@ interface IProps {
     options: IOption[];
     value: any;
     name?: string;
-    changeValue?: (value: any, name?: string) => void;
+    changeValue?: TChangeValueFunction;
     plainText?: boolean;
 }
 export declare const InputSelectStep: (props: IProps) => JSX.Element;

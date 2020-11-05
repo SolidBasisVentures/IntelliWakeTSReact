@@ -1,4 +1,5 @@
 import React from 'react';
+import { TChangeValueFunction } from './IWInputProps';
 export interface IPropsSelect {
     name?: string;
     value: string | number;
@@ -17,6 +18,6 @@ export interface IPropsSelect {
     plainTextURL?: string;
     plainOnClick?: () => void;
     invalid?: boolean;
-    changeValue?: (value: any, name?: string) => void;
+    changeValue?: TChangeValueFunction;
 }
 export declare const InputSelect: (props: IPropsSelect) => JSX.Element;
