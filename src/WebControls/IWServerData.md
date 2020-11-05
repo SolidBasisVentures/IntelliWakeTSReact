@@ -138,6 +138,14 @@ A control that would show in the children section while the API is running.
 
 A control that would show if the response is blank (e.g. an error returned from the server).
 
+`verboseConsole?: boolean`
+
+Set this to true to have the control provide more console logs so you can see when certain activities are firing.
+
+`superVerboseConsole?: boolean`
+
+Shows what "verboseConsole" shows, plus even more.
+
 ## Scenario #2: Execute an API from a function
 
 The next scenario handles the case where you want to call an API for the server to execute some process, like for instance updating the Employee record.  Consider the URL `https://mysite/Employee/Save`.
@@ -234,7 +242,43 @@ Let's look at the properties being set:
 
 This is the control that actually runs the API.  It reads in the state of the `serverDataUpdateProps` which contains everything the control needs to execute the API.  However, it also sets the state of that control back to `null` when the API is completed in the `setUpdateResponse` property, telling it not to fire again.
 
-For a simple example, please see the `IWServerDataHOCExample.tsx` file in the current directory.
+For an example, please see the `IWServerDataHOCExample.tsx` file in the current directory.
+
+Key functions to implement in the higher-order-component include:
+
+`urlPrefix={`https://${process.env.REACT_APP_API_URL ?? ''}`}`
+
+This will be consumed and have the item/verb appended to the end of it for the API action.
+
+`startingAction()`  
+
+Override this property to check if the `globalActivityOverlay` flag is set, and turn it on in the app.
+
+`finallyAction()`
+
+Override this property to check if the `globalActivityOverlay` flag is set, and turn it off in the app.
+
+`showUserMessage(message: string, failed?: boolean)`
+
+Override this property so that `<IWServerData/>` can pass back up a request to display some message to the user.
+
+Other optional functions to implement include:
+
+`authorizationHeader?: any`
+
+Adds items to the header of the API request to the server.
+
+`handleServerData?: (serverData: any) => boolean`
+
+Provides the exact package returned by Axios in the response of the API.
+
+`catchAction?: (err: AxiosError) => void`
+
+Provides the exact Axios error in the event that the API throws an error.
+
+`noCredentials?: boolean`
+
+Turns off the Axios.withCredentials feature if needed.
 
 ## `<ServerData/>` Higher-Order-Component best practices
 
