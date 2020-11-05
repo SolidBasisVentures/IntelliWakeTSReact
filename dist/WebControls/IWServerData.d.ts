@@ -27,9 +27,9 @@ export interface IServerDataUpdatedState<REQ = any, RES = any> {
     /** Message to display to the user after a successful API call */
     updateMessage?: string;
     /** Sets the state of the response object to null a successful API call */
-    setUpdateResponse?: Dispatch<SetStateAction<TServerData<RES>>> | ((response: RES) => void);
+    setUpdateResponse?: Dispatch<SetStateAction<TServerData<RES>>> | ((response: RES | null) => void);
     /** Action fired with the response object on completion */
-    updatedAction?: (Dispatch<SetStateAction<TServerData<RES>>>) | ((response: RES) => void);
+    updatedAction?: (Dispatch<SetStateAction<TServerData<RES>>>) | ((response: RES | null) => void);
     /** Fired when the API starts */
     startingAction?: () => void;
     /** Fired if the API fails */

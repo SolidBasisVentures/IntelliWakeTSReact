@@ -38,7 +38,7 @@ An example of how this could be coded would be as follows:
     	const [apiEmployeeGetResponse, setAPIEmployeeGetResponse] = useState(undefined as TServerData<API_Employee_Get_Response>)
     	
     	return (
-            <ServerData
+            <ServerData<API_Employee_Get_Request, API_Employee_Get_Response>
                 item="Employee"
                 verb="Get"
                 request={apiEmployeeGetRequest}
@@ -166,7 +166,7 @@ An example of how this could be coded would be as follows:
 
     export const MyControl = (props: IProps) => {
         const [employee, setEmployee] = useState({id: 1, name: 'Bob', start_date: '2020-01-01'} as Iemployee)
-        const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedStateLocal)
+        const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedStateLocal<API_Employee_Save_Response, API_Employee_Save_Response>)
     	
     	const changeValue = (value: any, name?: string) => {
     	    if (!!name) {
@@ -181,10 +181,10 @@ An example of how this could be coded would be as follows:
     	    setServerDataUpdateProps({
                 item: 'Employee',
                 updateVerb: 'Save',
-                updateRequest: employee as API_Employee_Save_Request,
+                updateRequest: employee,
                 updateMessage: 'Saved!',
                 updatedAction: (result) => {
-                    setEmployee(result as API_Employee_Save_Response as Iemployee)
+                    setEmployee(result as Iemployee)
                 }
             })
     	}
