@@ -34,7 +34,7 @@ export interface IServerDataUpdatedState<R = any, U = any> {
 	/** Message to display to the user after a successful API call */
 	updateMessage?: string
 	/** Sets the state of the response object to null a successful API call */
-	setUpdateResponse?: Dispatch<SetStateAction<U | null>>
+	setUpdateResponse?: Dispatch<SetStateAction<TServerData<U>>>
 	/** Action fired with the response object on completion */
 	updatedAction?: (response: U) => void
 	/** Fired when the API starts */
@@ -69,7 +69,7 @@ export interface IIWQueryProps<GR = any, G = any, UR = any, U = any> {
 	/** The response object shared with the control.  Set to 'undefined' for the API to initiate. */
 	response?: TServerData<G>
 	/** Sets the state of the response object to null (if failed), or the server data */
-	setResponse?: Dispatch<SetStateAction<G | null>>
+	setResponse?: Dispatch<SetStateAction<TServerData<G>>>
 	/** Message to display to the user after a successful API call */
 	responseMessage?: string
 	/** Ignores changes the request object, that would otherwise re-fire the API. */
@@ -88,7 +88,7 @@ export interface IIWQueryProps<GR = any, G = any, UR = any, U = any> {
 	/** Request package sent in the body of the POST */
 	updateRequest?: UR
 	/** Sets the state of the response object to null a successful API call */
-	setUpdateResponse?: Dispatch<SetStateAction<U | null>>
+	setUpdateResponse?: Dispatch<SetStateAction<TServerData<U>>>
 	/** Message to display to the user after a successful API call */
 	updateMessage?: string
 	/** After the response is received from the server, this method is fired if successful. */
