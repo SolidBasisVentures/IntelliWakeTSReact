@@ -240,6 +240,8 @@ Let's look at the properties being set:
 
 **This is code you want to reuse!**
 
+## `<ServerData/>` Higher-Order-Component best practices
+
 This is the control that actually runs the API.  It reads in the state of the `serverDataUpdateProps` which contains everything the control needs to execute the API.  However, it also sets the state of that control back to `null` when the API is completed in the `setUpdateResponse` property, telling it not to fire again.
 
 For an example, please see the `IWServerDataHOCExample.tsx` file in the current directory.
@@ -279,7 +281,3 @@ Provides the exact Axios error in the event that the API throws an error.
 `noCredentials?: boolean`
 
 Turns off the Axios.withCredentials feature if needed.
-
-## `<ServerData/>` Higher-Order-Component best practices
-
-
