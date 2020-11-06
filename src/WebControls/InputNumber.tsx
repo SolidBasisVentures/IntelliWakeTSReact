@@ -91,7 +91,6 @@ export const InputNumber = (props: IPropsInputNumber) => {
 	
 	useEffect(() => {
 		const newVal = !props.value ? '' : (props.value ?? '').toString()
-		console.log('setting', props.value, newVal)
 		setCurrentStringOverride(newVal)
 	}, [props.value])
 
