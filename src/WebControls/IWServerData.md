@@ -166,7 +166,7 @@ An example of how this could be coded would be as follows:
 
     export const MyControl = (props: IProps) => {
         const [employee, setEmployee] = useState({id: 1, name: 'Bob', start_date: '2020-01-01'} as Iemployee)
-        const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedStateLocal<API_Employee_Save_Response, API_Employee_Save_Response>)
+        const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedState<API_Employee_Save_Response, API_Employee_Save_Response>)
     	
     	const changeValue = (value: any, name?: string) => {
     	    if (!!name) {

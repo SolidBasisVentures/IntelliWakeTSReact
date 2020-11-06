@@ -1395,6 +1395,28 @@ var InputZip = function (props) {
 
 /**
  * The IWServerData control is a React control that calls API's to a server and manages the state of the data in its control.
+ *
+ * The below example assumes that a higher-order-component called ServerData has been created.
+ *
+ * @example
+ *
+ * const apiEmployeeGetRequest: API_Employee_Get_Request = useMemo(() => {
+ * 	return {id: props.id}
+ * }, [props.id])
+ *
+ * const [apiEmployeeGetResponse, setAPIEmployeeGetResponse] = useState(undefined as TServerData<API_Employee_Get_Response>)
+ *
+ * <ServerData<API_Employee_Get_Request, API_Employee_Get_Response>
+ *   item="Employee"
+ *   verb="Get"
+ *   request={apiEmployeeGetRequest}
+ *   response={apiEmployeeGetResponse}
+ *   setResponse={setAPIEmployeeGetResponse}>
+ *   	{!!apiEmployeeGetResponse && (
+ *   		<span>Employee: {apiEmployeeGetResponse.name}</span>
+ *   	)}
+ * </ServerData>
+ *
  */
 var IWServerData = function (props) {
     var isMounted = React.useRef(true);

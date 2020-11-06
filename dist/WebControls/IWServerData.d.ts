@@ -14,7 +14,10 @@ export declare type TServerData<RES = any> = RES | undefined | null;
 /**
  * An interface that allows for a script-driven API to occur.
  *
- * Implement the following in the DOM structure:
+ * @example
+ *
+ * const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedStateLocal<API_Employee_Save_Response, API_Employee_Save_Response>)
+ *
  * <ServerData {...serverDataUpdateProps} setUpdateResponse={setServerDataUpdateProps} />
  */
 export interface IServerDataUpdatedState<REQ = any, RES = any> {
@@ -43,6 +46,15 @@ export interface IServerDataUpdatedState<REQ = any, RES = any> {
     /** Tells the control to display the global activity overlay while processing */
     globalActivityOverlay?: boolean;
 }
+/**
+ * An interface that allows for a script-driven API to occur.
+ *
+ * @example
+ *
+ * const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedStateLocal<API_Employee_Save_Response, API_Employee_Save_Response>)
+ *
+ * <ServerData {...serverDataUpdateProps} setUpdateResponse={setServerDataUpdateProps} />
+ */
 export declare type TServerDataUpdatedState<REQ = any, RES = any> = IServerDataUpdatedState<REQ, RES> | null;
 /**
  * Interface for the control, with the main REQuest and RESponse types.
@@ -111,5 +123,27 @@ export interface IIWQueryProps<REQ = any, RES = any> {
 }
 /**
  * The IWServerData control is a React control that calls API's to a server and manages the state of the data in its control.
+ *
+ * The below example assumes that a higher-order-component called ServerData has been created.
+ *
+ * @example
+ *
+ * const apiEmployeeGetRequest: API_Employee_Get_Request = useMemo(() => {
+ * 	return {id: props.id}
+ * }, [props.id])
+ *
+ * const [apiEmployeeGetResponse, setAPIEmployeeGetResponse] = useState(undefined as TServerData<API_Employee_Get_Response>)
+ *
+ * <ServerData<API_Employee_Get_Request, API_Employee_Get_Response>
+ *   item="Employee"
+ *   verb="Get"
+ *   request={apiEmployeeGetRequest}
+ *   response={apiEmployeeGetResponse}
+ *   setResponse={setAPIEmployeeGetResponse}>
+ *   	{!!apiEmployeeGetResponse && (
+ *   		<span>Employee: {apiEmployeeGetResponse.name}</span>
+ *   	)}
+ * </ServerData>
+ *
  */
 export declare const IWServerData: <REQ, RES>(props: IIWQueryProps<REQ, RES>) => JSX.Element;
