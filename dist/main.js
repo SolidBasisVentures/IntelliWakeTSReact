@@ -1084,7 +1084,6 @@ var InputNumber = function (props) {
     React.useEffect(function () {
         var _a;
         var newVal = !props.value ? '' : ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString();
-        console.log('setting', props.value, newVal);
         setCurrentStringOverride(newVal);
     }, [props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value !== null
