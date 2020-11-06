@@ -23,7 +23,7 @@ export type TServerData<RES = any> = RES | undefined | null
  *
  * @example
  *
- * const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedStateLocal<API_Employee_Save_Response, API_Employee_Save_Response>)
+ * const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedState<API_Employee_Save_Response, API_Employee_Save_Response>)
  *
  * <ServerData {...serverDataUpdateProps} setUpdateResponse={setServerDataUpdateProps} />
  */
@@ -59,7 +59,7 @@ export interface IServerDataUpdatedState<REQ = any, RES = any> {
  *
  * @example
  *
- * const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedStateLocal<API_Employee_Save_Response, API_Employee_Save_Response>)
+ * const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedState<API_Employee_Save_Response, API_Employee_Save_Response>)
  *
  * <ServerData {...serverDataUpdateProps} setUpdateResponse={setServerDataUpdateProps} />
  */
