@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Cleave from 'cleave.js/react'
 import {CleanNumber, ToCurrency, ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
 import {TChangeValueFunction} from './IWInputProps'
@@ -88,6 +88,10 @@ export const InputNumber = (props: IPropsInputNumber) => {
 	}
 
 	const hasDecimals = (props.decimalScale ?? 0) > 0
+	
+	useEffect(() => {
+		setCurrentStringOverride(!props.value ? undefined : (props.value ?? '').toString())
+	}, [props.value])
 
 	return (
 		<>
@@ -110,13 +114,7 @@ export const InputNumber = (props: IPropsInputNumber) => {
 					}
 					name={props.name}
 					inputMode={hasDecimals ? 'decimal' : 'numeric'}
-					value={
-						currentStringOverride !== undefined
-							? currentStringOverride
-							: props.value === null || (!!props.hideZero && !CleanNumber(props.value))
-							? undefined
-							: props.value
-					}
+					value={currentStringOverride}
 					onChange={handleInputChange}
 					onBlur={props.onBlur}
 					htmlRef={props.htmlRef}
@@ -133,3 +131,10 @@ export const InputNumber = (props: IPropsInputNumber) => {
 		</>
 	)
 }
+
+// !== undefined
+// 							? currentStringOverride
+// 							: props.value === null || (!!props.hideZero && !CleanNumber(props.value))
+// 							? undefined
+// 							: props.value
+//
