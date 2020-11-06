@@ -1081,6 +1081,10 @@ var InputNumber = function (props) {
         options.numeralDecimalScale = props.decimalScale === undefined ? 2 : props.decimalScale;
     }
     var hasDecimals = ((_a = props.decimalScale) !== null && _a !== void 0 ? _a : 0) > 0;
+    React.useEffect(function () {
+        var _a;
+        setCurrentStringOverride(!props.value ? undefined : ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString());
+    }, [props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value !== null
         ? !!props.currency
             ? intelliwaketsfoundation.ToCurrency(props.value, (_b = props.decimalScale) !== null && _b !== void 0 ? _b : 0)
@@ -1088,12 +1092,14 @@ var InputNumber = function (props) {
         : null)) : (React__default['default'].createElement(Cleave__default['default'], { options: options, className: props.className +
             ' inputNumber form-control ' +
             (hasDecimals ? 'numerics' : 'integers') +
-            (!!props.invalid ? ' is-invalid' : ''), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride !== undefined
-            ? currentStringOverride
-            : props.value === null || (!!props.hideZero && !intelliwaketsfoundation.CleanNumber(props.value))
-                ? undefined
-                : props.value, onChange: handleInputChange, onBlur: props.onBlur, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : 'off', placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id }))));
+            (!!props.invalid ? ' is-invalid' : ''), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: props.onBlur, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : 'off', placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id }))));
 };
+// !== undefined
+// 							? currentStringOverride
+// 							: props.value === null || (!!props.hideZero && !CleanNumber(props.value))
+// 							? undefined
+// 							: props.value
+//
 
 var InputRadio = function (props) {
     var _a;
