@@ -1083,8 +1083,9 @@ var InputNumber = function (props) {
     var hasDecimals = ((_a = props.decimalScale) !== null && _a !== void 0 ? _a : 0) > 0;
     React.useEffect(function () {
         var _a;
-        console.log('setting', props.value);
-        setCurrentStringOverride(!props.value ? undefined : ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString());
+        var newVal = !props.value ? '' : ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString();
+        console.log('setting', props.value, newVal);
+        setCurrentStringOverride(newVal);
     }, [props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value !== null
         ? !!props.currency
