@@ -67,7 +67,7 @@ export const InputNumber = (props: IPropsInputNumber) => {
 			if (!!props.changeValue) {
 				props.changeValue((e.target as any).customValue, e.target.name)
 			}
-			setCurrentStringOverride(undefined)
+			// setCurrentStringOverride(undefined)
 		}
 	}
 
@@ -90,6 +90,7 @@ export const InputNumber = (props: IPropsInputNumber) => {
 	const hasDecimals = (props.decimalScale ?? 0) > 0
 	
 	useEffect(() => {
+		console.log('setting', props.value)
 		setCurrentStringOverride(!props.value ? undefined : (props.value ?? '').toString())
 	}, [props.value])
 
