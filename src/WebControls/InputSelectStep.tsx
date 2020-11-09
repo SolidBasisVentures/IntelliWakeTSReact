@@ -25,6 +25,9 @@ interface IProps {
 	plainText?: boolean
 }
 
+/**
+ * A input select that lets you update a state when selecting an option.
+ */
 export const InputSelectStep = (props: IProps) => {
 	let classNames = !!props.inline
 		? 'd-inline-block outline-none '
