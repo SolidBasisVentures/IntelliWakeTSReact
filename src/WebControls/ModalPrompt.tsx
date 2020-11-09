@@ -27,6 +27,9 @@ export interface IModalPromptProps {
 	hidden?: boolean
 }
 
+/**
+ * A wrapper for Bootstrap's Modal that handles all the actions.
+ */
 export const ModalPrompt = (props: IModalPromptProps) => {
 	const promptResponsesAsArray = useMemo(() => {
 		if (props.promptResponses === null || props.promptResponses === undefined) return [] as IModalPromptResponse[]
