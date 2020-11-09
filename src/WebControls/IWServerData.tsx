@@ -1,6 +1,6 @@
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios'
 import moment from 'moment'
-import React, {Dispatch, ReactNode, ReactNodeArray, SetStateAction, useEffect, useMemo, useRef, useState} from 'react'
+import React, {ReactNode, ReactNodeArray, useEffect, useMemo, useRef, useState} from 'react'
 import {ActivityOverlayControl} from './ActivityOverlayControl'
 import {IsStageDevFocused, JSONParse, MOMENT_FORMAT_DATE_TIME} from '@solidbasisventures/intelliwaketsfoundation'
 import _ from 'lodash'
@@ -37,9 +37,9 @@ export interface IServerDataUpdatedState<REQ = any, RES = any> {
 	/** Message to display to the user after a successful API call */
 	updateMessage?: string
 	/** Sets the state of the response object to null a successful API call */
-	setUpdateResponse?: Dispatch<SetStateAction<TServerData<RES>>> | ((response: RES | null) => void)
+	setUpdateResponse?: ((response: RES | null) => void)
 	/** Action fired with the response object on completion */
-	updatedAction?: (Dispatch<SetStateAction<TServerData<RES>>>) | ((response: RES | null) => void)
+	updatedAction?: ((response: RES | null) => void)
 	/** Fired when the API starts */
 	startingAction?: () => void
 	/** Fired if the API fails */
@@ -83,7 +83,7 @@ export interface IIWQueryProps<REQ = any, RES = any> {
 	/** The response object shared with the control.  Set to 'undefined' for the API to initiate. */
 	response?: TServerData<RES>
 	/** Sets the state of the response object to null (if failed), or the server data */
-	setResponse?: (Dispatch<SetStateAction<TServerData<RES>>>) | ((response: RES | null) => void)
+	setResponse?: ((response: RES | null) => void)
 	/** Message to display to the user after a successful API call */
 	responseMessage?: string
 	/** Ignores changes the request object, that would otherwise re-fire the API. */
@@ -96,18 +96,18 @@ export interface IIWQueryProps<REQ = any, RES = any> {
 	failedAction?: (serverStatus: any) => void
 	/** Called after the API returns, whether successful or failed. */
 	finallyAction?: () => void
-
+	
 	/** Second item of URL */
 	updateVerb?: string
 	/** Request package sent in the body of the POST */
 	updateRequest?: any
 	/** Sets the state of the response object to null a successful API call */
-	setUpdateResponse?: Dispatch<SetStateAction<TServerData<any>>> | ((response: any) => void)
+	setUpdateResponse?: ((response: any | null) => void)
 	/** Message to display to the user after a successful API call */
 	updateMessage?: string
 	/** After the response is received from the server, this method is fired if successful. */
 	updatedAction?: (response: any) => void
-
+	
 	/** Items to be shown in side the control */
 	children?: false | ReactNodeArray | ReactNode
 	/** Items to be shown when the API is working.  Defaults to the <ActivityOverlayControl/> */
@@ -128,7 +128,7 @@ export interface IIWQueryProps<REQ = any, RES = any> {
 	showUserMessage?: (message: string, failed?: boolean) => void
 	/** A function called when the API fails */
 	catchAction?: (err: AxiosError) => void
-
+	
 	/** Shows console logs on every fire */
 	verboseConsole?: boolean
 	/** Shows more console logs on every fire */
@@ -170,7 +170,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	const inProgress = useRef(false)
 	const lastTS = useRef(0)
 	const [forceRedraw, setForceRedraw] = useState(false)
-
+	
 	const setResponse = props.setResponse
 	const setUpdateResponse = props.setUpdateResponse
 	const startingAction = props.startingAction
@@ -181,7 +181,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	const finallyAction = props.finallyAction
 	const showUserMessage = props.showUserMessage
 	const failedAction = props.failedAction
-
+	
 	const isGet =
 		!!props.item &&
 		!!props.verb &&
@@ -190,7 +190,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 			forceRefreshRef.current !== props.forceRefresh ||
 			(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current)))
 	const isUpdate = !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse
-
+	
 	if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
 		console.log(
 			'IWServerData-Local',
@@ -206,14 +206,14 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 			'starting',
 			(isGet || isUpdate) && !inProgress.current
 		)
-
+	
 	useEffect(() => {
 		isMounted.current = true
-
+		
 		if (!inProgress.current) {
 			if (isGet || isUpdate) {
 				inProgress.current = true
-
+				
 				const currentTS = moment().valueOf()
 				if (lastTS.current > currentTS - 1000) {
 					console.log('!WARNING!', props.item, props.verb, 'processed less than a second ago!')
@@ -223,43 +223,43 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 						console.log('Get re-run due to request change')
 					if (isUpdate) console.log('Update re-run')
 				}
-
+				
 				if (isGet) {
 					lastRequest.current = props.request
 				}
 				lastTS.current = currentTS
-
+				
 				forceRefreshRef.current = props.forceRefresh
 				// cancelTokenSource.current = axios.CancelToken.source()
-
+				
 				setForceRedraw((prevState) => !prevState)
-
+				
 				const authorizationHeader = {
 					timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
 					localtime: moment().format(MOMENT_FORMAT_DATE_TIME),
 					locationhref: window.location.href,
 					...props.authorizationHeader
 				} as any
-
+				
 				if (!!props.superVerboseConsole) console.log('aH', authorizationHeader)
-
+				
 				let headers: any = {
 					Authorization: JSON.stringify(authorizationHeader)
 				}
-
+				
 				let config: AxiosRequestConfig = {
 					headers: headers
 				}
-
+				
 				// if (!!cancelTokenSource.current) {
 				// 	config.cancelToken = cancelTokenSource.current.token
 				// }
-
+				
 				!!startingAction && startingAction()
-
+				
 				const verb = isUpdate ? props.updateVerb : props.verb
 				const request = isUpdate ? props.updateRequest : props.request ?? {}
-
+				
 				// if (!props.noCredentials) axios.defaults.withCredentials = true
 				if (!props.noCredentials) config.withCredentials = true
 				// if (!props.noCrossDomain) {
@@ -274,9 +274,9 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 							if (!!props.verboseConsole)
 								console.log(`API Response for ${props.urlPrefix ?? ''}/${props.item}/${verb}`, response)
 							if (!!props.superVerboseConsole) console.log('headers', response.headers)
-
+							
 							!!axiosResponseAction && axiosResponseAction(response)
-
+							
 							if (!!handleServerData && !!response.headers.serverdata) {
 								if (!handleServerData(JSONParse(response.headers.serverdata ?? '{}'))) {
 									if (isUpdate) {
@@ -284,22 +284,22 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 									} else {
 										!!setResponse && setResponse(null)
 									}
-
+									
 									return
 								}
 							}
-
+							
 							const serverStatus: any = JSONParse(
 								response.headers.serverstatus ?? '{}'
 							)
 							const resultsData = (response.data ?? {}) as RES | any
-
+							
 							if (isMounted.current) {
 								if (!!serverStatus) {
 									if (IsStageDevFocused() && serverStatus.dev_message) {
 										console.log(serverStatus.dev_message)
 									}
-
+									
 									if (serverStatus.success) {
 										if (isUpdate) {
 											!!setUpdateResponse && setUpdateResponse(null)
@@ -309,11 +309,11 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 											!!props.responseMessage && !!showUserMessage && showUserMessage(props.responseMessage)
 											!!setResponse && setResponse(resultsData as RES)
 										}
-
+										
 										!!serverStatus.message && !!showUserMessage && showUserMessage(serverStatus.message)
 									} else {
 										!!failedAction && failedAction(serverStatus)
-
+										
 										if (isUpdate) {
 											!!setUpdateResponse && setUpdateResponse(null)
 										} else {
@@ -325,7 +325,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 										console.warn(props.item, verb, 'API: Response Empty', response)
 									}
 									!!showUserMessage && showUserMessage('Could not connect to server', true)
-
+									
 									if (isUpdate) {
 										!!setUpdateResponse && setUpdateResponse(null)
 									} else {
@@ -362,7 +362,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 					})
 			}
 		}
-
+		
 		return () => {
 			isMounted.current = false
 			// if (cancelTokenSource.current) {
@@ -398,26 +398,24 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 		props.superVerboseConsole,
 		props.noCredentials
 	])
-
+	
 	const showInProgressControl = useMemo(
 		() => (isGet || isUpdate || (forceRedraw && !forceRedraw)) && inProgress.current,
 		[isGet, isUpdate, forceRedraw]
 	)
-
+	
 	return (
 		<>
 			{!!props.children && (props.response !== null || !props.failedReactNodes) && props.children}
 			{props.response === null && props.failedReactNodes}
 			{showInProgressControl && props.loadingReactNodes}
-			<ActivityOverlayControl
-				show={
-					showInProgressControl &&
-					!props.loadingReactNodes &&
-					!props.noActivityOverlay &&
-					!props.globalActivityOverlay &&
-					props.children !== undefined
-				}
-			/>
+			<ActivityOverlayControl show={
+				showInProgressControl &&
+				!props.loadingReactNodes &&
+				!props.noActivityOverlay &&
+				!props.globalActivityOverlay &&
+				props.children !== undefined
+			} />
 		</>
 	)
 }
