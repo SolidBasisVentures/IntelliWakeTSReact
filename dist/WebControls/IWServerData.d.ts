@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { Dispatch, ReactNode, ReactNodeArray, SetStateAction } from 'react';
+import { ReactNode, ReactNodeArray } from 'react';
 /**
  * The IWServerData control is a React control that calls API's to a server and manages the state of the data in its control.
  *
@@ -30,9 +30,9 @@ export interface IServerDataUpdatedState<REQ = any, RES = any> {
     /** Message to display to the user after a successful API call */
     updateMessage?: string;
     /** Sets the state of the response object to null a successful API call */
-    setUpdateResponse?: Dispatch<SetStateAction<TServerData<RES>>> | ((response: RES | null) => void);
+    setUpdateResponse?: ((response: RES | null) => void);
     /** Action fired with the response object on completion */
-    updatedAction?: (Dispatch<SetStateAction<TServerData<RES>>>) | ((response: RES | null) => void);
+    updatedAction?: ((response: RES | null) => void);
     /** Fired when the API starts */
     startingAction?: () => void;
     /** Fired if the API fails */
@@ -73,7 +73,7 @@ export interface IIWQueryProps<REQ = any, RES = any> {
     /** The response object shared with the control.  Set to 'undefined' for the API to initiate. */
     response?: TServerData<RES>;
     /** Sets the state of the response object to null (if failed), or the server data */
-    setResponse?: (Dispatch<SetStateAction<TServerData<RES>>>) | ((response: RES | null) => void);
+    setResponse?: ((response: RES | null) => void);
     /** Message to display to the user after a successful API call */
     responseMessage?: string;
     /** Ignores changes the request object, that would otherwise re-fire the API. */
@@ -91,7 +91,7 @@ export interface IIWQueryProps<REQ = any, RES = any> {
     /** Request package sent in the body of the POST */
     updateRequest?: any;
     /** Sets the state of the response object to null a successful API call */
-    setUpdateResponse?: Dispatch<SetStateAction<TServerData<any>>> | ((response: any) => void);
+    setUpdateResponse?: ((response: any | null) => void);
     /** Message to display to the user after a successful API call */
     updateMessage?: string;
     /** After the response is received from the server, this method is fired if successful. */
