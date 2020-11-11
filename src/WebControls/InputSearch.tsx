@@ -16,6 +16,9 @@ export interface IPropsInputSearch {
 	onKeyDown?: (e: React.KeyboardEvent) => void
 }
 
+/**
+ * A search input with an option to have a trigger delay or not.
+ */
 export const InputSearch = (props: IPropsInputSearch) => {
 	const triggeredText = useRef(props.initialValue ?? '')
 	const searchTimeout = useRef(setTimeout(() => {}, 100))

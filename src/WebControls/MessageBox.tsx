@@ -8,6 +8,9 @@ interface IProps {
     dismissMessageBox: (() => void)
 }
 
+/**
+ * An alert box that appears when a message is passed as a prop,and dismisses after three seconds.
+ */
 export const MessageBox = (props: IProps) => {
 	const propsMessageBoxState = (typeof props.messageBoxState === 'string' || props.messageBoxState instanceof String) ? {...initialMessageBoxState, message: props.messageBoxState} : props.messageBoxState
 	

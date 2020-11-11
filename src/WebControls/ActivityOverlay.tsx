@@ -8,6 +8,9 @@ interface IProps {
     resetActivityOverlay: (() => void)
 }
 
+/**
+ * An overlay with a black background and a spinner that covers the entire screen.
+ */
 export const ActivityOverlay = (props: IProps) => {
     function resetActivityOverlay() {
         if (props.activityOverlayState.nestedCount > 0) {
