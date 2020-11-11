@@ -26,5 +26,8 @@ interface IProps {
     changeValue?: TChangeValueFunction;
     plainText?: boolean;
 }
+/**
+ * A input select that lets you update a state when selecting an option.
+ */
 export declare const InputSelectStep: (props: IProps) => JSX.Element;
 export {};

@@ -34,6 +34,7 @@ export * from './WebControls/InputTime';
 export * from './WebControls/InputTimeZone';
 export * from './WebControls/InputUrl';
 export * from './WebControls/InputZip';
+export * from './WebControls/IWInputProps';
 export * from './WebControls/IWServerData';
 export * from './WebControls/MasterDetail';
 export * from './WebControls/MessageBox';

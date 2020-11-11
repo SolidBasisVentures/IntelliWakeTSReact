@@ -7,5 +7,5 @@ export interface IIWInputProps extends InputProps {
     plainTextProps?: any;
     changeValue?: TChangeValueFunction;
 }
-export declare const reduceInputProps: (props: IIWInputProps) => InputProps;
-export declare const handleChangeValue: (e: React.ChangeEvent<HTMLInputElement>, changeValue?: ((value: any, name: string) => void) | undefined, onChange?: ((e: React.ChangeEvent<HTMLInputElement>) => void) | undefined) => void;
+export declare const ReduceInputProps: (props: IIWInputProps) => InputProps;
+export declare const HandleChangeValue: (e: React.ChangeEvent<HTMLInputElement>, changeValue?: ((value: any, name: string) => void) | undefined, onChange?: ((e: React.ChangeEvent<HTMLInputElement>) => void) | undefined) => void;

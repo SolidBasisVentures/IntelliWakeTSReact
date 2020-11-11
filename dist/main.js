@@ -509,6 +509,9 @@ var DismissPromptOKCancel = function () {
     };
 };
 
+/**
+ * An overlay with a black background and a spinner that covers the entire screen.
+ */
 var ActivityOverlay = function (props) {
     function resetActivityOverlay() {
         var _a;
@@ -526,6 +529,9 @@ var ActivityOverlay = function (props) {
     return null;
 };
 
+/**
+ * An overlay with a white background and a spinner that covers the entire surface of it's parent component.
+ */
 var ActivityOverlayControl = function (props) {
     var _a, _b;
     if (props.show) {
@@ -870,7 +876,7 @@ var defaultRanges = [
     }
 ];
 
-var reduceInputProps = function (props) {
+var ReduceInputProps = function (props) {
     var subset = __assign({}, props);
     delete subset.plainText;
     delete subset.plainTextURL;
@@ -879,7 +885,7 @@ var reduceInputProps = function (props) {
     delete subset.onChange;
     return subset;
 };
-var handleChangeValue = function (e, changeValue, onChange) {
+var HandleChangeValue = function (e, changeValue, onChange) {
     if (!!changeValue) {
         changeValue(ElementCustomValue(e), e.target.name);
     }
@@ -892,7 +898,7 @@ var handleChangeValue = function (e, changeValue, onChange) {
 var InputColor = function (props) {
     var _a, _b, _c;
     var inputProps = React.useMemo(function () {
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         delete subset.className;
         if (subset.autoComplete === undefined) {
             subset.autoComplete = 'off';
@@ -904,7 +910,7 @@ var InputColor = function (props) {
             React__default['default'].createElement(reactstrap.Input, __assign({ type: "color", className: (_a = 'inputText ' + props.className) !== null && _a !== void 0 ? _a : '' }, inputProps, { disabled: true })),
             props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
         React__default['default'].createElement(reactstrap.Input, __assign({ type: "color", className: (_b = 'inputText ' + props.className) !== null && _b !== void 0 ? _b : '' }, inputProps, { disabled: true })),
-        props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "color", className: (_c = 'inputText ' + props.className) !== null && _c !== void 0 ? _c : '' }, inputProps, { onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); } })))));
+        props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "color", className: (_c = 'inputText ' + props.className) !== null && _c !== void 0 ? _c : '' }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
 };
 
 var originalValue = ' ';
@@ -913,7 +919,7 @@ var InputDate = function (props) {
     var nextDateValue = React.useRef(originalValue);
     var _a = React.useState(originalValue), overrideValue = _a[0], setOverrideValue = _a[1];
     var inputProps = React.useMemo(function () {
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         delete subset.value;
         delete subset.onChange;
         return subset;
@@ -947,6 +953,9 @@ var InputDate = function (props) {
         : intelliwaketsfoundation.MomentDisplayDayDate(props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "date", className: "inputDate" }, inputProps, { value: overrideValue !== null && overrideValue !== void 0 ? overrideValue : '', onChange: handleInputChange })))));
 };
 
+/**
+ * A react datetime picker wrapper. Can also be used as a plain text to display the date/time values.
+ */
 var InputDatePicker = function (props) {
     var _a, _b;
     var setValue = function (date) {
@@ -971,14 +980,14 @@ var InputDatePicker = function (props) {
 
 var InputEmail = function (props) {
     var inputProps = React.useMemo(function () {
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         if (subset.autoComplete === undefined) {
             subset.autoComplete = 'off';
         }
         return subset;
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.value ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
-        React__default['default'].createElement("a", { href: 'mailto:' + props.value }, props.value))) : null) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "email", inputMode: "email", className: "inputEmail" }, inputProps, { onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); } })))));
+        React__default['default'].createElement("a", { href: 'mailto:' + props.value }, props.value))) : null) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "email", inputMode: "email", className: "inputEmail" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
 };
 
 var InputSelect = function (props) {
@@ -1008,7 +1017,7 @@ var InputSelect = function (props) {
 var InputGender = function (props) {
     var inputProps = React.useMemo(function () {
         var _a;
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         subset.value = (_a = subset.value) !== null && _a !== void 0 ? _a : '';
         if (subset.autoComplete === undefined) {
             subset.autoComplete = 'off';
@@ -1017,7 +1026,7 @@ var InputGender = function (props) {
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
         React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(React__default['default'].Fragment, null,
-        React__default['default'].createElement(InputSelect, __assign({}, inputProps, { isStringOrNull: true, onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); } }),
+        React__default['default'].createElement(InputSelect, __assign({}, inputProps, { isStringOrNull: true, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } }),
             React__default['default'].createElement("option", null),
             React__default['default'].createElement("option", { value: "Male" }, "Male"),
             React__default['default'].createElement("option", { value: "Female" }, "Female"))))));
@@ -1108,9 +1117,12 @@ var InputRadio = function (props) {
         props.name,
         props.id
     ]);
-    return !!props.plainText ? (props.checked ? (props.label) : null) : (React__default['default'].createElement(reactstrap.CustomInput, { type: "radio", label: props.label, name: props.name, id: newID, className: 'inputRadio ' + ((_a = props.className) !== null && _a !== void 0 ? _a : ''), checked: props.checked, onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); }, value: props.value }));
+    return !!props.plainText ? (props.checked ? (props.label) : null) : (React__default['default'].createElement(reactstrap.CustomInput, { type: "radio", label: props.label, name: props.name, id: newID, className: 'inputRadio ' + ((_a = props.className) !== null && _a !== void 0 ? _a : ''), checked: props.checked, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, value: props.value }));
 };
 
+/**
+ * A search input with an option to have a trigger delay or not.
+ */
 var InputSearch = function (props) {
     var _a, _b;
     var triggeredText = React.useRef((_a = props.initialValue) !== null && _a !== void 0 ? _a : '');
@@ -1163,6 +1175,9 @@ var OptionsActive = [
     { key: false, description: 'Inactive' }
 ];
 var OptionsActiveAll = __spreadArrays(OptionsActive, [{ key: null, description: 'All' }]);
+/**
+ * A input select that lets you update a state when selecting an option.
+ */
 var InputSelectStep = function (props) {
     var _a, _b, _c, _d;
     var classNames = !!props.inline
@@ -1193,7 +1208,7 @@ var InputSelectStep = function (props) {
 var InputSSN = function (props) {
     var _a, _b;
     var inputProps = React.useMemo(function () {
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         delete subset.plainTextLast4Only;
         if (subset.autoComplete === undefined) {
             subset.autoComplete = 'off';
@@ -1201,12 +1216,12 @@ var InputSSN = function (props) {
         return subset;
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.plainTextLast4Only ? '...-' + ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString().substr(-4) : props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.plainTextLast4Only ? '...-' + ((_b = props.value) !== null && _b !== void 0 ? _b : '').toString().substr(-4) : props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputText" }, inputProps, { pattern: "\\d{3}-?\\d{2}-?\\d{4}", onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); } })))));
+        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.plainTextLast4Only ? '...-' + ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString().substr(-4) : props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.plainTextLast4Only ? '...-' + ((_b = props.value) !== null && _b !== void 0 ? _b : '').toString().substr(-4) : props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputText" }, inputProps, { pattern: "\\d{3}-?\\d{2}-?\\d{4}", onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
 };
 
 var InputState = function (props) {
     var inputProps = React.useMemo(function () {
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         delete subset.onChange;
         if (subset.autoComplete === undefined) {
             subset.autoComplete = 'off';
@@ -1265,7 +1280,7 @@ var InputSwitchAlternate = function (props) {
 
 var InputTel = function (props) {
     var inputProps = React.useMemo(function () {
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         delete subset.showFAIcon;
         delete subset.onChange;
         return subset;
@@ -1277,8 +1292,8 @@ var InputTel = function (props) {
             return proRegularSvgIcons.faPhone;
         return props.showFAIcon;
     }, [props.showFAIcon]);
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.FormatPhoneNumber(props.value))) : !faIconToShow ? (React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel", className: "inputTel" }, inputProps, { onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); } }))) : (React__default['default'].createElement(reactstrap.InputGroup, null,
-        React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel", className: "inputTel" }, inputProps, { onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); } })),
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.FormatPhoneNumber(props.value))) : !faIconToShow ? (React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel", className: "inputTel" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } }))) : (React__default['default'].createElement(reactstrap.InputGroup, null,
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel", className: "inputTel" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })),
         React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "append" },
             React__default['default'].createElement(reactstrap.InputGroupText, null,
                 React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: faIconToShow })))))));
@@ -1287,7 +1302,7 @@ var InputTel = function (props) {
 var InputText = function (props) {
     var _a;
     var inputProps = React.useMemo(function () {
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         delete subset.className;
         delete subset.onChange;
         if (subset.autoComplete === undefined) {
@@ -1296,12 +1311,12 @@ var InputText = function (props) {
         return subset;
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: (_a = 'inputText ' + props.className) !== null && _a !== void 0 ? _a : '' }, inputProps, { onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); } })))));
+        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: (_a = 'inputText ' + props.className) !== null && _a !== void 0 ? _a : '' }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
 };
 
 var InputTextArea = function (props) {
     var inputProps = React.useMemo(function () {
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         delete subset.plainText;
         delete subset.plainTextProps;
         delete subset.bordered;
@@ -1311,7 +1326,7 @@ var InputTextArea = function (props) {
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: 'form-control-plaintext vertical-scroll horizontal-scroll' + (!!props.bordered ? ' border' : '') }, props.plainTextProps, { dangerouslySetInnerHTML: { __html: intelliwaketsfoundation.ReplaceLinks(intelliwaketsfoundation.CleanScripts('' + props.value)) }, style: {
             maxHeight: !!props.rows ? props.rows + 'rem' : '5rem',
             overflowY: 'scroll'
-        } }))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "textarea", className: "inputTextArea" }, inputProps, { onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); } })))));
+        } }))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "textarea", className: "inputTextArea" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
 };
 
 var originalValue$1 = ' ';
@@ -1320,7 +1335,7 @@ var InputTime = function (props) {
     var nextTimeValue = React.useRef(originalValue$1);
     var _a = React.useState(originalValue$1), overrideValue = _a[0], setOverrideValue = _a[1];
     var inputProps = React.useMemo(function () {
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         delete subset.value;
         delete subset.onChange;
         delete subset.editSeconds;
@@ -1355,7 +1370,7 @@ var InputTime = function (props) {
 var InputTimeZone = function (props) {
     var inputProps = React.useMemo(function () {
         var _a;
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         subset.value = (_a = subset.value) !== null && _a !== void 0 ? _a : '';
         if (subset.autoComplete === undefined) {
             subset.autoComplete = 'off';
@@ -1375,7 +1390,7 @@ var InputTimeZone = function (props) {
 
 var InputUrl = function (props) {
     var inputProps = React.useMemo(function () {
-        var subset = reduceInputProps(props);
+        var subset = ReduceInputProps(props);
         delete subset.plainText;
         delete subset.plainTextProps;
         delete subset.onChange;
@@ -1388,16 +1403,16 @@ var InputUrl = function (props) {
         return '' + props.value;
     }, [props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.value ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext ellipses-truncate" }, props.plainTextProps),
-        React__default['default'].createElement("a", { href: href, target: "_blank", rel: "noopener noreferrer" }, props.value))) : null) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "url", pattern: "https://.*", inputMode: "url", className: "inputUrl" }, inputProps, { onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); } })))));
+        React__default['default'].createElement("a", { href: href, target: "_blank", rel: "noopener noreferrer" }, props.value))) : null) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "url", pattern: "https://.*", inputMode: "url", className: "inputUrl" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
 };
 
 var InputZip = function (props) {
     var _a;
     var inputProps = React.useMemo(function () {
-        return reduceInputProps(props);
+        return ReduceInputProps(props);
     }, [props]);
     //pattern={!!props.withNine ? 'd{5}-?d{4}' : 'd{5}'}
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.FormatZip(((_a = props.value) !== null && _a !== void 0 ? _a : '').toString()))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputZip" }, inputProps, { onChange: function (e) { return handleChangeValue(e, props.changeValue, props.onChange); } })))));
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.FormatZip(((_a = props.value) !== null && _a !== void 0 ? _a : '').toString()))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputZip" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
 };
 
 /**
@@ -1806,6 +1821,9 @@ var MDDetail = function (props) {
     }
 };
 
+/**
+ * An alert box that appears when a message is passed as a prop,and dismisses after three seconds.
+ */
 var MessageBox = function (props) {
     var _a, _b;
     var propsMessageBoxState = (typeof props.messageBoxState === 'string' || props.messageBoxState instanceof String) ? __assign(__assign({}, initialMessageBoxState), { message: props.messageBoxState }) : props.messageBoxState;
@@ -1827,6 +1845,9 @@ var MessageBox = function (props) {
             : null));
 };
 
+/**
+ * A wrapper for Bootstrap's Modal that handles all the actions.
+ */
 var ModalPrompt = function (props) {
     var _a, _b, _c, _d, _e, _f;
     var promptResponsesAsArray = React.useMemo(function () {
@@ -1988,6 +2009,7 @@ exports.FilterObjects = FilterObjects;
 exports.FormatValue = FormatValue;
 exports.GetPathComponentAfter = GetPathComponentAfter;
 exports.GetPathThrough = GetPathThrough;
+exports.HandleChangeValue = HandleChangeValue;
 exports.HasPathComponent = HasPathComponent;
 exports.HideActivityOverlay = HideActivityOverlay;
 exports.IWServerData = IWServerData;
@@ -2033,6 +2055,7 @@ exports.ModalPrompt = ModalPrompt;
 exports.OptionsActive = OptionsActive;
 exports.OptionsActiveAll = OptionsActiveAll;
 exports.PromptOKCancel = PromptOKCancel;
+exports.ReduceInputProps = ReduceInputProps;
 exports.ResetActivityOverlay = ResetActivityOverlay;
 exports.ScreenFormatValue = ScreenFormatValue;
 exports.SelectDD = SelectDD;
