@@ -3,7 +3,7 @@ import {Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap'
 import {IconProp} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPhone} from '@fortawesome/pro-regular-svg-icons'
-import {handleChangeValue, IIWInputProps, reduceInputProps, TChangeValueFunction} from './IWInputProps'
+import {HandleChangeValue, IIWInputProps, ReduceInputProps, TChangeValueFunction} from './IWInputProps'
 import {FormatPhoneNumber} from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps extends IIWInputProps {
@@ -13,7 +13,7 @@ interface IProps extends IIWInputProps {
 
 export const InputTel = (props: IProps) => {
 	const inputProps = useMemo(() => {
-		const subset = reduceInputProps(props)
+		const subset = ReduceInputProps(props)
 		delete subset.showFAIcon
 		delete subset.onChange
 
@@ -40,7 +40,7 @@ export const InputTel = (props: IProps) => {
 					inputMode="tel"
 					className="inputTel"
 					{...inputProps}
-					onChange={(e) => handleChangeValue(e, props.changeValue, props.onChange)}
+					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
 				/>
 			) : (
 				<InputGroup>
@@ -49,7 +49,7 @@ export const InputTel = (props: IProps) => {
 						inputMode="tel"
 						className="inputTel"
 						{...inputProps}
-						onChange={(e) => handleChangeValue(e, props.changeValue, props.onChange)}
+						onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
 					/>
 					<InputGroupAddon addonType="append">
 						<InputGroupText>

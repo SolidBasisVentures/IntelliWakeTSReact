@@ -11,7 +11,7 @@ export interface IIWInputProps extends InputProps {
 	changeValue?: TChangeValueFunction
 }
 
-export const reduceInputProps = (props: IIWInputProps): InputProps => {
+export const ReduceInputProps = (props: IIWInputProps): InputProps => {
 	const subset = {...props}
 	delete subset.plainText
 	delete subset.plainTextURL
@@ -22,7 +22,7 @@ export const reduceInputProps = (props: IIWInputProps): InputProps => {
 	return subset
 }
 
-export const handleChangeValue = (
+export const HandleChangeValue = (
 	e: React.ChangeEvent<HTMLInputElement>,
 	changeValue?: (value: any, name: string) => void,
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void

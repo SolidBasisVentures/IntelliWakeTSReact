@@ -1,11 +1,11 @@
 import React, {useMemo} from 'react'
 import {Link} from 'react-router-dom'
 import {InputSelect, IPropsSelect} from './InputSelect'
-import {handleChangeValue, IIWInputProps, reduceInputProps} from './IWInputProps'
+import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 
 export const InputGender = (props: IIWInputProps) => {
 	const inputProps = useMemo(() => {
-		const subset = reduceInputProps(props)
+		const subset = ReduceInputProps(props)
 
 		subset.value = subset.value ?? ''
 
@@ -35,7 +35,7 @@ export const InputGender = (props: IIWInputProps) => {
 					<InputSelect
 						{...inputProps}
 						isStringOrNull
-						onChange={(e) => handleChangeValue(e, props.changeValue, props.onChange)}>
+						onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}>
 						<option />
 						<option value="Male">Male</option>
 						<option value="Female">Female</option>

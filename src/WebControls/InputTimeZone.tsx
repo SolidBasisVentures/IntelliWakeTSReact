@@ -2,11 +2,11 @@ import React, {useMemo} from 'react'
 import {Link} from 'react-router-dom'
 import {InputSelect, IPropsSelect} from './InputSelect'
 import moment from 'moment-timezone'
-import {IIWInputProps, reduceInputProps} from './IWInputProps'
+import {IIWInputProps, ReduceInputProps} from './IWInputProps'
 
 export const InputTimeZone = (props: IIWInputProps) => {
 	const inputProps = useMemo(() => {
-		const subset = reduceInputProps(props)
+		const subset = ReduceInputProps(props)
 
 		subset.value = subset.value ?? ''
 

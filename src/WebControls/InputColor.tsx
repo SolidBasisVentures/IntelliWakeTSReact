@@ -1,11 +1,11 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
 import {Link} from 'react-router-dom'
-import {handleChangeValue, IIWInputProps, reduceInputProps} from './IWInputProps'
+import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 
 export const InputColor = (props: IIWInputProps) => {
 	const inputProps = useMemo(() => {
-		const subset = reduceInputProps(props)
+		const subset = ReduceInputProps(props)
 		delete subset.className
 
 		if (subset.autoComplete === undefined) {
@@ -36,7 +36,7 @@ export const InputColor = (props: IIWInputProps) => {
 					type="color"
 					className={'inputText ' + props.className ?? ''}
 					{...inputProps}
-					onChange={(e) => handleChangeValue(e, props.changeValue, props.onChange)}
+					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
 				/>
 			)}
 		</>

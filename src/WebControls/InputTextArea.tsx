@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
-import {handleChangeValue, IIWInputProps, reduceInputProps} from './IWInputProps'
+import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {CleanScripts, ReplaceLinks} from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps extends IIWInputProps {
@@ -10,7 +10,7 @@ interface IProps extends IIWInputProps {
 
 export const InputTextArea = (props: IProps) => {
 	const inputProps = useMemo(() => {
-		const subset = reduceInputProps(props)
+		const subset = ReduceInputProps(props)
 		delete subset.plainText
 		delete subset.plainTextProps
 		delete subset.bordered
@@ -36,7 +36,7 @@ export const InputTextArea = (props: IProps) => {
 					type="textarea"
 					className="inputTextArea"
 					{...inputProps}
-					onChange={(e) => handleChangeValue(e, props.changeValue, props.onChange)}
+					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
 				/>
 			)}
 		</>

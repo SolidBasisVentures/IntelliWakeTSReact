@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react'
 import {Input} from 'reactstrap'
-import {IIWInputProps, reduceInputProps} from './IWInputProps'
+import {IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {
 	MOMENT_FORMAT_TIME_NO_SECONDS,
 	MOMENT_FORMAT_TIME_SECONDS,
@@ -23,7 +23,7 @@ export const InputTime = (props: IProps) => {
 	const [overrideValue, setOverrideValue] = useState(originalValue)
 
 	const inputProps = useMemo(() => {
-		const subset = reduceInputProps(props)
+		const subset = ReduceInputProps(props)
 		delete subset.value
 		delete subset.onChange
 		delete subset.editSeconds

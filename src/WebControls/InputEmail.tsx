@@ -1,10 +1,10 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
-import {handleChangeValue, IIWInputProps, reduceInputProps} from './IWInputProps'
+import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 
 export const InputEmail = (props: IIWInputProps) => {
 	const inputProps = useMemo(() => {
-		const subset = reduceInputProps(props)
+		const subset = ReduceInputProps(props)
 
 		if (subset.autoComplete === undefined) {
 			subset.autoComplete = 'off'
@@ -27,7 +27,7 @@ export const InputEmail = (props: IIWInputProps) => {
 					inputMode="email"
 					className="inputEmail"
 					{...inputProps}
-					onChange={(e) => handleChangeValue(e, props.changeValue, props.onChange)}
+					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
 				/>
 			)}
 		</>

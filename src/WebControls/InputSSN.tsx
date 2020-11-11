@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
 import {Link} from 'react-router-dom'
-import {handleChangeValue, IIWInputProps, reduceInputProps} from './IWInputProps'
+import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 
 interface IProps extends IIWInputProps {
 	plainTextLast4Only?: boolean
@@ -9,7 +9,7 @@ interface IProps extends IIWInputProps {
 
 export const InputSSN = (props: IProps) => {
 	const inputProps = useMemo(() => {
-		const subset = reduceInputProps(props)
+		const subset = ReduceInputProps(props)
 		delete subset.plainTextLast4Only
 
 		if (subset.autoComplete === undefined) {
@@ -39,7 +39,7 @@ export const InputSSN = (props: IProps) => {
 					className="inputText"
 					{...inputProps}
 					pattern="\d{3}-?\d{2}-?\d{4}"
-					onChange={(e) => handleChangeValue(e, props.changeValue, props.onChange)}
+					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
 				/>
 			)}
 		</>

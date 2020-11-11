@@ -1,11 +1,11 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
 import {Link} from 'react-router-dom'
-import {IIWInputProps, reduceInputProps} from './IWInputProps'
+import {IIWInputProps, ReduceInputProps} from './IWInputProps'
 
 export const InputState = (props: IIWInputProps) => {
 	const inputProps = useMemo(() => {
-		const subset = reduceInputProps(props)
+		const subset = ReduceInputProps(props)
 		delete subset.onChange
 
 		if (subset.autoComplete === undefined) {

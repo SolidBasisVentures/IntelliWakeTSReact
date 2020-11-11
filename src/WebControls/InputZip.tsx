@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
-import {IIWInputProps, reduceInputProps, handleChangeValue} from './IWInputProps'
+import {IIWInputProps, ReduceInputProps, HandleChangeValue} from './IWInputProps'
 import {FormatZip} from '@solidbasisventures/intelliwaketsfoundation'
 
 export interface IZipProps extends IIWInputProps {
@@ -9,7 +9,7 @@ export interface IZipProps extends IIWInputProps {
 
 export const InputZip = (props: IZipProps) => {
 	const inputProps = useMemo(() => {
-		return reduceInputProps(props)
+		return ReduceInputProps(props)
 	}, [props])
 
 	//pattern={!!props.withNine ? 'd{5}-?d{4}' : 'd{5}'}
@@ -25,7 +25,7 @@ export const InputZip = (props: IZipProps) => {
 					type="text"
 					className="inputZip"
 					{...inputProps}
-					onChange={(e) => handleChangeValue(e, props.changeValue, props.onChange)}
+					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
 				/>
 			)}
 		</>

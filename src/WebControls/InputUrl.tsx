@@ -1,10 +1,10 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
-import {handleChangeValue, IIWInputProps, reduceInputProps} from './IWInputProps'
+import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 
 export const InputUrl = (props: IIWInputProps) => {
 	const inputProps = useMemo(() => {
-		const subset = reduceInputProps(props)
+		const subset = ReduceInputProps(props)
 		delete subset.plainText
 		delete subset.plainTextProps
 		delete subset.onChange
@@ -37,7 +37,7 @@ export const InputUrl = (props: IIWInputProps) => {
 					inputMode="url"
 					className="inputUrl"
 					{...inputProps}
-					onChange={(e) => handleChangeValue(e, props.changeValue, props.onChange)}
+					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
 				/>
 			)}
 		</>
