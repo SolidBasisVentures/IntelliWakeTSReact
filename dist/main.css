@@ -393,11 +393,15 @@ table.table-sortable thead th {
     overflow-x: auto; }
   .vertical-scroll {
     overflow-y: auto; }
-  table.table-scrollable,
+  table.table-scrollable {
+    max-height: 100%;
+    overflow: hidden; }
+    table.table-scrollable > tbody {
+      overflow-y: auto;
+      overflow-x: hidden; }
   table.table-scrollable-screen {
     max-height: 100%;
     overflow: hidden; }
-    table.table-scrollable > tbody,
     table.table-scrollable-screen > tbody {
       overflow-y: auto;
       overflow-x: hidden; }
