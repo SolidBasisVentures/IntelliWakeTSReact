@@ -107,6 +107,35 @@
   }
 }
 
+@media screen {
+  table.table-scrollable-screen {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    margin: 0;
+
+    > thead,
+    > tfoot {
+      display: table;
+      table-layout: fixed;
+      flex: 0 0 auto;
+      //width: calc(100% - 0.9em);
+      width: 100%;
+    }
+
+    > tbody {
+      flex: 1 1 auto;
+      display: block;
+
+      > tr {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+      }
+    }
+  }
+}
+
 table.table-scrollable {
   display: flex;
   flex-flow: column;

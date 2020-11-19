@@ -77,6 +77,26 @@
   .invisible-lg-larger {
     visibility: visible !important; } }
 
+@media screen {
+  table.table-scrollable-screen {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    margin: 0; }
+    table.table-scrollable-screen > thead,
+    table.table-scrollable-screen > tfoot {
+      display: table;
+      table-layout: fixed;
+      flex: 0 0 auto;
+      width: 100%; }
+    table.table-scrollable-screen > tbody {
+      flex: 1 1 auto;
+      display: block; }
+      table.table-scrollable-screen > tbody > tr {
+        display: table;
+        table-layout: fixed;
+        width: 100%; } }
+
 table.table-scrollable {
   display: flex;
   flex-flow: column;
