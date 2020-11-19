@@ -590,7 +590,8 @@ table.table-sortable thead th {
     overflow-y: auto;
   }
 
-  table.table-scrollable {
+  table.table-scrollable,
+  table.table-scrollable-screen {
     max-height: 100%;
     overflow: hidden;
 
