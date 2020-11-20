@@ -1028,6 +1028,11 @@ var defaultRangesReport = [
         end: moment__default['default']().subtract(1, 'year').endOf('year')
     }
 ];
+var defaultRange = {
+    name: 'This Month',
+    start: moment__default['default']().startOf('month'),
+    end: moment__default['default']().endOf('month')
+};
 // DateRange.defaultProps = {
 // 	presetRanges: defaultRanges,
 // 	showCaret: true,
@@ -2233,6 +2238,7 @@ exports.WriteHeadTR = WriteHeadTR;
 exports.arrayIDMapsForArrayWithID = arrayIDMapsForArrayWithID;
 exports.arrayMapWithMapIDIndex = arrayMapWithMapIDIndex;
 exports.customRangeName = customRangeName;
+exports.defaultRange = defaultRange;
 exports.defaultRanges = defaultRanges;
 exports.defaultRangesReport = defaultRangesReport;
 exports.initialDateRange = initialDateRange;

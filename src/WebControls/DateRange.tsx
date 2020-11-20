@@ -349,6 +349,12 @@ export const defaultRangesReport: IDateRange[] = [
 	}
 ]
 
+export const defaultRange: IDateRange = {
+	name: 'This Month',
+	start: moment().startOf('month'),
+	end: moment().endOf('month')
+}
+
 // DateRange.defaultProps = {
 // 	presetRanges: defaultRanges,
 // 	showCaret: true,

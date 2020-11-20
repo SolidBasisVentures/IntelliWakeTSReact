@@ -29,4 +29,5 @@ export interface IPropsDateRange {
 export declare const DateRange: (props: IPropsDateRange) => JSX.Element;
 export declare const defaultRanges: IDateRange[];
 export declare const defaultRangesReport: IDateRange[];
+export declare const defaultRange: IDateRange;
 export {};
