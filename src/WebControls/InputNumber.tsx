@@ -31,7 +31,7 @@ export interface IPropsInputNumber {
 }
 
 export const InputNumber = (props: IPropsInputNumber) => {
-	const [currentStringOverride, setCurrentStringOverride] = useState(undefined as string | undefined)
+	const [currentStringOverride, setCurrentStringOverride] = useState<string | undefined>(undefined)
 
 	const handleKeyDown = (e: React.KeyboardEvent) => {
 		if (e.key === '-') {

@@ -19,10 +19,10 @@ export interface IPropsArrayTable {
 }
 
 export const ArrayTable = (props: IPropsArrayTable) => {
-    const [sorter, setSorter] = useState({
+    const [sorter, setSorter] = useState<ISortProperties>({
         ...initialSortProperties,
         sort_column: props.arrayStructure.defaultSortColumn ?? null
-    } as ISortProperties);
+    });
 
     const sumsInFooter: { [key: string]: number } = {};
     const validColumns = ValidColumns(props.arrayData, props.arrayStructure);
