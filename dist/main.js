@@ -1420,7 +1420,7 @@ var InputSwitch = function (props) {
             props.changeValue(e.target.checked, e.target.name);
         }
     };
-    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { } }));
+    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText }));
 };
 
 var InputSwitchAlternate = function (props) {

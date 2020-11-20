@@ -41,6 +41,7 @@ export const InputSwitch = (props: IInputSwitchProps) => {
 			id={newID}
 			checked={props.checked}
 			onChange={!props.plainText ? handleInputChange : () => {}}
+			disabled={props.plainText}
 		/>
 	)
 }
