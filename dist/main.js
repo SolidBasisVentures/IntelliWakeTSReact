@@ -1028,11 +1028,11 @@ var defaultRangesReport = [
         end: moment__default['default']().subtract(1, 'year').endOf('year')
     }
 ];
-DateRange.defaultProps = {
-    presetRanges: defaultRanges,
-    showCaret: true,
-    borderless: false
-};
+// DateRange.defaultProps = {
+// 	presetRanges: defaultRanges,
+// 	showCaret: true,
+// 	borderless: false
+// } as Partial<IPropsDateRange>
 
 var ReduceInputProps = function (props) {
     var subset = __assign({}, props);

@@ -349,8 +349,8 @@ export const defaultRangesReport: IDateRange[] = [
 	}
 ]
 
-DateRange.defaultProps = {
-	presetRanges: defaultRanges,
-	showCaret: true,
-	borderless: false
-} as Partial<IPropsDateRange>
+// DateRange.defaultProps = {
+// 	presetRanges: defaultRanges,
+// 	showCaret: true,
+// 	borderless: false
+// } as Partial<IPropsDateRange>
