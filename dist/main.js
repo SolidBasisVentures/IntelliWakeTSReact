@@ -838,6 +838,127 @@ var DateRangeCalendar = function (props) {
             }));
         }))));
 };
+var DateRange = function (props) {
+    var _a;
+    var nodeParent = React.useRef();
+    var nodeBody = React.useRef();
+    var getStartRange = function () {
+        if (props.defaultRange && props.defaultRange.name) {
+            if (props.defaultRange.name === customRangeName) {
+                return props.defaultRange;
+            }
+            if (props.presetRanges && props.presetRanges.length > 0) {
+                var foundItem = props.presetRanges.find(function (item) { return props.defaultRange.name === item.name; });
+                if (foundItem) {
+                    return foundItem;
+                }
+                var foundItemStartsWith = props.presetRanges.find(function (item) { return item.name.startsWith(props.defaultRange.name); });
+                if (foundItemStartsWith) {
+                    return foundItemStartsWith;
+                }
+            }
+        }
+        if (props.presetRanges && props.presetRanges.length > 0)
+            return props.presetRanges[0];
+        return initialDateRange;
+    };
+    var _b = React.useState({
+        isOpen: false,
+        selectedRange: getStartRange(),
+        selectedText: '',
+        prevPreset: null,
+        customRange: initialDateRange,
+        monthToShow: getStartRange().start,
+        applyToFirst: true
+    }), state = _b[0], setState = _b[1];
+    var getCurrentRange = function () {
+        if (state.selectedRange)
+            return state.selectedRange;
+        return getStartRange();
+    };
+    var currentRange = getCurrentRange();
+    var rangeDescription = function (range) {
+        return (range.name === customRangeName ? (moment__default['default'](range.start).format('L') + ' - ' + moment__default['default'](range.end).format('L')) : range.name);
+    };
+    var setOpen = function (e) {
+        if (!nodeBody.current.contains(e.target)) {
+            setState(__assign(__assign({}, state), { isOpen: true }));
+        }
+    };
+    var handleClick = function (e) {
+        if (!nodeParent.current.contains(e.target)) {
+            setState(__assign(__assign({}, state), { isOpen: false }));
+        }
+    };
+    var handlePresetClick = function (range) {
+        setState(__assign(__assign({}, state), { isOpen: false, selectedRange: range }));
+        props.selectRange(range);
+    };
+    var handleCustomApplyClick = function () {
+        setState(__assign(__assign({}, state), { isOpen: false, selectedRange: state.customRange }));
+        props.selectRange(state.customRange);
+    };
+    var handleCustomClick = function () {
+        var customRange = __assign(__assign({}, getCurrentRange()), { name: customRangeName });
+        setState(__assign(__assign({}, state), { prevPreset: currentRange, customRange: customRange }));
+    };
+    var handleUnCustomClick = function () {
+        var customRange = __assign(__assign({}, getCurrentRange()), { name: customRangeName });
+        setState(__assign(__assign({}, state), { prevPreset: null, customRange: customRange }));
+    };
+    var handleDateClick = function (day) {
+        var _a;
+        var newState = __assign({}, state);
+        if (newState.applyToFirst) {
+            newState.customRange.start = day;
+        }
+        else {
+            newState.customRange.end = day;
+        }
+        if (newState.customRange.start.isAfter(newState.customRange.end)) {
+            _a = [newState.customRange.end, newState.customRange.start], newState.customRange.start = _a[0], newState.customRange.end = _a[1];
+        }
+        newState.applyToFirst = !newState.applyToFirst;
+        setState(newState);
+    };
+    var prevMonth = function () {
+        var prev = state.monthToShow.clone().subtract(1, 'month');
+        setState(__assign(__assign({}, state), { monthToShow: prev }));
+    };
+    var nextMonth = function () {
+        var next = state.monthToShow.clone().add(1, 'month');
+        setState(__assign(__assign({}, state), { monthToShow: next }));
+    };
+    React.useEffect(function () {
+        document.addEventListener('mousedown', handleClick);
+        return function () {
+            document.removeEventListener('mousedown', handleClick);
+        };
+    });
+    return (React__default['default'].createElement("div", { className: 'DateRangeDD ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.borderless ? '' : ' border') + (props.showCaret ? ' dropdown-toggle' : ''), onClick: setOpen, ref: nodeParent, color: props.color },
+        props.faIcon !== null ?
+            React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: props.faIcon ? props.faIcon : proRegularSvgIcons.faCalendarAlt, fixedWidth: true })
+            : null,
+        " ",
+        rangeDescription(state.selectedRange),
+        React__default['default'].createElement("div", { className: 'DateRangeLB OpensRight' + (state.isOpen ? '' : ' d-none'), ref: nodeBody },
+            React__default['default'].createElement("div", { className: 'ranges' + (state.prevPreset ? ' d-none' : '') },
+                React__default['default'].createElement("ul", null,
+                    props.presetRanges.map(function (preset, idx) {
+                        return React__default['default'].createElement("li", { key: idx, onClick: function () { return handlePresetClick(preset); }, className: (preset.name === currentRange.name ? 'active' : '') }, preset.name);
+                    }),
+                    React__default['default'].createElement("li", { onClick: handleCustomClick },
+                        customRangeName,
+                        React__default['default'].createElement("span", { className: "float-right" }, ">")))),
+            React__default['default'].createElement("div", { className: 'drp-headers' + (!state.prevPreset ? ' d-none' : ''), onClick: handleUnCustomClick },
+                React__default['default'].createElement("span", null, "< Presets")),
+            React__default['default'].createElement("div", { className: 'drp-calendar left' + (!state.prevPreset ? ' d-none' : '') },
+                React__default['default'].createElement("div", { className: "calendar-table" },
+                    React__default['default'].createElement(DateRangeCalendar, { month: state.monthToShow, startSelected: state.customRange.start, endSelected: state.customRange.end, prevMonth: prevMonth, nextMonth: nextMonth, dateClick: handleDateClick }))),
+            React__default['default'].createElement("div", { className: 'drp-buttons' + (!state.prevPreset ? ' d-none' : '') },
+                React__default['default'].createElement("span", { className: "drp-selected" }, rangeDescription(state.customRange)),
+                React__default['default'].createElement("button", { className: "btn btn-sm btn-primary", type: "button", onClick: handleCustomApplyClick }, "Apply")))));
+};
 var defaultRanges = [
     {
         name: 'This Week #' + moment__default['default']().format('w'),
@@ -907,6 +1028,11 @@ var defaultRangesReport = [
         end: moment__default['default']().subtract(1, 'year').endOf('year')
     }
 ];
+DateRange.defaultProps = {
+    presetRanges: defaultRanges,
+    showCaret: true,
+    borderless: false
+};
 
 var ReduceInputProps = function (props) {
     var subset = __assign({}, props);
@@ -2032,6 +2158,7 @@ exports.ComputeValue = ComputeValue;
 exports.CookieCreate = CookieCreate;
 exports.CookieErase = CookieErase;
 exports.CookieRead = CookieRead;
+exports.DateRange = DateRange;
 exports.DateRangeCalendar = DateRangeCalendar;
 exports.DismissMessageBox = DismissMessageBox;
 exports.DismissPromptOKCancel = DismissPromptOKCancel;

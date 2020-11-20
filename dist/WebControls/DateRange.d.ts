@@ -26,6 +26,10 @@ export interface IPropsDateRange {
     color?: string;
     className?: string;
 }
+export declare const DateRange: {
+    (props: IPropsDateRange): JSX.Element;
+    defaultProps: Partial<IPropsDateRange>;
+};
 export declare const defaultRanges: IDateRange[];
 export declare const defaultRangesReport: IDateRange[];
 export {};

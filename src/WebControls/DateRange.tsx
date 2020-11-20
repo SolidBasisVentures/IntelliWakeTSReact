@@ -117,7 +117,7 @@ export interface IPropsDateRange {
 	className?: string
 }
 
-const DateRange = (props: IPropsDateRange) => {
+export const DateRange = (props: IPropsDateRange) => {
 	const nodeParent: any = useRef()
 	const nodeBody: any = useRef()
 	
