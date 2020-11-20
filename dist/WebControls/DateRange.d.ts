@@ -16,4 +16,16 @@ interface IPropsCalendar {
     nextMonth?: Function;
 }
 export declare const DateRangeCalendar: (props: IPropsCalendar) => JSX.Element;
+export interface IPropsDateRange {
+    selectRange: ((range: IDateRange) => void);
+    presetRanges?: IDateRange[];
+    defaultRange?: IDateRange;
+    showCaret?: boolean;
+    faIcon?: any | undefined | null;
+    borderless?: boolean;
+    color?: string;
+    className?: string;
+}
+export declare const defaultRanges: IDateRange[];
+export declare const defaultRangesReport: IDateRange[];
 export {};

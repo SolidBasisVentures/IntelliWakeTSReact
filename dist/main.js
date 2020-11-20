@@ -782,14 +782,14 @@ var initialDateRange = {
 };
 var DateRangeCalendar = function (props) {
     var moments = [];
-    var firstDay = props.month.clone().startOf("month");
-    var currentDay = firstDay.clone().startOf("week");
-    var lastDay = props.month.clone().endOf("month");
+    var firstDay = props.month.clone().startOf('month');
+    var currentDay = firstDay.clone().startOf('week');
+    var lastDay = props.month.clone().endOf('month');
     while (currentDay.isBefore(lastDay)) {
         var week = [];
         do {
             week.push(currentDay.clone());
-            currentDay.add(1, "day");
+            currentDay.add(1, 'day');
         } while (currentDay.weekday() > 0);
         moments.push(week);
     }
@@ -812,7 +812,7 @@ var DateRangeCalendar = function (props) {
                             React__default['default'].createElement("span", null, " "))
                     :
                         React__default['default'].createElement("th", null),
-                React__default['default'].createElement("th", { colSpan: 5, className: "month" }, firstDay.format("MMM YYYY")),
+                React__default['default'].createElement("th", { colSpan: 5, className: "month" }, firstDay.format('MMM YYYY')),
                 props.nextMonth !== undefined
                     ?
                         React__default['default'].createElement("th", { className: "next available", onClick: next },
@@ -829,12 +829,12 @@ var DateRangeCalendar = function (props) {
                 React__default['default'].createElement("th", null, "Sa"))),
         React__default['default'].createElement("tbody", null, moments.map(function (week, idx) {
             return React__default['default'].createElement("tr", { key: idx }, week.map(function (day) {
-                return React__default['default'].createElement("td", { className: (day.format("dd") === 'Sa' || day.format("dd") === 'Su' ? 'weekend ' : '') +
+                return React__default['default'].createElement("td", { className: (day.format('dd') === 'Sa' || day.format('dd') === 'Su' ? 'weekend ' : '') +
                         ((day.isBefore(firstDay, 'day') || day.isAfter(lastDay, 'day')) && !day.isBetween(props.startSelected, props.endSelected, 'day', '[]') ? 'off ends ' : '') +
                         (day.isSame(props.startSelected, 'day') ? 'active start-date ' : '') +
                         (day.isBetween(props.startSelected, props.endSelected, 'day') ? 'in-range ' : '') +
                         (day.isSame(props.endSelected, 'day') ? 'active end-date ' : '') +
-                        "available ", key: day.format(), onClick: function () { return props.dateClick(day); } }, day.format('D'));
+                        'available ', key: day.format(), onClick: function () { return props.dateClick(day); } }, day.format('D'));
             }));
         }))));
 };
@@ -873,6 +873,38 @@ var defaultRanges = [
         name: 'Last 30 Days',
         start: moment__default['default']().subtract(29, 'days').startOf('day'),
         end: moment__default['default']().endOf('day')
+    }
+];
+var defaultRangesReport = [
+    {
+        name: 'This Week',
+        start: moment__default['default']().startOf('week'),
+        end: moment__default['default']().endOf('week')
+    },
+    {
+        name: 'Last Week',
+        start: moment__default['default']().subtract(1, 'week').startOf('week'),
+        end: moment__default['default']().subtract(1, 'week').endOf('week')
+    },
+    {
+        name: 'This Month',
+        start: moment__default['default']().startOf('month'),
+        end: moment__default['default']().endOf('month')
+    },
+    {
+        name: 'Last Month',
+        start: moment__default['default']().subtract(1, 'month').startOf('month'),
+        end: moment__default['default']().subtract(1, 'month').endOf('month')
+    },
+    {
+        name: 'Year-to-Date',
+        start: moment__default['default']().startOf('year'),
+        end: moment__default['default']().endOf('year')
+    },
+    {
+        name: 'Last Year',
+        start: moment__default['default']().subtract(1, 'year').startOf('year'),
+        end: moment__default['default']().subtract(1, 'year').endOf('year')
     }
 ];
 
@@ -2074,6 +2106,8 @@ exports.WriteHeadTR = WriteHeadTR;
 exports.arrayIDMapsForArrayWithID = arrayIDMapsForArrayWithID;
 exports.arrayMapWithMapIDIndex = arrayMapWithMapIDIndex;
 exports.customRangeName = customRangeName;
+exports.defaultRanges = defaultRanges;
+exports.defaultRangesReport = defaultRangesReport;
 exports.initialDateRange = initialDateRange;
 exports.initialMenuBackItem = initialMenuBackItem;
 exports.initialMessageBoxState = initialMessageBoxState;
