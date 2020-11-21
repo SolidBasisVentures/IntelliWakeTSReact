@@ -40,6 +40,8 @@ export const initialDateRange: IDateRange = {
 	end: moment()
 }
 
+export const initialDateRangeString: IDateRangeString = DateRangeToString(initialDateRange)
+
 interface IPropsCalendar {
 	month: Moment,
 	startSelected: Moment,
@@ -346,6 +348,8 @@ export const defaultRanges: IDateRange[] = [
 	}
 ]
 
+export const defaultRangeStrings: IDateRangeString[] = defaultRanges.map(range => DateRangeToString(range))
+
 export const defaultRangesReport: IDateRange[] = [
 	{
 		name: 'This Week',
@@ -379,11 +383,15 @@ export const defaultRangesReport: IDateRange[] = [
 	}
 ]
 
+export const defaultRangeStringsReport: IDateRangeString[] = defaultRangesReport.map(range => DateRangeToString(range))
+
 export const defaultRange: IDateRange = {
 	name: 'This Month',
 	start: moment().startOf('month'),
 	end: moment().endOf('month')
 }
+
+export const defaultRangeString = DateRangeToString(defaultRange)
 
 // DateRange.defaultProps = {
 // 	presetRanges: defaultRanges,

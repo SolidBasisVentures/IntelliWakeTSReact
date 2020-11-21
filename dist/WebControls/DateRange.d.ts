@@ -16,6 +16,7 @@ export interface IDateRange {
     end: Moment;
 }
 export declare const initialDateRange: IDateRange;
+export declare const initialDateRangeString: IDateRangeString;
 interface IPropsCalendar {
     month: Moment;
     startSelected: Moment;
@@ -38,6 +39,9 @@ export interface IPropsDateRange {
 }
 export declare const DateRange: (props: IPropsDateRange) => JSX.Element;
 export declare const defaultRanges: IDateRange[];
+export declare const defaultRangeStrings: IDateRangeString[];
 export declare const defaultRangesReport: IDateRange[];
+export declare const defaultRangeStringsReport: IDateRangeString[];
 export declare const defaultRange: IDateRange;
+export declare const defaultRangeString: IDateRangeString;
 export {};

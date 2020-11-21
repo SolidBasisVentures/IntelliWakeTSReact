@@ -792,6 +792,7 @@ var initialDateRange = {
     start: moment__default['default'](),
     end: moment__default['default']()
 };
+var initialDateRangeString = DateRangeToString(initialDateRange);
 var DateRangeCalendar = function (props) {
     var moments = [];
     var firstDay = props.month.clone().startOf('month');
@@ -1017,6 +1018,7 @@ var defaultRanges = [
         end: moment__default['default']().endOf('day')
     }
 ];
+var defaultRangeStrings = defaultRanges.map(function (range) { return DateRangeToString(range); });
 var defaultRangesReport = [
     {
         name: 'This Week',
@@ -1049,11 +1051,13 @@ var defaultRangesReport = [
         end: moment__default['default']().subtract(1, 'year').endOf('year')
     }
 ];
+var defaultRangeStringsReport = defaultRangesReport.map(function (range) { return DateRangeToString(range); });
 var defaultRange = {
     name: 'This Month',
     start: moment__default['default']().startOf('month'),
     end: moment__default['default']().endOf('month')
 };
+var defaultRangeString = DateRangeToString(defaultRange);
 // DateRange.defaultProps = {
 // 	presetRanges: defaultRanges,
 // 	showCaret: true,
@@ -2264,9 +2268,13 @@ exports.arrayIDMapsForArrayWithID = arrayIDMapsForArrayWithID;
 exports.arrayMapWithMapIDIndex = arrayMapWithMapIDIndex;
 exports.customRangeName = customRangeName;
 exports.defaultRange = defaultRange;
+exports.defaultRangeString = defaultRangeString;
+exports.defaultRangeStrings = defaultRangeStrings;
+exports.defaultRangeStringsReport = defaultRangeStringsReport;
 exports.defaultRanges = defaultRanges;
 exports.defaultRangesReport = defaultRangesReport;
 exports.initialDateRange = initialDateRange;
+exports.initialDateRangeString = initialDateRangeString;
 exports.initialMenuBackItem = initialMenuBackItem;
 exports.initialMessageBoxState = initialMessageBoxState;
 exports.initialPromptOKCancelState = initialPromptOKCancelState;
