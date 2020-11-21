@@ -775,6 +775,18 @@ var ArrayTable = function (props) {
 };
 
 var customRangeName = 'Custom Range';
+var DateRangeDateMomentToString = function (date) { var _a; return typeof date === 'string' ? date : (_a = intelliwaketsfoundation.MomentDateString(date.startOf('day'))) !== null && _a !== void 0 ? _a : moment__default['default']().format('YYYY-MM-DD'); };
+var DateRangeDateStringToMoment = function (date) { var _a; return typeof date === 'string' ? (_a = intelliwaketsfoundation.MomentFromString(date)) !== null && _a !== void 0 ? _a : moment__default['default']() : date; };
+var DateRangeToMoment = function (dateRange) { return ({
+    name: dateRange.name,
+    start: DateRangeDateStringToMoment(dateRange.start),
+    end: DateRangeDateStringToMoment(dateRange.end)
+}); };
+var DateRangeToString = function (dateRange) { return ({
+    name: dateRange.name,
+    start: DateRangeDateMomentToString(dateRange.start),
+    end: DateRangeDateMomentToString(dateRange.end)
+}); };
 var initialDateRange = {
     name: customRangeName,
     start: moment__default['default'](),
@@ -845,21 +857,24 @@ var DateRange = function (props) {
     var getStartRange = function () {
         if (props.defaultRange && props.defaultRange.name) {
             if (props.defaultRange.name === customRangeName) {
-                return props.defaultRange;
+                return DateRangeToMoment(props.defaultRange);
             }
-            if (props.presetRanges && props.presetRanges.length > 0) {
-                var foundItem = props.presetRanges.find(function (item) { return props.defaultRange.name === item.name; });
-                if (foundItem) {
-                    return foundItem;
-                }
-                var foundItemStartsWith = props.presetRanges.find(function (item) { return item.name.startsWith(props.defaultRange.name); });
-                if (foundItemStartsWith) {
-                    return foundItemStartsWith;
+            if (!!props.presetRanges) {
+                var presetRanges = props.presetRanges.map(function (range) { return DateRangeToMoment(range); });
+                if (presetRanges.length > 0) {
+                    var foundItem = presetRanges.find(function (item) { return props.defaultRange.name === item.name; });
+                    if (foundItem) {
+                        return foundItem;
+                    }
+                    var foundItemStartsWith = presetRanges.find(function (item) { return item.name.startsWith(props.defaultRange.name); });
+                    if (foundItemStartsWith) {
+                        return foundItemStartsWith;
+                    }
                 }
             }
         }
         if (props.presetRanges && props.presetRanges.length > 0)
-            return props.presetRanges[0];
+            return DateRangeToMoment(props.presetRanges[0]);
         return initialDateRange;
     };
     var _b = React.useState({
@@ -892,11 +907,17 @@ var DateRange = function (props) {
     };
     var handlePresetClick = function (range) {
         setState(__assign(__assign({}, state), { isOpen: false, selectedRange: range }));
-        props.selectRange(range);
+        if (!!props.selectRange)
+            props.selectRange(range);
+        if (!!props.selectRangeString)
+            props.selectRangeString(DateRangeToString(range));
     };
     var handleCustomApplyClick = function () {
         setState(__assign(__assign({}, state), { isOpen: false, selectedRange: state.customRange }));
-        props.selectRange(state.customRange);
+        if (!!props.selectRange)
+            props.selectRange(state.customRange);
+        if (!!props.selectRangeString)
+            props.selectRangeString(DateRangeToString(state.customRange));
     };
     var handleCustomClick = function () {
         var customRange = __assign(__assign({}, getCurrentRange()), { name: customRangeName });
@@ -2165,6 +2186,10 @@ exports.CookieErase = CookieErase;
 exports.CookieRead = CookieRead;
 exports.DateRange = DateRange;
 exports.DateRangeCalendar = DateRangeCalendar;
+exports.DateRangeDateMomentToString = DateRangeDateMomentToString;
+exports.DateRangeDateStringToMoment = DateRangeDateStringToMoment;
+exports.DateRangeToMoment = DateRangeToMoment;
+exports.DateRangeToString = DateRangeToString;
 exports.DismissMessageBox = DismissMessageBox;
 exports.DismissPromptOKCancel = DismissPromptOKCancel;
 exports.DownloadBase64Data = DownloadBase64Data;

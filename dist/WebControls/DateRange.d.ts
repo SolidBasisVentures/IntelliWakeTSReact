@@ -1,6 +1,15 @@
 /// <reference types="react" />
 import { Moment } from 'moment';
 export declare const customRangeName = "Custom Range";
+export interface IDateRangeString {
+    name: string;
+    start: string;
+    end: string;
+}
+export declare const DateRangeDateMomentToString: (date: Moment | string) => string;
+export declare const DateRangeDateStringToMoment: (date: Moment | string) => Moment;
+export declare const DateRangeToMoment: (dateRange: IDateRange | IDateRangeString) => IDateRange;
+export declare const DateRangeToString: (dateRange: IDateRange | IDateRangeString) => IDateRangeString;
 export interface IDateRange {
     name: string;
     start: Moment;
@@ -17,9 +26,10 @@ interface IPropsCalendar {
 }
 export declare const DateRangeCalendar: (props: IPropsCalendar) => JSX.Element;
 export interface IPropsDateRange {
-    selectRange: ((range: IDateRange) => void);
-    presetRanges?: IDateRange[];
-    defaultRange?: IDateRange;
+    selectRange?: ((range: IDateRange) => void);
+    selectRangeString?: ((range: IDateRangeString) => void);
+    presetRanges?: (IDateRange | IDateRangeString)[];
+    defaultRange?: IDateRange | IDateRangeString;
     showCaret?: boolean;
     faIcon?: any | undefined | null;
     borderless?: boolean;

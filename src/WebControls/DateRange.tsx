@@ -2,8 +2,31 @@ import React, {useEffect, useRef, useState} from 'react'
 import moment, {Moment} from 'moment'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCalendarAlt} from '@fortawesome/pro-regular-svg-icons'
+import {MomentDateString, MomentFromString} from '@solidbasisventures/intelliwaketsfoundation'
 
 export const customRangeName = 'Custom Range'
+
+export interface IDateRangeString {
+	name: string,
+	start: string,
+	end: string
+}
+
+export const DateRangeDateMomentToString = (date: Moment | string): string => typeof date === 'string' ? date : MomentDateString(date.startOf('day')) ?? moment().format('YYYY-MM-DD')
+
+export const DateRangeDateStringToMoment = (date: Moment | string): Moment => typeof date === 'string' ? MomentFromString(date) ?? moment() : date
+
+export const DateRangeToMoment = (dateRange: IDateRange | IDateRangeString): IDateRange => ({
+	name: dateRange.name,
+	start: DateRangeDateStringToMoment(dateRange.start),
+	end: DateRangeDateStringToMoment(dateRange.end)
+})
+
+export const DateRangeToString = (dateRange: IDateRange | IDateRangeString): IDateRangeString => ({
+	name: dateRange.name,
+	start: DateRangeDateMomentToString(dateRange.start),
+	end: DateRangeDateMomentToString(dateRange.end)
+})
 
 export interface IDateRange {
 	name: string,
@@ -107,9 +130,10 @@ export const DateRangeCalendar = (props: IPropsCalendar) => {
 }
 
 export interface IPropsDateRange {
-	selectRange: ((range: IDateRange) => void),
-	presetRanges?: IDateRange[],
-	defaultRange?: IDateRange,
+	selectRange?: ((range: IDateRange) => void),
+	selectRangeString?: ((range: IDateRangeString) => void),
+	presetRanges?: (IDateRange | IDateRangeString)[],
+	defaultRange?: IDateRange | IDateRangeString,
 	showCaret?: boolean,
 	faIcon?: any | undefined | null,
 	borderless?: boolean,
@@ -124,23 +148,27 @@ export const DateRange = (props: IPropsDateRange) => {
 	const getStartRange = (): IDateRange => {
 		if (props.defaultRange && props.defaultRange.name) {
 			if (props.defaultRange.name === customRangeName) {
-				return props.defaultRange
+				return DateRangeToMoment(props.defaultRange)
 			}
 			
-			if (props.presetRanges && props.presetRanges.length > 0) {
-				const foundItem = props.presetRanges.find((item: IDateRange) => props.defaultRange!.name === item.name)
-				if (foundItem) {
-					return foundItem
-				}
+			if (!!props.presetRanges) {
+				const presetRanges = props.presetRanges.map(range => DateRangeToMoment(range))
 				
-				const foundItemStartsWith = props.presetRanges.find((item: IDateRange) => item.name.startsWith(props.defaultRange!.name))
-				if (foundItemStartsWith) {
-					return foundItemStartsWith
+				if (presetRanges.length > 0) {
+					const foundItem = presetRanges.find((item: IDateRange) => props.defaultRange!.name === item.name)
+					if (foundItem) {
+						return foundItem
+					}
+					
+					const foundItemStartsWith = presetRanges.find((item) => item.name.startsWith(props.defaultRange!.name))
+					if (foundItemStartsWith) {
+						return foundItemStartsWith
+					}
 				}
 			}
 		}
 		
-		if (props.presetRanges && props.presetRanges.length > 0) return props.presetRanges[0]
+		if (props.presetRanges && props.presetRanges.length > 0) return DateRangeToMoment(props.presetRanges[0])
 		
 		return initialDateRange
 	}
@@ -182,13 +210,15 @@ export const DateRange = (props: IPropsDateRange) => {
 	const handlePresetClick = (range: IDateRange) => {
 		setState({...state, isOpen: false, selectedRange: range})
 		
-		props.selectRange(range)
+		if (!!props.selectRange) props.selectRange(range)
+		if (!!props.selectRangeString) props.selectRangeString(DateRangeToString(range))
 	}
 	
 	const handleCustomApplyClick = () => {
 		setState({...state, isOpen: false, selectedRange: state.customRange})
 		
-		props.selectRange(state.customRange)
+		if (!!props.selectRange) props.selectRange(state.customRange)
+		if (!!props.selectRangeString) props.selectRangeString(DateRangeToString(state.customRange))
 	}
 	
 	const handleCustomClick = () => {
