@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import {InputSelect, IPropsSelect} from './InputSelect'
 import moment from 'moment-timezone'
 import {IIWInputProps, ReduceInputProps} from './IWInputProps'
+import {TimeZoneOlsons} from '@solidbasisventures/intelliwaketsfoundation'
 
 export const InputTimeZone = (props: IIWInputProps) => {
 	const inputProps = useMemo(() => {
@@ -17,18 +18,14 @@ export const InputTimeZone = (props: IIWInputProps) => {
 		return subset as IPropsSelect
 	}, [props])
 
-	interface ITZItem {zone: string, olson: string}
-	
-	const timeZonesList: ITZItem[] = useMemo(() => {
-		const tzItems = moment.tz.zonesForCountry('US')
-			
-			let results = tzItems.map(tzItem => ({zone: moment.tz(tzItem).zoneAbbr(), olson: tzItem}))
+	const timeZonesList = useMemo(() => {
+		let tzItems = TimeZoneOlsons()
 		
-		if (!!props.value && !tzItems.includes(props.value as string)) {
-			results.push({zone: '', olson: props.value as string})
+		if (!!props.value && !tzItems.map(tzItem => tzItem.olson).includes(props.value as string)) {
+			tzItems.push({zone: '', olson: props.value as string, hours: ''})
 		}
 		
-		return results
+		return tzItems
 	}, [])
 	
 	const valueTZ = useMemo(() => !props.value ? '' : moment.tz(props.value as string).zoneAbbr(), [props.value])

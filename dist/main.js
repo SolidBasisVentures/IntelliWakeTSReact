@@ -1566,12 +1566,11 @@ var InputTimeZone = function (props) {
         return subset;
     }, [props]);
     var timeZonesList = React.useMemo(function () {
-        var tzItems = moment__default$1['default'].tz.zonesForCountry('US');
-        var results = tzItems.map(function (tzItem) { return ({ zone: moment__default$1['default'].tz(tzItem).zoneAbbr(), olson: tzItem }); });
-        if (!!props.value && !tzItems.includes(props.value)) {
-            results.push({ zone: '', olson: props.value });
+        var tzItems = intelliwaketsfoundation.TimeZoneOlsons();
+        if (!!props.value && !tzItems.map(function (tzItem) { return tzItem.olson; }).includes(props.value)) {
+            tzItems.push({ zone: '', olson: props.value, hours: '' });
         }
-        return results;
+        return tzItems;
     }, []);
     var valueTZ = React.useMemo(function () { return !props.value ? '' : moment__default$1['default'].tz(props.value).zoneAbbr(); }, [props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
