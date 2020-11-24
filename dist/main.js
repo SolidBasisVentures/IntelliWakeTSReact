@@ -1565,15 +1565,33 @@ var InputTimeZone = function (props) {
         }
         return subset;
     }, [props]);
-    var timeZonesList = moment__default$1['default'].tz.zonesForCountry('US');
+    var timeZonesList = React.useMemo(function () {
+        var tzItems = moment__default$1['default'].tz.zonesForCountry('US');
+        var results = tzItems.map(function (tzItem) { return ({ zone: moment__default$1['default'].tz(tzItem).zoneAbbr(), olson: tzItem }); });
+        if (!!props.value && !tzItems.includes(props.value)) {
+            results.push({ zone: '', olson: props.value });
+        }
+        return results;
+    }, []);
+    var valueTZ = React.useMemo(function () { return !props.value ? '' : moment__default$1['default'].tz(props.value).zoneAbbr(); }, [props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(React__default['default'].Fragment, null,
+        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
+            valueTZ,
+            ":",
+            React__default['default'].createElement("span", { className: "text-muted" },
+                " ",
+                props.value)))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
+        valueTZ,
+        ":",
+        React__default['default'].createElement("span", { className: "text-muted" },
+            " ",
+            props.value)))) : (React__default['default'].createElement(React__default['default'].Fragment, null,
         React__default['default'].createElement(InputSelect, __assign({}, inputProps, { isStringOrNull: true }),
             React__default['default'].createElement("option", null),
-            timeZonesList.map(function (tzItem) { return (React__default['default'].createElement("option", { key: tzItem, value: tzItem },
-                "TZ: ",
-                tzItem)); }),
-            !!props.value && !timeZonesList.includes(props.value) && (React__default['default'].createElement("option", { value: props.value }, props.value)))))));
+            timeZonesList.map(function (tzItem) { return (React__default['default'].createElement("option", { key: tzItem.olson, value: tzItem.olson },
+                tzItem.zone,
+                ": ",
+                tzItem.olson)); }))))));
 };
 
 var InputUrl = function (props) {
