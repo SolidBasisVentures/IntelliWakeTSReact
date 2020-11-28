@@ -14,6 +14,7 @@ export interface IModalPromptProps {
     color?: string;
     okLabel?: string;
     okAction?: () => void;
+    okKeys?: (string)[] | string;
     promptResponses?: TModalPromptResponse;
     cancelLabel?: ReactNode;
     cancelColor?: string;

@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react'
 import {IIWQueryProps, IWServerData} from './IWServerData'
 
-export const ServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
+export const IWServerDataHOCExample = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	const setMessageBox = useCallback((_message: string, _color: string) => {}, []) // Call some global state to update a message
 	const setActivityOverlay = useCallback((_show: boolean) => {}, []) // Call some global state to show the global activity overlay
 	

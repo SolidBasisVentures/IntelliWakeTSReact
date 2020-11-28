@@ -11,6 +11,8 @@ export const KEY_TAB = 9
 export const KEY_BACKSPACE = 8
 export const KEY_ESCAPE = 27
 
+export const KEY_STRING_ENTER = 'Enter'
+
 export const ElementCustomValue = (e: React.ChangeEvent<HTMLInputElement>): any => {
 	const target: any = e.target
 

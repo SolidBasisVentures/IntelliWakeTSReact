@@ -193,6 +193,7 @@ var KEY_ENTER = 13;
 var KEY_TAB = 9;
 var KEY_BACKSPACE = 8;
 var KEY_ESCAPE = 27;
+var KEY_STRING_ENTER = 'Enter';
 var ElementCustomValue = function (e) {
     var target = e.target;
     if (!!target) {
@@ -1063,6 +1064,19 @@ var defaultRangeString = DateRangeToString(defaultRange);
 // 	showCaret: true,
 // 	borderless: false
 // } as Partial<IPropsDateRange>
+
+/**
+ * An array-driven drop down control
+ */
+var DDActions = function (props) {
+    var _a;
+    return React__default['default'].createElement(reactstrap.UncontrolledButtonDropdown, null,
+        React__default['default'].createElement(reactstrap.DropdownToggle, { caret: !props.noCaret, className: props.className },
+            props.faProps !== null && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, props.faProps, { fixedWidth: !!props.buttonText })), (_a = !!props.buttonText) !== null && _a !== void 0 ? _a : ''),
+        React__default['default'].createElement(reactstrap.DropdownMenu, null, props.ddActions.filter(function (ddAction) { return !ddAction.hidden; }).map(function (ddAction) {
+            return React__default['default'].createElement(reactstrap.DropdownItem, { disabled: !!ddAction.disabled, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return !!ddAction.action ? ddAction.action() : function () { }; } }, ddAction.title);
+        })));
+};
 
 var ReduceInputProps = function (props) {
     var subset = __assign({}, props);
@@ -2081,9 +2095,37 @@ var ModalPrompt = function (props) {
         if (canceled && !!props.cancelAction)
             props.cancelAction();
     }, [props.dismiss, props.cancelAction]);
+    var okAction = function () {
+        !!props.okAction && props.okAction();
+        dismiss(false);
+    };
+    var okKeyPress = function (e) {
+        if (!!props.okKeys) {
+            if (Array.isArray(props.okKeys)) {
+                for (var _i = 0, _a = props.okKeys; _i < _a.length; _i++) {
+                    var okKey = _a[_i];
+                    if (e.key === okKey) {
+                        okAction();
+                        break;
+                    }
+                }
+            }
+            else {
+                if (e.key === KEY_STRING_ENTER) {
+                    okAction();
+                }
+                else if (e.key === props.okKeys) {
+                    okAction();
+                }
+            }
+        }
+        else if (e.key === KEY_STRING_ENTER) {
+            okAction();
+        }
+    };
     return (React__default['default'].createElement(reactstrap.Modal, { backdrop: true, keyboard: true, isOpen: ((props.promptResponses !== null && props.promptResponses !== undefined) ||
             (!!props.okLabel && !!props.okAction)) &&
-            !props.hidden, toggle: function () { return dismiss(true); } },
+            !props.hidden, toggle: function () { return dismiss(true); }, onKeyPress: okKeyPress },
         React__default['default'].createElement(reactstrap.ModalHeader, { className: 'alert-' + ((_a = props.color) !== null && _a !== void 0 ? _a : 'primary') }, title),
         !!messageBody && React__default['default'].createElement(reactstrap.ModalBody, null, messageBody),
         React__default['default'].createElement(reactstrap.ModalFooter, null,
@@ -2096,10 +2138,7 @@ var ModalPrompt = function (props) {
                         dismiss(false);
                     }, outline: promptResponse.outline, color: (_b = (_a = promptResponse.color) !== null && _a !== void 0 ? _a : props.color) !== null && _b !== void 0 ? _b : 'primary', className: "ml-1" }, promptResponse.label));
             }),
-            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactstrap.Button, { onClick: function () {
-                    !!props.okAction && props.okAction();
-                    dismiss(false);
-                }, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1" }, props.okLabel)))));
+            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactstrap.Button, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1" }, props.okLabel)))));
 };
 
 var PromptOKCancel = function (props) {
@@ -2205,6 +2244,7 @@ exports.ComputeValue = ComputeValue;
 exports.CookieCreate = CookieCreate;
 exports.CookieErase = CookieErase;
 exports.CookieRead = CookieRead;
+exports.DDActions = DDActions;
 exports.DateRange = DateRange;
 exports.DateRangeCalendar = DateRangeCalendar;
 exports.DateRangeDateMomentToString = DateRangeDateMomentToString;
@@ -2254,6 +2294,7 @@ exports.KEY_ESCAPE = KEY_ESCAPE;
 exports.KEY_LEFT_ARROW = KEY_LEFT_ARROW;
 exports.KEY_RIGHT_ARROW = KEY_RIGHT_ARROW;
 exports.KEY_SPACE = KEY_SPACE;
+exports.KEY_STRING_ENTER = KEY_STRING_ENTER;
 exports.KEY_TAB = KEY_TAB;
 exports.KEY_UP_ARROW = KEY_UP_ARROW;
 exports.MDDetail = MDDetail;
