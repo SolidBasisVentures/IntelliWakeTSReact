@@ -8,7 +8,7 @@ export interface IDDAction {
     faProps?: FontAwesomeIconProps;
     faPropHidden?: boolean;
     title?: ReactNode;
-    action?: (() => void);
+    action?: () => void;
 }
 export interface IPropsDDActions {
     ddActions: IDDAction[];
