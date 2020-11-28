@@ -14,7 +14,7 @@ export interface IDDAction {
 	action?: () => void
 }
 
-interface IProps {
+export interface IPropsDDActions {
 	ddActions: IDDAction[]
 	noCaret?: boolean
 	buttonText?: ReactNode
@@ -25,7 +25,7 @@ interface IProps {
 /**
  * An array-driven drop down control
  */
-export const DDActions = (props: IProps) => {
+export const DDActions = (props: IPropsDDActions) => {
 	return <UncontrolledButtonDropdown>
 		<DropdownToggle caret={!props.noCaret} className={props.className}>
 			{props.faProps !== null && <FontAwesomeIcon icon={faCog} {...props.faProps} fixedWidth={!!props.buttonText}/>}
