@@ -22,7 +22,19 @@ export type TServerData<RES = any> = RES | undefined | null
  * An interface that allows for a script-driven API to occur.
  *
  * @example
- * const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedState<API_Employee_Save_Response, API_Employee_Save_Response>)
+ * const [serverDataUpdateProps, setServerDataUpdateProps] = useState<TServerDataUpdatedState>(null)
+ *
+ * setServerDataUpdateProps({
+ *   item: 'Employee',
+ *   updateVerb: 'Update',
+ *   updateRequest: {
+ *     id: 1,
+ *     name: 'Bob Smith'
+ *   },
+ *   updatedAction: (response) => {
+ *   		console.log(response)
+ *   }
+ * } as TServerDataUpdatedStateLocal<API_Employee_Update_Request, API_Employee_Update_Response>)
  *
  * <ServerData {...serverDataUpdateProps} setUpdateResponse={setServerDataUpdateProps} />
  */
@@ -57,7 +69,19 @@ export interface IServerDataUpdatedState<REQ = any, RES = any> {
  * An interface that allows for a script-driven API to occur.
  *
  * @example
- * const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedState<API_Employee_Save_Response, API_Employee_Save_Response>)
+ * const [serverDataUpdateProps, setServerDataUpdateProps] = useState<TServerDataUpdatedState>(null)
+ *
+ * setServerDataUpdateProps({
+ *   item: 'Employee',
+ *   updateVerb: 'Update',
+ *   updateRequest: {
+ *     id: 1,
+ *     name: 'Bob Smith'
+ *   },
+ *   updatedAction: (response) => {
+ *   		console.log(response)
+ *   }
+ * } as TServerDataUpdatedStateLocal<API_Employee_Update_Request, API_Employee_Update_Response>)
  *
  * <ServerData {...serverDataUpdateProps} setUpdateResponse={setServerDataUpdateProps} />
  */
@@ -141,7 +165,19 @@ export interface IIWQueryProps<REQ = any, RES = any> {
  * The below example assumes that a higher-order-component called ServerData has been created.
  *
  * @example
- * const [serverDataUpdateProps, setServerDataUpdateProps] = useState(null as TServerDataUpdatedState<API_Employee_Save_Response, API_Employee_Save_Response>)
+ * const [serverDataUpdateProps, setServerDataUpdateProps] = useState<TServerDataUpdatedState>(null)
+ *
+ * setServerDataUpdateProps({
+ *   item: 'Employee',
+ *   updateVerb: 'Update',
+ *   updateRequest: {
+ *     id: 1,
+ *     name: 'Bob Smith'
+ *   },
+ *   updatedAction: (response) => {
+ *   		console.log(response)
+ *   }
+ * } as TServerDataUpdatedStateLocal<API_Employee_Update_Request, API_Employee_Update_Response>)
  *
  * <ServerData {...serverDataUpdateProps} setUpdateResponse={setServerDataUpdateProps} />
  *
