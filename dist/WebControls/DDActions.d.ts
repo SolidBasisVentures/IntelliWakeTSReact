@@ -17,6 +17,9 @@ export interface IPropsDDActions {
     buttonText?: ReactNode;
     faProps?: FontAwesomeIconProps | null;
     className?: string;
+    color?: string;
+    right?: boolean;
+    size?: string;
 }
 /**
  * An array-driven drop down control

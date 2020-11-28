@@ -21,6 +21,9 @@ export interface IPropsDDActions {
 	buttonText?: ReactNode
 	faProps?: FontAwesomeIconProps | null
 	className?: string
+	color?: string
+	right?: boolean
+	size?: string
 }
 
 /**
@@ -32,11 +35,11 @@ export const DDActions = (props: IPropsDDActions) => {
 	if (!showDDActions) return null
 	
 	return <UncontrolledButtonDropdown>
-		<DropdownToggle caret={!props.noCaret} className={props.className}>
+		<DropdownToggle caret={!props.noCaret} className={props.className} color={props.color} size={props.size}>
 			{props.faProps !== null && <FontAwesomeIcon icon={faCog} {...props.faProps} fixedWidth={!!props.buttonText}/>}
 			{!!props.buttonText ?? ''}
 		</DropdownToggle>
-		<DropdownMenu>
+		<DropdownMenu right={props.right}>
 			{props.ddActions.filter(ddAction => !ddAction.hidden).map(ddAction =>
 			<DropdownItem disabled={!!ddAction.disabled} divider={!!ddAction.divider} header={!!ddAction.header} onClick={() => !!ddAction.action ? ddAction.action() : () => {}}>
 				{ddAction.title}

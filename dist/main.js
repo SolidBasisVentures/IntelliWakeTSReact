@@ -1074,9 +1074,9 @@ var DDActions = function (props) {
     if (!showDDActions)
         return null;
     return React__default['default'].createElement(reactstrap.UncontrolledButtonDropdown, null,
-        React__default['default'].createElement(reactstrap.DropdownToggle, { caret: !props.noCaret, className: props.className },
+        React__default['default'].createElement(reactstrap.DropdownToggle, { caret: !props.noCaret, className: props.className, color: props.color, size: props.size },
             props.faProps !== null && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, props.faProps, { fixedWidth: !!props.buttonText })), (_a = !!props.buttonText) !== null && _a !== void 0 ? _a : ''),
-        React__default['default'].createElement(reactstrap.DropdownMenu, null, props.ddActions.filter(function (ddAction) { return !ddAction.hidden; }).map(function (ddAction) {
+        React__default['default'].createElement(reactstrap.DropdownMenu, { right: props.right }, props.ddActions.filter(function (ddAction) { return !ddAction.hidden; }).map(function (ddAction) {
             return React__default['default'].createElement(reactstrap.DropdownItem, { disabled: !!ddAction.disabled, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return !!ddAction.action ? ddAction.action() : function () { }; } }, ddAction.title);
         })));
 };
