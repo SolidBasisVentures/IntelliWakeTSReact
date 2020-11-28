@@ -38,15 +38,16 @@ export const DDActions = (props: IPropsDDActions) => {
 	
 	return <UncontrolledButtonDropdown>
 		<DropdownToggle caret={!props.noCaret} className={props.className} color={props.color} size={props.size}>
-			{props.faProps !== null && <FontAwesomeIcon icon={faCog} {...props.faProps} fixedWidth={!!props.buttonText}/>}
+			{props.faProps !== null && <FontAwesomeIcon icon={faCog} {...props.faProps} fixedWidth={!!props.buttonText} />}
 			{!!props.buttonText ?? ''}
 		</DropdownToggle>
 		<DropdownMenu right={props.right}>
 			{props.ddActions.filter(ddAction => !ddAction.hidden).map((ddAction, idx) =>
-			<DropdownItem key={idx} disabled={!!ddAction.disabled} divider={!!ddAction.divider} header={!!ddAction.header} onClick={() => !!ddAction.action ? ddAction.action() : () => {}}>
-				{showFAProps && <FontAwesomeIcon icon={faCog} {...ddAction.faProps} className={(!ddAction.faProps || ddAction.faPropHidden) ? 'invisible' : ''} fixedWidth/>}
-				{ddAction.title}
-			</DropdownItem>
+				<DropdownItem key={idx} disabled={!!ddAction.disabled} divider={!!ddAction.divider} header={!!ddAction.header} onClick={() => !!ddAction.action ? ddAction.action() : () => {}}>
+					{showFAProps &&
+					<FontAwesomeIcon icon={faCog} {...ddAction.faProps} className={(!ddAction.faProps || ddAction.faPropHidden) ? 'invisible' : ''} fixedWidth />}
+					{ddAction.title}
+				</DropdownItem>
 			)}
 		</DropdownMenu>
 	</UncontrolledButtonDropdown>
