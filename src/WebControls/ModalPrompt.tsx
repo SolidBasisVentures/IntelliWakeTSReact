@@ -31,6 +31,19 @@ export interface IModalPromptProps {
 
 /**
  * A wrapper for Bootstrap's Modal that handles all the actions.
+ *
+ * @example
+ * const [modalPromptProps, setModalPromptProps] = useState<null | IModalPromptProps>(null)
+ *
+ * setModalPromptProps({
+ * 	title: 'Do action?',
+ * 	color: 'danger',
+ * 	messageBody: 'Are you sure you want to do the action?',
+ * 	okLabel: 'Do',
+ * 	okAction: () => {doAction()}
+ * 	})
+ *
+ * <ModalPrompt {...modalPromptProps} dismiss={setModalPromptProps} />
  */
 export const ModalPrompt = (props: IModalPromptProps) => {
 	const promptResponsesAsArray = useMemo(() => {
