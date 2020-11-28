@@ -42,8 +42,8 @@ export const DDActions = (props: IPropsDDActions) => {
 			{!!props.buttonText ?? ''}
 		</DropdownToggle>
 		<DropdownMenu right={props.right}>
-			{props.ddActions.filter(ddAction => !ddAction.hidden).map(ddAction =>
-			<DropdownItem disabled={!!ddAction.disabled} divider={!!ddAction.divider} header={!!ddAction.header} onClick={() => !!ddAction.action ? ddAction.action() : () => {}}>
+			{props.ddActions.filter(ddAction => !ddAction.hidden).map((ddAction, idx) =>
+			<DropdownItem key={idx} disabled={!!ddAction.disabled} divider={!!ddAction.divider} header={!!ddAction.header} onClick={() => !!ddAction.action ? ddAction.action() : () => {}}>
 				{showFAProps && <FontAwesomeIcon icon={faCog} {...ddAction.faProps} className={(!ddAction.faProps || ddAction.faPropHidden) ? 'invisible' : ''} fixedWidth/>}
 				{ddAction.title}
 			</DropdownItem>
