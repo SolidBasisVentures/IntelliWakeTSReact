@@ -12,6 +12,7 @@ export interface IDDAction {
 }
 export interface IPropsDDActions {
     ddActions: IDDAction[];
+    hidden?: boolean;
     noCaret?: boolean;
     buttonText?: ReactNode;
     faProps?: FontAwesomeIconProps | null;
@@ -20,4 +21,4 @@ export interface IPropsDDActions {
 /**
  * An array-driven drop down control
  */
-export declare const DDActions: (props: IPropsDDActions) => JSX.Element;
+export declare const DDActions: (props: IPropsDDActions) => JSX.Element | null;

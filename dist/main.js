@@ -1070,6 +1070,9 @@ var defaultRangeString = DateRangeToString(defaultRange);
  */
 var DDActions = function (props) {
     var _a;
+    var showDDActions = React.useMemo(function () { return !props.hidden && !!props.ddActions.find(function (ddAction) { return !ddAction.hidden; }); }, [props.ddActions, props.hidden]);
+    if (!showDDActions)
+        return null;
     return React__default['default'].createElement(reactstrap.UncontrolledButtonDropdown, null,
         React__default['default'].createElement(reactstrap.DropdownToggle, { caret: !props.noCaret, className: props.className },
             props.faProps !== null && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, props.faProps, { fixedWidth: !!props.buttonText })), (_a = !!props.buttonText) !== null && _a !== void 0 ? _a : ''),
