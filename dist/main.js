@@ -1071,13 +1071,16 @@ var defaultRangeString = DateRangeToString(defaultRange);
 var DDActions = function (props) {
     var _a;
     var showDDActions = React.useMemo(function () { return !props.hidden && !!props.ddActions.find(function (ddAction) { return !ddAction.hidden; }); }, [props.ddActions, props.hidden]);
+    var showFAProps = React.useMemo(function () { return !!props.ddActions.filter(function (ddAction) { return !ddAction.hidden; }).find(function (ddAction) { return !!ddAction.faProps; }); }, [props.ddActions]);
     if (!showDDActions)
         return null;
     return React__default['default'].createElement(reactstrap.UncontrolledButtonDropdown, null,
         React__default['default'].createElement(reactstrap.DropdownToggle, { caret: !props.noCaret, className: props.className, color: props.color, size: props.size },
             props.faProps !== null && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, props.faProps, { fixedWidth: !!props.buttonText })), (_a = !!props.buttonText) !== null && _a !== void 0 ? _a : ''),
         React__default['default'].createElement(reactstrap.DropdownMenu, { right: props.right }, props.ddActions.filter(function (ddAction) { return !ddAction.hidden; }).map(function (ddAction) {
-            return React__default['default'].createElement(reactstrap.DropdownItem, { disabled: !!ddAction.disabled, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return !!ddAction.action ? ddAction.action() : function () { }; } }, ddAction.title);
+            return React__default['default'].createElement(reactstrap.DropdownItem, { disabled: !!ddAction.disabled, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return !!ddAction.action ? ddAction.action() : function () { }; } },
+                showFAProps && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, ddAction.faProps, { className: (!ddAction.faProps || ddAction.faPropHidden) ? 'invisible' : '', fixedWidth: true })),
+                ddAction.title);
         })));
 };
 

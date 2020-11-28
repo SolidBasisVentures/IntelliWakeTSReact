@@ -5,7 +5,8 @@ export interface IDDAction {
     divider?: boolean;
     disabled?: boolean;
     header?: boolean;
-    faProp?: FontAwesomeIconProps;
+    faProps?: FontAwesomeIconProps;
+    faPropHidden?: boolean;
     title?: ReactNode;
     action?: () => void;
 }
