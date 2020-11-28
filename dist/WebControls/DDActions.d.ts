@@ -7,7 +7,6 @@ export interface IDDAction {
     header?: boolean;
     faProp?: FontAwesomeIconProps;
     title?: ReactNode;
-    link?: string;
     action?: () => void;
 }
 export interface IPropsDDActions {
