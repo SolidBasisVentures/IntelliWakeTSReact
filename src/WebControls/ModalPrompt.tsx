@@ -1,4 +1,4 @@
-import React, {ReactNode, useCallback, useMemo, useRef} from 'react'
+import React, {ReactNode, useCallback, useEffect, useMemo, useRef} from 'react'
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import {EvaluateString, TVariables} from '@solidbasisventures/intelliwaketsfoundation'
 import {KEY_STRING_ENTER} from '../Functions'
@@ -69,6 +69,12 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 		return EvaluateString(props.messageBody, props.variables)
 	}, [props.messageBody, props.variables])
 	
+	const isOpen = useMemo(() =>
+		((props.promptResponses !== null && props.promptResponses !== undefined) ||
+			(!!props.okLabel && !!props.okAction)) &&
+		!props.hidden
+	, [props.promptResponses, props.okLabel, props.okAction, props.hidden])
+	
 	const dismiss = useCallback(
 		(canceled: boolean) => {
 			if (!!props.dismiss) props.dismiss(null, canceled)
@@ -105,12 +111,18 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 		}
 	}
 	
+	useEffect(() => {
+		if (isOpen) {
+			setTimeout(() => {
+				if (!!okButton.current) {
+					okButton.current.focus()
+				}
+			}, 500)
+		}
+	}, [isOpen])
+	
 	return (
-		<Modal backdrop keyboard isOpen={
-			((props.promptResponses !== null && props.promptResponses !== undefined) ||
-				(!!props.okLabel && !!props.okAction)) &&
-			!props.hidden
-		} toggle={() => dismiss(true)}>
+		<Modal backdrop keyboard isOpen={isOpen} toggle={() => dismiss(true)}>
 			<ModalHeader className={'alert-' + (props.color ?? 'primary')}>{title}</ModalHeader>
 			{!!messageBody && <ModalBody>{messageBody}</ModalBody>}
 			<ModalFooter>

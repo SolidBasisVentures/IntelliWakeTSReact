@@ -2126,6 +2126,11 @@ var ModalPrompt = function (props) {
             return props.messageBody;
         return intelliwaketsfoundation.EvaluateString(props.messageBody, props.variables);
     }, [props.messageBody, props.variables]);
+    var isOpen = React.useMemo(function () {
+        return ((props.promptResponses !== null && props.promptResponses !== undefined) ||
+            (!!props.okLabel && !!props.okAction)) &&
+            !props.hidden;
+    }, [props.promptResponses, props.okLabel, props.okAction, props.hidden]);
     var dismiss = React.useCallback(function (canceled) {
         if (!!props.dismiss)
             props.dismiss(null, canceled);
@@ -2161,9 +2166,16 @@ var ModalPrompt = function (props) {
             okAction();
         }
     };
-    return (React__default['default'].createElement(reactstrap.Modal, { backdrop: true, keyboard: true, isOpen: ((props.promptResponses !== null && props.promptResponses !== undefined) ||
-            (!!props.okLabel && !!props.okAction)) &&
-            !props.hidden, toggle: function () { return dismiss(true); } },
+    React.useEffect(function () {
+        if (isOpen) {
+            setTimeout(function () {
+                if (!!okButton.current) {
+                    okButton.current.focus();
+                }
+            }, 500);
+        }
+    }, [isOpen]);
+    return (React__default['default'].createElement(reactstrap.Modal, { backdrop: true, keyboard: true, isOpen: isOpen, toggle: function () { return dismiss(true); } },
         React__default['default'].createElement(reactstrap.ModalHeader, { className: 'alert-' + ((_a = props.color) !== null && _a !== void 0 ? _a : 'primary') }, title),
         !!messageBody && React__default['default'].createElement(reactstrap.ModalBody, null, messageBody),
         React__default['default'].createElement(reactstrap.ModalFooter, null,
