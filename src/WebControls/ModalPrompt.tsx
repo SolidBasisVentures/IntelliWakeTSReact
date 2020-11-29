@@ -129,7 +129,7 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 					</Button>
 				))}
 				{!!props.okLabel && !!props.okAction && (
-					<Button onClick={okAction} color={props.color ?? props.color ?? 'primary'} className="ml-1">
+					<Button onClick={okAction} color={props.color ?? props.color ?? 'primary'} className="ml-1" autoFocus>
 						{props.okLabel}
 					</Button>
 				)}
