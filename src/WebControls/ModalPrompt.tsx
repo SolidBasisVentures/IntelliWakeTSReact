@@ -83,6 +83,8 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 	}
 	
 	const okKeyPress = (e: React.KeyboardEvent) => {
+		console.log('key', e.key)
+		
 		if (!!props.okKeys) {
 			if (Array.isArray(props.okKeys)) {
 				for (const okKey of props.okKeys) {

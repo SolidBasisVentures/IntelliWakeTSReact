@@ -2137,6 +2137,7 @@ var ModalPrompt = function (props) {
         dismiss(false);
     };
     var okKeyPress = function (e) {
+        console.log('key', e.key);
         if (!!props.okKeys) {
             if (Array.isArray(props.okKeys)) {
                 for (var _i = 0, _a = props.okKeys; _i < _a.length; _i++) {
