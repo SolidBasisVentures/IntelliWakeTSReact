@@ -1647,7 +1647,23 @@ var InputZip = function (props) {
  * The below example assumes that a higher-order-component called ServerData has been created.
  *
  * @example
+ * const [serverDataUpdateProps, setServerDataUpdateProps] = useState<TServerDataUpdatedState>(null)
  *
+ * setServerDataUpdateProps({
+ *   item: 'Employee',
+ *   updateVerb: 'Update',
+ *   updateRequest: {
+ *     id: 1,
+ *     name: 'Bob Smith'
+ *   },
+ *   updatedAction: (response) => {
+ *   		console.log(response)
+ *   }
+ * } as TServerDataUpdatedStateLocal<API_Employee_Update_Request, API_Employee_Update_Response>)
+ *
+ * <ServerData {...serverDataUpdateProps} setUpdateResponse={setServerDataUpdateProps} />
+ *
+ * @example
  * const apiEmployeeGetRequest: API_Employee_Get_Request = useMemo(() => {
  * 	return {id: props.id}
  * }, [props.id])
@@ -2158,7 +2174,7 @@ var ModalPrompt = function (props) {
                         dismiss(false);
                     }, outline: promptResponse.outline, color: (_b = (_a = promptResponse.color) !== null && _a !== void 0 ? _a : props.color) !== null && _b !== void 0 ? _b : 'primary', className: "ml-1" }, promptResponse.label));
             }),
-            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactstrap.Button, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1" }, props.okLabel)))));
+            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactstrap.Button, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1", autoFocus: true }, props.okLabel)))));
 };
 
 var PromptOKCancel = function (props) {
