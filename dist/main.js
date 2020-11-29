@@ -2105,6 +2105,7 @@ var MessageBox = function (props) {
  */
 var ModalPrompt = function (props) {
     var _a, _b, _c, _d, _e, _f;
+    var okButton = React.useRef(null);
     var promptResponsesAsArray = React.useMemo(function () {
         if (props.promptResponses === null || props.promptResponses === undefined)
             return [];
@@ -2161,7 +2162,7 @@ var ModalPrompt = function (props) {
     };
     return (React__default['default'].createElement(reactstrap.Modal, { backdrop: true, keyboard: true, isOpen: ((props.promptResponses !== null && props.promptResponses !== undefined) ||
             (!!props.okLabel && !!props.okAction)) &&
-            !props.hidden, toggle: function () { return dismiss(true); }, onKeyPress: okKeyPress },
+            !props.hidden, toggle: function () { return dismiss(true); } },
         React__default['default'].createElement(reactstrap.ModalHeader, { className: 'alert-' + ((_a = props.color) !== null && _a !== void 0 ? _a : 'primary') }, title),
         !!messageBody && React__default['default'].createElement(reactstrap.ModalBody, null, messageBody),
         React__default['default'].createElement(reactstrap.ModalFooter, null,
@@ -2174,7 +2175,7 @@ var ModalPrompt = function (props) {
                         dismiss(false);
                     }, outline: promptResponse.outline, color: (_b = (_a = promptResponse.color) !== null && _a !== void 0 ? _a : props.color) !== null && _b !== void 0 ? _b : 'primary', className: "ml-1" }, promptResponse.label));
             }),
-            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactstrap.Button, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1", autoFocus: true }, props.okLabel)))));
+            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactstrap.Button, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1", innerRef: function (element) { okButton.current = element; }, onKeyPress: okKeyPress, autoFocus: true, tabIndex: 0 }, props.okLabel)))));
 };
 
 var PromptOKCancel = function (props) {

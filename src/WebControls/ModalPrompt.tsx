@@ -1,4 +1,4 @@
-import React, {ReactNode, useCallback, useMemo} from 'react'
+import React, {ReactNode, useCallback, useMemo, useRef} from 'react'
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import {EvaluateString, TVariables} from '@solidbasisventures/intelliwaketsfoundation'
 import {KEY_STRING_ENTER} from '../Functions'
@@ -46,6 +46,7 @@ export interface IModalPromptProps {
  * <ModalPrompt {...modalPromptProps} dismiss={setModalPromptProps} />
  */
 export const ModalPrompt = (props: IModalPromptProps) => {
+	const okButton = useRef<HTMLButtonElement | null>(null)
 	const promptResponsesAsArray = useMemo(() => {
 		if (props.promptResponses === null || props.promptResponses === undefined) return [] as IModalPromptResponse[]
 		
@@ -107,7 +108,7 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 			((props.promptResponses !== null && props.promptResponses !== undefined) ||
 				(!!props.okLabel && !!props.okAction)) &&
 			!props.hidden
-		} toggle={() => dismiss(true)} onKeyPress={okKeyPress}>
+		} toggle={() => dismiss(true)}>
 			<ModalHeader className={'alert-' + (props.color ?? 'primary')}>{title}</ModalHeader>
 			{!!messageBody && <ModalBody>{messageBody}</ModalBody>}
 			<ModalFooter>
@@ -129,7 +130,7 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 					</Button>
 				))}
 				{!!props.okLabel && !!props.okAction && (
-					<Button onClick={okAction} color={props.color ?? props.color ?? 'primary'} className="ml-1" autoFocus>
+					<Button onClick={okAction} color={props.color ?? props.color ?? 'primary'} className="ml-1" innerRef={(element) => {okButton.current = element}} onKeyPress={okKeyPress} autoFocus tabIndex={0}>
 						{props.okLabel}
 					</Button>
 				)}
