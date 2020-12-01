@@ -1388,8 +1388,7 @@ var InputSearch = function (props) {
             props.onFocus(e);
         }
         if (!props.noSelectOnFocus) {
-            console.log('Here');
-            e.target.select();
+            setTimeout(e.target.select(), 500);
         }
     };
     return (React__default['default'].createElement(reactstrap.Input, { type: "search", inputMode: "search", className: classNames, value: currentText, onChange: handleInputChange, onBlur: handleOnBlur, innerRef: props.innerRef, style: props.style, placeholder: props.placeholder, onKeyDown: handleKeyDown, id: props.id, autoFocus: props.autoFocus, onFocus: handleOnFocus }));

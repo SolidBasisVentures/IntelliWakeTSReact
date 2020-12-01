@@ -78,8 +78,7 @@ export const InputSearch = (props: IPropsInputSearch) => {
 		}
 		
 		if (!props.noSelectOnFocus) {
-			console.log('Here')
-			e.target.select()
+			setTimeout(e.target.select(), 500)
 		}
 	}
 	
