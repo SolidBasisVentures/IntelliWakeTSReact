@@ -9,6 +9,13 @@ export declare const KEY_TAB = 9;
 export declare const KEY_BACKSPACE = 8;
 export declare const KEY_ESCAPE = 27;
 export declare const KEY_STRING_ENTER = "Enter";
+export declare const KEY_STRING_DOWN_ARROW = "ArrowDown";
+export declare const KEY_STRING_UP_ARROW = "ArrowUp";
+export declare const KEY_STRING_LEFT_ARROW = "ArrowLeft";
+export declare const KEY_STRING_RIGHT_ARROW = "ArrowRight";
+export declare const KEY_STRING_TAB = "Tab";
+export declare const KEY_STRING_BACKSPACE = "Backspace";
+export declare const KEY_STRING_ESCAPE = "Escape";
 export declare const ElementCustomValue: (e: React.ChangeEvent<HTMLInputElement>) => any;
 export declare const ClassNames: (classes: {
     [key: string]: boolean;

@@ -1,4 +1,4 @@
-import React, {ReactNode, useCallback, useEffect, useMemo, useRef} from 'react'
+import React, {ReactNode, useCallback, useMemo} from 'react'
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import {EvaluateString, TVariables} from '@solidbasisventures/intelliwaketsfoundation'
 import {KEY_STRING_ENTER} from '../Functions'
@@ -46,7 +46,6 @@ export interface IModalPromptProps {
  * <ModalPrompt {...modalPromptProps} dismiss={setModalPromptProps} />
  */
 export const ModalPrompt = (props: IModalPromptProps) => {
-	const okButton = useRef<HTMLButtonElement | null>(null)
 	const promptResponsesAsArray = useMemo(() => {
 		if (props.promptResponses === null || props.promptResponses === undefined) return [] as IModalPromptResponse[]
 		
@@ -89,8 +88,6 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 	}
 	
 	const okKeyPress = (e: React.KeyboardEvent) => {
-		console.log('key', e.key)
-		
 		if (!!props.okKeys) {
 			if (Array.isArray(props.okKeys)) {
 				for (const okKey of props.okKeys) {
@@ -111,18 +108,8 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 		}
 	}
 	
-	useEffect(() => {
-		if (isOpen) {
-			setTimeout(() => {
-				if (!!okButton.current) {
-					okButton.current.focus()
-				}
-			}, 500)
-		}
-	}, [isOpen])
-	
 	return (
-		<Modal backdrop keyboard isOpen={isOpen} toggle={() => dismiss(true)}>
+		<Modal backdrop keyboard isOpen={isOpen} toggle={() => dismiss(true)} autoFocus={false}>
 			<ModalHeader className={'alert-' + (props.color ?? 'primary')}>{title}</ModalHeader>
 			{!!messageBody && <ModalBody>{messageBody}</ModalBody>}
 			<ModalFooter>
@@ -144,7 +131,7 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 					</Button>
 				))}
 				{!!props.okLabel && !!props.okAction && (
-					<Button onClick={okAction} color={props.color ?? props.color ?? 'primary'} className="ml-1" innerRef={(element) => {okButton.current = element}} onKeyPress={okKeyPress} autoFocus tabIndex={0}>
+					<Button onClick={okAction} color={props.color ?? props.color ?? 'primary'} className="ml-1" onKeyPress={okKeyPress} autoFocus tabIndex={0}>
 						{props.okLabel}
 					</Button>
 				)}

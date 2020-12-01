@@ -12,6 +12,13 @@ export const KEY_BACKSPACE = 8
 export const KEY_ESCAPE = 27
 
 export const KEY_STRING_ENTER = 'Enter'
+export const KEY_STRING_DOWN_ARROW = 'ArrowDown'
+export const KEY_STRING_UP_ARROW = 'ArrowUp'
+export const KEY_STRING_LEFT_ARROW = 'ArrowLeft'
+export const KEY_STRING_RIGHT_ARROW = 'ArrowRight'
+export const KEY_STRING_TAB = 'Tab'
+export const KEY_STRING_BACKSPACE = 'Backspace'
+export const KEY_STRING_ESCAPE = 'Escape'
 
 export const ElementCustomValue = (e: React.ChangeEvent<HTMLInputElement>): any => {
 	const target: any = e.target

@@ -194,6 +194,13 @@ var KEY_TAB = 9;
 var KEY_BACKSPACE = 8;
 var KEY_ESCAPE = 27;
 var KEY_STRING_ENTER = 'Enter';
+var KEY_STRING_DOWN_ARROW = 'ArrowDown';
+var KEY_STRING_UP_ARROW = 'ArrowUp';
+var KEY_STRING_LEFT_ARROW = 'ArrowLeft';
+var KEY_STRING_RIGHT_ARROW = 'ArrowRight';
+var KEY_STRING_TAB = 'Tab';
+var KEY_STRING_BACKSPACE = 'Backspace';
+var KEY_STRING_ESCAPE = 'Escape';
 var ElementCustomValue = function (e) {
     var target = e.target;
     if (!!target) {
@@ -2105,7 +2112,6 @@ var MessageBox = function (props) {
  */
 var ModalPrompt = function (props) {
     var _a, _b, _c, _d, _e, _f;
-    var okButton = React.useRef(null);
     var promptResponsesAsArray = React.useMemo(function () {
         if (props.promptResponses === null || props.promptResponses === undefined)
             return [];
@@ -2142,7 +2148,6 @@ var ModalPrompt = function (props) {
         dismiss(false);
     };
     var okKeyPress = function (e) {
-        console.log('key', e.key);
         if (!!props.okKeys) {
             if (Array.isArray(props.okKeys)) {
                 for (var _i = 0, _a = props.okKeys; _i < _a.length; _i++) {
@@ -2166,16 +2171,7 @@ var ModalPrompt = function (props) {
             okAction();
         }
     };
-    React.useEffect(function () {
-        if (isOpen) {
-            setTimeout(function () {
-                if (!!okButton.current) {
-                    okButton.current.focus();
-                }
-            }, 500);
-        }
-    }, [isOpen]);
-    return (React__default['default'].createElement(reactstrap.Modal, { backdrop: true, keyboard: true, isOpen: isOpen, toggle: function () { return dismiss(true); } },
+    return (React__default['default'].createElement(reactstrap.Modal, { backdrop: true, keyboard: true, isOpen: isOpen, toggle: function () { return dismiss(true); }, autoFocus: false },
         React__default['default'].createElement(reactstrap.ModalHeader, { className: 'alert-' + ((_a = props.color) !== null && _a !== void 0 ? _a : 'primary') }, title),
         !!messageBody && React__default['default'].createElement(reactstrap.ModalBody, null, messageBody),
         React__default['default'].createElement(reactstrap.ModalFooter, null,
@@ -2188,7 +2184,7 @@ var ModalPrompt = function (props) {
                         dismiss(false);
                     }, outline: promptResponse.outline, color: (_b = (_a = promptResponse.color) !== null && _a !== void 0 ? _a : props.color) !== null && _b !== void 0 ? _b : 'primary', className: "ml-1" }, promptResponse.label));
             }),
-            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactstrap.Button, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1", innerRef: function (element) { okButton.current = element; }, onKeyPress: okKeyPress, autoFocus: true, tabIndex: 0 }, props.okLabel)))));
+            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactstrap.Button, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1", onKeyPress: okKeyPress, autoFocus: true, tabIndex: 0 }, props.okLabel)))));
 };
 
 var PromptOKCancel = function (props) {
@@ -2344,7 +2340,14 @@ exports.KEY_ESCAPE = KEY_ESCAPE;
 exports.KEY_LEFT_ARROW = KEY_LEFT_ARROW;
 exports.KEY_RIGHT_ARROW = KEY_RIGHT_ARROW;
 exports.KEY_SPACE = KEY_SPACE;
+exports.KEY_STRING_BACKSPACE = KEY_STRING_BACKSPACE;
+exports.KEY_STRING_DOWN_ARROW = KEY_STRING_DOWN_ARROW;
 exports.KEY_STRING_ENTER = KEY_STRING_ENTER;
+exports.KEY_STRING_ESCAPE = KEY_STRING_ESCAPE;
+exports.KEY_STRING_LEFT_ARROW = KEY_STRING_LEFT_ARROW;
+exports.KEY_STRING_RIGHT_ARROW = KEY_STRING_RIGHT_ARROW;
+exports.KEY_STRING_TAB = KEY_STRING_TAB;
+exports.KEY_STRING_UP_ARROW = KEY_STRING_UP_ARROW;
 exports.KEY_TAB = KEY_TAB;
 exports.KEY_UP_ARROW = KEY_UP_ARROW;
 exports.MDDetail = MDDetail;
