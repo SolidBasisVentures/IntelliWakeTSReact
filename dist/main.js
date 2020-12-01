@@ -1341,6 +1341,7 @@ var InputRadio = function (props) {
  */
 var InputSearch = function (props) {
     var _a, _b;
+    var inputRef = React.useRef();
     var triggeredText = React.useRef((_a = props.initialValue) !== null && _a !== void 0 ? _a : '');
     var searchTimeout = React.useRef(setTimeout(function () { }, 100));
     var _c = React.useState(''), currentText = _c[0], setCurrentText = _c[1];
@@ -1388,10 +1389,19 @@ var InputSearch = function (props) {
             props.onFocus(e);
         }
         if (!props.noSelectOnFocus) {
-            setTimeout(e.target.select(), 500);
+            setTimeout(function () {
+                if (!!inputRef.current) {
+                    inputRef.current.select();
+                }
+            }, 250);
         }
     };
-    return (React__default['default'].createElement(reactstrap.Input, { type: "search", inputMode: "search", className: classNames, value: currentText, onChange: handleInputChange, onBlur: handleOnBlur, innerRef: props.innerRef, style: props.style, placeholder: props.placeholder, onKeyDown: handleKeyDown, id: props.id, autoFocus: props.autoFocus, onFocus: handleOnFocus }));
+    return (React__default['default'].createElement(reactstrap.Input, { type: "search", inputMode: "search", className: classNames, value: currentText, onChange: handleInputChange, onBlur: handleOnBlur, innerRef: function (ref) {
+            if (!!props.innerRef) {
+                props.innerRef(ref);
+            }
+            inputRef.current = ref;
+        }, style: props.style, placeholder: props.placeholder, onKeyDown: handleKeyDown, id: props.id, autoFocus: props.autoFocus, onFocus: handleOnFocus }));
 };
 
 var OptionsActive = [

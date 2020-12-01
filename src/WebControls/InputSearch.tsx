@@ -22,6 +22,7 @@ export interface IPropsInputSearch {
  * A search input with an option to have a trigger delay or not.
  */
 export const InputSearch = (props: IPropsInputSearch) => {
+	const inputRef = useRef<HTMLInputElement | null>()
 	const triggeredText = useRef(props.initialValue ?? '')
 	const searchTimeout = useRef(setTimeout(() => {}, 100))
 	const [currentText, setCurrentText] = useState('')
@@ -78,11 +79,21 @@ export const InputSearch = (props: IPropsInputSearch) => {
 		}
 		
 		if (!props.noSelectOnFocus) {
-			setTimeout(e.target.select(), 500)
+			setTimeout(() => {
+				if (!!inputRef.current) {
+					inputRef.current.select()
+				}
+			}, 250)
 		}
 	}
 	
 	return (
-		<Input type="search" inputMode="search" className={classNames} value={currentText} onChange={handleInputChange} onBlur={handleOnBlur} innerRef={props.innerRef} style={props.style} placeholder={props.placeholder} onKeyDown={handleKeyDown} id={props.id} autoFocus={props.autoFocus} onFocus={handleOnFocus} />
+		<Input type="search" inputMode="search" className={classNames} value={currentText} onChange={handleInputChange} onBlur={handleOnBlur} innerRef={ref => {
+			if (!!props.innerRef) {
+				props.innerRef(ref)
+			}
+			
+			inputRef.current = ref
+		}} style={props.style} placeholder={props.placeholder} onKeyDown={handleKeyDown} id={props.id} autoFocus={props.autoFocus} onFocus={handleOnFocus} />
 	)
 }
