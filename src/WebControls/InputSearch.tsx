@@ -25,11 +25,11 @@ export const InputSearch = (props: IPropsInputSearch) => {
 	const triggeredText = useRef(props.initialValue ?? '')
 	const searchTimeout = useRef(setTimeout(() => {}, 100))
 	const [currentText, setCurrentText] = useState('')
-
+	
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value ?? ''
 		setCurrentText(value)
-
+		
 		if (!!props.triggerDelayAmount) {
 			clearTimeout(searchTimeout.current)
 			searchTimeout.current = setTimeout(() => {
@@ -39,64 +39,51 @@ export const InputSearch = (props: IPropsInputSearch) => {
 			props.triggerSearchText(value)
 		}
 	}
-
+	
 	const handleKeyDown = (e: React.KeyboardEvent) => {
 		if (e.keyCode === 13) {
 			clearTimeout(searchTimeout.current)
 			triggerChange()
 		}
-
+		
 		if (!!props.onKeyDown) {
 			props.onKeyDown(e)
 		}
 	}
-
+	
 	const handleOnBlur = () => {
 		clearTimeout(searchTimeout.current)
 		triggerChange()
 	}
-
+	
 	const triggerChange = (searchText?: string) => {
 		const textToSearch = searchText ?? currentText
-
+		
 		if (textToSearch !== triggeredText.current) {
 			triggeredText.current = textToSearch
 			props.triggerSearchText(textToSearch)
 		}
 	}
-
+	
 	useEffect(() => {
 		setCurrentText(props.initialValue ?? '')
 	}, [props.initialValue])
-
+	
 	const classNames =
 		'inputSearch ' + (props.className ?? '') + ' ' + (!!props.bordered ? '' : ' bg-transparent border-0')
 	
 	const handleOnFocus = (e: any) => {
 		if (!!props.onFocus) {
 			props.onFocus(e)
-		} else {
-			if (!props.noSelectOnFocus) {
-				e.target.select()
-			}
+		}
+		
+		if (!props.noSelectOnFocus) {
+			console.log('Here')
+			e.target.select()
 		}
 	}
-
+	
 	return (
-		<Input
-			type="search"
-			inputMode="search"
-			className={classNames}
-			value={currentText}
-			onChange={handleInputChange}
-			onBlur={handleOnBlur}
-			innerRef={props.innerRef}
-			style={props.style}
-			placeholder={props.placeholder}
-			onKeyDown={handleKeyDown}
-			id={props.id}
-			autoFocus={props.autoFocus}
-			onFocus={handleOnFocus}
-		/>
+		<Input type="search" inputMode="search" className={classNames} value={currentText} onChange={handleInputChange} onBlur={handleOnBlur} innerRef={props.innerRef} style={props.style} placeholder={props.placeholder} onKeyDown={handleKeyDown} id={props.id} autoFocus={props.autoFocus} onFocus={handleOnFocus} />
 	)
 }
