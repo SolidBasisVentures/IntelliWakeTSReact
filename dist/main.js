@@ -1383,7 +1383,17 @@ var InputSearch = function (props) {
         setCurrentText((_a = props.initialValue) !== null && _a !== void 0 ? _a : '');
     }, [props.initialValue]);
     var classNames = 'inputSearch ' + ((_b = props.className) !== null && _b !== void 0 ? _b : '') + ' ' + (!!props.bordered ? '' : ' bg-transparent border-0');
-    return (React__default['default'].createElement(reactstrap.Input, { type: "search", inputMode: "search", className: classNames, value: currentText, onChange: handleInputChange, onBlur: handleOnBlur, innerRef: props.innerRef, style: props.style, placeholder: props.placeholder, onKeyDown: handleKeyDown, id: props.id, autoFocus: props.autoFocus }));
+    var handleOnFocus = function (e) {
+        if (!!props.onFocus) {
+            props.onFocus(e);
+        }
+        else {
+            if (!props.noSelectOnFocus) {
+                e.target.select();
+            }
+        }
+    };
+    return (React__default['default'].createElement(reactstrap.Input, { type: "search", inputMode: "search", className: classNames, value: currentText, onChange: handleInputChange, onBlur: handleOnBlur, innerRef: props.innerRef, style: props.style, placeholder: props.placeholder, onKeyDown: handleKeyDown, id: props.id, autoFocus: props.autoFocus, onFocus: handleOnFocus }));
 };
 
 var OptionsActive = [

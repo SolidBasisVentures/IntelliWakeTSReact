@@ -12,6 +12,8 @@ export interface IPropsInputSearch {
     bordered?: boolean;
     autoFocus?: boolean;
     onKeyDown?: (e: React.KeyboardEvent) => void;
+    onFocus?: (e: React.FocusEvent) => void;
+    noSelectOnFocus?: boolean;
 }
 /**
  * A search input with an option to have a trigger delay or not.
