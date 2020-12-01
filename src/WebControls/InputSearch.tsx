@@ -14,6 +14,8 @@ export interface IPropsInputSearch {
 	bordered?: boolean
 	autoFocus?: boolean
 	onKeyDown?: (e: React.KeyboardEvent) => void
+	onFocus?: (e: React.FocusEvent) => void
+	noSelectOnFocus?: boolean
 }
 
 /**
@@ -69,6 +71,16 @@ export const InputSearch = (props: IPropsInputSearch) => {
 
 	const classNames =
 		'inputSearch ' + (props.className ?? '') + ' ' + (!!props.bordered ? '' : ' bg-transparent border-0')
+	
+	const handleOnFocus = (e: any) => {
+		if (!!props.onFocus) {
+			props.onFocus(e)
+		} else {
+			if (!props.noSelectOnFocus) {
+				e.target.select()
+			}
+		}
+	}
 
 	return (
 		<Input
@@ -84,6 +96,7 @@ export const InputSearch = (props: IPropsInputSearch) => {
 			onKeyDown={handleKeyDown}
 			id={props.id}
 			autoFocus={props.autoFocus}
+			onFocus={handleOnFocus}
 		/>
 	)
 }
