@@ -108,19 +108,14 @@
 }
 
 @media screen {
-  table.table-scrollable-screen {
+  table.table-scrollable {
     display: flex;
     flex-flow: column;
-    width: 100%;
-    margin: 0;
 
     > thead,
     > tfoot {
       display: table;
-      table-layout: fixed;
       flex: 0 0 auto;
-      //width: calc(100% - 0.9em);
-      width: 100%;
     }
 
     > tbody {
@@ -137,29 +132,13 @@
 }
 
 table.table-scrollable {
-  display: flex;
-  flex-flow: column;
   width: 100%;
   margin: 0;
 
   > thead,
   > tfoot {
-    display: table;
     table-layout: fixed;
-    flex: 0 0 auto;
-    //width: calc(100% - 0.9em);
     width: 100%;
-  }
-
-  > tbody {
-    flex: 1 1 auto;
-    display: block;
-
-    > tr {
-      display: table;
-      table-layout: fixed;
-      width: 100%;
-    }
   }
 }
 
@@ -591,16 +570,6 @@ table.table-sortable thead th {
   }
 
   table.table-scrollable {
-    max-height: 100%;
-    overflow: hidden;
-
-    > tbody {
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-  }
-
-  table.table-scrollable-screen {
     max-height: 100%;
     overflow: hidden;
 

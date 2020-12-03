@@ -78,43 +78,28 @@
     visibility: visible !important; } }
 
 @media screen {
-  table.table-scrollable-screen {
+  table.table-scrollable {
     display: flex;
-    flex-flow: column;
-    width: 100%;
-    margin: 0; }
-    table.table-scrollable-screen > thead,
-    table.table-scrollable-screen > tfoot {
+    flex-flow: column; }
+    table.table-scrollable > thead,
+    table.table-scrollable > tfoot {
       display: table;
-      table-layout: fixed;
-      flex: 0 0 auto;
-      width: 100%; }
-    table.table-scrollable-screen > tbody {
+      flex: 0 0 auto; }
+    table.table-scrollable > tbody {
       flex: 1 1 auto;
       display: block; }
-      table.table-scrollable-screen > tbody > tr {
+      table.table-scrollable > tbody > tr {
         display: table;
         table-layout: fixed;
         width: 100%; } }
 
 table.table-scrollable {
-  display: flex;
-  flex-flow: column;
   width: 100%;
   margin: 0; }
   table.table-scrollable > thead,
   table.table-scrollable > tfoot {
-    display: table;
     table-layout: fixed;
-    flex: 0 0 auto;
     width: 100%; }
-  table.table-scrollable > tbody {
-    flex: 1 1 auto;
-    display: block; }
-    table.table-scrollable > tbody > tr {
-      display: table;
-      table-layout: fixed;
-      width: 100%; }
 
 .numerics, .integers, .numbers, input[type="number"] {
   text-align: right; }
@@ -397,12 +382,6 @@ table.table-sortable thead th {
     max-height: 100%;
     overflow: hidden; }
     table.table-scrollable > tbody {
-      overflow-y: auto;
-      overflow-x: hidden; }
-  table.table-scrollable-screen {
-    max-height: 100%;
-    overflow: hidden; }
-    table.table-scrollable-screen > tbody {
       overflow-y: auto;
       overflow-x: hidden; }
   .modal-content {
