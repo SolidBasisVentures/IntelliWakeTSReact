@@ -77,22 +77,6 @@
   .invisible-lg-larger {
     visibility: visible !important; } }
 
-@media screen {
-  table.table-scrollable {
-    display: flex;
-    flex-flow: column; }
-    table.table-scrollable > thead,
-    table.table-scrollable > tfoot {
-      display: table;
-      flex: 0 0 auto; }
-    table.table-scrollable > tbody {
-      flex: 1 1 auto;
-      display: block; }
-      table.table-scrollable > tbody > tr {
-        display: table;
-        table-layout: fixed;
-        width: 100%; } }
-
 table.table-scrollable {
   width: 100%;
   margin: 0; }
@@ -359,6 +343,24 @@ table.table-sortable thead th {
     left: 0;
     z-index: 1030;
     height: 18px !important; }
+  table.table-scrollable {
+    display: flex;
+    flex-flow: column;
+    max-height: 100%;
+    overflow: hidden; }
+    table.table-scrollable > thead,
+    table.table-scrollable > tfoot {
+      display: table;
+      flex: 0 0 auto; }
+    table.table-scrollable > tbody {
+      flex: 1 1 auto;
+      display: block;
+      overflow-y: auto;
+      overflow-x: hidden; }
+      table.table-scrollable > tbody > tr {
+        display: table;
+        table-layout: fixed;
+        width: 100%; }
   .fill-height {
     overflow-y: hidden; }
   .fill-height,
@@ -378,12 +380,6 @@ table.table-sortable thead th {
     overflow-x: auto; }
   .vertical-scroll {
     overflow-y: auto; }
-  table.table-scrollable {
-    max-height: 100%;
-    overflow: hidden; }
-    table.table-scrollable > tbody {
-      overflow-y: auto;
-      overflow-x: hidden; }
   .modal-content {
     max-height: 85vh; }
     .modal-content .modal-body:not(.no-overflow-scroll) {

@@ -107,30 +107,6 @@
   }
 }
 
-@media screen {
-  table.table-scrollable {
-    display: flex;
-    flex-flow: column;
-
-    > thead,
-    > tfoot {
-      display: table;
-      flex: 0 0 auto;
-    }
-
-    > tbody {
-      flex: 1 1 auto;
-      display: block;
-
-      > tr {
-        display: table;
-        table-layout: fixed;
-        width: 100%;
-      }
-    }
-  }
-}
-
 table.table-scrollable {
   width: 100%;
   margin: 0;
@@ -534,6 +510,32 @@ table.table-sortable thead th {
     height: 18px !important;
   }
 
+  table.table-scrollable {
+    display: flex;
+    flex-flow: column;
+    max-height: 100%;
+    overflow: hidden;
+
+    > thead,
+    > tfoot {
+      display: table;
+      flex: 0 0 auto;
+    }
+
+    > tbody {
+      flex: 1 1 auto;
+      display: block;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      > tr {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+      }
+    }
+  }
+
   .fill-height {
     overflow-y: hidden;
   }
@@ -567,16 +569,6 @@ table.table-sortable thead th {
 
   .vertical-scroll {
     overflow-y: auto;
-  }
-
-  table.table-scrollable {
-    max-height: 100%;
-    overflow: hidden;
-
-    > tbody {
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
   }
 
   .modal-content {
