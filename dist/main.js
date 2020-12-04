@@ -1550,11 +1550,13 @@ var InputText = function (props) {
 
 var InputTextArea = function (props) {
     var inputProps = React.useMemo(function () {
+        var _a;
         var subset = ReduceInputProps(props);
         delete subset.plainText;
         delete subset.plainTextProps;
         delete subset.bordered;
         delete subset.onChange;
+        subset.value = (_a = props.value) !== null && _a !== void 0 ? _a : '';
         return subset;
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: 'form-control-plaintext vertical-scroll horizontal-scroll' + (!!props.bordered ? ' border' : '') }, props.plainTextProps, { dangerouslySetInnerHTML: { __html: intelliwaketsfoundation.ReplaceLinks(intelliwaketsfoundation.CleanScripts('' + props.value)) }, style: {
