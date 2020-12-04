@@ -10,11 +10,13 @@ interface IProps extends IIWInputProps {
 
 export const InputTextArea = (props: IProps) => {
 	const inputProps = useMemo(() => {
-		const subset = ReduceInputProps(props)
+		let subset = ReduceInputProps(props)
 		delete subset.plainText
 		delete subset.plainTextProps
 		delete subset.bordered
 		delete subset.onChange
+		
+		subset.value = props.value ?? ''
 
 		return subset
 	}, [props])
