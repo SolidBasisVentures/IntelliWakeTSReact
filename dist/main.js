@@ -1195,6 +1195,7 @@ var InputDatePicker = function (props) {
 };
 
 var InputEmail = function (props) {
+    var _a;
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         if (subset.autoComplete === undefined) {
@@ -1203,7 +1204,7 @@ var InputEmail = function (props) {
         return subset;
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.value ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
-        React__default['default'].createElement("a", { href: 'mailto:' + props.value }, props.value))) : null) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "email", inputMode: "email", className: "inputEmail" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
+        React__default['default'].createElement("a", { href: 'mailto:' + props.value }, props.value))) : null) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "email", inputMode: "email", className: "inputEmail" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
 };
 
 var InputSelect = function (props) {
@@ -1249,8 +1250,8 @@ var InputGender = function (props) {
 };
 
 var InputNumber = function (props) {
-    var _a, _b, _c;
-    var _d = React.useState(undefined), currentStringOverride = _d[0], setCurrentStringOverride = _d[1];
+    var _a, _b, _c, _d;
+    var _e = React.useState(undefined), currentStringOverride = _e[0], setCurrentStringOverride = _e[1];
     var handleKeyDown = function (e) {
         if (e.key === '-') {
             if (!(props.lowerBound !== undefined && props.lowerBound < 0)) {
@@ -1318,7 +1319,7 @@ var InputNumber = function (props) {
         : null)) : (React__default['default'].createElement(Cleave__default['default'], { options: options, className: props.className +
             ' inputNumber form-control ' +
             (hasDecimals ? 'numerics' : 'integers') +
-            (!!props.invalid ? ' is-invalid' : ''), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: props.onBlur, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : 'off', placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id }))));
+            (!!props.invalid ? ' is-invalid' : ''), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: props.onBlur, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_d = props.name) !== null && _d !== void 0 ? _d : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id }))));
 };
 // !== undefined
 // 							? currentStringOverride
@@ -1401,7 +1402,7 @@ var InputSearch = function (props) {
                 props.innerRef(ref);
             }
             inputRef.current = ref;
-        }, style: props.style, placeholder: props.placeholder, onKeyDown: handleKeyDown, id: props.id, autoFocus: props.autoFocus, onFocus: handleOnFocus }));
+        }, style: props.style, placeholder: props.placeholder, onKeyDown: handleKeyDown, id: props.id, autoFocus: props.autoFocus, onFocus: handleOnFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + intelliwaketsfoundation.RandomString(12) }));
 };
 
 var OptionsActive = [
@@ -1440,7 +1441,7 @@ var InputSelectStep = function (props) {
 };
 
 var InputSSN = function (props) {
-    var _a, _b;
+    var _a, _b, _c;
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.plainTextLast4Only;
@@ -1450,10 +1451,11 @@ var InputSSN = function (props) {
         return subset;
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.plainTextLast4Only ? '...-' + ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString().substr(-4) : props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.plainTextLast4Only ? '...-' + ((_b = props.value) !== null && _b !== void 0 ? _b : '').toString().substr(-4) : props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputText" }, inputProps, { pattern: "\\d{3}-?\\d{2}-?\\d{4}", onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
+        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.plainTextLast4Only ? '...-' + ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString().substr(-4) : props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.plainTextLast4Only ? '...-' + ((_b = props.value) !== null && _b !== void 0 ? _b : '').toString().substr(-4) : props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputText" }, inputProps, { pattern: "\\d{3}-?\\d{2}-?\\d{4}", onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_c = props.name) !== null && _c !== void 0 ? _c : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
 };
 
 var InputState = function (props) {
+    var _a;
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.onChange;
@@ -1472,7 +1474,7 @@ var InputState = function (props) {
         }
     };
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputText" }, inputProps, { onChange: handleInputChange })))));
+        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputText" }, inputProps, { onChange: handleInputChange, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
 };
 
 var InputSwitch = function (props) {
@@ -1513,6 +1515,7 @@ var InputSwitchAlternate = function (props) {
 };
 
 var InputTel = function (props) {
+    var _a;
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.showFAIcon;
@@ -1527,14 +1530,14 @@ var InputTel = function (props) {
         return props.showFAIcon;
     }, [props.showFAIcon]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.FormatPhoneNumber(props.value))) : !faIconToShow ? (React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel", className: "inputTel" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } }))) : (React__default['default'].createElement(reactstrap.InputGroup, null,
-        React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel", className: "inputTel" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })),
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel", className: "inputTel" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })),
         React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "append" },
             React__default['default'].createElement(reactstrap.InputGroupText, null,
                 React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: faIconToShow })))))));
 };
 
 var InputText = function (props) {
-    var _a;
+    var _a, _b;
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.className;
@@ -1545,7 +1548,7 @@ var InputText = function (props) {
         return subset;
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: (_a = 'inputText ' + props.className) !== null && _a !== void 0 ? _a : '' }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
+        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: (_a = 'inputText ' + props.className) !== null && _a !== void 0 ? _a : '' }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_b = props.name) !== null && _b !== void 0 ? _b : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
 };
 
 var InputTextArea = function (props) {
@@ -1642,6 +1645,7 @@ var InputTimeZone = function (props) {
 };
 
 var InputUrl = function (props) {
+    var _a;
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.plainText;
@@ -1656,16 +1660,16 @@ var InputUrl = function (props) {
         return '' + props.value;
     }, [props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.value ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext ellipses-truncate" }, props.plainTextProps),
-        React__default['default'].createElement("a", { href: href, target: "_blank", rel: "noopener noreferrer" }, props.value))) : null) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "url", pattern: "https://.*", inputMode: "url", className: "inputUrl" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
+        React__default['default'].createElement("a", { href: href, target: "_blank", rel: "noopener noreferrer" }, props.value))) : null) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "url", pattern: "https://.*", inputMode: "url", className: "inputUrl" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
 };
 
 var InputZip = function (props) {
-    var _a;
+    var _a, _b;
     var inputProps = React.useMemo(function () {
         return ReduceInputProps(props);
     }, [props]);
     //pattern={!!props.withNine ? 'd{5}-?d{4}' : 'd{5}'}
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.FormatZip(((_a = props.value) !== null && _a !== void 0 ? _a : '').toString()))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputZip" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.FormatZip(((_a = props.value) !== null && _a !== void 0 ? _a : '').toString()))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputZip" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_b = props.name) !== null && _b !== void 0 ? _b : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
 };
 
 /**

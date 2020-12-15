@@ -1,3 +1,7 @@
 /// <reference types="react" />
 import { IIWInputProps } from './IWInputProps';
-export declare const InputText: (props: IIWInputProps) => JSX.Element;
+interface IProps extends IIWInputProps {
+    autoCompleteOn?: boolean;
+}
+export declare const InputText: (props: IProps) => JSX.Element;
+export {};
