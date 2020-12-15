@@ -42,6 +42,7 @@ export const InputTel = (props: IProps) => {
 					className="inputTel"
 					{...inputProps}
 					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
+					autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
 				/>
 			) : (
 				<InputGroup>

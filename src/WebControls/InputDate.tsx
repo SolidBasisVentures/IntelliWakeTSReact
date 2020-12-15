@@ -5,11 +5,12 @@ import {
 	MomentDateString,
 	MomentDisplayDayDate,
 	MomentDisplayDayDateTime,
-	MomentTimeString
+	MomentTimeString, RandomString
 } from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps extends IIWInputProps {
 	showTime?: boolean
+	autoCompleteOn?: boolean
 }
 
 const originalValue = ' '
@@ -70,6 +71,7 @@ export const InputDate = (props: IProps) => {
 					{...inputProps}
 					value={overrideValue ?? ''}
 					onChange={handleInputChange}
+					autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
 				/>
 			)}
 		</>

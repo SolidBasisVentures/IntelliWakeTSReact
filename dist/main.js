@@ -1131,9 +1131,10 @@ var InputColor = function (props) {
 
 var originalValue = ' ';
 var InputDate = function (props) {
+    var _a;
     var lastDateValue = React.useRef(originalValue);
     var nextDateValue = React.useRef(originalValue);
-    var _a = React.useState(originalValue), overrideValue = _a[0], setOverrideValue = _a[1];
+    var _b = React.useState(originalValue), overrideValue = _b[0], setOverrideValue = _b[1];
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.value;
@@ -1166,7 +1167,7 @@ var InputDate = function (props) {
     };
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.showTime && !!intelliwaketsfoundation.MomentTimeString(props.value)
         ? intelliwaketsfoundation.MomentDisplayDayDateTime(props.value)
-        : intelliwaketsfoundation.MomentDisplayDayDate(props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "date", className: "inputDate" }, inputProps, { value: overrideValue !== null && overrideValue !== void 0 ? overrideValue : '', onChange: handleInputChange })))));
+        : intelliwaketsfoundation.MomentDisplayDayDate(props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "date", className: "inputDate" }, inputProps, { value: overrideValue !== null && overrideValue !== void 0 ? overrideValue : '', onChange: handleInputChange, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
 };
 
 /**
@@ -1515,7 +1516,7 @@ var InputSwitchAlternate = function (props) {
 };
 
 var InputTel = function (props) {
-    var _a;
+    var _a, _b;
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.showFAIcon;
@@ -1529,8 +1530,8 @@ var InputTel = function (props) {
             return proRegularSvgIcons.faPhone;
         return props.showFAIcon;
     }, [props.showFAIcon]);
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.FormatPhoneNumber(props.value))) : !faIconToShow ? (React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel", className: "inputTel" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } }))) : (React__default['default'].createElement(reactstrap.InputGroup, null,
-        React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel", className: "inputTel" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })),
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.FormatPhoneNumber(props.value))) : !faIconToShow ? (React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel", className: "inputTel" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) }))) : (React__default['default'].createElement(reactstrap.InputGroup, null,
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel", className: "inputTel" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_b = props.name) !== null && _b !== void 0 ? _b : '') + "_" + intelliwaketsfoundation.RandomString(5) })),
         React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "append" },
             React__default['default'].createElement(reactstrap.InputGroupText, null,
                 React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: faIconToShow })))))));
