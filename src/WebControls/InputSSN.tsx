@@ -2,9 +2,11 @@ import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
 import {Link} from 'react-router-dom'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
+import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps extends IIWInputProps {
 	plainTextLast4Only?: boolean
+	autoCompleteOn?: boolean
 }
 
 export const InputSSN = (props: IProps) => {
@@ -40,6 +42,7 @@ export const InputSSN = (props: IProps) => {
 					{...inputProps}
 					pattern="\d{3}-?\d{2}-?\d{4}"
 					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
+					autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
 				/>
 			)}
 		</>

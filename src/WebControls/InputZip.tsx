@@ -1,11 +1,13 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
 import {IIWInputProps, ReduceInputProps, HandleChangeValue} from './IWInputProps'
-import {FormatZip} from '@solidbasisventures/intelliwaketsfoundation'
+import {FormatZip, RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
 export interface IZipProps extends IIWInputProps {
 	withNine?: boolean
+	autoCompleteOn?: boolean
 }
+
 
 export const InputZip = (props: IZipProps) => {
 	const inputProps = useMemo(() => {
@@ -26,6 +28,7 @@ export const InputZip = (props: IZipProps) => {
 					className="inputZip"
 					{...inputProps}
 					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
+					autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
 				/>
 			)}
 		</>

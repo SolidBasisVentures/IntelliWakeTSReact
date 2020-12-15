@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Input} from 'reactstrap'
+import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
 export interface IPropsInputSearch {
 	initialValue?: string
@@ -16,6 +17,7 @@ export interface IPropsInputSearch {
 	onKeyDown?: (e: React.KeyboardEvent) => void
 	onFocus?: (e: React.FocusEvent) => void
 	noSelectOnFocus?: boolean
+	autoCompleteOn?: boolean
 }
 
 /**
@@ -94,6 +96,6 @@ export const InputSearch = (props: IPropsInputSearch) => {
 			}
 			
 			inputRef.current = ref
-		}} style={props.style} placeholder={props.placeholder} onKeyDown={handleKeyDown} id={props.id} autoFocus={props.autoFocus} onFocus={handleOnFocus} />
+		}} style={props.style} placeholder={props.placeholder} onKeyDown={handleKeyDown} id={props.id} autoFocus={props.autoFocus} onFocus={handleOnFocus} autoComplete={props.autoCompleteOn ? 'on' : `AC_${RandomString(12)}`} />
 	)
 }

@@ -4,11 +4,12 @@ import {IconProp} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPhone} from '@fortawesome/pro-regular-svg-icons'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps, TChangeValueFunction} from './IWInputProps'
-import {FormatPhoneNumber} from '@solidbasisventures/intelliwaketsfoundation'
+import {FormatPhoneNumber, RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
 interface IProps extends IIWInputProps {
 	showFAIcon?: boolean | IconProp
 	changeValue?: TChangeValueFunction
+	autoCompleteOn?: boolean
 }
 
 export const InputTel = (props: IProps) => {
@@ -50,6 +51,7 @@ export const InputTel = (props: IProps) => {
 						className="inputTel"
 						{...inputProps}
 						onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
+						autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
 					/>
 					<InputGroupAddon addonType="append">
 						<InputGroupText>

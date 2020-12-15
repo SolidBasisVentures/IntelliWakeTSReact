@@ -1,8 +1,13 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
+import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
-export const InputEmail = (props: IIWInputProps) => {
+interface IProps extends IIWInputProps {
+	autoCompleteOn?: boolean
+}
+
+export const InputEmail = (props: IProps) => {
 	const inputProps = useMemo(() => {
 		const subset = ReduceInputProps(props)
 
@@ -28,6 +33,7 @@ export const InputEmail = (props: IIWInputProps) => {
 					className="inputEmail"
 					{...inputProps}
 					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
+					autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
 				/>
 			)}
 		</>

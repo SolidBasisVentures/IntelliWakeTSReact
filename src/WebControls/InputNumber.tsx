@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Cleave from 'cleave.js/react'
-import {CleanNumber, ToCurrency, ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
+import {CleanNumber, RandomString, ToCurrency, ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
 import {TChangeValueFunction} from './IWInputProps'
 
 export interface IPropsInputNumber {
@@ -121,7 +121,7 @@ export const InputNumber = (props: IPropsInputNumber) => {
 					htmlRef={props.htmlRef}
 					onKeyDown={handleKeyDown}
 					onFocus={handleFocus}
-					autoComplete={props.autoCompleteOn ? 'on' : 'off'}
+					autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
 					placeholder={props.placeholder}
 					required={props.required}
 					autoFocus={props.autoFocus}

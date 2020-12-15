@@ -2,8 +2,13 @@ import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
 import {Link} from 'react-router-dom'
 import {IIWInputProps, ReduceInputProps} from './IWInputProps'
+import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
-export const InputState = (props: IIWInputProps) => {
+interface IProps extends IIWInputProps {
+	autoCompleteOn?: boolean
+}
+
+export const InputState = (props: IProps) => {
 	const inputProps = useMemo(() => {
 		const subset = ReduceInputProps(props)
 		delete subset.onChange
@@ -42,7 +47,8 @@ export const InputState = (props: IIWInputProps) => {
 					</div>
 				)
 			) : (
-				<Input type="text" className="inputText" {...inputProps} onChange={handleInputChange} />
+				<Input type="text" className="inputText" {...inputProps} onChange={handleInputChange}
+							 autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}/>
 			)}
 		</>
 	)
