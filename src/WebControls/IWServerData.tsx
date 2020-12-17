@@ -454,6 +454,11 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 				!props.globalActivityOverlay &&
 				props.children !== undefined
 			} />
+			{showInProgressControl &&
+			!props.loadingReactNodes &&
+			!props.noActivityOverlay &&
+			!props.globalActivityOverlay &&
+			props.children !== undefined && 'UPDATING'}
 		</>
 	)
 }
