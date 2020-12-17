@@ -1744,7 +1744,7 @@ var IWServerData = function (props) {
     React.useEffect(function () {
         var _a, _b, _c;
         isMounted.current = true;
-        if (!inProgress.current) {
+        if (!inProgress.current && props.request !== null) {
             if (isGet || isUpdate) {
                 inProgress.current = true;
                 var currentTS = moment__default['default']().valueOf();

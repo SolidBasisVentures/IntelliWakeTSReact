@@ -100,7 +100,7 @@ export interface IIWQueryProps<REQ = any, RES = any> {
 	item?: string
 	/** Second item of URL */
 	verb?: string
-	/** Request package sent in the body of the POST.  If changed, will re-fire the API if this changes and noRefreshOnRequestChange is not true. */
+	/** Request package sent in the body of the POST.  If changed, will re-fire the API if this changes and noRefreshOnRequestChange is not true. Will run if undefined or defined, but will not run if request is null */
 	request?: REQ
 	/** The response object shared with the control.  Set to 'undefined' for the API to initiate. */
 	response?: TServerData<RES>
@@ -248,7 +248,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	useEffect(() => {
 		isMounted.current = true
 		
-		if (!inProgress.current) {
+		if (!inProgress.current && props.request !== null) {
 			if (isGet || isUpdate) {
 				inProgress.current = true
 				
