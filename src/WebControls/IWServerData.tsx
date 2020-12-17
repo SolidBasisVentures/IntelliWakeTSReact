@@ -390,9 +390,9 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 					}
 				})
 				.finally(() => {
-					if (isMounted.current) {
+					// if (isMounted.current) {
 						// cancelTokenSource.current = null
-					}
+					// }
 					!!finallyAction && finallyAction()
 					inProgress.current = false
 					if (isMounted.current) {
@@ -446,7 +446,11 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	)
 	
 	if (isGet || isUpdate) {
-		console.log(props.item, props.verb, showInProgressControl, isGet, isUpdate, (forceRedraw || !forceRedraw),
+		console.log(showInProgressControl &&
+			!props.loadingReactNodes &&
+			!props.noActivityOverlay &&
+			!props.globalActivityOverlay &&
+			!!props.children, props.item, props.verb, showInProgressControl, isGet, isUpdate, (forceRedraw || !forceRedraw),
 			!props.loadingReactNodes,
 			!props.noActivityOverlay,
 			!props.globalActivityOverlay,
