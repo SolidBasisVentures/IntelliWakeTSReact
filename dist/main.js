@@ -1920,6 +1920,9 @@ var IWServerData = function (props) {
         props.noCredentials
     ]);
     var showInProgressControl = React.useMemo(function () { return (isGet || isUpdate || (forceRedraw && !forceRedraw)) && inProgress.current; }, [isGet, isUpdate, forceRedraw]);
+    if (isGet || isUpdate) {
+        console.log(props.item, props.verb, showInProgressControl, !props.loadingReactNodes, !props.noActivityOverlay, !props.globalActivityOverlay, !!props.children);
+    }
     return (React__default['default'].createElement(React__default['default'].Fragment, null,
         !!props.children && (props.response !== null || !props.failedReactNodes) && props.children,
         props.response === null && props.failedReactNodes,
