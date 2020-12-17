@@ -1881,6 +1881,10 @@ var IWServerData = function (props) {
                 inProgress.current = false;
                 if (isMounted.current) {
                     setForceRedraw(function (prevState) { return !prevState; });
+                    console.log('forcing redraw');
+                }
+                else {
+                    console.log('is not mounted');
                 }
             });
         }
@@ -1919,7 +1923,7 @@ var IWServerData = function (props) {
         props.superVerboseConsole,
         props.noCredentials
     ]);
-    var showInProgressControl = React.useMemo(function () { return (isGet || isUpdate || (forceRedraw && !forceRedraw)) && inProgress.current; }, [isGet, isUpdate, forceRedraw]);
+    var showInProgressControl = React.useMemo(function () { return (isGet || isUpdate) && inProgress.current && (forceRedraw || !forceRedraw); }, [isGet, isUpdate, forceRedraw]);
     if (isGet || isUpdate) {
         console.log(props.item, props.verb, showInProgressControl, !props.loadingReactNodes, !props.noActivityOverlay, !props.globalActivityOverlay, !!props.children);
     }
