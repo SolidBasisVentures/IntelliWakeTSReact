@@ -1928,9 +1928,7 @@ var IWServerData = function (props) {
     var showInProgressControl = React.useMemo(function () { return (isGet || isUpdate) && (forceRedraw || !forceRedraw) && !props.noActivityOverlay &&
         !props.globalActivityOverlay &&
         !!props.children; }, [isGet, isUpdate, forceRedraw]);
-    if (isGet || isUpdate) {
-        console.log(showInProgressControl, props.item, props.verb, !!props.loadingReactNodes);
-    }
+    console.log(showInProgressControl, props.item, props.verb, isGet, isUpdate);
     return (React__default['default'].createElement(React__default['default'].Fragment, null,
         !!props.children && props.children,
         showInProgressControl && ((_l = props.loadingReactNodes) !== null && _l !== void 0 ? _l : React__default['default'].createElement(ActivityOverlayControl, { show: true }))));

@@ -445,9 +445,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 		[isGet, isUpdate, forceRedraw]
 	)
 	
-	if (isGet || isUpdate) {
-		console.log(showInProgressControl, props.item, props.verb, !!props.loadingReactNodes)
-	}
+		console.log(showInProgressControl, props.item, props.verb, isGet, isUpdate)
 	
 	return (
 		<>
