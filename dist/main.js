@@ -1919,7 +1919,7 @@ var IWServerData = function (props) {
         props.superVerboseConsole,
         props.noCredentials
     ]);
-    return !props.children ? null : (React__default['default'].createElement(React__default['default'].Fragment, null,
+    return props.children === undefined ? null : (React__default['default'].createElement(React__default['default'].Fragment, null,
         props.children,
         showInProgressControl && !props.noActivityOverlay &&
             !props.globalActivityOverlay && props.loadingReactNodes !== null && ((_l = props.loadingReactNodes) !== null && _l !== void 0 ? _l : React__default['default'].createElement(ActivityOverlayControl, { show: true }))));

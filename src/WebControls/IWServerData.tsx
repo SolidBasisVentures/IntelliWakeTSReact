@@ -434,7 +434,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 		props.noCredentials
 	])
 	
-	return !props.children ? null : (
+	return props.children === undefined ? null : (
 		<>
 			{props.children}
 			{showInProgressControl && !props.noActivityOverlay &&
