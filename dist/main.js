@@ -1722,7 +1722,7 @@ var IWServerData = function (props) {
     // const cancelTokenSource = useRef(null as CancelTokenSource | null)
     var inProgress = React.useRef(false);
     var lastTS = React.useRef(0);
-    var _m = React.useState(false), forceRedraw = _m[0], setForceRedraw = _m[1];
+    var _m = React.useState(false), showInProgressControl = _m[0], setShowInProgressControl = _m[1];
     var setResponse = React.useCallback((_a = props.setResponse) !== null && _a !== void 0 ? _a : (function () { }), [props.setResponse]);
     var setUpdateResponse = React.useCallback((_b = props.setUpdateResponse) !== null && _b !== void 0 ? _b : (function () { }), [props.setUpdateResponse]);
     var startingAction = React.useCallback((_c = props.startingAction) !== null && _c !== void 0 ? _c : (function () { }), [props.startingAction]);
@@ -1738,12 +1738,11 @@ var IWServerData = function (props) {
             !!props.verb &&
             props.request !== null &&
             !!setResponse &&
-            (forceRedraw || !forceRedraw) &&
             (props.response === undefined ||
                 forceRefreshRef.current !== props.forceRefresh ||
                 (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current)));
-    }, [props.item, props.verb, setResponse, props.response, props.request, forceRedraw]);
-    var isUpdate = React.useMemo(function () { return !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse && (forceRedraw || !forceRedraw); }, [props.updateVerb, props.updateRequest, setUpdateResponse, forceRedraw]);
+    }, [props.item, props.verb, setResponse, props.response, props.request]);
+    var isUpdate = React.useMemo(function () { return !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse; }, [props.updateVerb, props.updateRequest, setUpdateResponse]);
     if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
         console.log('IWServerData-Local', props.item, props.verb, props.updateVerb, 'isGet', isGet, 'isUpdate', isUpdate, 'inProgress', inProgress.current, 'starting', (isGet || isUpdate) && !inProgress.current);
     React.useEffect(function () {
@@ -1769,7 +1768,7 @@ var IWServerData = function (props) {
             lastTS.current = currentTS;
             forceRefreshRef.current = props.forceRefresh;
             // cancelTokenSource.current = axios.CancelToken.source()
-            setForceRedraw(function (prevState) { return !prevState; });
+            setShowInProgressControl(true);
             var authorizationHeader = __assign({ timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null, localtime: moment__default['default']().format(intelliwaketsfoundation.MOMENT_FORMAT_DATE_TIME), locationhref: window.location.href }, props.authorizationHeader);
             if (!!props.superVerboseConsole)
                 console.log('aH', authorizationHeader);
@@ -1882,11 +1881,7 @@ var IWServerData = function (props) {
                 !!finallyAction && finallyAction();
                 inProgress.current = false;
                 if (isMounted.current) {
-                    setForceRedraw(function (prevState) { return !prevState; });
-                    console.log('forcing redraw');
-                }
-                else {
-                    console.log('is not mounted');
+                    setShowInProgressControl(false);
                 }
             });
         }
@@ -1925,9 +1920,6 @@ var IWServerData = function (props) {
         props.superVerboseConsole,
         props.noCredentials
     ]);
-    var showInProgressControl = React.useMemo(function () { return (isGet || isUpdate) && (forceRedraw || !forceRedraw) && !props.noActivityOverlay &&
-        !props.globalActivityOverlay &&
-        !!props.children; }, [isGet, isUpdate, forceRedraw]);
     console.log(showInProgressControl, props.item, props.verb, isGet, isUpdate);
     return (React__default['default'].createElement(React__default['default'].Fragment, null,
         !!props.children && props.children,

@@ -205,7 +205,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	// const cancelTokenSource = useRef(null as CancelTokenSource | null)
 	const inProgress = useRef(false)
 	const lastTS = useRef(0)
-	const [forceRedraw, setForceRedraw] = useState(false)
+	const [showInProgressControl, setShowInProgressControl] = useState(false)
 	
 	const setResponse = useCallback(props.setResponse ?? (() => {}), [props.setResponse])
 	const setUpdateResponse = useCallback(props.setUpdateResponse ?? (() => {}), [props.setUpdateResponse])
@@ -223,11 +223,10 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 		!!props.verb &&
 		props.request !== null &&
 		!!setResponse &&
-		(forceRedraw || !forceRedraw) &&
 		(props.response === undefined ||
 			forceRefreshRef.current !== props.forceRefresh ||
-			(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))), [props.item, props.verb, setResponse, props.response, props.request, forceRedraw])
-	const isUpdate = useMemo(() => !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse && (forceRedraw || !forceRedraw), [props.updateVerb, props.updateRequest, setUpdateResponse, forceRedraw])
+			(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))), [props.item, props.verb, setResponse, props.response, props.request])
+	const isUpdate = useMemo(() => !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse, [props.updateVerb, props.updateRequest, setUpdateResponse])
 	
 	if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
 		console.log(
@@ -269,7 +268,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 			forceRefreshRef.current = props.forceRefresh
 			// cancelTokenSource.current = axios.CancelToken.source()
 			
-			setForceRedraw((prevState) => !prevState)
+			setShowInProgressControl(true)
 			
 			const authorizationHeader = {
 				timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
@@ -394,10 +393,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 					!!finallyAction && finallyAction()
 					inProgress.current = false
 					if (isMounted.current) {
-						setForceRedraw((prevState) => !prevState)
-						console.log('forcing redraw')
-					} else {
-						console.log('is not mounted')
+						setShowInProgressControl(false)
 					}
 				})
 		}
@@ -438,14 +434,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 		props.noCredentials
 	])
 	
-	const showInProgressControl = useMemo(
-		() => (isGet || isUpdate) && (forceRedraw || !forceRedraw) && !props.noActivityOverlay &&
-			!props.globalActivityOverlay &&
-			!!props.children,
-		[isGet, isUpdate, forceRedraw]
-	)
-	
-		console.log(showInProgressControl, props.item, props.verb, isGet, isUpdate)
+	console.log(showInProgressControl, props.item, props.verb, isGet, isUpdate)
 	
 	return (
 		<>
