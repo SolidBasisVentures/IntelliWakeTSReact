@@ -434,8 +434,6 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 		props.noCredentials
 	])
 	
-	console.log(showInProgressControl, props.item, props.verb, isGet, isUpdate)
-	
 	return !props.children ? null : (
 		<>
 			{props.children}
