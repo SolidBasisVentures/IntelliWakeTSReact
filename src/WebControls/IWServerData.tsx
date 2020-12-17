@@ -1,6 +1,6 @@
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios'
 import moment from 'moment'
-import React, {ReactNode, ReactNodeArray, useEffect, useMemo, useRef, useState} from 'react'
+import React, {ReactNode, ReactNodeArray, useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {ActivityOverlayControl} from './ActivityOverlayControl'
 import {IsStageDevFocused, JSONParse, MOMENT_FORMAT_DATE_TIME} from '@solidbasisventures/intelliwaketsfoundation'
 import _ from 'lodash'
@@ -209,25 +209,25 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	const lastTS = useRef(0)
 	const [forceRedraw, setForceRedraw] = useState(false)
 	
-	const setResponse = props.setResponse
-	const setUpdateResponse = props.setUpdateResponse
-	const startingAction = props.startingAction
-	const axiosResponseAction = props.axiosResponseAction
-	const handleServerData = props.handleServerData
-	const updatedAction = props.updatedAction
-	const catchAction = props.catchAction
-	const finallyAction = props.finallyAction
-	const showUserMessage = props.showUserMessage
-	const failedAction = props.failedAction
+	const setResponse = useCallback(props.setResponse ?? (() => {}), [props.setResponse])
+	const setUpdateResponse = useCallback(props.setUpdateResponse ?? (() => {}), [props.setUpdateResponse])
+	const startingAction = useCallback(props.startingAction ?? (() => {}), [props.startingAction])
+	const axiosResponseAction = useCallback(props.axiosResponseAction ?? (() => {}), [props.axiosResponseAction])
+	const handleServerData = useCallback(props.handleServerData ?? (() => {}), [props.handleServerData])
+	const updatedAction = useCallback(props.updatedAction ?? (() => {}), [props.updatedAction])
+	const catchAction = useCallback(props.catchAction ?? (() => {}), [props.catchAction])
+	const finallyAction = useCallback(props.finallyAction ?? (() => {}), [props.finallyAction])
+	const showUserMessage = useCallback(props.showUserMessage ?? (() => {}), [props.showUserMessage])
+	const failedAction = useCallback(props.failedAction ?? (() => {}), [props.failedAction])
 	
-	const isGet =
+	const isGet = useMemo(() =>
 		!!props.item &&
 		!!props.verb &&
 		!!setResponse &&
 		(props.response === undefined ||
 			forceRefreshRef.current !== props.forceRefresh ||
-			(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current)))
-	const isUpdate = !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse
+			(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))), [props.item, props.verb, setResponse, props.response])
+	const isUpdate = useMemo(() => !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse, [props.updateVerb, props.updateRequest, setUpdateResponse])
 	
 	if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
 		console.log(
@@ -452,13 +452,8 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 				!props.loadingReactNodes &&
 				!props.noActivityOverlay &&
 				!props.globalActivityOverlay &&
-				props.children !== undefined
+				!!props.children
 			} />
-			{showInProgressControl &&
-			!props.loadingReactNodes &&
-			!props.noActivityOverlay &&
-			!props.globalActivityOverlay &&
-			props.children !== undefined && 'UPDATING'}
 		</>
 	)
 }

@@ -1715,30 +1715,33 @@ var InputZip = function (props) {
  *
  */
 var IWServerData = function (props) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
     var isMounted = React.useRef(true);
     var forceRefreshRef = React.useRef(props.forceRefresh);
     var lastRequest = React.useRef(props.request);
     // const cancelTokenSource = useRef(null as CancelTokenSource | null)
     var inProgress = React.useRef(false);
     var lastTS = React.useRef(0);
-    var _a = React.useState(false), forceRedraw = _a[0], setForceRedraw = _a[1];
-    var setResponse = props.setResponse;
-    var setUpdateResponse = props.setUpdateResponse;
-    var startingAction = props.startingAction;
-    var axiosResponseAction = props.axiosResponseAction;
-    var handleServerData = props.handleServerData;
-    var updatedAction = props.updatedAction;
-    var catchAction = props.catchAction;
-    var finallyAction = props.finallyAction;
-    var showUserMessage = props.showUserMessage;
-    var failedAction = props.failedAction;
-    var isGet = !!props.item &&
-        !!props.verb &&
-        !!setResponse &&
-        (props.response === undefined ||
-            forceRefreshRef.current !== props.forceRefresh ||
-            (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current)));
-    var isUpdate = !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse;
+    var _l = React.useState(false), forceRedraw = _l[0], setForceRedraw = _l[1];
+    var setResponse = React.useCallback((_a = props.setResponse) !== null && _a !== void 0 ? _a : (function () { }), [props.setResponse]);
+    var setUpdateResponse = React.useCallback((_b = props.setUpdateResponse) !== null && _b !== void 0 ? _b : (function () { }), [props.setUpdateResponse]);
+    var startingAction = React.useCallback((_c = props.startingAction) !== null && _c !== void 0 ? _c : (function () { }), [props.startingAction]);
+    var axiosResponseAction = React.useCallback((_d = props.axiosResponseAction) !== null && _d !== void 0 ? _d : (function () { }), [props.axiosResponseAction]);
+    var handleServerData = React.useCallback((_e = props.handleServerData) !== null && _e !== void 0 ? _e : (function () { }), [props.handleServerData]);
+    var updatedAction = React.useCallback((_f = props.updatedAction) !== null && _f !== void 0 ? _f : (function () { }), [props.updatedAction]);
+    var catchAction = React.useCallback((_g = props.catchAction) !== null && _g !== void 0 ? _g : (function () { }), [props.catchAction]);
+    var finallyAction = React.useCallback((_h = props.finallyAction) !== null && _h !== void 0 ? _h : (function () { }), [props.finallyAction]);
+    var showUserMessage = React.useCallback((_j = props.showUserMessage) !== null && _j !== void 0 ? _j : (function () { }), [props.showUserMessage]);
+    var failedAction = React.useCallback((_k = props.failedAction) !== null && _k !== void 0 ? _k : (function () { }), [props.failedAction]);
+    var isGet = React.useMemo(function () {
+        return !!props.item &&
+            !!props.verb &&
+            !!setResponse &&
+            (props.response === undefined ||
+                forceRefreshRef.current !== props.forceRefresh ||
+                (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current)));
+    }, [props.item, props.verb, setResponse, props.response]);
+    var isUpdate = React.useMemo(function () { return !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse; }, [props.updateVerb, props.updateRequest, setUpdateResponse]);
     if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
         console.log('IWServerData-Local', props.item, props.verb, props.updateVerb, 'isGet', isGet, 'isUpdate', isUpdate, 'inProgress', inProgress.current, 'starting', (isGet || isUpdate) && !inProgress.current);
     React.useEffect(function () {
@@ -1925,12 +1928,7 @@ var IWServerData = function (props) {
                 !props.loadingReactNodes &&
                 !props.noActivityOverlay &&
                 !props.globalActivityOverlay &&
-                props.children !== undefined }),
-        showInProgressControl &&
-            !props.loadingReactNodes &&
-            !props.noActivityOverlay &&
-            !props.globalActivityOverlay &&
-            props.children !== undefined && 'UPDATING'));
+                !!props.children })));
 };
 
 var initialMDContext = {
