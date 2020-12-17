@@ -542,7 +542,6 @@ var ActivityOverlay = function (props) {
  */
 var ActivityOverlayControl = function (props) {
     var _a, _b;
-    console.log('AOC Show', props.show);
     return props.show ? React__default['default'].createElement("div", { className: "System_ActivityOverlay_Control" },
         React__default['default'].createElement(reactstrap.Spinner, { style: { width: (_a = props.spinnerSize) !== null && _a !== void 0 ? _a : '2rem', height: (_b = props.spinnerSize) !== null && _b !== void 0 ? _b : '2rem' } }))
         :
@@ -1920,7 +1919,6 @@ var IWServerData = function (props) {
         props.superVerboseConsole,
         props.noCredentials
     ]);
-    console.log(showInProgressControl, props.item, props.verb, isGet, isUpdate);
     return !props.children ? null : (React__default['default'].createElement(React__default['default'].Fragment, null,
         props.children,
         showInProgressControl && !props.noActivityOverlay &&
