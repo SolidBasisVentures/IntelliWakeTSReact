@@ -223,11 +223,13 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	const isGet = useMemo(() =>
 		!!props.item &&
 		!!props.verb &&
+		props.request !== null &&
 		!!setResponse &&
+		(forceRedraw || !forceRedraw) &&
 		(props.response === undefined ||
 			forceRefreshRef.current !== props.forceRefresh ||
-			(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))), [props.item, props.verb, setResponse, props.response])
-	const isUpdate = useMemo(() => !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse, [props.updateVerb, props.updateRequest, setUpdateResponse])
+			(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))), [props.item, props.verb, setResponse, props.response, props.request, forceRedraw])
+	const isUpdate = useMemo(() => !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse && (forceRedraw || !forceRedraw), [props.updateVerb, props.updateRequest, setUpdateResponse, forceRedraw])
 	
 	if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
 		console.log(
@@ -248,8 +250,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	useEffect(() => {
 		isMounted.current = true
 		
-		if (!inProgress.current && props.request !== null) {
-			if (isGet || isUpdate) {
+		if (!inProgress.current && (isGet || isUpdate)) {
 				inProgress.current = true
 				
 				const currentTS = moment().valueOf()
@@ -399,7 +400,6 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 						}
 					})
 			}
-		}
 		
 		return () => {
 			isMounted.current = false
