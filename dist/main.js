@@ -542,11 +542,11 @@ var ActivityOverlay = function (props) {
  */
 var ActivityOverlayControl = function (props) {
     var _a, _b;
-    if (props.show) {
-        return React__default['default'].createElement("div", { className: "System_ActivityOverlay_Control", color: "primary" },
-            React__default['default'].createElement(reactstrap.Spinner, { style: { width: (_a = props.spinnerSize) !== null && _a !== void 0 ? _a : '2rem', height: (_b = props.spinnerSize) !== null && _b !== void 0 ? _b : '2rem' } }));
-    }
-    return null;
+    console.log('AOC Show', props.show);
+    return props.show ? React__default['default'].createElement("div", { className: "System_ActivityOverlay_Control" },
+        React__default['default'].createElement(reactstrap.Spinner, { style: { width: (_a = props.spinnerSize) !== null && _a !== void 0 ? _a : '2rem', height: (_b = props.spinnerSize) !== null && _b !== void 0 ? _b : '2rem' } }))
+        :
+            null;
 };
 
 var initialSortProperties = {
@@ -1876,7 +1876,9 @@ var IWServerData = function (props) {
                 }
             })
                 .finally(function () {
-                if (isMounted.current) ;
+                // if (isMounted.current) {
+                // cancelTokenSource.current = null
+                // }
                 !!finallyAction && finallyAction();
                 inProgress.current = false;
                 if (isMounted.current) {
@@ -1925,7 +1927,11 @@ var IWServerData = function (props) {
     ]);
     var showInProgressControl = React.useMemo(function () { return (isGet || isUpdate) && (forceRedraw || !forceRedraw); }, [isGet, isUpdate, forceRedraw]);
     if (isGet || isUpdate) {
-        console.log(props.item, props.verb, showInProgressControl, isGet, isUpdate, (forceRedraw || !forceRedraw), !props.loadingReactNodes, !props.noActivityOverlay, !props.globalActivityOverlay, !!props.children);
+        console.log(showInProgressControl &&
+            !props.loadingReactNodes &&
+            !props.noActivityOverlay &&
+            !props.globalActivityOverlay &&
+            !!props.children, props.item, props.verb, showInProgressControl, isGet, isUpdate, (forceRedraw || !forceRedraw), !props.loadingReactNodes, !props.noActivityOverlay, !props.globalActivityOverlay, !!props.children);
     }
     return (React__default['default'].createElement(React__default['default'].Fragment, null,
         !!props.children && (props.response !== null || !props.failedReactNodes) && props.children,
