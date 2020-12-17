@@ -441,17 +441,9 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	])
 	
 	const showInProgressControl = useMemo(
-		() => (isGet || isUpdate) && inProgress.current && (forceRedraw || !forceRedraw),
+		() => (isGet || isUpdate) && (forceRedraw || !forceRedraw),
 		[isGet, isUpdate, forceRedraw]
 	)
-	
-	if (isGet || isUpdate) {
-		console.log(props.item, props.verb, showInProgressControl, isGet, isUpdate, inProgress.current, (forceRedraw || !forceRedraw),
-			!props.loadingReactNodes,
-			!props.noActivityOverlay,
-			!props.globalActivityOverlay,
-			!!props.children)
-	}
 	
 	return (
 		<>

@@ -1923,10 +1923,7 @@ var IWServerData = function (props) {
         props.superVerboseConsole,
         props.noCredentials
     ]);
-    var showInProgressControl = React.useMemo(function () { return (isGet || isUpdate) && inProgress.current && (forceRedraw || !forceRedraw); }, [isGet, isUpdate, forceRedraw]);
-    if (isGet || isUpdate) {
-        console.log(props.item, props.verb, showInProgressControl, isGet, isUpdate, inProgress.current, (forceRedraw || !forceRedraw), !props.loadingReactNodes, !props.noActivityOverlay, !props.globalActivityOverlay, !!props.children);
-    }
+    var showInProgressControl = React.useMemo(function () { return (isGet || isUpdate) && (forceRedraw || !forceRedraw); }, [isGet, isUpdate, forceRedraw]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null,
         !!props.children && (props.response !== null || !props.failedReactNodes) && props.children,
         props.response === null && props.failedReactNodes,
