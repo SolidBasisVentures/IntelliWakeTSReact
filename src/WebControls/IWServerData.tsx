@@ -436,10 +436,11 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	
 	console.log(showInProgressControl, props.item, props.verb, isGet, isUpdate)
 	
-	return (
+	return !props.children ? null : (
 		<>
-			{!!props.children && props.children}
-			{showInProgressControl && (props.loadingReactNodes ??
+			{props.children}
+			{showInProgressControl && !props.noActivityOverlay &&
+			!props.globalActivityOverlay && props.loadingReactNodes !== null && (props.loadingReactNodes ??
 				<ActivityOverlayControl show />)}
 		</>
 	)

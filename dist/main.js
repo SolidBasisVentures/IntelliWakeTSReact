@@ -1921,9 +1921,10 @@ var IWServerData = function (props) {
         props.noCredentials
     ]);
     console.log(showInProgressControl, props.item, props.verb, isGet, isUpdate);
-    return (React__default['default'].createElement(React__default['default'].Fragment, null,
-        !!props.children && props.children,
-        showInProgressControl && ((_l = props.loadingReactNodes) !== null && _l !== void 0 ? _l : React__default['default'].createElement(ActivityOverlayControl, { show: true }))));
+    return !props.children ? null : (React__default['default'].createElement(React__default['default'].Fragment, null,
+        props.children,
+        showInProgressControl && !props.noActivityOverlay &&
+            !props.globalActivityOverlay && props.loadingReactNodes !== null && ((_l = props.loadingReactNodes) !== null && _l !== void 0 ? _l : React__default['default'].createElement(ActivityOverlayControl, { show: true }))));
 };
 
 var initialMDContext = {

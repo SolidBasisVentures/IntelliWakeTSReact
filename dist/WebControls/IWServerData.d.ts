@@ -182,4 +182,4 @@ export interface IIWQueryProps<REQ = any, RES = any> {
  * </ServerData>
  *
  */
-export declare const IWServerData: <REQ, RES>(props: IIWQueryProps<REQ, RES>) => JSX.Element;
+export declare const IWServerData: <REQ, RES>(props: IIWQueryProps<REQ, RES>) => JSX.Element | null;
