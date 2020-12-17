@@ -122,8 +122,6 @@ export interface IIWQueryProps<REQ = any, RES = any> {
     children?: false | ReactNodeArray | ReactNode;
     /** Items to be shown when the API is working.  Defaults to the <ActivityOverlayControl/> */
     loadingReactNodes?: ReactNodeArray | ReactNode;
-    /** Items to be shown in the API fails (e.g. when the response is null) */
-    failedReactNodes?: ReactNodeArray | ReactNode;
     /** Prefix that the control will append an item and verb to */
     urlPrefix?: string;
     /** An object that will be passed to the server in the header */

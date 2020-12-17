@@ -1715,14 +1715,14 @@ var InputZip = function (props) {
  *
  */
 var IWServerData = function (props) {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
     var isMounted = React.useRef(true);
     var forceRefreshRef = React.useRef(props.forceRefresh);
     var lastRequest = React.useRef(props.request);
     // const cancelTokenSource = useRef(null as CancelTokenSource | null)
     var inProgress = React.useRef(false);
     var lastTS = React.useRef(0);
-    var _l = React.useState(false), forceRedraw = _l[0], setForceRedraw = _l[1];
+    var _m = React.useState(false), forceRedraw = _m[0], setForceRedraw = _m[1];
     var setResponse = React.useCallback((_a = props.setResponse) !== null && _a !== void 0 ? _a : (function () { }), [props.setResponse]);
     var setUpdateResponse = React.useCallback((_b = props.setUpdateResponse) !== null && _b !== void 0 ? _b : (function () { }), [props.setUpdateResponse]);
     var startingAction = React.useCallback((_c = props.startingAction) !== null && _c !== void 0 ? _c : (function () { }), [props.startingAction]);
@@ -1925,23 +1925,15 @@ var IWServerData = function (props) {
         props.superVerboseConsole,
         props.noCredentials
     ]);
-    var showInProgressControl = React.useMemo(function () { return (isGet || isUpdate) && (forceRedraw || !forceRedraw); }, [isGet, isUpdate, forceRedraw]);
+    var showInProgressControl = React.useMemo(function () { return (isGet || isUpdate) && (forceRedraw || !forceRedraw) && !props.noActivityOverlay &&
+        !props.globalActivityOverlay &&
+        !!props.children; }, [isGet, isUpdate, forceRedraw]);
     if (isGet || isUpdate) {
-        console.log(showInProgressControl &&
-            !props.loadingReactNodes &&
-            !props.noActivityOverlay &&
-            !props.globalActivityOverlay &&
-            !!props.children, props.item, props.verb, showInProgressControl, isGet, isUpdate, (forceRedraw || !forceRedraw), !props.loadingReactNodes, !props.noActivityOverlay, !props.globalActivityOverlay, !!props.children);
+        console.log(showInProgressControl, props.item, props.verb, !!props.loadingReactNodes);
     }
     return (React__default['default'].createElement(React__default['default'].Fragment, null,
-        !!props.children && (props.response !== null || !props.failedReactNodes) && props.children,
-        props.response === null && props.failedReactNodes,
-        showInProgressControl && props.loadingReactNodes,
-        React__default['default'].createElement(ActivityOverlayControl, { show: showInProgressControl &&
-                !props.loadingReactNodes &&
-                !props.noActivityOverlay &&
-                !props.globalActivityOverlay &&
-                !!props.children })));
+        !!props.children && props.children,
+        showInProgressControl && ((_l = props.loadingReactNodes) !== null && _l !== void 0 ? _l : React__default['default'].createElement(ActivityOverlayControl, { show: true }))));
 };
 
 var initialMDContext = {

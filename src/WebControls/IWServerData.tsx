@@ -134,8 +134,6 @@ export interface IIWQueryProps<REQ = any, RES = any> {
 	children?: false | ReactNodeArray | ReactNode
 	/** Items to be shown when the API is working.  Defaults to the <ActivityOverlayControl/> */
 	loadingReactNodes?: ReactNodeArray | ReactNode
-	/** Items to be shown in the API fails (e.g. when the response is null) */
-	failedReactNodes?: ReactNodeArray | ReactNode
 	
 	/** Prefix that the control will append an item and verb to */
 	urlPrefix?: string
@@ -391,7 +389,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 				})
 				.finally(() => {
 					// if (isMounted.current) {
-						// cancelTokenSource.current = null
+					// cancelTokenSource.current = null
 					// }
 					!!finallyAction && finallyAction()
 					inProgress.current = false
@@ -441,34 +439,21 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	])
 	
 	const showInProgressControl = useMemo(
-		() => (isGet || isUpdate) && (forceRedraw || !forceRedraw),
+		() => (isGet || isUpdate) && (forceRedraw || !forceRedraw) && !props.noActivityOverlay &&
+			!props.globalActivityOverlay &&
+			!!props.children,
 		[isGet, isUpdate, forceRedraw]
 	)
 	
 	if (isGet || isUpdate) {
-		console.log(showInProgressControl &&
-			!props.loadingReactNodes &&
-			!props.noActivityOverlay &&
-			!props.globalActivityOverlay &&
-			!!props.children, props.item, props.verb, showInProgressControl, isGet, isUpdate, (forceRedraw || !forceRedraw),
-			!props.loadingReactNodes,
-			!props.noActivityOverlay,
-			!props.globalActivityOverlay,
-			!!props.children)
+		console.log(showInProgressControl, props.item, props.verb, !!props.loadingReactNodes)
 	}
 	
 	return (
 		<>
-			{!!props.children && (props.response !== null || !props.failedReactNodes) && props.children}
-			{props.response === null && props.failedReactNodes}
-			{showInProgressControl && props.loadingReactNodes}
-			<ActivityOverlayControl show={
-				showInProgressControl &&
-				!props.loadingReactNodes &&
-				!props.noActivityOverlay &&
-				!props.globalActivityOverlay &&
-				!!props.children
-			} />
+			{!!props.children && props.children}
+			{showInProgressControl && (props.loadingReactNodes ??
+				<ActivityOverlayControl show />)}
 		</>
 	)
 }
