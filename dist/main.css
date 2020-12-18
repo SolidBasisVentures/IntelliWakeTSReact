@@ -943,6 +943,7 @@ img.img-inline {
     background-color: transparent;
     border: none !important; }
   .searchGroup.transparent input {
+    border-radius: 0;
     padding: 0 1rem;
     background-color: transparent;
     border: none !important; }

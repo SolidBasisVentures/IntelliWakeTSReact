@@ -120,7 +120,7 @@ export const InputSearch = (props: IPropsInputSearch) => {
 	return (!!props.iconPrefix || !!props.reactPrefix) ? (
 		<InputGroup className={`searchGroup ${props.inputGroupClass ?? ''} ${props.bordered ? '' : 'transparent'}`}>
 			{(!!props.iconPrefix || !!props.reactPrefix) &&
-			<InputGroupAddon addonType="prepend">
+			<InputGroupAddon addonType="prepend" className="form-control-plaintext">
 				{props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
 						<FontAwesomeIcon icon={faSearch} />
 						:

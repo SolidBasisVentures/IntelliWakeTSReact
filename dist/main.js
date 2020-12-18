@@ -1420,7 +1420,7 @@ var InputSearch = function (props) {
     };
     return (!!props.iconPrefix || !!props.reactPrefix) ? (React__default['default'].createElement(reactstrap.InputGroup, { className: "searchGroup " + ((_c = props.inputGroupClass) !== null && _c !== void 0 ? _c : '') + " " + (props.bordered ? '' : 'transparent') },
         (!!props.iconPrefix || !!props.reactPrefix) &&
-            React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "prepend" }, props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
+            React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "prepend", className: "form-control-plaintext" }, props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
                 React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: proRegularSvgIcons.faSearch })
                 :
                     React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, props.iconPrefix))) : props.reactPrefix),
