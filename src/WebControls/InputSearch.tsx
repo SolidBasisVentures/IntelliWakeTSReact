@@ -1,5 +1,5 @@
 import React, {ReactNode, useEffect, useRef, useState} from 'react'
-import {Input, InputGroup, InputGroupAddon, InputProps} from 'reactstrap'
+import {Input, InputGroup, InputGroupText, InputProps} from 'reactstrap'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
 import {faSearch} from '@fortawesome/pro-regular-svg-icons'
@@ -120,13 +120,17 @@ export const InputSearch = (props: IPropsInputSearch) => {
 	return (!!props.iconPrefix || !!props.reactPrefix) ? (
 		<InputGroup className={`searchGroup ${props.inputGroupClass ?? ''} ${props.bordered ? '' : 'transparent'}`}>
 			{(!!props.iconPrefix || !!props.reactPrefix) &&
-			<InputGroupAddon addonType="prepend" className="form-control-plaintext">
-				{props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
-						<FontAwesomeIcon icon={faSearch} />
-						:
-						<FontAwesomeIcon {...props.iconPrefix} />
-				) : props.reactPrefix}
-			</InputGroupAddon>
+			<InputGroupText onClick={() => {
+				if (!!inputRef.current) inputRef.current.focus()
+			}}>
+				<div className="form-control-plaintext">
+					{props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
+							<FontAwesomeIcon icon={faSearch} />
+							:
+							<FontAwesomeIcon {...props.iconPrefix} />
+					) : props.reactPrefix}
+				</div>
+			</InputGroupText>
 			}
 			<Input {...inputProps} />
 		</InputGroup>
