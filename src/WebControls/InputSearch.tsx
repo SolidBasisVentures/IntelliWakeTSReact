@@ -1,6 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react'
-import {Input} from 'reactstrap'
+import React, {ReactNode, useEffect, useRef, useState} from 'react'
+import {Input, InputGroup, InputGroupAddon, InputProps} from 'reactstrap'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
+import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
+import {faSearch} from '@fortawesome/pro-regular-svg-icons'
+import {InputType} from 'reactstrap/lib/Input'
 
 export interface IPropsInputSearch {
 	initialValue?: string
@@ -13,6 +16,10 @@ export interface IPropsInputSearch {
 	placeholder?: string
 	id?: string
 	bordered?: boolean
+	iconPrefix?: boolean | FontAwesomeIconProps
+	reactPrefix?: ReactNode
+	inputGroupClass?: string
+	size?: 'lg' | 'sm'
 	autoFocus?: boolean
 	onKeyDown?: (e: React.KeyboardEvent) => void
 	onFocus?: (e: React.FocusEvent) => void
@@ -44,7 +51,7 @@ export const InputSearch = (props: IPropsInputSearch) => {
 	}
 	
 	const handleKeyDown = (e: React.KeyboardEvent) => {
-		if (e.keyCode === 13) {
+		if (e.key === 'Enter') {
 			clearTimeout(searchTimeout.current)
 			triggerChange()
 		}
@@ -72,9 +79,6 @@ export const InputSearch = (props: IPropsInputSearch) => {
 		setCurrentText(props.initialValue ?? '')
 	}, [props.initialValue])
 	
-	const classNames =
-		'inputSearch ' + (props.className ?? '') + ' ' + (!!props.bordered ? '' : ' bg-transparent border-0')
-	
 	const handleOnFocus = (e: any) => {
 		if (!!props.onFocus) {
 			props.onFocus(e)
@@ -89,13 +93,44 @@ export const InputSearch = (props: IPropsInputSearch) => {
 		}
 	}
 	
-	return (
-		<Input type="search" inputMode="search" className={classNames} value={currentText} onChange={handleInputChange} onBlur={handleOnBlur} innerRef={ref => {
+	const inputProps: InputProps = {
+		type: 'search' as InputType,
+		inputMode: 'search',
+		className: 'inputSearch ' + (props.className ?? ''),
+		value: currentText,
+		onChange: handleInputChange,
+		onBlur: handleOnBlur,
+		innerRef: ((ref: any) => {
 			if (!!props.innerRef) {
 				props.innerRef(ref)
 			}
 			
 			inputRef.current = ref
-		}} style={props.style} placeholder={props.placeholder} onKeyDown={handleKeyDown} id={props.id} autoFocus={props.autoFocus} onFocus={handleOnFocus} autoComplete={props.autoCompleteOn ? 'on' : `AC_${RandomString(12)}`} />
+		}),
+		bsSize: props.size,
+		style: props.style,
+		placeholder: props.placeholder,
+		onKeyDown: handleKeyDown,
+		id: props.id,
+		autoFocus: props.autoFocus,
+		onFocus: handleOnFocus,
+		autoComplete: props.autoCompleteOn ? 'on' : `AC_${RandomString(12)}`
+	}
+	
+	return (!!props.iconPrefix || !!props.reactPrefix) ? (
+		<InputGroup className={`searchGroup ${props.inputGroupClass ?? ''} ${props.bordered ? 'transparent' : ''}`}>
+			{(!!props.iconPrefix || !!props.reactPrefix) &&
+			<InputGroupAddon addonType="prepend">
+				{props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
+						<FontAwesomeIcon icon={faSearch} />
+						:
+						<FontAwesomeIcon {...props.iconPrefix} />
+				) : props.reactPrefix}
+			</InputGroupAddon>
+			}
+			<Input {...inputProps} />
+		</InputGroup>
+	) : (
+		<Input {...inputProps} />
 	)
 }

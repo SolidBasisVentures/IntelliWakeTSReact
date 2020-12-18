@@ -1318,3 +1318,25 @@ img.img-inline {
   width: 100%;
 }
 
+.searchGroup.transparent {
+  border-radius: 0;
+  border-width: 0 0 1px 0;
+  background-color: transparent;
+
+  > * {
+    background-color: transparent;
+    border: none !important;
+  }
+
+  input {
+    padding: 0 1rem;
+    background-color: transparent;
+    border: none !important;
+  }
+
+  button {
+    border: none !important;
+    background-color: transparent;
+    padding: 0 1rem;
+  }
+}

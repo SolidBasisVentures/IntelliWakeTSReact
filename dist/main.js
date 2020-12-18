@@ -1341,11 +1341,11 @@ var InputRadio = function (props) {
  * A search input with an option to have a trigger delay or not.
  */
 var InputSearch = function (props) {
-    var _a, _b;
+    var _a, _b, _c;
     var inputRef = React.useRef();
     var triggeredText = React.useRef((_a = props.initialValue) !== null && _a !== void 0 ? _a : '');
     var searchTimeout = React.useRef(setTimeout(function () { }, 100));
-    var _c = React.useState(''), currentText = _c[0], setCurrentText = _c[1];
+    var _d = React.useState(''), currentText = _d[0], setCurrentText = _d[1];
     var handleInputChange = function (e) {
         var _a;
         var value = (_a = e.target.value) !== null && _a !== void 0 ? _a : '';
@@ -1361,7 +1361,7 @@ var InputSearch = function (props) {
         }
     };
     var handleKeyDown = function (e) {
-        if (e.keyCode === 13) {
+        if (e.key === 'Enter') {
             clearTimeout(searchTimeout.current);
             triggerChange();
         }
@@ -1384,7 +1384,6 @@ var InputSearch = function (props) {
         var _a;
         setCurrentText((_a = props.initialValue) !== null && _a !== void 0 ? _a : '');
     }, [props.initialValue]);
-    var classNames = 'inputSearch ' + ((_b = props.className) !== null && _b !== void 0 ? _b : '') + ' ' + (!!props.bordered ? '' : ' bg-transparent border-0');
     var handleOnFocus = function (e) {
         if (!!props.onFocus) {
             props.onFocus(e);
@@ -1397,12 +1396,35 @@ var InputSearch = function (props) {
             }, 250);
         }
     };
-    return (React__default['default'].createElement(reactstrap.Input, { type: "search", inputMode: "search", className: classNames, value: currentText, onChange: handleInputChange, onBlur: handleOnBlur, innerRef: function (ref) {
+    var inputProps = {
+        type: 'search',
+        inputMode: 'search',
+        className: 'inputSearch ' + ((_b = props.className) !== null && _b !== void 0 ? _b : ''),
+        value: currentText,
+        onChange: handleInputChange,
+        onBlur: handleOnBlur,
+        innerRef: (function (ref) {
             if (!!props.innerRef) {
                 props.innerRef(ref);
             }
             inputRef.current = ref;
-        }, style: props.style, placeholder: props.placeholder, onKeyDown: handleKeyDown, id: props.id, autoFocus: props.autoFocus, onFocus: handleOnFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + intelliwaketsfoundation.RandomString(12) }));
+        }),
+        bsSize: props.size,
+        style: props.style,
+        placeholder: props.placeholder,
+        onKeyDown: handleKeyDown,
+        id: props.id,
+        autoFocus: props.autoFocus,
+        onFocus: handleOnFocus,
+        autoComplete: props.autoCompleteOn ? 'on' : "AC_" + intelliwaketsfoundation.RandomString(12)
+    };
+    return (!!props.iconPrefix || !!props.reactPrefix) ? (React__default['default'].createElement(reactstrap.InputGroup, { className: "searchGroup " + ((_c = props.inputGroupClass) !== null && _c !== void 0 ? _c : '') + " " + (props.bordered ? 'transparent' : '') },
+        (!!props.iconPrefix || !!props.reactPrefix) &&
+            React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "prepend" }, props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
+                React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: proRegularSvgIcons.faSearch })
+                :
+                    React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, props.iconPrefix))) : props.reactPrefix),
+        React__default['default'].createElement(reactstrap.Input, __assign({}, inputProps)))) : (React__default['default'].createElement(reactstrap.Input, __assign({}, inputProps)));
 };
 
 var OptionsActive = [
