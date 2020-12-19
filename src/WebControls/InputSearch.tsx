@@ -96,7 +96,7 @@ export const InputSearch = (props: IPropsInputSearch) => {
 	const inputProps: InputProps = {
 		type: 'search' as InputType,
 		inputMode: 'search',
-		className: 'inputSearch ' + (props.className ?? ''),
+		className: `inputSearch ${props.className ?? ''} ${!!props.bordered ? '' : 'bg-transparent border-0'}`,
 		value: currentText,
 		onChange: handleInputChange,
 		onBlur: handleOnBlur,
