@@ -123,13 +123,11 @@ export const InputSearch = (props: IPropsInputSearch) => {
 			<InputGroupText onClick={() => {
 				if (!!inputRef.current) inputRef.current.focus()
 			}}>
-				<div className="form-control-plaintext">
-					{props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
-							<FontAwesomeIcon icon={faSearch} />
-							:
-							<FontAwesomeIcon {...props.iconPrefix} />
-					) : props.reactPrefix}
-				</div>
+				{props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
+						<FontAwesomeIcon icon={faSearch} />
+						:
+						<FontAwesomeIcon {...props.iconPrefix} />
+				) : props.reactPrefix}
 			</InputGroupText>
 			}
 			<Input {...inputProps} />

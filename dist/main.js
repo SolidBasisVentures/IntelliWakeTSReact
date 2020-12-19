@@ -1399,7 +1399,7 @@ var InputSearch = function (props) {
     var inputProps = {
         type: 'search',
         inputMode: 'search',
-        className: 'inputSearch ' + ((_b = props.className) !== null && _b !== void 0 ? _b : ''),
+        className: "inputSearch " + ((_b = props.className) !== null && _b !== void 0 ? _b : '') + " " + (!!props.bordered ? '' : 'bg-transparent border-0'),
         value: currentText,
         onChange: handleInputChange,
         onBlur: handleOnBlur,
@@ -1423,11 +1423,10 @@ var InputSearch = function (props) {
             React__default['default'].createElement(reactstrap.InputGroupText, { onClick: function () {
                     if (!!inputRef.current)
                         inputRef.current.focus();
-                } },
-                React__default['default'].createElement("div", { className: "form-control-plaintext" }, props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
-                    React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: proRegularSvgIcons.faSearch })
-                    :
-                        React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, props.iconPrefix))) : props.reactPrefix)),
+                } }, props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
+                React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: proRegularSvgIcons.faSearch })
+                :
+                    React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, props.iconPrefix))) : props.reactPrefix),
         React__default['default'].createElement(reactstrap.Input, __assign({}, inputProps)))) : (React__default['default'].createElement(reactstrap.Input, __assign({}, inputProps)));
 };
 
