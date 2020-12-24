@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IIWInputProps } from './IWInputProps';
 interface IProps extends IIWInputProps {
     plainTextLast4Only?: boolean;

@@ -1,20 +1,9 @@
 import React, {useMemo} from 'react'
 import {CustomInput} from 'reactstrap'
-import {TChangeValueFunction} from './IWInputProps'
+import {IInputSwitchProps} from './InputSwitch'
 
-export interface IInputSwitchProps {
-	name?: string
-	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-	checked: boolean
-	label: any
-	className?: string
-	id?: string
-	plainText?: boolean
-	changeValue?: TChangeValueFunction
-}
-
-export const InputSwitch = (props: IInputSwitchProps) => {
-	const newID = useMemo(() => props.id ?? 'sw' + props.name + Math.floor(Math.random() * 100000 + 1), [
+export const InputCheckBox = (props: IInputSwitchProps) => {
+	const newID = useMemo(() => props.id ?? 'cb' + props.name + Math.floor(Math.random() * 100000 + 1), [
 		props.name,
 		props.id
 	])
@@ -34,10 +23,10 @@ export const InputSwitch = (props: IInputSwitchProps) => {
 
 	return (
 		<CustomInput
-			type="switch"
+			type="checkbox"
 			label={props.label}
 			name={props.name}
-			className={'inputSwitch ' + (props.className ?? '') + (props.plainText ? ' plainText' : '')}
+			className={'inputCheckbox ' + (props.className ?? '') + (props.plainText ? ' plainText' : '')}
 			id={newID}
 			checked={props.checked}
 			onChange={!props.plainText ? handleInputChange : () => {}}

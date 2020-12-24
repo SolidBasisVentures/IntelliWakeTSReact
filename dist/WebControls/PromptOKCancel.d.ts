@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { PromptOKCancelState } from '../Stores/prompt_ok_cancel';
 interface IProps {
     promptOKCancelState: PromptOKCancelState;

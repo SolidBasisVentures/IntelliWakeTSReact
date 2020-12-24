@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { TChangeValueFunction } from './IWInputProps';
 interface IProps {
     value: string;

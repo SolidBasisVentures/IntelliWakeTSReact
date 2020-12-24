@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { IIWInputProps, TChangeValueFunction } from './IWInputProps';
 interface IProps extends IIWInputProps {

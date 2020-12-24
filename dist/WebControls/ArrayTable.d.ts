@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IArrayStructure } from './ArrayStructure';
 export interface IPropsArrayTable {
     arrayData: any[] | null;

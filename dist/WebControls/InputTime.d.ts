@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IIWInputProps } from './IWInputProps';
 interface IProps extends IIWInputProps {
     includeDate?: boolean;

@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { ActivityOverlayState } from "../Stores/activity_overlay";
 interface IProps {
     activityOverlayState: ActivityOverlayState;

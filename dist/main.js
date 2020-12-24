@@ -1091,6 +1091,25 @@ var DDActions = function (props) {
         })));
 };
 
+var InputCheckBox = function (props) {
+    var _a;
+    var newID = React.useMemo(function () { var _a; return (_a = props.id) !== null && _a !== void 0 ? _a : 'cb' + props.name + Math.floor(Math.random() * 100000 + 1); }, [
+        props.name,
+        props.id
+    ]);
+    var handleInputChange = function (e) {
+        e.target.value = e.target.checked.toString();
+        e.target.customValue = e.target.checked;
+        if (!!props.onChange) {
+            props.onChange(e);
+        }
+        if (!!props.changeValue) {
+            props.changeValue(e.target.checked, e.target.name);
+        }
+    };
+    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "checkbox", label: props.label, name: props.name, className: 'inputCheckbox ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText }));
+};
+
 var ReduceInputProps = function (props) {
     var subset = __assign({}, props);
     delete subset.plainText;
@@ -2356,6 +2375,7 @@ exports.HandleChangeValue = HandleChangeValue;
 exports.HasPathComponent = HasPathComponent;
 exports.HideActivityOverlay = HideActivityOverlay;
 exports.IWServerData = IWServerData;
+exports.InputCheckBox = InputCheckBox;
 exports.InputColor = InputColor;
 exports.InputDate = InputDate;
 exports.InputDatePicker = InputDatePicker;

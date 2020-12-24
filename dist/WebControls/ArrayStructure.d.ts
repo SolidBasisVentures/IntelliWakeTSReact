@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { ISortProperties } from './ArrayManipulators';
 /**
  * Functions to write Table rows and columns
