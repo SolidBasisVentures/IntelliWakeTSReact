@@ -19,5 +19,6 @@ export interface IPropsSelect {
     plainOnClick?: () => void;
     invalid?: boolean;
     changeValue?: TChangeValueFunction;
+    required?: boolean;
 }
 export declare const InputSelect: (props: IPropsSelect) => JSX.Element;

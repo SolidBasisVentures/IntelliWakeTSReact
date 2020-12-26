@@ -1227,6 +1227,7 @@ var InputEmail = function (props) {
 };
 
 var InputSelect = function (props) {
+    var _a;
     var handleInputChange = function (e) {
         if (!!props.isNumeric || !!props.isNumericOrNull) {
             var value = intelliwaketsfoundation.CleanNumber(e.target.value);
@@ -1245,9 +1246,10 @@ var InputSelect = function (props) {
         if (!!props.changeValue)
             props.changeValue(ElementCustomValue(e), e.target.name);
     };
+    var className = ((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + (!!props.required ? 'is-required' : '');
     return !!props.plainText && !!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: function () { }, innerRef: props.innerRef, className: 'inputSelect disabledLink ' + props.className, style: __assign(__assign({}, props.style), { pointerEvents: 'none' }), id: props.id, invalid: props.invalid }, props.children))) : !!props.plainText && !!props.plainOnClick ? (React__default['default'].createElement("div", { onClick: props.plainOnClick, className: "cursor-pointer" },
-        React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: function () { }, innerRef: props.innerRef, className: 'inputSelect disabledLink ' + props.className, style: __assign(__assign({}, props.style), { pointerEvents: 'none' }), id: props.id, invalid: props.invalid }, props.children))) : (React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: handleInputChange, onBlur: props.onBlur, onKeyDown: props.onKeyDown, innerRef: props.innerRef, className: 'inputSelect ' + props.className, style: props.style, id: props.id, disabled: !!props.plainText, invalid: props.invalid }, props.children));
+        React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: function () { }, innerRef: props.innerRef, className: 'inputSelect disabledLink ' + className, style: __assign(__assign({}, props.style), { pointerEvents: 'none' }), id: props.id, invalid: props.invalid }, props.children))) : !!props.plainText && !!props.plainOnClick ? (React__default['default'].createElement("div", { onClick: props.plainOnClick, className: "cursor-pointer" },
+        React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: function () { }, innerRef: props.innerRef, className: 'inputSelect disabledLink ' + className, style: __assign(__assign({}, props.style), { pointerEvents: 'none' }), id: props.id, invalid: props.invalid }, props.children))) : (React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: handleInputChange, onBlur: props.onBlur, onKeyDown: props.onKeyDown, innerRef: props.innerRef, className: 'inputSelect ' + className, style: props.style, id: props.id, disabled: !!props.plainText, invalid: props.invalid }, props.children));
 };
 
 var InputGender = function (props) {
