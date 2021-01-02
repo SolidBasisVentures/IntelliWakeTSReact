@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="52.7.224.76" id="77ec9f17-ded7-4db2-b7f1-58aa42bfd1b5" keyPath="$USER_HOME$/Documents/Development/Certificates/IWTestKeyPair.pem.txt" port="22" nameFormat="DESCRIPTIVE" username="ec2-user" />
+    </configs>
+  </component>
+</project>
