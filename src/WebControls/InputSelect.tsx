@@ -24,6 +24,7 @@ export interface IPropsSelect {
 	plainOnClick?: () => void
 	invalid?: boolean
 	changeValue?: TChangeValueFunction
+	required?: boolean
 }
 
 export const InputSelect = (props: IPropsSelect) => {
@@ -43,6 +44,8 @@ export const InputSelect = (props: IPropsSelect) => {
 		if (!!props.onChange) props.onChange(e)
 		if (!!props.changeValue) props.changeValue(ElementCustomValue(e), e.target.name)
 	}
+	
+	const className = `${props.className ?? ''} ${!!props.required ? 'is-required' : ''}`
 
 	return !!props.plainText && !!props.plainTextURL ? (
 		<Link to={props.plainTextURL}>
@@ -52,7 +55,7 @@ export const InputSelect = (props: IPropsSelect) => {
 				value={props.value}
 				onChange={() => {}}
 				innerRef={props.innerRef}
-				className={'inputSelect disabledLink ' + props.className}
+				className={'inputSelect disabledLink ' + className}
 				style={{
 					...props.style,
 					pointerEvents: 'none'
@@ -70,7 +73,7 @@ export const InputSelect = (props: IPropsSelect) => {
 				value={props.value}
 				onChange={() => {}}
 				innerRef={props.innerRef}
-				className={'inputSelect disabledLink ' + props.className}
+				className={'inputSelect disabledLink ' + className}
 				style={{
 					...props.style,
 					pointerEvents: 'none'
@@ -89,7 +92,7 @@ export const InputSelect = (props: IPropsSelect) => {
 			onBlur={props.onBlur}
 			onKeyDown={props.onKeyDown}
 			innerRef={props.innerRef}
-			className={'inputSelect ' + props.className}
+			className={'inputSelect ' + className}
 			style={props.style}
 			id={props.id}
 			disabled={!!props.plainText}
