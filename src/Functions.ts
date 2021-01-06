@@ -57,7 +57,7 @@ export const HasPathComponent = (search: string): boolean => {
 	return pathName.indexOf(searchCalc) >= 0
 }
 
-export const GetPathComponentAfter = (search: string): any | undefined => {
+export const GetPathComponentAfter = (search: string): string | undefined => {
 	let searchCalc = search.toLowerCase()
 	
 	if (!searchCalc.endsWith('/')) {
@@ -78,7 +78,7 @@ export const GetPathComponentAfter = (search: string): any | undefined => {
 	return undefined
 }
 
-export const GetPathThrough = (search: string): any | undefined => {
+export const GetPathThrough = (search: string): string | undefined => {
 	let searchCalc = search.toLowerCase()
 	
 	const startPosSlash = window.location.pathname.toLowerCase().lastIndexOf(searchCalc + '/')

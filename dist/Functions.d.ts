@@ -21,7 +21,7 @@ export declare const ClassNames: (classes: {
     [key: string]: boolean;
 }) => string;
 export declare const HasPathComponent: (search: string) => boolean;
-export declare const GetPathComponentAfter: (search: string) => any | undefined;
-export declare const GetPathThrough: (search: string) => any | undefined;
+export declare const GetPathComponentAfter: (search: string) => string | undefined;
+export declare const GetPathThrough: (search: string) => string | undefined;
 export declare const CaptureGPS: () => Promise<Position | null>;
 export declare const DownloadBase64Data: (fileName: string, base64: string, type: string) => void;
