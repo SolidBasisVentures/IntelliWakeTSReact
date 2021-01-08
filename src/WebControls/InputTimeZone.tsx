@@ -2,7 +2,7 @@ import React, {useMemo} from 'react'
 import {Link} from 'react-router-dom'
 import {InputSelect, IPropsSelect} from './InputSelect'
 import moment from 'moment-timezone'
-import {IIWInputProps, ReduceInputProps} from './IWInputProps'
+import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {TimeZoneOlsons} from '@solidbasisventures/intelliwaketsfoundation'
 
 export const InputTimeZone = (props: IIWInputProps) => {
@@ -48,7 +48,7 @@ export const InputTimeZone = (props: IIWInputProps) => {
 				)
 			) : (
 				<>
-					<InputSelect {...inputProps} isStringOrNull>
+					<InputSelect {...inputProps} isStringOrNull onChange={e => HandleChangeValue(e, props.changeValue, props.onChange)}>
 						<option />
 						{timeZonesList.map((tzItem) => (
 							<option key={tzItem.olson} value={tzItem.olson}>
