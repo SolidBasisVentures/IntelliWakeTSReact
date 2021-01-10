@@ -225,7 +225,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 		!!setResponse &&
 		(props.response === undefined ||
 			forceRefreshRef.current !== props.forceRefresh ||
-			(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))), [props.item, props.verb, setResponse, props.response, props.request])
+			(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))), [props.item, props.verb, setResponse, props.response, props.request, props.forceRefresh])
 	const isUpdate = useMemo(() => !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse, [props.updateVerb, props.updateRequest, setUpdateResponse])
 	
 	if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))

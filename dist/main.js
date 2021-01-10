@@ -1682,7 +1682,7 @@ var InputTimeZone = function (props) {
         React__default['default'].createElement("span", { className: "text-muted" },
             " ",
             props.value)))) : (React__default['default'].createElement(React__default['default'].Fragment, null,
-        React__default['default'].createElement(InputSelect, __assign({}, inputProps, { isStringOrNull: true }),
+        React__default['default'].createElement(InputSelect, __assign({}, inputProps, { isStringOrNull: true, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } }),
             React__default['default'].createElement("option", null),
             timeZonesList.map(function (tzItem) { return (React__default['default'].createElement("option", { key: tzItem.olson, value: tzItem.olson },
                 tzItem.zone,
