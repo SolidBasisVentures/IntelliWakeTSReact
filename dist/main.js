@@ -1789,7 +1789,7 @@ var IWServerData = function (props) {
     }, [props.item, props.verb, setResponse, props.response, props.request, props.forceRefresh]);
     var isUpdate = React.useMemo(function () { return !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse; }, [props.updateVerb, props.updateRequest, setUpdateResponse]);
     if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
-        console.log('IWServerData-Local', props.item, props.verb, props.updateVerb, 'isGet', isGet, 'isUpdate', isUpdate, 'inProgress', inProgress.current, 'starting', (isGet || isUpdate) && !inProgress.current);
+        console.log('IWServerData-Local', props.item, props.verb, props.updateVerb, 'isGet', isGet, 'isUpdate', isUpdate, 'inProgress', inProgress.current, 'refresh', props.forceRefresh, forceRefreshRef.current, 'starting', (isGet || isUpdate) && !inProgress.current);
     React.useEffect(function () {
         var _a, _b, _c;
         isMounted.current = true;
