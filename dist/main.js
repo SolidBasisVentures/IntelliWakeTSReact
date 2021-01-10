@@ -1786,7 +1786,7 @@ var IWServerData = function (props) {
             (props.response === undefined ||
                 forceRefreshRef.current !== props.forceRefresh ||
                 (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current)));
-    }, [props.item, props.verb, setResponse, props.response, props.request]);
+    }, [props.item, props.verb, setResponse, props.response, props.request, props.forceRefresh]);
     var isUpdate = React.useMemo(function () { return !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse; }, [props.updateVerb, props.updateRequest, setUpdateResponse]);
     if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
         console.log('IWServerData-Local', props.item, props.verb, props.updateVerb, 'isGet', isGet, 'isUpdate', isUpdate, 'inProgress', inProgress.current, 'starting', (isGet || isUpdate) && !inProgress.current);
