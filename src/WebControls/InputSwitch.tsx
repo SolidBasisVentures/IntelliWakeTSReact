@@ -11,6 +11,7 @@ export interface IInputSwitchProps {
 	id?: string
 	plainText?: boolean
 	changeValue?: TChangeValueFunction
+	hidden?: boolean
 }
 
 export const InputSwitch = (props: IInputSwitchProps) => {
@@ -39,6 +40,7 @@ export const InputSwitch = (props: IInputSwitchProps) => {
 			name={props.name}
 			className={'inputSwitch ' + (props.className ?? '') + (props.plainText ? ' plainText' : '')}
 			id={newID}
+			hidden={props.hidden}
 			checked={props.checked}
 			onChange={!props.plainText ? handleInputChange : () => {}}
 			disabled={props.plainText}

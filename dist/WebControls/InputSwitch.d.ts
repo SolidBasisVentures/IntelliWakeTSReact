@@ -9,5 +9,6 @@ export interface IInputSwitchProps {
     id?: string;
     plainText?: boolean;
     changeValue?: TChangeValueFunction;
+    hidden?: boolean;
 }
 export declare const InputSwitch: (props: IInputSwitchProps) => JSX.Element;

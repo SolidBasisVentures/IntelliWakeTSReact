@@ -28,6 +28,7 @@ export const InputCheckBox = (props: IInputSwitchProps) => {
 			name={props.name}
 			className={'inputCheckbox ' + (props.className ?? '') + (props.plainText ? ' plainText' : '')}
 			id={newID}
+			hidden={props.hidden}
 			checked={props.checked}
 			onChange={!props.plainText ? handleInputChange : () => {}}
 			disabled={props.plainText}
