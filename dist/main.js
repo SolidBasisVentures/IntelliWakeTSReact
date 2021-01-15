@@ -1108,7 +1108,7 @@ var InputCheckBox = function (props) {
             props.changeValue(e.target.checked, e.target.name);
         }
     };
-    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "checkbox", label: props.label, name: props.name, className: 'inputCheckbox ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText }));
+    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "checkbox", label: props.label, name: props.name, className: 'inputCheckbox cursor-pointer ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText }));
 };
 
 var ReduceInputProps = function (props) {
@@ -1540,7 +1540,7 @@ var InputSwitch = function (props) {
             props.changeValue(e.target.checked, e.target.name);
         }
     };
-    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText }));
+    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch cursor-pointer ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText }));
 };
 
 var InputSwitchAlternate = function (props) {

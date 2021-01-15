@@ -26,7 +26,7 @@ export const InputCheckBox = (props: IInputSwitchProps) => {
 			type="checkbox"
 			label={props.label}
 			name={props.name}
-			className={'inputCheckbox ' + (props.className ?? '') + (props.plainText ? ' plainText' : '')}
+			className={'inputCheckbox cursor-pointer ' + (props.className ?? '') + (props.plainText ? ' plainText' : '')}
 			id={newID}
 			hidden={props.hidden}
 			checked={props.checked}

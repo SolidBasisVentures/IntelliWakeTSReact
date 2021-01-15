@@ -38,7 +38,7 @@ export const InputSwitch = (props: IInputSwitchProps) => {
 			type="switch"
 			label={props.label}
 			name={props.name}
-			className={'inputSwitch ' + (props.className ?? '') + (props.plainText ? ' plainText' : '')}
+			className={'inputSwitch cursor-pointer ' + (props.className ?? '') + (props.plainText ? ' plainText' : '')}
 			id={newID}
 			hidden={props.hidden}
 			checked={props.checked}
