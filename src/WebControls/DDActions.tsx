@@ -38,8 +38,8 @@ export const DDActions = (props: IPropsDDActions) => {
 	
 	return <UncontrolledButtonDropdown>
 		<DropdownToggle caret={!props.noCaret} className={props.className} color={props.color} size={props.size}>
-			{props.faProps !== null && <FontAwesomeIcon icon={faCog} {...props.faProps} fixedWidth={!!props.buttonText} />}
-			{!!props.buttonText ?? ''}
+			{props.faProps !== null && <FontAwesomeIcon {...(props.faProps ?? {icon: faCog})} fixedWidth={!!props.buttonText} />}
+			{props.buttonText ?? ''}
 		</DropdownToggle>
 		<DropdownMenu right={props.right}>
 			{props.ddActions.filter(ddAction => !ddAction.hidden).map((ddAction, idx) =>
