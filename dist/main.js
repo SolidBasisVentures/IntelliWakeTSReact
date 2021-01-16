@@ -1076,22 +1076,20 @@ var defaultRangeString = DateRangeToString(defaultRange);
  */
 var DDActions = function (props) {
     var _a;
-    var visibleDDActions = React.useMemo(function () { return ((typeof props.ddActions === 'function') ?
-        props.ddActions() : props.ddActions).filter(function (ddAction) { return !ddAction.hidden; }); }, [props.ddActions]);
+    var visibleDDActions = React.useMemo(function () {
+        return (typeof props.ddActions === 'function' ? props.ddActions() : props.ddActions).filter(function (ddAction) { return !ddAction.hidden; });
+    }, [props.ddActions]);
     var showDDActions = React.useMemo(function () { return !props.hidden && visibleDDActions.length > 0; }, [visibleDDActions, props.hidden]);
     var showFAProps = React.useMemo(function () { return !!visibleDDActions.find(function (ddAction) { return !!ddAction.faProps; }); }, [visibleDDActions]);
     if (!showDDActions)
         return null;
-    return React__default['default'].createElement(reactstrap.UncontrolledButtonDropdown, null,
+    return (React__default['default'].createElement(reactstrap.UncontrolledButtonDropdown, null,
         React__default['default'].createElement(reactstrap.DropdownToggle, { caret: !props.noCaret, className: props.className, color: props.color, size: props.size },
-            props.faProps !== null && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, ((_a = props.faProps) !== null && _a !== void 0 ? _a : { icon: proRegularSvgIcons.faCog }), { fixedWidth: !!props.buttonText })),
+            props.faProps !== null && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, ((_a = props.faProps) !== null && _a !== void 0 ? _a : { icon: proRegularSvgIcons.faCog }), { fixedWidth: !!props.buttonText }))),
             props.buttonText),
-        React__default['default'].createElement(reactstrap.DropdownMenu, { right: props.right }, visibleDDActions.map(function (ddAction, idx) {
-            return React__default['default'].createElement(reactstrap.DropdownItem, { key: idx, disabled: !!ddAction.disabled, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return !!ddAction.action ? ddAction.action() : function () { }; } },
-                showFAProps &&
-                    React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, ddAction.faProps, { className: (!ddAction.faProps || ddAction.faPropHidden) ? 'invisible' : '', fixedWidth: true })),
-                ddAction.title);
-        })));
+        React__default['default'].createElement(reactstrap.DropdownMenu, { right: props.right }, visibleDDActions.map(function (ddAction, idx) { return (React__default['default'].createElement(reactstrap.DropdownItem, { key: idx, disabled: !!ddAction.disabled, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return (!!ddAction.action ? ddAction.action() : function () { }); } },
+            showFAProps && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, ddAction.faProps, { className: !ddAction.faProps || ddAction.faPropHidden ? 'invisible' : '', fixedWidth: true }))),
+            ddAction.title)); }))));
 };
 
 var InputCheckBox = function (props) {
