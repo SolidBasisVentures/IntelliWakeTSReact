@@ -11,7 +11,7 @@ export interface IDDAction {
     action?: () => void;
 }
 export interface IPropsDDActions {
-    ddActions: IDDAction[];
+    ddActions: IDDAction[] | (() => IDDAction[]);
     hidden?: boolean;
     noCaret?: boolean;
     buttonText?: ReactNode;

@@ -15,7 +15,7 @@ export interface IDDAction {
 }
 
 export interface IPropsDDActions {
-	ddActions: IDDAction[]
+	ddActions: IDDAction[] | (() => IDDAction[])
 	hidden?: boolean
 	noCaret?: boolean
 	buttonText?: ReactNode
@@ -30,25 +30,48 @@ export interface IPropsDDActions {
  * An array-driven drop down control
  */
 export const DDActions = (props: IPropsDDActions) => {
-	const showDDActions = useMemo(() => !props.hidden && !!props.ddActions.find(ddAction => !ddAction.hidden), [props.ddActions, props.hidden])
-	
-	const showFAProps = useMemo(() => !!props.ddActions.filter(ddAction => !ddAction.hidden).find(ddAction => !!ddAction.faProps), [props.ddActions])
-	
+	const visibleDDActions = useMemo(
+		() =>
+			(typeof props.ddActions === 'function' ? props.ddActions() : props.ddActions).filter(
+				(ddAction) => !ddAction.hidden
+			),
+		[props.ddActions]
+	)
+
+	const showDDActions = useMemo(() => !props.hidden && visibleDDActions.length > 0, [visibleDDActions, props.hidden])
+
+	const showFAProps = useMemo(() => !!visibleDDActions.find((ddAction) => !!ddAction.faProps), [visibleDDActions])
+
 	if (!showDDActions) return null
-	
-	return <UncontrolledButtonDropdown>
-		<DropdownToggle caret={!props.noCaret} className={props.className} color={props.color} size={props.size}>
-			{props.faProps !== null && <FontAwesomeIcon {...(props.faProps ?? {icon: faCog})} fixedWidth={!!props.buttonText} />}
-			{props.buttonText}
-		</DropdownToggle>
-		<DropdownMenu right={props.right}>
-			{props.ddActions.filter(ddAction => !ddAction.hidden).map((ddAction, idx) =>
-				<DropdownItem key={idx} disabled={!!ddAction.disabled} divider={!!ddAction.divider} header={!!ddAction.header} onClick={() => !!ddAction.action ? ddAction.action() : () => {}}>
-					{showFAProps &&
-					<FontAwesomeIcon icon={faCog} {...ddAction.faProps} className={(!ddAction.faProps || ddAction.faPropHidden) ? 'invisible' : ''} fixedWidth />}
-					{ddAction.title}
-				</DropdownItem>
-			)}
-		</DropdownMenu>
-	</UncontrolledButtonDropdown>
+
+	return (
+		<UncontrolledButtonDropdown>
+			<DropdownToggle caret={!props.noCaret} className={props.className} color={props.color} size={props.size}>
+				{props.faProps !== null && (
+					<FontAwesomeIcon {...(props.faProps ?? {icon: faCog})} fixedWidth={!!props.buttonText} />
+				)}
+				{props.buttonText}
+			</DropdownToggle>
+			<DropdownMenu right={props.right}>
+				{visibleDDActions.map((ddAction, idx) => (
+					<DropdownItem
+						key={idx}
+						disabled={!!ddAction.disabled}
+						divider={!!ddAction.divider}
+						header={!!ddAction.header}
+						onClick={() => (!!ddAction.action ? ddAction.action() : () => {})}>
+						{showFAProps && (
+							<FontAwesomeIcon
+								icon={faCog}
+								{...ddAction.faProps}
+								className={!ddAction.faProps || ddAction.faPropHidden ? 'invisible' : ''}
+								fixedWidth
+							/>
+						)}
+						{ddAction.title}
+					</DropdownItem>
+				))}
+			</DropdownMenu>
+		</UncontrolledButtonDropdown>
+	)
 }
