@@ -300,8 +300,11 @@ table.table-sortable thead th {
   cursor: default; }
 
 .inputSwitch:not(.plainText),
-.inputSwitch:not(.plainText) * {
-  cursor: pointer; }
+.inputSwitch:not(.plainText) *,
+.inputCheckBox:not(.plainText),
+.inputCheckBox:not(.plainText) input,
+.inputCheckBox:not(.plainText) label {
+  cursor: pointer !important; }
 
 .inputRadio,
 .inputRadio * {
