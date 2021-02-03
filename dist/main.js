@@ -4,9 +4,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var intelliwaketsfoundation = require('@solidbasisventures/intelliwaketsfoundation');
 var moment = require('moment');
-var _ = require('lodash');
 var React = require('react');
 var reactstrap = require('reactstrap');
+var _ = require('lodash');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
 var proRegularSvgIcons = require('@fortawesome/pro-regular-svg-icons');
 var reactRouterDom = require('react-router-dom');
@@ -18,8 +18,8 @@ var axios = require('axios');
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
-var ___default = /*#__PURE__*/_interopDefaultLegacy(_);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var ___default = /*#__PURE__*/_interopDefaultLegacy(_);
 var ReactDatePicker__default = /*#__PURE__*/_interopDefaultLegacy(ReactDatePicker);
 var Cleave__default = /*#__PURE__*/_interopDefaultLegacy(Cleave);
 var moment__default$1 = /*#__PURE__*/_interopDefaultLegacy(moment$1);
@@ -301,15 +301,51 @@ var DownloadBase64Data = function (fileName, base64, type) {
     }
 };
 
-var ACTIVITY_OVERLAY_SHOW = 'ACTIVITY_OVERLAY_SHOW';
-var ACTIVITY_OVERLAY_HIDE = 'ACTIVITY_OVERLAY_HIDE';
-var ACTIVITY_OVERLAY_RESET = 'ACTIVITY_OVERLAY_RESET';
-var initialState = {
+var initialActivityOverlayState = {
     nestedCount: 0,
     lastStart: undefined
 };
+var AddActivityOverlay = function (prevState) {
+    return {
+        nestedCount: prevState.nestedCount + 1,
+        lastStart: moment__default['default']()
+    };
+};
+var RemoveActivityOverlay = function (prevState) {
+    if (prevState.nestedCount < 1) {
+        console.log('WARNING: Additional RemoveActivityOverlay called');
+        return initialActivityOverlayState;
+    }
+    return {
+        nestedCount: prevState.nestedCount - 1,
+        lastStart: moment__default['default']()
+    };
+};
+/**
+ * An overlay with a black background and a spinner that covers the entire screen.
+ */
+var ActivityOverlay = function (props) {
+    function resetActivityOverlay() {
+        var _a;
+        if (props.activityOverlayState.nestedCount > 0) {
+            var seconds = 5;
+            if (moment__default['default']().diff((_a = props.activityOverlayState.lastStart) !== null && _a !== void 0 ? _a : 0, 'seconds') >= seconds) {
+                props.resetActivityOverlay();
+            }
+        }
+    }
+    if (props.activityOverlayState.nestedCount > 0) {
+        return (React__default['default'].createElement("div", { className: "System_ActivityOverlay", onClick: resetActivityOverlay, color: "primary" },
+            React__default['default'].createElement(reactstrap.Spinner, { style: { width: '3rem', height: '3rem' } })));
+    }
+    return null;
+};
+
+var ACTIVITY_OVERLAY_SHOW = 'ACTIVITY_OVERLAY_SHOW';
+var ACTIVITY_OVERLAY_HIDE = 'ACTIVITY_OVERLAY_HIDE';
+var ACTIVITY_OVERLAY_RESET = 'ACTIVITY_OVERLAY_RESET';
 var reducerActivityOverlay = function (state, action) {
-    if (state === void 0) { state = initialState; }
+    if (state === void 0) { state = initialActivityOverlayState; }
     switch (action.type) {
         case ACTIVITY_OVERLAY_SHOW: {
             return {
@@ -325,11 +361,11 @@ var reducerActivityOverlay = function (state, action) {
                 };
             }
             else {
-                return initialState;
+                return initialActivityOverlayState;
             }
         }
         case ACTIVITY_OVERLAY_RESET: {
-            return initialState;
+            return initialActivityOverlayState;
         }
         default:
             return state;
@@ -515,26 +551,6 @@ var DismissPromptOKCancel = function () {
             payload: null
         });
     };
-};
-
-/**
- * An overlay with a black background and a spinner that covers the entire screen.
- */
-var ActivityOverlay = function (props) {
-    function resetActivityOverlay() {
-        var _a;
-        if (props.activityOverlayState.nestedCount > 0) {
-            var seconds = 5;
-            if (moment__default['default']().diff((_a = props.activityOverlayState.lastStart) !== null && _a !== void 0 ? _a : 0, 'seconds') >= seconds) {
-                props.resetActivityOverlay();
-            }
-        }
-    }
-    if (props.activityOverlayState.nestedCount > 0) {
-        return (React__default['default'].createElement("div", { className: "System_ActivityOverlay", onClick: resetActivityOverlay, color: "primary" },
-            React__default['default'].createElement(reactstrap.Spinner, { style: { width: '3rem', height: '3rem' } })));
-    }
-    return null;
 };
 
 /**
@@ -1763,6 +1779,7 @@ var InputZip = function (props) {
 var IWServerData = function (props) {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
     var isMounted = React.useRef(true);
+    var delayTimeout = React.useRef(setTimeout(function () { }, 100));
     var forceRefreshRef = React.useRef(props.forceRefresh);
     var lastRequest = React.useRef(props.request);
     // const cancelTokenSource = useRef(null as CancelTokenSource | null)
@@ -1780,106 +1797,123 @@ var IWServerData = function (props) {
     var showUserMessage = React.useCallback((_j = props.showUserMessage) !== null && _j !== void 0 ? _j : (function () { }), [props.showUserMessage]);
     var failedAction = React.useCallback((_k = props.failedAction) !== null && _k !== void 0 ? _k : (function () { }), [props.failedAction]);
     var isGet = React.useMemo(function () {
-        return !!props.item &&
+        return !props.noExecution &&
+            !!props.item &&
             !!props.verb &&
             props.request !== null &&
             !!setResponse &&
             (props.response === undefined ||
                 forceRefreshRef.current !== props.forceRefresh ||
                 (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current)));
-    }, [props.item, props.verb, setResponse, props.response, props.request, props.forceRefresh]);
-    var isUpdate = React.useMemo(function () { return !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse; }, [props.updateVerb, props.updateRequest, setUpdateResponse]);
+    }, [props.noExecution, props.item, props.verb, setResponse, props.response, props.request, props.forceRefresh]);
+    var isUpdate = React.useMemo(function () { return !props.noExecution && !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse; }, [props.noExecution, props.updateVerb, props.updateRequest, setUpdateResponse]);
     if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
         console.log('IWServerData-Local', props.item, props.verb, props.updateVerb, 'isGet', isGet, 'isUpdate', isUpdate, 'inProgress', inProgress.current, 'refresh', props.forceRefresh, forceRefreshRef.current, 'starting', (isGet || isUpdate) && !inProgress.current);
     React.useEffect(function () {
-        var _a, _b, _c;
+        var _a;
         isMounted.current = true;
         if (!inProgress.current && (isGet || isUpdate)) {
-            inProgress.current = true;
-            var currentTS = moment__default['default']().valueOf();
-            if (lastTS.current > currentTS - 1000) {
-                console.log('!WARNING!', props.item, props.verb, 'processed less than a second ago!');
-                if (props.response === undefined)
-                    console.log('Get re-run due to undefined response');
-                if (forceRefreshRef.current !== props.forceRefresh)
-                    console.log('Get re-run due to forceRefresh flag');
-                if (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current))
-                    console.log('Get re-run due to request change');
-                if (isUpdate)
-                    console.log('Update re-run');
-            }
-            if (isGet) {
-                lastRequest.current = props.request;
-            }
-            lastTS.current = currentTS;
-            forceRefreshRef.current = props.forceRefresh;
-            // cancelTokenSource.current = axios.CancelToken.source()
-            setShowInProgressControl(true);
-            var authorizationHeader = __assign({ timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null, localtime: moment__default['default']().format(intelliwaketsfoundation.MOMENT_FORMAT_DATE_TIME), locationhref: window.location.href }, props.authorizationHeader);
-            if (!!props.superVerboseConsole)
-                console.log('aH', authorizationHeader);
-            var headers = {
-                Authorization: JSON.stringify(authorizationHeader)
-            };
-            var config = {
-                headers: headers
-            };
-            // if (!!cancelTokenSource.current) {
-            // 	config.cancelToken = cancelTokenSource.current.token
-            // }
-            !!startingAction && startingAction();
-            var verb_1 = isUpdate ? props.updateVerb : props.verb;
-            var request = isUpdate ? props.updateRequest : (_a = props.request) !== null && _a !== void 0 ? _a : {};
-            // if (!props.noCredentials) axios.defaults.withCredentials = true
-            if (!props.noCredentials)
-                config.withCredentials = true;
-            // if (!props.noCrossDomain) {
-            // 	config.baseURL = `${window.location.origin ?? ''}`
-            // }
-            if (!!props.verboseConsole)
-                console.log("API Request for " + ((_b = props.urlPrefix) !== null && _b !== void 0 ? _b : '') + "/" + props.item + "/" + verb_1, request, config);
-            axios__default['default']
-                .post(((_c = props.urlPrefix) !== null && _c !== void 0 ? _c : '') + "/" + props.item + "/" + verb_1, request, config)
-                .then(function (response) {
-                var _a, _b, _c, _d;
-                if (isMounted.current) {
-                    if (!!props.verboseConsole)
-                        console.log("API Response for " + ((_a = props.urlPrefix) !== null && _a !== void 0 ? _a : '') + "/" + props.item + "/" + verb_1, response);
-                    if (!!props.superVerboseConsole)
-                        console.log('headers', response.headers);
-                    !!axiosResponseAction && axiosResponseAction(response);
-                    if (!!handleServerData && !!response.headers.serverdata) {
-                        if (!handleServerData(intelliwaketsfoundation.JSONParse((_b = response.headers.serverdata) !== null && _b !== void 0 ? _b : '{}'))) {
-                            if (isUpdate) {
-                                !!setUpdateResponse && setUpdateResponse(null);
-                            }
-                            else {
-                                !!setResponse && setResponse(null);
-                            }
-                            return;
-                        }
-                    }
-                    var serverStatus = intelliwaketsfoundation.JSONParse((_c = response.headers.serverstatus) !== null && _c !== void 0 ? _c : '{}');
-                    var resultsData = ((_d = response.data) !== null && _d !== void 0 ? _d : {});
+            var currentTS_1 = moment__default['default']().valueOf();
+            clearTimeout(delayTimeout.current);
+            setTimeout(function () {
+                var _a, _b, _c;
+                inProgress.current = true;
+                if (lastTS.current > currentTS_1 - 1000) {
+                    console.log('!WARNING!', props.item, props.verb, 'processed less than a second ago!');
+                    if (props.response === undefined)
+                        console.log('Get re-run due to undefined response');
+                    if (forceRefreshRef.current !== props.forceRefresh)
+                        console.log('Get re-run due to forceRefresh flag');
+                    if (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current))
+                        console.log('Get re-run due to request change');
+                    if (isUpdate)
+                        console.log('Update re-run');
+                }
+                if (isGet) {
+                    lastRequest.current = props.request;
+                }
+                lastTS.current = currentTS_1;
+                forceRefreshRef.current = props.forceRefresh;
+                // cancelTokenSource.current = axios.CancelToken.source()
+                setShowInProgressControl(true);
+                var authorizationHeader = __assign({ timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null, localtime: moment__default['default']().format(intelliwaketsfoundation.MOMENT_FORMAT_DATE_TIME), locationhref: window.location.href }, props.authorizationHeader);
+                if (!!props.superVerboseConsole)
+                    console.log('aH', authorizationHeader);
+                var headers = {
+                    Authorization: JSON.stringify(authorizationHeader)
+                };
+                var config = {
+                    headers: headers
+                };
+                // if (!!cancelTokenSource.current) {
+                // 	config.cancelToken = cancelTokenSource.current.token
+                // }
+                !!startingAction && startingAction();
+                var verb = isUpdate ? props.updateVerb : props.verb;
+                var request = isUpdate ? props.updateRequest : (_a = props.request) !== null && _a !== void 0 ? _a : {};
+                // if (!props.noCredentials) axios.defaults.withCredentials = true
+                if (!props.noCredentials)
+                    config.withCredentials = true;
+                // if (!props.noCrossDomain) {
+                // 	config.baseURL = `${window.location.origin ?? ''}`
+                // }
+                if (!!props.verboseConsole)
+                    console.log("API Request for " + ((_b = props.urlPrefix) !== null && _b !== void 0 ? _b : '') + "/" + props.item + "/" + verb, request, config);
+                axios__default['default']
+                    .post(((_c = props.urlPrefix) !== null && _c !== void 0 ? _c : '') + "/" + props.item + "/" + verb, request, config)
+                    .then(function (response) {
+                    var _a, _b, _c, _d;
                     if (isMounted.current) {
-                        if (!!serverStatus) {
-                            if (intelliwaketsfoundation.IsStageDevFocused() && serverStatus.dev_message) {
-                                console.log(serverStatus.dev_message);
-                            }
-                            if (serverStatus.success) {
+                        if (!!props.verboseConsole)
+                            console.log("API Response for " + ((_a = props.urlPrefix) !== null && _a !== void 0 ? _a : '') + "/" + props.item + "/" + verb, response);
+                        if (!!props.superVerboseConsole)
+                            console.log('headers', response.headers);
+                        !!axiosResponseAction && axiosResponseAction(response);
+                        if (!!handleServerData && !!response.headers.serverdata) {
+                            if (!handleServerData(intelliwaketsfoundation.JSONParse((_b = response.headers.serverdata) !== null && _b !== void 0 ? _b : '{}'))) {
                                 if (isUpdate) {
                                     !!setUpdateResponse && setUpdateResponse(null);
-                                    !!props.updateMessage && !!showUserMessage && showUserMessage(props.updateMessage);
-                                    !!updatedAction && updatedAction(resultsData);
                                 }
                                 else {
-                                    !!props.responseMessage && !!showUserMessage && showUserMessage(props.responseMessage);
-                                    !!setResponse && setResponse(resultsData);
+                                    !!setResponse && setResponse(null);
                                 }
-                                !!serverStatus.message && !!showUserMessage && showUserMessage(serverStatus.message);
+                                return;
+                            }
+                        }
+                        var serverStatus = intelliwaketsfoundation.JSONParse((_c = response.headers.serverstatus) !== null && _c !== void 0 ? _c : '{}');
+                        var resultsData = ((_d = response.data) !== null && _d !== void 0 ? _d : {});
+                        if (isMounted.current) {
+                            if (!!serverStatus) {
+                                if (intelliwaketsfoundation.IsStageDevFocused() && serverStatus.dev_message) {
+                                    console.log(serverStatus.dev_message);
+                                }
+                                if (serverStatus.success) {
+                                    if (isUpdate) {
+                                        !!setUpdateResponse && setUpdateResponse(null);
+                                        !!props.updateMessage && !!showUserMessage && showUserMessage(props.updateMessage);
+                                        !!updatedAction && updatedAction(resultsData);
+                                    }
+                                    else {
+                                        !!props.responseMessage && !!showUserMessage && showUserMessage(props.responseMessage);
+                                        !!setResponse && setResponse(resultsData);
+                                    }
+                                    !!serverStatus.message && !!showUserMessage && showUserMessage(serverStatus.message);
+                                }
+                                else {
+                                    !!failedAction && failedAction(serverStatus);
+                                    if (isUpdate) {
+                                        !!setUpdateResponse && setUpdateResponse(null);
+                                    }
+                                    else {
+                                        !!setResponse && setResponse(null);
+                                    }
+                                }
                             }
                             else {
-                                !!failedAction && failedAction(serverStatus);
+                                if (intelliwaketsfoundation.IsStageDevFocused()) {
+                                    console.warn(props.item, verb, 'API: Response Empty', response);
+                                }
+                                !!showUserMessage && showUserMessage('Could not connect to server', true);
                                 if (isUpdate) {
                                     !!setUpdateResponse && setUpdateResponse(null);
                                 }
@@ -1888,48 +1922,36 @@ var IWServerData = function (props) {
                                 }
                             }
                         }
-                        else {
-                            if (intelliwaketsfoundation.IsStageDevFocused()) {
-                                console.warn(props.item, verb_1, 'API: Response Empty', response);
-                            }
-                            !!showUserMessage && showUserMessage('Could not connect to server', true);
-                            if (isUpdate) {
-                                !!setUpdateResponse && setUpdateResponse(null);
-                            }
-                            else {
-                                !!setResponse && setResponse(null);
-                            }
+                    }
+                })
+                    .catch(function (error) {
+                    var _a;
+                    if (isMounted.current) {
+                        if (intelliwaketsfoundation.IsStageDevFocused()) {
+                            console.warn("API Error for " + ((_a = props.urlPrefix) !== null && _a !== void 0 ? _a : '') + "/" + props.item + "/" + verb, error);
                         }
+                        // axios.isCancel(error)
+                        !!showUserMessage && showUserMessage('Could not connect to server', true);
+                        if (isUpdate) {
+                            !!setUpdateResponse && setUpdateResponse(null);
+                        }
+                        else {
+                            !!setResponse && setResponse(null);
+                        }
+                        !!catchAction && catchAction(error);
                     }
-                }
-            })
-                .catch(function (error) {
-                var _a;
-                if (isMounted.current) {
-                    if (intelliwaketsfoundation.IsStageDevFocused()) {
-                        console.warn("API Error for " + ((_a = props.urlPrefix) !== null && _a !== void 0 ? _a : '') + "/" + props.item + "/" + verb_1, error);
+                })
+                    .finally(function () {
+                    // if (isMounted.current) {
+                    // cancelTokenSource.current = null
+                    // }
+                    !!finallyAction && finallyAction();
+                    inProgress.current = false;
+                    if (isMounted.current) {
+                        setShowInProgressControl(false);
                     }
-                    // axios.isCancel(error)
-                    !!showUserMessage && showUserMessage('Could not connect to server', true);
-                    if (isUpdate) {
-                        !!setUpdateResponse && setUpdateResponse(null);
-                    }
-                    else {
-                        !!setResponse && setResponse(null);
-                    }
-                    !!catchAction && catchAction(error);
-                }
-            })
-                .finally(function () {
-                // if (isMounted.current) {
-                // cancelTokenSource.current = null
-                // }
-                !!finallyAction && finallyAction();
-                inProgress.current = false;
-                if (isMounted.current) {
-                    setShowInProgressControl(false);
-                }
-            });
+                });
+            }, (_a = props.delayMS) !== null && _a !== void 0 ? _a : 10);
         }
         return function () {
             isMounted.current = false;
@@ -1948,6 +1970,7 @@ var IWServerData = function (props) {
         props.updateVerb,
         props.updateRequest,
         props.updateMessage,
+        props.delayMS,
         setResponse,
         setUpdateResponse,
         startingAction,
@@ -1968,8 +1991,11 @@ var IWServerData = function (props) {
     ]);
     return props.children === undefined ? null : (React__default['default'].createElement(React__default['default'].Fragment, null,
         props.children,
-        showInProgressControl && !props.noActivityOverlay &&
-            !props.globalActivityOverlay && props.loadingReactNodes !== null && ((_l = props.loadingReactNodes) !== null && _l !== void 0 ? _l : React__default['default'].createElement(ActivityOverlayControl, { show: true }))));
+        showInProgressControl &&
+            !props.noActivityOverlay &&
+            !props.globalActivityOverlay &&
+            props.loadingReactNodes !== null &&
+            ((_l = props.loadingReactNodes) !== null && _l !== void 0 ? _l : React__default['default'].createElement(ActivityOverlayControl, { show: true }))));
 };
 
 var initialMDContext = {
@@ -2346,6 +2372,7 @@ var TextStatus = function (props) {
 
 exports.ActivityOverlay = ActivityOverlay;
 exports.ActivityOverlayControl = ActivityOverlayControl;
+exports.AddActivityOverlay = AddActivityOverlay;
 exports.AddMenuBackItem = AddMenuBackItem;
 exports.ArrayTable = ArrayTable;
 exports.CaptureGPS = CaptureGPS;
@@ -2430,6 +2457,7 @@ exports.OptionsActive = OptionsActive;
 exports.OptionsActiveAll = OptionsActiveAll;
 exports.PromptOKCancel = PromptOKCancel;
 exports.ReduceInputProps = ReduceInputProps;
+exports.RemoveActivityOverlay = RemoveActivityOverlay;
 exports.ResetActivityOverlay = ResetActivityOverlay;
 exports.ScreenFormatValue = ScreenFormatValue;
 exports.SelectDD = SelectDD;
@@ -2454,6 +2482,7 @@ exports.defaultRangeStrings = defaultRangeStrings;
 exports.defaultRangeStringsReport = defaultRangeStringsReport;
 exports.defaultRanges = defaultRanges;
 exports.defaultRangesReport = defaultRangesReport;
+exports.initialActivityOverlayState = initialActivityOverlayState;
 exports.initialDateRange = initialDateRange;
 exports.initialDateRangeString = initialDateRangeString;
 exports.initialMenuBackItem = initialMenuBackItem;
