@@ -41,9 +41,9 @@ export interface IServerDataUpdatedState<REQ = any, RES = any> {
     /** Message to display to the user after a successful API call */
     updateMessage?: string;
     /** Sets the state of the response object to null a successful API call */
-    setUpdateResponse?: ((response: RES | null) => void);
+    setUpdateResponse?: (response: RES | null) => void;
     /** Action fired with the response object on completion */
-    updatedAction?: ((response: RES | null) => void);
+    updatedAction?: (response: RES | null) => void;
     /** Fired when the API starts */
     startingAction?: () => void;
     /** Fired if the API fails */
@@ -56,6 +56,10 @@ export interface IServerDataUpdatedState<REQ = any, RES = any> {
     noActivityOverlay?: boolean;
     /** Tells the control to display the global activity overlay while processing */
     globalActivityOverlay?: boolean;
+    /** Delays the start of the API by specified MS */
+    delayMS?: number;
+    /** Don't execute if true */
+    noExecution?: boolean;
 }
 /**
  * An interface that allows for a script-driven API to occur.
@@ -86,6 +90,10 @@ export interface IIWQueryProps<REQ = any, RES = any> {
     noActivityOverlay?: boolean;
     /** Tells the control to display the global activity overlay while processing */
     globalActivityOverlay?: boolean;
+    /** Delays the start of the API by specified MS */
+    delayMS?: number;
+    /** Don't execute if true */
+    noExecution?: boolean;
     /** First item of URL */
     item?: string;
     /** Second item of URL */
@@ -95,7 +103,7 @@ export interface IIWQueryProps<REQ = any, RES = any> {
     /** The response object shared with the control.  Set to 'undefined' for the API to initiate. */
     response?: TServerData<RES>;
     /** Sets the state of the response object to null (if failed), or the server data */
-    setResponse?: ((response: RES | null) => void);
+    setResponse?: (response: RES | null) => void;
     /** Message to display to the user after a successful API call */
     responseMessage?: string;
     /** Ignores changes the request object, that would otherwise re-fire the API. */
@@ -113,7 +121,7 @@ export interface IIWQueryProps<REQ = any, RES = any> {
     /** Request package sent in the body of the POST */
     updateRequest?: any;
     /** Sets the state of the response object to null a successful API call */
-    setUpdateResponse?: ((response: any | null) => void);
+    setUpdateResponse?: (response: any | null) => void;
     /** Message to display to the user after a successful API call */
     updateMessage?: string;
     /** After the response is received from the server, this method is fired if successful. */

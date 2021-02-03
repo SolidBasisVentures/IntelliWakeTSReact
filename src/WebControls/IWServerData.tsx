@@ -271,104 +271,117 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 
 			clearTimeout(delayTimeout.current)
 			setTimeout(() => {
-				inProgress.current = true
+				if (isMounted) {
+					inProgress.current = true
 
-				if (lastTS.current > currentTS - 1000) {
-					console.log('!WARNING!', props.item, props.verb, 'processed less than a second ago!')
-					if (props.response === undefined) console.log('Get re-run due to undefined response')
-					if (forceRefreshRef.current !== props.forceRefresh) console.log('Get re-run due to forceRefresh flag')
-					if (!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))
-						console.log('Get re-run due to request change')
-					if (isUpdate) console.log('Update re-run')
-				}
+					if (lastTS.current > currentTS - 1000) {
+						console.log('!WARNING!', props.item, props.verb, 'processed less than a second ago!')
+						if (props.response === undefined) console.log('Get re-run due to undefined response')
+						if (forceRefreshRef.current !== props.forceRefresh) console.log('Get re-run due to forceRefresh flag')
+						if (!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))
+							console.log('Get re-run due to request change')
+						if (isUpdate) console.log('Update re-run')
+					}
 
-				if (isGet) {
-					lastRequest.current = props.request
-				}
-				lastTS.current = currentTS
+					if (isGet) {
+						lastRequest.current = props.request
+					}
+					lastTS.current = currentTS
 
-				forceRefreshRef.current = props.forceRefresh
-				// cancelTokenSource.current = axios.CancelToken.source()
+					forceRefreshRef.current = props.forceRefresh
+					// cancelTokenSource.current = axios.CancelToken.source()
 
-				setShowInProgressControl(true)
+					setShowInProgressControl(true)
 
-				const authorizationHeader = {
-					timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
-					localtime: moment().format(MOMENT_FORMAT_DATE_TIME),
-					locationhref: window.location.href,
-					...props.authorizationHeader
-				} as any
+					const authorizationHeader = {
+						timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+						localtime: moment().format(MOMENT_FORMAT_DATE_TIME),
+						locationhref: window.location.href,
+						...props.authorizationHeader
+					} as any
 
-				if (!!props.superVerboseConsole) console.log('aH', authorizationHeader)
+					if (!!props.superVerboseConsole) console.log('aH', authorizationHeader)
 
-				let headers: any = {
-					Authorization: JSON.stringify(authorizationHeader)
-				}
+					let headers: any = {
+						Authorization: JSON.stringify(authorizationHeader)
+					}
 
-				let config: AxiosRequestConfig = {
-					headers: headers
-				}
+					let config: AxiosRequestConfig = {
+						headers: headers
+					}
 
-				// if (!!cancelTokenSource.current) {
-				// 	config.cancelToken = cancelTokenSource.current.token
-				// }
+					// if (!!cancelTokenSource.current) {
+					// 	config.cancelToken = cancelTokenSource.current.token
+					// }
 
-				!!startingAction && startingAction()
+					!!startingAction && startingAction()
 
-				const verb = isUpdate ? props.updateVerb : props.verb
-				const request = isUpdate ? props.updateRequest : props.request ?? {}
+					const verb = isUpdate ? props.updateVerb : props.verb
+					const request = isUpdate ? props.updateRequest : props.request ?? {}
 
-				// if (!props.noCredentials) axios.defaults.withCredentials = true
-				if (!props.noCredentials) config.withCredentials = true
-				// if (!props.noCrossDomain) {
-				// 	config.baseURL = `${window.location.origin ?? ''}`
-				// }
-				if (!!props.verboseConsole)
-					console.log(`API Request for ${props.urlPrefix ?? ''}/${props.item}/${verb}`, request, config)
-				axios
-					.post(`${props.urlPrefix ?? ''}/${props.item}/${verb}`, request, config)
-					.then((response: any) => {
-						if (isMounted.current) {
-							if (!!props.verboseConsole)
-								console.log(`API Response for ${props.urlPrefix ?? ''}/${props.item}/${verb}`, response)
-							if (!!props.superVerboseConsole) console.log('headers', response.headers)
-
-							!!axiosResponseAction && axiosResponseAction(response)
-
-							if (!!handleServerData && !!response.headers.serverdata) {
-								if (!handleServerData(JSONParse(response.headers.serverdata ?? '{}'))) {
-									if (isUpdate) {
-										!!setUpdateResponse && setUpdateResponse(null)
-									} else {
-										!!setResponse && setResponse(null)
-									}
-
-									return
-								}
-							}
-
-							const serverStatus: any = JSONParse(response.headers.serverstatus ?? '{}')
-							const resultsData = (response.data ?? {}) as RES | any
-
+					// if (!props.noCredentials) axios.defaults.withCredentials = true
+					if (!props.noCredentials) config.withCredentials = true
+					// if (!props.noCrossDomain) {
+					// 	config.baseURL = `${window.location.origin ?? ''}`
+					// }
+					if (!!props.verboseConsole)
+						console.log(`API Request for ${props.urlPrefix ?? ''}/${props.item}/${verb}`, request, config)
+					axios
+						.post(`${props.urlPrefix ?? ''}/${props.item}/${verb}`, request, config)
+						.then((response: any) => {
 							if (isMounted.current) {
-								if (!!serverStatus) {
-									if (IsStageDevFocused() && serverStatus.dev_message) {
-										console.log(serverStatus.dev_message)
-									}
+								if (!!props.verboseConsole)
+									console.log(`API Response for ${props.urlPrefix ?? ''}/${props.item}/${verb}`, response)
+								if (!!props.superVerboseConsole) console.log('headers', response.headers)
 
-									if (serverStatus.success) {
+								!!axiosResponseAction && axiosResponseAction(response)
+
+								if (!!handleServerData && !!response.headers.serverdata) {
+									if (!handleServerData(JSONParse(response.headers.serverdata ?? '{}'))) {
 										if (isUpdate) {
 											!!setUpdateResponse && setUpdateResponse(null)
-											!!props.updateMessage && !!showUserMessage && showUserMessage(props.updateMessage)
-											!!updatedAction && updatedAction(resultsData as any)
 										} else {
-											!!props.responseMessage && !!showUserMessage && showUserMessage(props.responseMessage)
-											!!setResponse && setResponse(resultsData as RES)
+											!!setResponse && setResponse(null)
 										}
 
-										!!serverStatus.message && !!showUserMessage && showUserMessage(serverStatus.message)
+										return
+									}
+								}
+
+								const serverStatus: any = JSONParse(response.headers.serverstatus ?? '{}')
+								const resultsData = (response.data ?? {}) as RES | any
+
+								if (isMounted.current) {
+									if (!!serverStatus) {
+										if (IsStageDevFocused() && serverStatus.dev_message) {
+											console.log(serverStatus.dev_message)
+										}
+
+										if (serverStatus.success) {
+											if (isUpdate) {
+												!!setUpdateResponse && setUpdateResponse(null)
+												!!props.updateMessage && !!showUserMessage && showUserMessage(props.updateMessage)
+												!!updatedAction && updatedAction(resultsData as any)
+											} else {
+												!!props.responseMessage && !!showUserMessage && showUserMessage(props.responseMessage)
+												!!setResponse && setResponse(resultsData as RES)
+											}
+
+											!!serverStatus.message && !!showUserMessage && showUserMessage(serverStatus.message)
+										} else {
+											!!failedAction && failedAction(serverStatus)
+
+											if (isUpdate) {
+												!!setUpdateResponse && setUpdateResponse(null)
+											} else {
+												!!setResponse && setResponse(null)
+											}
+										}
 									} else {
-										!!failedAction && failedAction(serverStatus)
+										if (IsStageDevFocused()) {
+											console.warn(props.item, verb, 'API: Response Empty', response)
+										}
+										!!showUserMessage && showUserMessage('Could not connect to server', true)
 
 										if (isUpdate) {
 											!!setUpdateResponse && setUpdateResponse(null)
@@ -376,46 +389,35 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 											!!setResponse && setResponse(null)
 										}
 									}
-								} else {
-									if (IsStageDevFocused()) {
-										console.warn(props.item, verb, 'API: Response Empty', response)
-									}
-									!!showUserMessage && showUserMessage('Could not connect to server', true)
-
-									if (isUpdate) {
-										!!setUpdateResponse && setUpdateResponse(null)
-									} else {
-										!!setResponse && setResponse(null)
-									}
 								}
 							}
-						}
-					})
-					.catch((error: any) => {
-						if (isMounted.current) {
-							if (IsStageDevFocused()) {
-								console.warn(`API Error for ${props.urlPrefix ?? ''}/${props.item}/${verb}`, error)
+						})
+						.catch((error: any) => {
+							if (isMounted.current) {
+								if (IsStageDevFocused()) {
+									console.warn(`API Error for ${props.urlPrefix ?? ''}/${props.item}/${verb}`, error)
+								}
+								// axios.isCancel(error)
+								!!showUserMessage && showUserMessage('Could not connect to server', true)
+								if (isUpdate) {
+									!!setUpdateResponse && setUpdateResponse(null)
+								} else {
+									!!setResponse && setResponse(null)
+								}
+								!!catchAction && catchAction(error)
 							}
-							// axios.isCancel(error)
-							!!showUserMessage && showUserMessage('Could not connect to server', true)
-							if (isUpdate) {
-								!!setUpdateResponse && setUpdateResponse(null)
-							} else {
-								!!setResponse && setResponse(null)
+						})
+						.finally(() => {
+							// if (isMounted.current) {
+							// cancelTokenSource.current = null
+							// }
+							!!finallyAction && finallyAction()
+							inProgress.current = false
+							if (isMounted.current) {
+								setShowInProgressControl(false)
 							}
-							!!catchAction && catchAction(error)
-						}
-					})
-					.finally(() => {
-						// if (isMounted.current) {
-						// cancelTokenSource.current = null
-						// }
-						!!finallyAction && finallyAction()
-						inProgress.current = false
-						if (isMounted.current) {
-							setShowInProgressControl(false)
-						}
-					})
+						})
+				}
 			}, props.delayMS ?? 10)
 		}
 

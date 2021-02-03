@@ -1,8 +1,4 @@
-import moment from "moment";
-export interface ActivityOverlayState {
-    nestedCount: number;
-    lastStart: moment.Moment | undefined;
-}
+import { IActivityOverlayState } from '../WebControls/ActivityOverlay';
 declare const ACTIVITY_OVERLAY_SHOW = "ACTIVITY_OVERLAY_SHOW";
 declare const ACTIVITY_OVERLAY_HIDE = "ACTIVITY_OVERLAY_HIDE";
 declare const ACTIVITY_OVERLAY_RESET = "ACTIVITY_OVERLAY_RESET";
@@ -19,7 +15,7 @@ interface ResetActivityOverlayAction {
     payload: null;
 }
 declare type ActivityOverlayActionTypes = ShowActivityOverlayAction | HideActivityOverlayAction | ResetActivityOverlayAction;
-export declare const reducerActivityOverlay: (state: ActivityOverlayState | undefined, action: ActivityOverlayActionTypes) => ActivityOverlayState;
+export declare const reducerActivityOverlay: (state: IActivityOverlayState | undefined, action: ActivityOverlayActionTypes) => IActivityOverlayState;
 export declare const ShowActivityOverlay: () => (dispatch: any) => void;
 export declare const HideActivityOverlay: () => (dispatch: any) => void;
 export declare const ResetActivityOverlay: () => (dispatch: any) => void;
