@@ -1779,7 +1779,6 @@ var InputZip = function (props) {
 var IWServerData = function (props) {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
     var isMounted = React.useRef(true);
-    var delayTimeout = React.useRef(setTimeout(function () { }, 100));
     var forceRefreshRef = React.useRef(props.forceRefresh);
     var lastRequest = React.useRef(props.request);
     // const cancelTokenSource = useRef(null as CancelTokenSource | null)
@@ -1810,110 +1809,94 @@ var IWServerData = function (props) {
     if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
         console.log('IWServerData-Local', props.item, props.verb, props.updateVerb, 'isGet', isGet, 'isUpdate', isUpdate, 'inProgress', inProgress.current, 'refresh', props.forceRefresh, forceRefreshRef.current, 'starting', (isGet || isUpdate) && !inProgress.current);
     React.useEffect(function () {
-        var _a;
+        var _a, _b, _c;
         isMounted.current = true;
         if (!inProgress.current && (isGet || isUpdate)) {
-            var currentTS_1 = moment__default['default']().valueOf();
-            clearTimeout(delayTimeout.current);
-            setTimeout(function () {
-                var _a, _b, _c;
-                inProgress.current = true;
-                if (lastTS.current > currentTS_1 - 1000) {
-                    console.log('!WARNING!', props.item, props.verb, 'processed less than a second ago!');
-                    if (props.response === undefined)
-                        console.log('Get re-run due to undefined response');
-                    if (forceRefreshRef.current !== props.forceRefresh)
-                        console.log('Get re-run due to forceRefresh flag');
-                    if (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current))
-                        console.log('Get re-run due to request change');
-                    if (isUpdate)
-                        console.log('Update re-run');
-                }
-                if (isGet) {
-                    lastRequest.current = props.request;
-                }
-                lastTS.current = currentTS_1;
-                forceRefreshRef.current = props.forceRefresh;
-                // cancelTokenSource.current = axios.CancelToken.source()
-                setShowInProgressControl(true);
-                var authorizationHeader = __assign({ timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null, localtime: moment__default['default']().format(intelliwaketsfoundation.MOMENT_FORMAT_DATE_TIME), locationhref: window.location.href }, props.authorizationHeader);
-                if (!!props.superVerboseConsole)
-                    console.log('aH', authorizationHeader);
-                var headers = {
-                    Authorization: JSON.stringify(authorizationHeader)
-                };
-                var config = {
-                    headers: headers
-                };
-                // if (!!cancelTokenSource.current) {
-                // 	config.cancelToken = cancelTokenSource.current.token
-                // }
-                !!startingAction && startingAction();
-                var verb = isUpdate ? props.updateVerb : props.verb;
-                var request = isUpdate ? props.updateRequest : (_a = props.request) !== null && _a !== void 0 ? _a : {};
-                // if (!props.noCredentials) axios.defaults.withCredentials = true
-                if (!props.noCredentials)
-                    config.withCredentials = true;
-                // if (!props.noCrossDomain) {
-                // 	config.baseURL = `${window.location.origin ?? ''}`
-                // }
-                if (!!props.verboseConsole)
-                    console.log("API Request for " + ((_b = props.urlPrefix) !== null && _b !== void 0 ? _b : '') + "/" + props.item + "/" + verb, request, config);
-                axios__default['default']
-                    .post(((_c = props.urlPrefix) !== null && _c !== void 0 ? _c : '') + "/" + props.item + "/" + verb, request, config)
-                    .then(function (response) {
-                    var _a, _b, _c, _d;
-                    if (isMounted.current) {
-                        if (!!props.verboseConsole)
-                            console.log("API Response for " + ((_a = props.urlPrefix) !== null && _a !== void 0 ? _a : '') + "/" + props.item + "/" + verb, response);
-                        if (!!props.superVerboseConsole)
-                            console.log('headers', response.headers);
-                        !!axiosResponseAction && axiosResponseAction(response);
-                        if (!!handleServerData && !!response.headers.serverdata) {
-                            if (!handleServerData(intelliwaketsfoundation.JSONParse((_b = response.headers.serverdata) !== null && _b !== void 0 ? _b : '{}'))) {
-                                if (isUpdate) {
-                                    !!setUpdateResponse && setUpdateResponse(null);
-                                }
-                                else {
-                                    !!setResponse && setResponse(null);
-                                }
-                                return;
-                            }
-                        }
-                        var serverStatus = intelliwaketsfoundation.JSONParse((_c = response.headers.serverstatus) !== null && _c !== void 0 ? _c : '{}');
-                        var resultsData = ((_d = response.data) !== null && _d !== void 0 ? _d : {});
-                        if (isMounted.current) {
-                            if (!!serverStatus) {
-                                if (intelliwaketsfoundation.IsStageDevFocused() && serverStatus.dev_message) {
-                                    console.log(serverStatus.dev_message);
-                                }
-                                if (serverStatus.success) {
-                                    if (isUpdate) {
-                                        !!setUpdateResponse && setUpdateResponse(null);
-                                        !!props.updateMessage && !!showUserMessage && showUserMessage(props.updateMessage);
-                                        !!updatedAction && updatedAction(resultsData);
-                                    }
-                                    else {
-                                        !!props.responseMessage && !!showUserMessage && showUserMessage(props.responseMessage);
-                                        !!setResponse && setResponse(resultsData);
-                                    }
-                                    !!serverStatus.message && !!showUserMessage && showUserMessage(serverStatus.message);
-                                }
-                                else {
-                                    !!failedAction && failedAction(serverStatus);
-                                    if (isUpdate) {
-                                        !!setUpdateResponse && setUpdateResponse(null);
-                                    }
-                                    else {
-                                        !!setResponse && setResponse(null);
-                                    }
-                                }
+            inProgress.current = true;
+            var currentTS = moment__default['default']().valueOf();
+            if (lastTS.current > currentTS - 1000) {
+                console.log('!WARNING!', props.item, props.verb, 'processed less than a second ago!');
+                if (props.response === undefined)
+                    console.log('Get re-run due to undefined response');
+                if (forceRefreshRef.current !== props.forceRefresh)
+                    console.log('Get re-run due to forceRefresh flag');
+                if (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current))
+                    console.log('Get re-run due to request change');
+                if (isUpdate)
+                    console.log('Update re-run');
+            }
+            if (isGet) {
+                lastRequest.current = props.request;
+            }
+            lastTS.current = currentTS;
+            forceRefreshRef.current = props.forceRefresh;
+            // cancelTokenSource.current = axios.CancelToken.source()
+            setShowInProgressControl(true);
+            var authorizationHeader = __assign({ timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null, localtime: moment__default['default']().format(intelliwaketsfoundation.MOMENT_FORMAT_DATE_TIME), locationhref: window.location.href }, props.authorizationHeader);
+            if (!!props.superVerboseConsole)
+                console.log('aH', authorizationHeader);
+            var headers = {
+                Authorization: JSON.stringify(authorizationHeader)
+            };
+            var config = {
+                headers: headers
+            };
+            // if (!!cancelTokenSource.current) {
+            // 	config.cancelToken = cancelTokenSource.current.token
+            // }
+            !!startingAction && startingAction();
+            var verb_1 = isUpdate ? props.updateVerb : props.verb;
+            var request = isUpdate ? props.updateRequest : (_a = props.request) !== null && _a !== void 0 ? _a : {};
+            // if (!props.noCredentials) axios.defaults.withCredentials = true
+            if (!props.noCredentials)
+                config.withCredentials = true;
+            // if (!props.noCrossDomain) {
+            // 	config.baseURL = `${window.location.origin ?? ''}`
+            // }
+            if (!!props.verboseConsole)
+                console.log("API Request for " + ((_b = props.urlPrefix) !== null && _b !== void 0 ? _b : '') + "/" + props.item + "/" + verb_1, request, config);
+            axios__default['default']
+                .post(((_c = props.urlPrefix) !== null && _c !== void 0 ? _c : '') + "/" + props.item + "/" + verb_1, request, config)
+                .then(function (response) {
+                var _a, _b, _c, _d;
+                if (isMounted.current) {
+                    if (!!props.verboseConsole)
+                        console.log("API Response for " + ((_a = props.urlPrefix) !== null && _a !== void 0 ? _a : '') + "/" + props.item + "/" + verb_1, response);
+                    if (!!props.superVerboseConsole)
+                        console.log('headers', response.headers);
+                    !!axiosResponseAction && axiosResponseAction(response);
+                    if (!!handleServerData && !!response.headers.serverdata) {
+                        if (!handleServerData(intelliwaketsfoundation.JSONParse((_b = response.headers.serverdata) !== null && _b !== void 0 ? _b : '{}'))) {
+                            if (isUpdate) {
+                                !!setUpdateResponse && setUpdateResponse(null);
                             }
                             else {
-                                if (intelliwaketsfoundation.IsStageDevFocused()) {
-                                    console.warn(props.item, verb, 'API: Response Empty', response);
+                                !!setResponse && setResponse(null);
+                            }
+                            return;
+                        }
+                    }
+                    var serverStatus = intelliwaketsfoundation.JSONParse((_c = response.headers.serverstatus) !== null && _c !== void 0 ? _c : '{}');
+                    var resultsData = ((_d = response.data) !== null && _d !== void 0 ? _d : {});
+                    if (isMounted.current) {
+                        if (!!serverStatus) {
+                            if (intelliwaketsfoundation.IsStageDevFocused() && serverStatus.dev_message) {
+                                console.log(serverStatus.dev_message);
+                            }
+                            if (serverStatus.success) {
+                                if (isUpdate) {
+                                    !!setUpdateResponse && setUpdateResponse(null);
+                                    !!props.updateMessage && !!showUserMessage && showUserMessage(props.updateMessage);
+                                    !!updatedAction && updatedAction(resultsData);
                                 }
-                                !!showUserMessage && showUserMessage('Could not connect to server', true);
+                                else {
+                                    !!props.responseMessage && !!showUserMessage && showUserMessage(props.responseMessage);
+                                    !!setResponse && setResponse(resultsData);
+                                }
+                                !!serverStatus.message && !!showUserMessage && showUserMessage(serverStatus.message);
+                            }
+                            else {
+                                !!failedAction && failedAction(serverStatus);
                                 if (isUpdate) {
                                     !!setUpdateResponse && setUpdateResponse(null);
                                 }
@@ -1922,36 +1905,48 @@ var IWServerData = function (props) {
                                 }
                             }
                         }
-                    }
-                })
-                    .catch(function (error) {
-                    var _a;
-                    if (isMounted.current) {
-                        if (intelliwaketsfoundation.IsStageDevFocused()) {
-                            console.warn("API Error for " + ((_a = props.urlPrefix) !== null && _a !== void 0 ? _a : '') + "/" + props.item + "/" + verb, error);
-                        }
-                        // axios.isCancel(error)
-                        !!showUserMessage && showUserMessage('Could not connect to server', true);
-                        if (isUpdate) {
-                            !!setUpdateResponse && setUpdateResponse(null);
-                        }
                         else {
-                            !!setResponse && setResponse(null);
+                            if (intelliwaketsfoundation.IsStageDevFocused()) {
+                                console.warn(props.item, verb_1, 'API: Response Empty', response);
+                            }
+                            !!showUserMessage && showUserMessage('Could not connect to server', true);
+                            if (isUpdate) {
+                                !!setUpdateResponse && setUpdateResponse(null);
+                            }
+                            else {
+                                !!setResponse && setResponse(null);
+                            }
                         }
-                        !!catchAction && catchAction(error);
                     }
-                })
-                    .finally(function () {
-                    // if (isMounted.current) {
-                    // cancelTokenSource.current = null
-                    // }
-                    !!finallyAction && finallyAction();
-                    inProgress.current = false;
-                    if (isMounted.current) {
-                        setShowInProgressControl(false);
+                }
+            })
+                .catch(function (error) {
+                var _a;
+                if (isMounted.current) {
+                    if (intelliwaketsfoundation.IsStageDevFocused()) {
+                        console.warn("API Error for " + ((_a = props.urlPrefix) !== null && _a !== void 0 ? _a : '') + "/" + props.item + "/" + verb_1, error);
                     }
-                });
-            }, (_a = props.delayMS) !== null && _a !== void 0 ? _a : 10);
+                    // axios.isCancel(error)
+                    !!showUserMessage && showUserMessage('Could not connect to server', true);
+                    if (isUpdate) {
+                        !!setUpdateResponse && setUpdateResponse(null);
+                    }
+                    else {
+                        !!setResponse && setResponse(null);
+                    }
+                    !!catchAction && catchAction(error);
+                }
+            })
+                .finally(function () {
+                // if (isMounted.current) {
+                // cancelTokenSource.current = null
+                // }
+                !!finallyAction && finallyAction();
+                inProgress.current = false;
+                if (isMounted.current) {
+                    setShowInProgressControl(false);
+                }
+            });
         }
         return function () {
             isMounted.current = false;
@@ -1970,7 +1965,6 @@ var IWServerData = function (props) {
         props.updateVerb,
         props.updateRequest,
         props.updateMessage,
-        props.delayMS,
         setResponse,
         setUpdateResponse,
         startingAction,

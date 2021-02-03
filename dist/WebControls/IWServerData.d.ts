@@ -56,8 +56,6 @@ export interface IServerDataUpdatedState<REQ = any, RES = any> {
     noActivityOverlay?: boolean;
     /** Tells the control to display the global activity overlay while processing */
     globalActivityOverlay?: boolean;
-    /** Delays the start of the API by specified MS */
-    delayMS?: number;
     /** Don't execute if true */
     noExecution?: boolean;
 }
@@ -90,8 +88,6 @@ export interface IIWQueryProps<REQ = any, RES = any> {
     noActivityOverlay?: boolean;
     /** Tells the control to display the global activity overlay while processing */
     globalActivityOverlay?: boolean;
-    /** Delays the start of the API by specified MS */
-    delayMS?: number;
     /** Don't execute if true */
     noExecution?: boolean;
     /** First item of URL */
