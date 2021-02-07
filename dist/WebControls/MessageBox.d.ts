@@ -1,4 +1,10 @@
-import { MessageBoxState } from '../Stores/message_box';
+export interface MessageBoxState {
+    message: string | null;
+    messageBody?: string | null;
+    color?: string;
+    noDismiss?: boolean;
+}
+export declare const initialMessageBoxState: MessageBoxState;
 interface IProps {
     messageBoxState: MessageBoxState | string;
     dismissMessageBox: (() => void);

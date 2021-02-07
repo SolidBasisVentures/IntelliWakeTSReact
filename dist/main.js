@@ -3,10 +3,9 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var intelliwaketsfoundation = require('@solidbasisventures/intelliwaketsfoundation');
-var moment = require('moment');
 var React = require('react');
+var moment = require('moment');
 var reactstrap = require('reactstrap');
-var _ = require('lodash');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
 var proRegularSvgIcons = require('@fortawesome/pro-regular-svg-icons');
 var reactRouterDom = require('react-router-dom');
@@ -14,16 +13,17 @@ var ReactDatePicker = require('react-datepicker');
 var Cleave = require('cleave.js/react');
 var moment$1 = require('moment-timezone');
 var axios = require('axios');
+var _ = require('lodash');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
-var ___default = /*#__PURE__*/_interopDefaultLegacy(_);
+var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
 var ReactDatePicker__default = /*#__PURE__*/_interopDefaultLegacy(ReactDatePicker);
 var Cleave__default = /*#__PURE__*/_interopDefaultLegacy(Cleave);
 var moment__default$1 = /*#__PURE__*/_interopDefaultLegacy(moment$1);
 var axios__default = /*#__PURE__*/_interopDefaultLegacy(axios);
+var ___default = /*#__PURE__*/_interopDefaultLegacy(_);
 
 // ----------------------------
 //   Cookie Manager
@@ -339,218 +339,6 @@ var ActivityOverlay = function (props) {
             React__default['default'].createElement(reactstrap.Spinner, { style: { width: '3rem', height: '3rem' } })));
     }
     return null;
-};
-
-var ACTIVITY_OVERLAY_SHOW = 'ACTIVITY_OVERLAY_SHOW';
-var ACTIVITY_OVERLAY_HIDE = 'ACTIVITY_OVERLAY_HIDE';
-var ACTIVITY_OVERLAY_RESET = 'ACTIVITY_OVERLAY_RESET';
-var reducerActivityOverlay = function (state, action) {
-    if (state === void 0) { state = initialActivityOverlayState; }
-    switch (action.type) {
-        case ACTIVITY_OVERLAY_SHOW: {
-            return {
-                nestedCount: state.nestedCount + 1,
-                lastStart: moment__default['default']()
-            };
-        }
-        case ACTIVITY_OVERLAY_HIDE: {
-            if (state.nestedCount > 0) {
-                return {
-                    nestedCount: state.nestedCount - 1,
-                    lastStart: state.lastStart
-                };
-            }
-            else {
-                return initialActivityOverlayState;
-            }
-        }
-        case ACTIVITY_OVERLAY_RESET: {
-            return initialActivityOverlayState;
-        }
-        default:
-            return state;
-    }
-};
-var ShowActivityOverlay = function () {
-    return function (dispatch) {
-        dispatch({
-            type: ACTIVITY_OVERLAY_SHOW,
-            payload: null
-        });
-    };
-};
-var HideActivityOverlay = function () {
-    return function (dispatch) {
-        dispatch({
-            type: ACTIVITY_OVERLAY_HIDE,
-            payload: null
-        });
-    };
-};
-var ResetActivityOverlay = function () {
-    return function (dispatch) {
-        dispatch({
-            type: ACTIVITY_OVERLAY_RESET,
-            payload: null
-        });
-    };
-};
-
-var ADD_MENU_BACK = 'ADD_MENU_BACK';
-var CLEAN_MENU_BACK = 'CLEAN_MENU_BACK';
-var initialMenuBackState = {
-    menuBackItems: []
-};
-var initialMenuBackItem = {
-    menuBackActive: false,
-    menuBackButtonTitle: "",
-    menuBackButtonURL: "",
-    menuPageTitle: "",
-    menuDisplaySize: undefined
-};
-var reducerMenuBack = function (state, action) {
-    if (state === void 0) { state = initialMenuBackState; }
-    switch (action.type) {
-        case ADD_MENU_BACK: {
-            var location_1 = window.location.pathname;
-            var newState = Object.assign({}, state);
-            newState.menuBackItems = newState.menuBackItems.filter(function (item) {
-                return item.menuBackButtonURL.length < location_1.length;
-            });
-            newState.menuBackItems.push(action.payload);
-            return __assign({}, newState);
-        }
-        case CLEAN_MENU_BACK: {
-            var location_2 = window.location.pathname;
-            var newState = Object.assign({}, state);
-            newState.menuBackItems = newState.menuBackItems.filter(function (item) {
-                return item.menuBackButtonURL.length < location_2.length;
-            });
-            return __assign({}, newState);
-        }
-        default:
-            return state;
-    }
-};
-var AddMenuBackItem = function (menuBackItem) {
-    return function (dispatch) {
-        dispatch({
-            type: ADD_MENU_BACK,
-            payload: menuBackItem
-        });
-    };
-};
-var CleanMenuBackItem = function () {
-    return function (dispatch) {
-        dispatch({
-            type: CLEAN_MENU_BACK,
-            payload: null
-        });
-    };
-};
-
-var MESSAGE_BOX_SHOW = 'MESSAGE_BOX_SHOW';
-var MESSAGE_BOX_DISMISS = 'MESSAGE_BOX_DISMISS';
-var initialMessageBoxState = {
-    message: null
-};
-function reducerMessageBox(state, action) {
-    if (state === void 0) { state = initialMessageBoxState; }
-    switch (action.type) {
-        case MESSAGE_BOX_SHOW: {
-            if (___default['default'].isEqual(state, action.payload)) {
-                return state;
-            }
-            return __assign(__assign({}, state), action.payload);
-        }
-        case MESSAGE_BOX_DISMISS: {
-            return initialMessageBoxState;
-        }
-        default:
-            return state;
-    }
-}
-var ShowMessageBox = function (message, color, messageBody, autoDismiss) {
-    if (color === void 0) { color = "primary"; }
-    if (messageBody === void 0) { messageBody = null; }
-    if (autoDismiss === void 0) { autoDismiss = true; }
-    return function (dispatch) {
-        dispatch({
-            type: MESSAGE_BOX_SHOW,
-            payload: {
-                message: message,
-                messageBody: messageBody,
-                color: color,
-                autoDismiss: autoDismiss
-            }
-        });
-    };
-};
-var DismissMessageBox = function () {
-    return function (dispatch) {
-        dispatch({
-            type: MESSAGE_BOX_DISMISS,
-            payload: null
-        });
-    };
-};
-
-var PROMPT_OK_CANCEL_SHOW = 'PROMPT_OK_CANCEL_SHOW';
-var PROMPT_OK_CANCEL_DISMISS = 'PROMPT_OK_CANCEL_DISMISS';
-var initialPromptOKCancelState = {
-    isOpen: false,
-    responder: undefined,
-    title: '',
-    messageBody: '',
-    color: 'primary',
-    okButton: 'OK',
-    cancelButton: 'Cancel'
-};
-function reducerPromptOKCancel(state, action) {
-    if (state === void 0) { state = initialPromptOKCancelState; }
-    switch (action.type) {
-        case PROMPT_OK_CANCEL_SHOW: {
-            return __assign(__assign({}, state), action.payload);
-        }
-        case PROMPT_OK_CANCEL_DISMISS: {
-            return initialPromptOKCancelState;
-        }
-        default:
-            return state;
-    }
-}
-var ShowPromptOKCancel = function (title, messageBody, color, okButton, cancelButton) {
-    if (color === void 0) { color = initialPromptOKCancelState.color; }
-    if (okButton === void 0) { okButton = initialPromptOKCancelState.okButton; }
-    if (cancelButton === void 0) { cancelButton = initialPromptOKCancelState.cancelButton; }
-    return function (dispatch) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/, new Promise(function (resolve) {
-                    dispatch({
-                        type: PROMPT_OK_CANCEL_SHOW,
-                        payload: {
-                            isOpen: true,
-                            responder: function (ok) {
-                                resolve(ok);
-                            },
-                            title: title,
-                            messageBody: messageBody,
-                            color: color,
-                            okButton: okButton,
-                            cancelButton: cancelButton
-                        }
-                    });
-                })];
-        });
-    }); };
-};
-var DismissPromptOKCancel = function () {
-    return function (dispatch) {
-        dispatch({
-            type: PROMPT_OK_CANCEL_DISMISS,
-            payload: null
-        });
-    };
 };
 
 /**
@@ -1992,6 +1780,13 @@ var IWServerData = function (props) {
             ((_l = props.loadingReactNodes) !== null && _l !== void 0 ? _l : React__default['default'].createElement(ActivityOverlayControl, { show: true }))));
 };
 
+var initialMenuBackItem = {
+    menuBackActive: false,
+    menuBackButtonTitle: '',
+    menuBackButtonURL: '',
+    menuPageTitle: '',
+    menuDisplaySize: undefined
+};
 var initialMDContext = {
     breakAt: 'lg',
     mdPath: '',
@@ -2159,6 +1954,9 @@ var MDDetail = function (props) {
     }
 };
 
+var initialMessageBoxState = {
+    message: null
+};
 /**
  * An alert box that appears when a message is passed as a prop,and dismisses after three seconds.
  */
@@ -2276,30 +2074,6 @@ var ModalPrompt = function (props) {
             !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactstrap.Button, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1", onKeyPress: okKeyPress, autoFocus: true, tabIndex: 0 }, props.okLabel)))));
 };
 
-var PromptOKCancel = function (props) {
-    var _a;
-    function okPromptOKCancel() {
-        if (!!props.promptOKCancelState.responder) {
-            props.promptOKCancelState.responder(true);
-        }
-        props.dismissPromptOKCancel(null);
-    }
-    function cancelPromptOKCancel() {
-        if (props.promptOKCancelState.responder !== undefined) {
-            props.promptOKCancelState.responder(false);
-        }
-        props.dismissPromptOKCancel(null);
-    }
-    var promptOKCancelCalc = (_a = props.promptOKCancelState) !== null && _a !== void 0 ? _a : initialPromptOKCancelState;
-    return (React__default['default'].createElement(reactstrap.Modal, { backdrop: true, keyboard: true, isOpen: promptOKCancelCalc.isOpen, toggle: cancelPromptOKCancel },
-        React__default['default'].createElement(reactstrap.ModalHeader, { className: 'alert-' + promptOKCancelCalc.color }, promptOKCancelCalc.title),
-        React__default['default'].createElement(reactstrap.ModalBody, null, promptOKCancelCalc.messageBody),
-        React__default['default'].createElement(reactstrap.ModalFooter, null,
-            React__default['default'].createElement(reactstrap.Button, { onClick: cancelPromptOKCancel, color: "link", hidden: !promptOKCancelCalc.cancelButton }, promptOKCancelCalc.cancelButton),
-            ' ',
-            React__default['default'].createElement(reactstrap.Button, { onClick: okPromptOKCancel, color: promptOKCancelCalc.color, hidden: !promptOKCancelCalc.okButton }, promptOKCancelCalc.okButton))));
-};
-
 var SelectDD = function (props) {
     var _a;
     var _b, _c, _d, _e, _f;
@@ -2367,11 +2141,9 @@ var TextStatus = function (props) {
 exports.ActivityOverlay = ActivityOverlay;
 exports.ActivityOverlayControl = ActivityOverlayControl;
 exports.AddActivityOverlay = AddActivityOverlay;
-exports.AddMenuBackItem = AddMenuBackItem;
 exports.ArrayTable = ArrayTable;
 exports.CaptureGPS = CaptureGPS;
 exports.ClassNames = ClassNames;
-exports.CleanMenuBackItem = CleanMenuBackItem;
 exports.ColumnBodyClassNames = ColumnBodyClassNames;
 exports.ColumnClassNames = ColumnClassNames;
 exports.ColumnHeadClassNames = ColumnHeadClassNames;
@@ -2387,8 +2159,6 @@ exports.DateRangeDateMomentToString = DateRangeDateMomentToString;
 exports.DateRangeDateStringToMoment = DateRangeDateStringToMoment;
 exports.DateRangeToMoment = DateRangeToMoment;
 exports.DateRangeToString = DateRangeToString;
-exports.DismissMessageBox = DismissMessageBox;
-exports.DismissPromptOKCancel = DismissPromptOKCancel;
 exports.DownloadBase64Data = DownloadBase64Data;
 exports.ElementCustomValue = ElementCustomValue;
 exports.FilterObjects = FilterObjects;
@@ -2397,7 +2167,6 @@ exports.GetPathComponentAfter = GetPathComponentAfter;
 exports.GetPathThrough = GetPathThrough;
 exports.HandleChangeValue = HandleChangeValue;
 exports.HasPathComponent = HasPathComponent;
-exports.HideActivityOverlay = HideActivityOverlay;
 exports.IWServerData = IWServerData;
 exports.InputCheckBox = InputCheckBox;
 exports.InputColor = InputColor;
@@ -2449,16 +2218,11 @@ exports.MessageBox = MessageBox;
 exports.ModalPrompt = ModalPrompt;
 exports.OptionsActive = OptionsActive;
 exports.OptionsActiveAll = OptionsActiveAll;
-exports.PromptOKCancel = PromptOKCancel;
 exports.ReduceInputProps = ReduceInputProps;
 exports.RemoveActivityOverlay = RemoveActivityOverlay;
-exports.ResetActivityOverlay = ResetActivityOverlay;
 exports.ScreenFormatValue = ScreenFormatValue;
 exports.SelectDD = SelectDD;
 exports.SetSort = SetSort;
-exports.ShowActivityOverlay = ShowActivityOverlay;
-exports.ShowMessageBox = ShowMessageBox;
-exports.ShowPromptOKCancel = ShowPromptOKCancel;
 exports.SortObjects = SortObjects;
 exports.StructuredArray = StructuredArray;
 exports.TextStatus = TextStatus;
@@ -2481,10 +2245,5 @@ exports.initialDateRange = initialDateRange;
 exports.initialDateRangeString = initialDateRangeString;
 exports.initialMenuBackItem = initialMenuBackItem;
 exports.initialMessageBoxState = initialMessageBoxState;
-exports.initialPromptOKCancelState = initialPromptOKCancelState;
 exports.initialSortProperties = initialSortProperties;
 exports.initialTextStatusState = initialTextStatusState;
-exports.reducerActivityOverlay = reducerActivityOverlay;
-exports.reducerMenuBack = reducerMenuBack;
-exports.reducerMessageBox = reducerMessageBox;
-exports.reducerPromptOKCancel = reducerPromptOKCancel;

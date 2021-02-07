@@ -1,5 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
-import { MenuBackItem } from '../Stores/menu_back';
+export interface MenuBackItem {
+    menuBackActive: boolean;
+    menuBackButtonTitle: string;
+    menuBackButtonURL: string;
+    menuPageTitle: string;
+    menuDisplaySize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+}
+export declare const initialMenuBackItem: MenuBackItem;
 export interface IMasterDetailProps {
     children: any;
     mdPath: string;

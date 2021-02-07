@@ -1,8 +1,24 @@
 import React, {CSSProperties, Dispatch, SetStateAction, useContext, useEffect, useRef} from 'react'
 import {Redirect, useHistory} from 'react-router-dom'
-import {MenuBackItem} from '../Stores/menu_back' // AddMenuBackItem, CleanMenuBackItem,
+// AddMenuBackItem, CleanMenuBackItem,
 // import {useDispatch} from "react-redux";
 import {GetPathComponentAfter, GetPathThrough} from '../Functions'
+
+export interface MenuBackItem {
+	menuBackActive: boolean,
+	menuBackButtonTitle: string,
+	menuBackButtonURL: string,
+	menuPageTitle: string,
+	menuDisplaySize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+}
+
+export const initialMenuBackItem: MenuBackItem = {
+	menuBackActive: false,
+	menuBackButtonTitle: '',
+	menuBackButtonURL: '',
+	menuPageTitle: '',
+	menuDisplaySize: undefined
+}
 
 interface IMDContext {
 	breakAt: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
