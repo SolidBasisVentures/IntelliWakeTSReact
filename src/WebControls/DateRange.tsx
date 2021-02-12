@@ -407,7 +407,6 @@ export const defaultRangeWeek: IDateRange = {
 	end: moment().endOf('week')
 }
 
-
 /**
  * Default to last 4 weeks
  *
