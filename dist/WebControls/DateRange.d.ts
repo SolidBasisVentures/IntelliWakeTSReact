@@ -41,6 +41,29 @@ export declare const defaultRanges: IDateRange[];
 export declare const defaultRangeStrings: IDateRangeString[];
 export declare const defaultRangesReport: IDateRange[];
 export declare const defaultRangeStringsReport: IDateRangeString[];
+/**
+ * Default to this month
+ *
+ * Use DateRangeToString(defaultRange) to get a string of it
+ */
 export declare const defaultRange: IDateRange;
+/**
+ * Default to this week
+ *
+ * Use DateRangeToString(defaultRangeWeek) to get a string of it
+ */
+export declare const defaultRangeWeek: IDateRange;
+/**
+ * Default to last 4 weeks
+ *
+ * Use DateRangeToString(defaultRangeLast4Weeks) to get a string of it
+ */
+export declare const defaultRangeLast4Weeks: IDateRange;
+/**
+ * Default to this year
+ *
+ * Use DateRangeToString(defaultRangeYear) to get a string of it
+ */
+export declare const defaultRangeYear: IDateRange;
 export declare const defaultRangeString: IDateRangeString;
 export {};
