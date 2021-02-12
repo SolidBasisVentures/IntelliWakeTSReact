@@ -385,10 +385,49 @@ export const defaultRangesReport: IDateRange[] = [
 
 export const defaultRangeStringsReport: IDateRangeString[] = defaultRangesReport.map(range => DateRangeToString(range))
 
+/**
+ * Default to this month
+ *
+ * Use DateRangeToString(defaultRange) to get a string of it
+ */
 export const defaultRange: IDateRange = {
 	name: 'This Month',
 	start: moment().startOf('month'),
 	end: moment().endOf('month')
+}
+
+/**
+ * Default to this week
+ *
+ * Use DateRangeToString(defaultRangeWeek) to get a string of it
+ */
+export const defaultRangeWeek: IDateRange = {
+	name: 'This Week',
+	start: moment().startOf('week'),
+	end: moment().endOf('week')
+}
+
+
+/**
+ * Default to last 4 weeks
+ *
+ * Use DateRangeToString(defaultRangeLast4Weeks) to get a string of it
+ */
+export const defaultRangeLast4Weeks: IDateRange = {
+	name: 'Last 4 Weeks',
+	start: moment().subtract(3, 'week').startOf('week'),
+	end: moment().endOf('week')
+}
+
+/**
+ * Default to this year
+ *
+ * Use DateRangeToString(defaultRangeYear) to get a string of it
+ */
+export const defaultRangeYear: IDateRange = {
+	name: 'Year-to-Date',
+	start: moment().startOf('year'),
+	end: moment().endOf('year')
 }
 
 export const defaultRangeString = DateRangeToString(defaultRange)

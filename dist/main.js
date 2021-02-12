@@ -863,10 +863,45 @@ var defaultRangesReport = [
     }
 ];
 var defaultRangeStringsReport = defaultRangesReport.map(function (range) { return DateRangeToString(range); });
+/**
+ * Default to this month
+ *
+ * Use DateRangeToString(defaultRange) to get a string of it
+ */
 var defaultRange = {
     name: 'This Month',
     start: moment__default['default']().startOf('month'),
     end: moment__default['default']().endOf('month')
+};
+/**
+ * Default to this week
+ *
+ * Use DateRangeToString(defaultRangeWeek) to get a string of it
+ */
+var defaultRangeWeek = {
+    name: 'This Week',
+    start: moment__default['default']().startOf('week'),
+    end: moment__default['default']().endOf('week')
+};
+/**
+ * Default to last 4 weeks
+ *
+ * Use DateRangeToString(defaultRangeLast4Weeks) to get a string of it
+ */
+var defaultRangeLast4Weeks = {
+    name: 'Last 4 Weeks',
+    start: moment__default['default']().subtract(3, 'week').startOf('week'),
+    end: moment__default['default']().endOf('week')
+};
+/**
+ * Default to this year
+ *
+ * Use DateRangeToString(defaultRangeYear) to get a string of it
+ */
+var defaultRangeYear = {
+    name: 'Year-to-Date',
+    start: moment__default['default']().startOf('year'),
+    end: moment__default['default']().endOf('year')
 };
 var defaultRangeString = DateRangeToString(defaultRange);
 // DateRange.defaultProps = {
@@ -2235,9 +2270,12 @@ exports.arrayIDMapsForArrayWithID = arrayIDMapsForArrayWithID;
 exports.arrayMapWithMapIDIndex = arrayMapWithMapIDIndex;
 exports.customRangeName = customRangeName;
 exports.defaultRange = defaultRange;
+exports.defaultRangeLast4Weeks = defaultRangeLast4Weeks;
 exports.defaultRangeString = defaultRangeString;
 exports.defaultRangeStrings = defaultRangeStrings;
 exports.defaultRangeStringsReport = defaultRangeStringsReport;
+exports.defaultRangeWeek = defaultRangeWeek;
+exports.defaultRangeYear = defaultRangeYear;
 exports.defaultRanges = defaultRanges;
 exports.defaultRangesReport = defaultRangesReport;
 exports.initialActivityOverlayState = initialActivityOverlayState;
