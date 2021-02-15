@@ -11,7 +11,6 @@ var proRegularSvgIcons = require('@fortawesome/pro-regular-svg-icons');
 var reactRouterDom = require('react-router-dom');
 var ReactDatePicker = require('react-datepicker');
 var Cleave = require('cleave.js/react');
-var moment$1 = require('moment-timezone');
 var axios = require('axios');
 var _ = require('lodash');
 
@@ -21,7 +20,6 @@ var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
 var ReactDatePicker__default = /*#__PURE__*/_interopDefaultLegacy(ReactDatePicker);
 var Cleave__default = /*#__PURE__*/_interopDefaultLegacy(Cleave);
-var moment__default$1 = /*#__PURE__*/_interopDefaultLegacy(moment$1);
 var axios__default = /*#__PURE__*/_interopDefaultLegacy(axios);
 var ___default = /*#__PURE__*/_interopDefaultLegacy(_);
 
@@ -1509,19 +1507,19 @@ var InputTimeZone = function (props) {
         }
         return tzItems;
     }, []);
-    var valueTZ = React.useMemo(function () { return !props.value ? '' : moment__default$1['default'].tz(props.value).zoneAbbr(); }, [props.value]);
+    var valueTZ = React.useMemo(function () { return (!props.value ? '' : intelliwaketsfoundation.IANAZoneAbbr(props.value)); }, [props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
+        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.value ? (React__default['default'].createElement(React__default['default'].Fragment, null,
             valueTZ,
             ":",
             React__default['default'].createElement("span", { className: "text-muted" },
                 " ",
-                props.value)))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
+                props.value))) : (React__default['default'].createElement("span", { className: "text-danger" }, "No Timezone set"))))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.value ? (React__default['default'].createElement(React__default['default'].Fragment, null,
         valueTZ,
         ":",
         React__default['default'].createElement("span", { className: "text-muted" },
             " ",
-            props.value)))) : (React__default['default'].createElement(React__default['default'].Fragment, null,
+            props.value))) : (React__default['default'].createElement("span", { className: "text-danger" }, "No Timezone set"))))) : (React__default['default'].createElement(React__default['default'].Fragment, null,
         React__default['default'].createElement(InputSelect, __assign({}, inputProps, { isStringOrNull: true, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } }),
             React__default['default'].createElement("option", null),
             timeZonesList.map(function (tzItem) { return (React__default['default'].createElement("option", { key: tzItem.olson, value: tzItem.olson },

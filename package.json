@@ -1,10 +1,11 @@
 {
   "name": "@solidbasisventures/intelliwaketsreact",
-  "version": "2.0.130",
+  "version": "2.0.132",
   "description": "NPM package for IntelliWake React Components",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "scripts": {
+    "M1-Rebuild-Node-SASS": "npm rebuild node-sass",
     "BuildAndPublish": "rollup -c && npm version patch --no-git-tag-version && npm publish",
     "YarnInstall": "yarn add -D @solidbasisventures/intelliwaketsfoundation -W && yarn install",
     "YarnUpgrade": "yarn add -D @solidbasisventures/intelliwaketsfoundation -W && yarn upgrade"
@@ -24,7 +25,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/pro-regular-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
-    "@solidbasisventures/intelliwaketsfoundation": "^2.0.67",
+    "@solidbasisventures/intelliwaketsfoundation": "^2.0.70",
     "@types/cleave.js": "^1.4.1",
     "@types/lodash": "^4.14.164",
     "@types/node": "^14.0.5",
