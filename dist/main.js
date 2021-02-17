@@ -1119,6 +1119,9 @@ var InputNumber = function (props) {
                 }
             }
         }
+        if (e.key === '.' && props.decimalScale === 0) {
+            e.preventDefault();
+        }
         if (!!props.onKeyDown)
             props.onKeyDown(e);
     };
@@ -1140,7 +1143,7 @@ var InputNumber = function (props) {
                 cleanNumber = props.lowerBound;
             if (props.upperBound !== undefined && cleanNumber > props.upperBound)
                 cleanNumber = props.upperBound;
-            cleanNumber = intelliwaketsfoundation.RoundTo(cleanNumber, (_c = props.decimalScale) !== null && _c !== void 0 ? _c : 2);
+            cleanNumber = intelliwaketsfoundation.RoundTo(cleanNumber, props.decimalScale === undefined ? 2 : ((_c = props.decimalScale) !== null && _c !== void 0 ? _c : 2));
             e.target.customValue = cleanNumber;
             if (!!props.onChange) {
                 props.onChange(e);
