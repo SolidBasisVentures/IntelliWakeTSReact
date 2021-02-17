@@ -42,6 +42,10 @@ export const InputNumber = (props: IPropsInputNumber) => {
 				}
 			}
 		}
+		
+		if (e.key === '.' && props.decimalScale === 0) {
+			e.preventDefault()
+		}
 
 		if (!!props.onKeyDown) props.onKeyDown(e)
 	}
@@ -61,7 +65,7 @@ export const InputNumber = (props: IPropsInputNumber) => {
 		} else {
 			if (props.lowerBound !== undefined && cleanNumber < props.lowerBound) cleanNumber = props.lowerBound
 			if (props.upperBound !== undefined && cleanNumber > props.upperBound) cleanNumber = props.upperBound
-			cleanNumber = RoundTo(cleanNumber, props.decimalScale ?? 2)
+			cleanNumber = RoundTo(cleanNumber, props.decimalScale === undefined ? 2 : (props.decimalScale ?? 2))
 			;(e.target as any).customValue = cleanNumber
 			if (!!props.onChange) {
 				props.onChange(e)
