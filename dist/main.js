@@ -1109,8 +1109,8 @@ var InputGender = function (props) {
 };
 
 var InputNumber = function (props) {
-    var _a, _b, _c, _d;
-    var _e = React.useState(undefined), currentStringOverride = _e[0], setCurrentStringOverride = _e[1];
+    var _a, _b, _c, _d, _e;
+    var _f = React.useState(undefined), currentStringOverride = _f[0], setCurrentStringOverride = _f[1];
     var handleKeyDown = function (e) {
         if (e.key === '-') {
             if (!(props.lowerBound !== undefined && props.lowerBound < 0)) {
@@ -1123,7 +1123,7 @@ var InputNumber = function (props) {
             props.onKeyDown(e);
     };
     var handleInputChange = function (e) {
-        var _a, _b;
+        var _a, _b, _c;
         var cleanNumber = intelliwaketsfoundation.CleanNumber((_a = e.target.value) !== null && _a !== void 0 ? _a : '');
         if (isNaN(cleanNumber)) {
             setCurrentStringOverride((_b = e.target.value) !== null && _b !== void 0 ? _b : '');
@@ -1140,6 +1140,7 @@ var InputNumber = function (props) {
                 cleanNumber = props.lowerBound;
             if (props.upperBound !== undefined && cleanNumber > props.upperBound)
                 cleanNumber = props.upperBound;
+            cleanNumber = intelliwaketsfoundation.RoundTo(cleanNumber, (_c = props.decimalScale) !== null && _c !== void 0 ? _c : 2);
             e.target.customValue = cleanNumber;
             if (!!props.onChange) {
                 props.onChange(e);
@@ -1163,9 +1164,9 @@ var InputNumber = function (props) {
         options.numeralIntegerScale = props.integerScale;
     if (!!props.currency) {
         options.prefix = '$ ';
-        options.numeralDecimalScale = props.decimalScale === undefined ? 2 : props.decimalScale;
+        options.numeralDecimalScale = props.decimalScale === undefined ? 2 : (_a = props.decimalScale) !== null && _a !== void 0 ? _a : undefined;
     }
-    var hasDecimals = ((_a = props.decimalScale) !== null && _a !== void 0 ? _a : 0) > 0;
+    var hasDecimals = ((_b = props.decimalScale) !== null && _b !== void 0 ? _b : 0) > 0;
     React.useEffect(function () {
         var _a;
         var newVal = !props.value ? '' : ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString();
@@ -1173,12 +1174,12 @@ var InputNumber = function (props) {
     }, [props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value !== null
         ? !!props.currency
-            ? intelliwaketsfoundation.ToCurrency(props.value, (_b = props.decimalScale) !== null && _b !== void 0 ? _b : 0)
-            : intelliwaketsfoundation.ToDigits(props.value, (_c = props.decimalScale) !== null && _c !== void 0 ? _c : 0)
+            ? intelliwaketsfoundation.ToCurrency(props.value, (_c = props.decimalScale) !== null && _c !== void 0 ? _c : 0)
+            : intelliwaketsfoundation.ToDigits(props.value, (_d = props.decimalScale) !== null && _d !== void 0 ? _d : 0)
         : null)) : (React__default['default'].createElement(Cleave__default['default'], { options: options, className: props.className +
             ' inputNumber form-control ' +
             (hasDecimals ? 'numerics' : 'integers') +
-            (!!props.invalid ? ' is-invalid' : ''), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: props.onBlur, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_d = props.name) !== null && _d !== void 0 ? _d : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id }))));
+            (!!props.invalid ? ' is-invalid' : ''), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: props.onBlur, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_e = props.name) !== null && _e !== void 0 ? _e : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id }))));
 };
 // !== undefined
 // 							? currentStringOverride

@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import Cleave from 'cleave.js/react'
-import {CleanNumber, RandomString, ToCurrency, ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
+import {CleanNumber, RandomString, RoundTo, ToCurrency, ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
 import {TChangeValueFunction} from './IWInputProps'
+import {CleaveOptions} from 'cleave.js/options'
 
 export interface IPropsInputNumber {
 	name?: string
@@ -60,6 +61,7 @@ export const InputNumber = (props: IPropsInputNumber) => {
 		} else {
 			if (props.lowerBound !== undefined && cleanNumber < props.lowerBound) cleanNumber = props.lowerBound
 			if (props.upperBound !== undefined && cleanNumber > props.upperBound) cleanNumber = props.upperBound
+			cleanNumber = RoundTo(cleanNumber, props.decimalScale ?? 2)
 			;(e.target as any).customValue = cleanNumber
 			if (!!props.onChange) {
 				props.onChange(e)
@@ -74,17 +76,17 @@ export const InputNumber = (props: IPropsInputNumber) => {
 	const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
 		e.target.select()
 	}
-
-	let options: any = {
+	
+	let options: CleaveOptions = {
 		numeral: true,
 		numeralThousandsGroupStyle: 'thousand'
 	}
-
+	
 	if (!!props.decimalScale) options.numeralDecimalScale = props.decimalScale
 	if (!!props.integerScale) options.numeralIntegerScale = props.integerScale
 	if (!!props.currency) {
 		options.prefix = '$ '
-		options.numeralDecimalScale = props.decimalScale === undefined ? 2 : props.decimalScale
+		options.numeralDecimalScale = props.decimalScale === undefined ? 2 : props.decimalScale ?? undefined
 	}
 
 	const hasDecimals = (props.decimalScale ?? 0) > 0
@@ -115,6 +117,7 @@ export const InputNumber = (props: IPropsInputNumber) => {
 					}
 					name={props.name}
 					inputMode={hasDecimals ? 'decimal' : 'numeric'}
+					
 					value={currentStringOverride}
 					onChange={handleInputChange}
 					onBlur={props.onBlur}
