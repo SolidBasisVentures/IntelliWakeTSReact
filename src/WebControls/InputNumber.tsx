@@ -4,8 +4,8 @@ import {CleanNumber, RandomString, RoundTo, ToCurrency, ToDigits} from '@solidba
 import {TChangeValueFunction} from './IWInputProps'
 import {CleaveOptions} from 'cleave.js/options'
 
-export interface IPropsInputNumber {
-	name?: string
+export interface IPropsInputNumber<T = any> {
+	name?: keyof T
 	value: number | null
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 	onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
@@ -28,10 +28,10 @@ export interface IPropsInputNumber {
 	plainText?: boolean
 	plainTextProps?: any
 	invalid?: boolean
-	changeValue?: TChangeValueFunction
+	changeValue?: TChangeValueFunction<T>
 }
 
-export const InputNumber = (props: IPropsInputNumber) => {
+export function InputNumber<T>(props: IPropsInputNumber<T>) {
 	const [currentStringOverride, setCurrentStringOverride] = useState<string | undefined>(undefined)
 
 	const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -60,7 +60,7 @@ export const InputNumber = (props: IPropsInputNumber) => {
 				props.onChange(e)
 			}
 			if (!!props.changeValue) {
-				props.changeValue((e.target as any).customValue, e.target.name)
+				props.changeValue((e.target as any).customValue, e.target.name as keyof T)
 			}
 		} else {
 			if (props.lowerBound !== undefined && cleanNumber < props.lowerBound) cleanNumber = props.lowerBound
@@ -71,7 +71,7 @@ export const InputNumber = (props: IPropsInputNumber) => {
 				props.onChange(e)
 			}
 			if (!!props.changeValue) {
-				props.changeValue((e.target as any).customValue, e.target.name)
+				props.changeValue((e.target as any).customValue, e.target.name as keyof T)
 			}
 			// setCurrentStringOverride(undefined)
 		}
@@ -119,7 +119,7 @@ export const InputNumber = (props: IPropsInputNumber) => {
 						(hasDecimals ? 'numerics' : 'integers') +
 						(!!props.invalid ? ' is-invalid' : '')
 					}
-					name={props.name}
+					name={props.name as string | undefined}
 					inputMode={hasDecimals ? 'decimal' : 'numeric'}
 					
 					value={currentStringOverride}
