@@ -1108,7 +1108,7 @@ var InputGender = function (props) {
             React__default['default'].createElement("option", { value: "Female" }, "Female"))))));
 };
 
-var InputNumber = function (props) {
+function InputNumber(props) {
     var _a, _b, _c, _d, _e;
     var _f = React.useState(undefined), currentStringOverride = _f[0], setCurrentStringOverride = _f[1];
     var handleKeyDown = function (e) {
@@ -1183,7 +1183,7 @@ var InputNumber = function (props) {
             ' inputNumber form-control ' +
             (hasDecimals ? 'numerics' : 'integers') +
             (!!props.invalid ? ' is-invalid' : ''), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: props.onBlur, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_e = props.name) !== null && _e !== void 0 ? _e : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id }))));
-};
+}
 // !== undefined
 // 							? currentStringOverride
 // 							: props.value === null || (!!props.hideZero && !CleanNumber(props.value))

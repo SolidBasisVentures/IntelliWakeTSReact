@@ -5,7 +5,7 @@ import {TChangeValueFunction} from './IWInputProps'
 import {CleaveOptions} from 'cleave.js/options'
 
 export interface IPropsInputNumber<T = any> {
-	name?: keyof T
+	name?: T extends object ? keyof T : string
 	value: number | null
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 	onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
@@ -60,7 +60,7 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 				props.onChange(e)
 			}
 			if (!!props.changeValue) {
-				props.changeValue((e.target as any).customValue, e.target.name as keyof T)
+				props.changeValue((e.target as any).customValue, e.target.name as any)
 			}
 		} else {
 			if (props.lowerBound !== undefined && cleanNumber < props.lowerBound) cleanNumber = props.lowerBound
@@ -71,7 +71,7 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 				props.onChange(e)
 			}
 			if (!!props.changeValue) {
-				props.changeValue((e.target as any).customValue, e.target.name as keyof T)
+				props.changeValue((e.target as any).customValue, e.target.name as any)
 			}
 			// setCurrentStringOverride(undefined)
 		}
