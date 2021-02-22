@@ -1,7 +1,7 @@
 import { IIWInputProps } from './IWInputProps';
-interface IProps extends IIWInputProps {
+interface IProps<T = unknown> extends IIWInputProps<T> {
     bordered?: boolean;
     rows?: number;
 }
-export declare const InputTextArea: (props: IProps) => JSX.Element;
+export declare function InputTextArea<T>(props: IProps<T>): JSX.Element;
 export {};

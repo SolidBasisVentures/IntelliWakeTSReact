@@ -1,7 +1,7 @@
 import React from 'react';
 import { TChangeValueFunction } from './IWInputProps';
-export interface IPropsSelect {
-    name?: string;
+export interface IPropsSelect<T = unknown> {
+    name?: T extends object ? keyof T : string;
     value: string | number;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
@@ -18,7 +18,7 @@ export interface IPropsSelect {
     plainTextURL?: string;
     plainOnClick?: () => void;
     invalid?: boolean;
-    changeValue?: TChangeValueFunction;
+    changeValue?: TChangeValueFunction<T>;
     required?: boolean;
 }
-export declare const InputSelect: (props: IPropsSelect) => JSX.Element;
+export declare function InputSelect<T>(props: IPropsSelect<T>): JSX.Element;

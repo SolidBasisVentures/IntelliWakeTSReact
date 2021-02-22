@@ -15,15 +15,15 @@ export declare const OptionsActiveAll: ({
     key: null;
     description: string;
 })[];
-interface IProps {
+interface IProps<T = unknown> {
     className?: string;
     borderless?: boolean;
     inline?: boolean;
     color?: string;
     options: IOption[];
     value: any;
-    name?: string;
-    changeValue?: TChangeValueFunction;
+    name?: T extends object ? keyof T : string;
+    changeValue?: TChangeValueFunction<T>;
     plainText?: boolean;
 }
 /**

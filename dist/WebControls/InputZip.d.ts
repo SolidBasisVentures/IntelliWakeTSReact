@@ -1,6 +1,6 @@
 import { IIWInputProps } from './IWInputProps';
-export interface IZipProps extends IIWInputProps {
+export interface IZipProps<T = unknown> extends IIWInputProps<T> {
     withNine?: boolean;
     autoCompleteOn?: boolean;
 }
-export declare const InputZip: (props: IZipProps) => JSX.Element;
+export declare function InputZip<T>(props: IZipProps<T>): JSX.Element;

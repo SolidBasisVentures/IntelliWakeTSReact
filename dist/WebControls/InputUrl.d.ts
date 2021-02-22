@@ -1,6 +1,6 @@
 import { IIWInputProps } from './IWInputProps';
-interface IProps extends IIWInputProps {
+interface IProps<T = unknown> extends IIWInputProps<T> {
     autoCompleteOn?: boolean;
 }
-export declare const InputUrl: (props: IProps) => JSX.Element;
+export declare function InputUrl<T>(props: IProps<T>): JSX.Element;
 export {};

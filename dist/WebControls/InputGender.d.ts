@@ -1,2 +1,2 @@
 import { IIWInputProps } from './IWInputProps';
-export declare const InputGender: (props: IIWInputProps) => JSX.Element;
+export declare function InputGender<T>(props: IIWInputProps<T>): JSX.Element;

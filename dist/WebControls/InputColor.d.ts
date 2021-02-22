@@ -1,2 +1,2 @@
 import { IIWInputProps } from './IWInputProps';
-export declare const InputColor: (props: IIWInputProps) => JSX.Element;
+export declare function InputColor<T>(props: IIWInputProps<T>): JSX.Element;

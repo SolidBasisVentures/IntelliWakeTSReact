@@ -1,7 +1,7 @@
 import React from 'react';
 import { TChangeValueFunction } from './IWInputProps';
-interface IInputSwitchAlternateProps {
-    name?: string;
+interface IInputSwitchAlternateProps<T = unknown> {
+    name?: T extends object ? keyof T : string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value: string | number | boolean;
     label: any;
@@ -9,7 +9,7 @@ interface IInputSwitchAlternateProps {
     className?: string;
     id?: string;
     plainText?: boolean;
-    changeValue?: TChangeValueFunction;
+    changeValue?: TChangeValueFunction<T>;
 }
 export declare const InputSwitchAlternate: (props: IInputSwitchAlternateProps) => JSX.Element;
 export {};

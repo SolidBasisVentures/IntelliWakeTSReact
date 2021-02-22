@@ -1,7 +1,7 @@
 import { IIWInputProps } from './IWInputProps';
-interface IProps extends IIWInputProps {
+interface IProps<T = unknown> extends IIWInputProps<T> {
     includeDate?: boolean;
     editSeconds?: boolean;
 }
-export declare const InputTime: (props: IProps) => JSX.Element;
+export declare function InputTime<T>(props: IProps<T>): JSX.Element;
 export {};

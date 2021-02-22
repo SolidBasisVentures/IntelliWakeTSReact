@@ -1,2 +1,2 @@
 import { IIWInputProps } from './IWInputProps';
-export declare const InputTimeZone: (props: IIWInputProps) => JSX.Element;
+export declare function InputTimeZone<T>(props: IIWInputProps<T>): JSX.Element;

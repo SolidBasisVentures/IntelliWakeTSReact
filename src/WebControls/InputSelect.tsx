@@ -27,7 +27,7 @@ export interface IPropsSelect<T = unknown> {
 	required?: boolean
 }
 
-export const InputSelect = (props: IPropsSelect) => {
+export function InputSelect<T>(props: IPropsSelect<T>) {
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (!!props.isNumeric || !!props.isNumericOrNull) {
 			const value = CleanNumber(e.target.value)

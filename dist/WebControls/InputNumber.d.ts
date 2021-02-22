@@ -1,6 +1,6 @@
 import React from 'react';
 import { TChangeValueFunction } from './IWInputProps';
-export interface IPropsInputNumber<T = any> {
+export interface IPropsInputNumber<T = unknown> {
     name?: T extends object ? keyof T : string;
     value: number | null;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;

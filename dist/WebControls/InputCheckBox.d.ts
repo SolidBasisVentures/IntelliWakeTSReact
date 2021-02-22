@@ -1,2 +1,2 @@
 import { IInputSwitchProps } from './InputSwitch';
-export declare const InputCheckBox: (props: IInputSwitchProps) => JSX.Element;
+export declare function InputCheckBox<T>(props: IInputSwitchProps<T>): JSX.Element;
