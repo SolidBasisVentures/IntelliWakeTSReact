@@ -3,12 +3,12 @@ import {Input} from 'reactstrap'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {CleanScripts, ReplaceLinks} from '@solidbasisventures/intelliwaketsfoundation'
 
-interface IProps extends IIWInputProps {
+interface IProps<T = unknown> extends IIWInputProps<T> {
 	bordered?: boolean
 	rows?: number
 }
 
-export const InputTextArea = (props: IProps) => {
+export function InputTextArea<T>(props: IProps<T>) {
 	const inputProps = useMemo(() => {
 		let subset = ReduceInputProps(props)
 		delete subset.plainText

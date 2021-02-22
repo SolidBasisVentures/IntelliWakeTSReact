@@ -4,7 +4,7 @@ import {InputSelect, IPropsSelect} from './InputSelect'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {IANAZoneAbbr, TimeZoneOlsons} from '@solidbasisventures/intelliwaketsfoundation'
 
-export const InputTimeZone = (props: IIWInputProps) => {
+export function InputTimeZone<T>(props: IIWInputProps<T>) {
 	const inputProps = useMemo(() => {
 		const subset = ReduceInputProps(props)
 

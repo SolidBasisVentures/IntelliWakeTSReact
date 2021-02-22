@@ -9,14 +9,14 @@ import {
 	RandomString
 } from '@solidbasisventures/intelliwaketsfoundation'
 
-interface IProps extends IIWInputProps {
+interface IProps<T = unknown> extends IIWInputProps<T> {
 	showTime?: boolean
 	autoCompleteOn?: boolean
 }
 
 const originalValue = ' '
 
-export const InputDate = (props: IProps) => {
+export function InputDate<T>(props: IProps<T>) {
 	const lastDateValue = useRef(originalValue)
 	const nextDateValue = useRef(originalValue)
 	const [overrideValue, setOverrideValue] = useState(originalValue)
@@ -53,7 +53,7 @@ export const InputDate = (props: IProps) => {
 		}
 
 		if (!!props.changeValue) {
-			props.changeValue(customValue, e.target.name)
+			props.changeValue(customValue, e.target.name as any)
 		}
 	}
 

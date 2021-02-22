@@ -8,14 +8,14 @@ import {
 } from '@solidbasisventures/intelliwaketsfoundation'
 import {TChangeValueFunction} from './IWInputProps'
 
-interface IProps {
+interface IProps<T = unknown> {
 	value: string
-	name?: string
+	name?: T extends object ? keyof T : string
 	placeholder?: string
 	plainText?: boolean
 	plainTextURL?: string
 	plainTextProps?: any
-	changeValue?: TChangeValueFunction
+	changeValue?: TChangeValueFunction<T>
 	showTime?: boolean
 	noTodayButton?: boolean
 }
@@ -23,7 +23,7 @@ interface IProps {
 /**
  * A react datetime picker wrapper. Can also be used as a plain text to display the date/time values.
  */
-export const InputDatePicker = (props: IProps) => {
+export function InputDatePicker<T>(props: IProps<T>) {
 	const setValue = (date: Date | [Date, Date] | /* for selectsRange */ null) => {
 		if (!!props.changeValue) {
 			if (!date) {

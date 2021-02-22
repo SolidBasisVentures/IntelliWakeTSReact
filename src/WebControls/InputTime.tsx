@@ -10,14 +10,14 @@ import {
 	MomentTimeString
 } from '@solidbasisventures/intelliwaketsfoundation'
 
-interface IProps extends IIWInputProps {
+interface IProps<T = unknown> extends IIWInputProps<T> {
 	includeDate?: boolean
 	editSeconds?: boolean
 }
 
 const originalValue = ' '
 
-export const InputTime = (props: IProps) => {
+export function InputTime<T>(props: IProps<T>) {
 	const lastTimeValue = useRef(originalValue)
 	const nextTimeValue = useRef(originalValue)
 	const [overrideValue, setOverrideValue] = useState(originalValue)
@@ -59,7 +59,7 @@ export const InputTime = (props: IProps) => {
 			props.onChange(e)
 		}
 
-		if (!!props.changeValue) props.changeValue(customValue, e.target.name)
+		if (!!props.changeValue) props.changeValue(customValue, e.target.name as any)
 	}
 
 	return (

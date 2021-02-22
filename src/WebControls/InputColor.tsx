@@ -3,7 +3,7 @@ import {Input} from 'reactstrap'
 import {Link} from 'react-router-dom'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 
-export const InputColor = (props: IIWInputProps) => {
+export function InputColor<T>(props: IIWInputProps<T>) {
 	const inputProps = useMemo(() => {
 		const subset = ReduceInputProps(props)
 		delete subset.className

@@ -3,13 +3,13 @@ import {Input} from 'reactstrap'
 import {IIWInputProps, ReduceInputProps, HandleChangeValue} from './IWInputProps'
 import {FormatZip, RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
-export interface IZipProps extends IIWInputProps {
+export interface IZipProps<T = unknown> extends IIWInputProps<T> {
 	withNine?: boolean
 	autoCompleteOn?: boolean
 }
 
 
-export const InputZip = (props: IZipProps) => {
+export function InputZip<T>(props: IZipProps<T>) {
 	const inputProps = useMemo(() => {
 		return ReduceInputProps(props)
 	}, [props])

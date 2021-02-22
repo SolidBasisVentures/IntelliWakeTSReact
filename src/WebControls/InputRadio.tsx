@@ -2,8 +2,8 @@ import React, {useMemo} from 'react'
 import {CustomInput} from 'reactstrap'
 import {HandleChangeValue, TChangeValueFunction} from './IWInputProps'
 
-interface IProps {
-	name?: string
+interface IProps<T = unknown> {
+	name?: T extends object ? keyof T : string
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 	checked: boolean
 	value: any
@@ -11,10 +11,10 @@ interface IProps {
 	className?: string
 	id?: string
 	plainText?: boolean
-	changeValue?: TChangeValueFunction
+	changeValue?: TChangeValueFunction<T>
 }
 
-export const InputRadio = (props: IProps) => {
+export function InputRadio<T>(props: IProps<T>) {
 	const newID = useMemo(() => props.id ?? 'r' + props.name + Math.floor(Math.random() * 100000 + 1), [
 		props.name,
 		props.id
@@ -28,7 +28,7 @@ export const InputRadio = (props: IProps) => {
 		<CustomInput
 			type="radio"
 			label={props.label}
-			name={props.name}
+			name={props.name as string}
 			id={newID}
 			className={'inputRadio ' + (props.className ?? '')}
 			checked={props.checked}

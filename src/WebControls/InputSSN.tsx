@@ -4,12 +4,12 @@ import {Link} from 'react-router-dom'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
-interface IProps extends IIWInputProps {
+interface IProps<T = unknown> extends IIWInputProps<T> {
 	plainTextLast4Only?: boolean
 	autoCompleteOn?: boolean
 }
 
-export const InputSSN = (props: IProps) => {
+export function InputSSN<T>(props: IProps<T>) {
 	const inputProps = useMemo(() => {
 		const subset = ReduceInputProps(props)
 		delete subset.plainTextLast4Only

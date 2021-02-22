@@ -2,19 +2,19 @@ import React, {useMemo} from 'react'
 import {CustomInput} from 'reactstrap'
 import {TChangeValueFunction} from './IWInputProps'
 
-export interface IInputSwitchProps {
-	name?: string
+export interface IInputSwitchProps<T = unknown> {
+	name?: T extends object ? keyof T : string
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 	checked: boolean
 	label: any
 	className?: string
 	id?: string
 	plainText?: boolean
-	changeValue?: TChangeValueFunction
+	changeValue?: TChangeValueFunction<T>
 	hidden?: boolean
 }
 
-export const InputSwitch = (props: IInputSwitchProps) => {
+export function InputSwitch<T>(props: IInputSwitchProps<T>) {
 	const newID = useMemo(() => props.id ?? 'sw' + props.name + Math.floor(Math.random() * 100000 + 1), [
 		props.name,
 		props.id
@@ -29,7 +29,7 @@ export const InputSwitch = (props: IInputSwitchProps) => {
 		}
 
 		if (!!props.changeValue) {
-			props.changeValue(e.target.checked, e.target.name)
+			props.changeValue(e.target.checked, e.target.name as any)
 		}
 	}
 
@@ -37,7 +37,7 @@ export const InputSwitch = (props: IInputSwitchProps) => {
 		<CustomInput
 			type="switch"
 			label={props.label}
-			name={props.name}
+			name={props.name as string}
 			className={'inputSwitch cursor-pointer ' + (props.className ?? '') + (props.plainText ? ' plainText' : '')}
 			id={newID}
 			hidden={props.hidden}

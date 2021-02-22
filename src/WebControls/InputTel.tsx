@@ -6,13 +6,13 @@ import {faPhone} from '@fortawesome/pro-regular-svg-icons'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps, TChangeValueFunction} from './IWInputProps'
 import {FormatPhoneNumber, RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
-interface IProps extends IIWInputProps {
+interface IProps<T = unknown> extends IIWInputProps<T> {
 	showFAIcon?: boolean | IconProp
-	changeValue?: TChangeValueFunction
+	changeValue?: TChangeValueFunction<T>
 	autoCompleteOn?: boolean
 }
 
-export const InputTel = (props: IProps) => {
+export function InputTel<T>(props: IProps<T>) {
 	const inputProps = useMemo(() => {
 		const subset = ReduceInputProps(props)
 		delete subset.showFAIcon

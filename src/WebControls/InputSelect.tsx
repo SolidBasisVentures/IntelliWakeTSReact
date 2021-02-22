@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom'
 import {CleanNumber} from '@solidbasisventures/intelliwaketsfoundation'
 import {TChangeValueFunction} from './IWInputProps'
 
-export interface IPropsSelect {
-	name?: string
+export interface IPropsSelect<T = unknown> {
+	name?: T extends object ? keyof T : string
 	value: string | number
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 	onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
@@ -23,7 +23,7 @@ export interface IPropsSelect {
 	plainTextURL?: string
 	plainOnClick?: () => void
 	invalid?: boolean
-	changeValue?: TChangeValueFunction
+	changeValue?: TChangeValueFunction<T>
 	required?: boolean
 }
 
@@ -42,7 +42,7 @@ export const InputSelect = (props: IPropsSelect) => {
 		}
 
 		if (!!props.onChange) props.onChange(e)
-		if (!!props.changeValue) props.changeValue(ElementCustomValue(e), e.target.name)
+		if (!!props.changeValue) props.changeValue(ElementCustomValue(e), e.target.name as any)
 	}
 	
 	const className = `${props.className ?? ''} ${!!props.required ? 'is-required' : ''}`
@@ -51,7 +51,7 @@ export const InputSelect = (props: IPropsSelect) => {
 		<Link to={props.plainTextURL}>
 			<Input
 				type="select"
-				name={props.name}
+				name={props.name as string}
 				value={props.value}
 				onChange={() => {}}
 				innerRef={props.innerRef}
@@ -69,7 +69,7 @@ export const InputSelect = (props: IPropsSelect) => {
 		<div onClick={props.plainOnClick} className="cursor-pointer">
 			<Input
 				type="select"
-				name={props.name}
+				name={props.name as string}
 				value={props.value}
 				onChange={() => {}}
 				innerRef={props.innerRef}
@@ -86,7 +86,7 @@ export const InputSelect = (props: IPropsSelect) => {
 	) : (
 		<Input
 			type="select"
-			name={props.name}
+			name={props.name as string}
 			value={props.value}
 			onChange={handleInputChange}
 			onBlur={props.onBlur}

@@ -2,8 +2,8 @@ import React, {useMemo} from 'react'
 import {CustomInput} from 'reactstrap'
 import {TChangeValueFunction} from './IWInputProps'
 
-interface IInputSwitchAlternateProps {
-	name?: string
+interface IInputSwitchAlternateProps<T = unknown> {
+	name?: T extends object ? keyof T : string
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 	value: string | number | boolean
 	label: any
@@ -11,7 +11,7 @@ interface IInputSwitchAlternateProps {
 	className?: string
 	id?: string
 	plainText?: boolean
-	changeValue?: TChangeValueFunction
+	changeValue?: TChangeValueFunction<T>
 }
 
 export const InputSwitchAlternate = (props: IInputSwitchAlternateProps) => {
@@ -28,14 +28,14 @@ export const InputSwitchAlternate = (props: IInputSwitchAlternateProps) => {
 
 		if (!!props.onChange) props.onChange(e)
 
-		if (!!props.changeValue) props.changeValue((e.target as any).customValue, e.target.name)
+		if (!!props.changeValue) props.changeValue((e.target as any).customValue, e.target.name as any)
 	}
 
 	return (
 		<CustomInput
 			type="switch"
 			label={props.label}
-			name={props.name}
+			name={props.name as string}
 			className={'inputSwitch ' + (props.className ?? '') + (props.plainText ? ' plainText' : '')}
 			id={newID}
 			checked={props.value === valuesOnOff[0]}

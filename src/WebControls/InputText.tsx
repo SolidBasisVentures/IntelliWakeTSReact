@@ -4,11 +4,11 @@ import {Link} from 'react-router-dom'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
-interface IProps extends IIWInputProps {
+interface IProps<T = unknown> extends IIWInputProps<T> {
 	autoCompleteOn?: boolean
 }
 
-export const InputText = (props: IProps) => {
+export function InputText<T>(props: IProps<T>) {
 	const inputProps = useMemo(() => {
 		const subset = ReduceInputProps(props)
 		delete subset.className

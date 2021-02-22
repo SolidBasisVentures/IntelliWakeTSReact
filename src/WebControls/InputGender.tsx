@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {InputSelect, IPropsSelect} from './InputSelect'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 
-export const InputGender = (props: IIWInputProps) => {
+export function InputGender<T>(props: IIWInputProps<T>) {
 	const inputProps = useMemo(() => {
 		const subset = ReduceInputProps(props)
 

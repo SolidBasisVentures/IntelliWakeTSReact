@@ -2,9 +2,9 @@ import {InputProps} from 'reactstrap'
 import React from 'react'
 import {ElementCustomValue} from '../Functions'
 
-export type TChangeValueFunction<T = any> = (value: any, name?: T extends object ? keyof T : string) => void
+export type TChangeValueFunction<T = unknown> = (value: any, name?: T extends object ? keyof T : string) => void
 
-export interface IIWInputProps<T = any> extends InputProps {
+export interface IIWInputProps<T = unknown> extends InputProps {
 	plainText?: boolean
 	plainTextURL?: string
 	plainTextProps?: any
@@ -22,13 +22,13 @@ export const ReduceInputProps = (props: IIWInputProps): InputProps => {
 	return subset
 }
 
-export const HandleChangeValue = (
+export const HandleChangeValue = <T>(
 	e: React.ChangeEvent<HTMLInputElement>,
-	changeValue?: (value: any, name: string) => void,
+	changeValue?: TChangeValueFunction<T>,
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 ) => {
 	if (!!changeValue) {
-		changeValue(ElementCustomValue(e), e.target.name)
+		changeValue(ElementCustomValue(e), e.target.name as any)
 	}
 
 	if (!!onChange) {

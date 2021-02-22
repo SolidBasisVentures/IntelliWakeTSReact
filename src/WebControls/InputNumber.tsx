@@ -4,7 +4,7 @@ import {CleanNumber, RandomString, RoundTo, ToCurrency, ToDigits} from '@solidba
 import {TChangeValueFunction} from './IWInputProps'
 import {CleaveOptions} from 'cleave.js/options'
 
-export interface IPropsInputNumber<T = any> {
+export interface IPropsInputNumber<T = unknown> {
 	name?: T extends object ? keyof T : string
 	value: number | null
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void

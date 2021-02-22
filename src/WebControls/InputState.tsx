@@ -4,11 +4,11 @@ import {Link} from 'react-router-dom'
 import {IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
-interface IProps extends IIWInputProps {
+interface IProps<T = unknown> extends IIWInputProps<T> {
 	autoCompleteOn?: boolean
 }
 
-export const InputState = (props: IProps) => {
+export function InputState<T>(props: IProps<T>) {
 	const inputProps = useMemo(() => {
 		const subset = ReduceInputProps(props)
 		delete subset.onChange
@@ -28,7 +28,7 @@ export const InputState = (props: IProps) => {
 		}
 
 		if (!!props.changeValue) {
-			props.changeValue(e.target.value.toUpperCase(), e.target.name)
+			props.changeValue(e.target.value.toUpperCase(), e.target.name as any)
 		}
 	}
 

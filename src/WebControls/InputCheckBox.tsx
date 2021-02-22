@@ -2,7 +2,7 @@ import React, {useMemo} from 'react'
 import {CustomInput} from 'reactstrap'
 import {IInputSwitchProps} from './InputSwitch'
 
-export const InputCheckBox = (props: IInputSwitchProps) => {
+export function InputCheckBox<T>(props: IInputSwitchProps<T>) {
 	const newID = useMemo(() => props.id ?? 'cb' + props.name + Math.floor(Math.random() * 100000 + 1), [
 		props.name,
 		props.id
@@ -17,7 +17,7 @@ export const InputCheckBox = (props: IInputSwitchProps) => {
 		}
 
 		if (!!props.changeValue) {
-			props.changeValue(e.target.checked, e.target.name)
+			props.changeValue(e.target.checked, e.target.name as any)
 		}
 	}
 
@@ -25,7 +25,7 @@ export const InputCheckBox = (props: IInputSwitchProps) => {
 		<CustomInput
 			type="checkbox"
 			label={props.label}
-			name={props.name}
+			name={props.name as string}
 			className={'inputCheckbox ' + (props.className ?? '') + (props.plainText ? ' plainText' : '')}
 			id={newID}
 			hidden={props.hidden}
