@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Cleave from 'cleave.js/react'
-import {CleanNumber, RandomString, RoundTo, ToCurrency, ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
+import {CleanNumber, RandomString, ToCurrency, ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
 import {TChangeValueFunction} from './IWInputProps'
 import {CleaveOptions} from 'cleave.js/options'
 
@@ -65,7 +65,9 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 		} else {
 			if (props.lowerBound !== undefined && cleanNumber < props.lowerBound) cleanNumber = props.lowerBound
 			if (props.upperBound !== undefined && cleanNumber > props.upperBound) cleanNumber = props.upperBound
-			cleanNumber = RoundTo(cleanNumber, props.decimalScale === undefined ? 2 : (props.decimalScale ?? 2))
+			// cleanNumber = RoundTo(cleanNumber, props.decimalScale === undefined ? 2 : (props.decimalScale ?? 2))
+			if (props.decimalScale === 0) cleanNumber = CleanNumber(cleanNumber, 0)
+			if (props.decimalScale && props.decimalScale > 0) cleanNumber = CleanNumber(cleanNumber, props.decimalScale)
 			;(e.target as any).customValue = cleanNumber
 			if (!!props.onChange) {
 				props.onChange(e)
