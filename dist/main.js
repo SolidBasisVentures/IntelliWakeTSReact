@@ -1126,7 +1126,7 @@ function InputNumber(props) {
             props.onKeyDown(e);
     };
     var handleInputChange = function (e) {
-        var _a, _b, _c;
+        var _a, _b;
         var cleanNumber = intelliwaketsfoundation.CleanNumber((_a = e.target.value) !== null && _a !== void 0 ? _a : '');
         if (isNaN(cleanNumber)) {
             setCurrentStringOverride((_b = e.target.value) !== null && _b !== void 0 ? _b : '');
@@ -1143,7 +1143,6 @@ function InputNumber(props) {
                 cleanNumber = props.lowerBound;
             if (props.upperBound !== undefined && cleanNumber > props.upperBound)
                 cleanNumber = props.upperBound;
-            cleanNumber = intelliwaketsfoundation.RoundTo(cleanNumber, props.decimalScale === undefined ? 2 : ((_c = props.decimalScale) !== null && _c !== void 0 ? _c : 2));
             e.target.customValue = cleanNumber;
             if (!!props.onChange) {
                 props.onChange(e);
