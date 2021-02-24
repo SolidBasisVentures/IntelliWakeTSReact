@@ -16,7 +16,7 @@ export const initialTextStatusState: TTextStatusState = {
 interface IProps {
 	textStatus: TTextStatusState
 	clearTextStatus: () => void
-	children?: ReactNode | ReactNodeArray
+	children?: ReactNodeArray
 }
 
 export const TextStatus = (props: IProps) => {

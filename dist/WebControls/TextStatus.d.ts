@@ -1,4 +1,4 @@
-import { ReactNode, ReactNodeArray } from 'react';
+import React, { ReactNode, ReactNodeArray } from 'react';
 export interface ITextStatusState {
     message: ReactNode | null;
     noDismiss?: boolean;
@@ -10,7 +10,7 @@ export declare const initialTextStatusState: TTextStatusState;
 interface IProps {
     textStatus: TTextStatusState;
     clearTextStatus: () => void;
-    children?: ReactNode | ReactNodeArray;
+    children?: ReactNodeArray;
 }
-export declare const TextStatus: (props: IProps) => {} | null;
+export declare const TextStatus: (props: IProps) => React.ReactNodeArray | JSX.Element | null;
 export {};
