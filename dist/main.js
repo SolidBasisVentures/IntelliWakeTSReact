@@ -1174,20 +1174,31 @@ function InputNumber(props) {
         var newVal = !props.value ? '' : ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString();
         setCurrentStringOverride(newVal);
     }, [props.value]);
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value !== null
-        ? !!props.currency
-            ? intelliwaketsfoundation.ToCurrency(props.value, (_c = props.decimalScale) !== null && _c !== void 0 ? _c : 0)
-            : intelliwaketsfoundation.ToDigits(props.value, (_d = props.decimalScale) !== null && _d !== void 0 ? _d : 0)
-        : null)) : (React__default['default'].createElement(Cleave__default['default'], { options: options, className: props.className +
+    var showCleave = React__default['default'].createElement(Cleave__default['default'], { options: options, className: props.className +
             ' inputNumber form-control ' +
             (hasDecimals ? 'numerics' : 'integers') +
-            (!!props.invalid ? ' is-invalid' : ''), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: props.onBlur, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_e = props.name) !== null && _e !== void 0 ? _e : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id }))));
+            (!!props.invalid ? ' is-invalid' : ''), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: props.onBlur, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_c = props.name) !== null && _c !== void 0 ? _c : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id });
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value !== null
+        && !!props.currency
+        ? (React__default['default'].createElement(React__default['default'].Fragment, null,
+            props.prepend,
+            intelliwaketsfoundation.ToCurrency(props.value, (_d = props.decimalScale) !== null && _d !== void 0 ? _d : 0),
+            props.append))
+        : (React__default['default'].createElement(React__default['default'].Fragment, null,
+            props.prepend,
+            intelliwaketsfoundation.ToDigits(props.value, (_e = props.decimalScale) !== null && _e !== void 0 ? _e : 0),
+            props.append)))) : !!props.prepend || !!props.append ? (React__default['default'].createElement(reactstrap.InputGroup, null,
+        React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "prepend", hidden: !props.prepend },
+            React__default['default'].createElement(reactstrap.InputGroupText, null, props.prepend)),
+        showCleave,
+        React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "append", hidden: !props.append },
+            React__default['default'].createElement(reactstrap.InputGroupText, null, props.append)))) : (React__default['default'].createElement(React__default['default'].Fragment, null, showCleave))));
 }
 // !== undefined
-// 							? currentStringOverride
-// 							: props.value === null || (!!props.hideZero && !CleanNumber(props.value))
-// 							? undefined
-// 							: props.value
+//              ? currentStringOverride
+//              : props.value === null || (!!props.hideZero && !CleanNumber(props.value))
+//              ? undefined
+//              : props.value
 //
 
 function InputRadio(props) {
