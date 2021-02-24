@@ -222,10 +222,6 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	const showUserMessage = useCallback(props.showUserMessage ?? (() => {}), [props.showUserMessage])
 	const failedAction = useCallback(props.failedAction ?? (() => {}), [props.failedAction])
 
-	if (props.noExecution && props.response !== null) {
-		if (props.setResponse) props.setResponse(null)
-	}
-	
 	const isGet = useMemo(
 		() =>
 			!props.noExecution &&
