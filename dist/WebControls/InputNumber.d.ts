@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { TChangeValueFunction } from './IWInputProps';
 export interface IPropsInputNumber<T = unknown> {
     name?: T extends object ? keyof T : string;
@@ -25,5 +25,7 @@ export interface IPropsInputNumber<T = unknown> {
     plainTextProps?: any;
     invalid?: boolean;
     changeValue?: TChangeValueFunction<T>;
+    prepend?: ReactNode;
+    append?: ReactNode;
 }
 export declare function InputNumber<T>(props: IPropsInputNumber<T>): JSX.Element;

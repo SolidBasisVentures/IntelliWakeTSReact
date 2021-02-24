@@ -1182,11 +1182,15 @@ function InputNumber(props) {
         && !!props.currency
         ? (React__default['default'].createElement(React__default['default'].Fragment, null,
             props.prepend,
+            " ",
             intelliwaketsfoundation.ToCurrency(props.value, (_d = props.decimalScale) !== null && _d !== void 0 ? _d : 0),
+            " ",
             props.append))
         : (React__default['default'].createElement(React__default['default'].Fragment, null,
             props.prepend,
+            " ",
             intelliwaketsfoundation.ToDigits(props.value, (_e = props.decimalScale) !== null && _e !== void 0 ? _e : 0),
+            " ",
             props.append)))) : !!props.prepend || !!props.append ? (React__default['default'].createElement(reactstrap.InputGroup, null,
         React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "prepend", hidden: !props.prepend },
             React__default['default'].createElement(reactstrap.InputGroupText, null, props.prepend)),

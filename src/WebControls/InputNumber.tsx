@@ -121,8 +121,8 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 				<div className="form-control-plaintext" {...props.plainTextProps}>
 					{props.value !== null
 						&& !!props.currency
-							? (<>{props.prepend}{ToCurrency(props.value, props.decimalScale ?? 0)}{props.append}</>)
-							: (<>{props.prepend}{ToDigits(props.value, props.decimalScale ?? 0)}{props.append}</>)}
+							? (<>{props.prepend} {ToCurrency(props.value, props.decimalScale ?? 0)} {props.append}</>)
+							: (<>{props.prepend} {ToDigits(props.value, props.decimalScale ?? 0)} {props.append}</>)}
 				</div>
 			) : !!props.prepend || !!props.append ? (
 				<InputGroup>
