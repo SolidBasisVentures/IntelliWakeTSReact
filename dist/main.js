@@ -2152,6 +2152,7 @@ var initialTextStatusState = {
     message: null
 };
 var TextStatus = function (props) {
+    var _a;
     var dismissTimeout = React.useRef(setTimeout(function () { }, 1));
     var dismissTextStatus = React.useCallback(props.clearTextStatus, [props.clearTextStatus]);
     var textStatus = React.useMemo(function () {
@@ -2170,8 +2171,7 @@ var TextStatus = function (props) {
     }, [textStatus.message, textStatus.noDismiss, dismissTextStatus]);
     return !!textStatus.message ?
         React__default['default'].createElement("span", { className: (!!textStatus.className ? textStatus.className : '') + (!!textStatus.color ? " text-" + textStatus.color : '') }, textStatus.message)
-        :
-            null;
+        : (_a = props.children) !== null && _a !== void 0 ? _a : null;
 };
 
 exports.ActivityOverlay = ActivityOverlay;

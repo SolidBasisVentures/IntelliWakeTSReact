@@ -1,4 +1,4 @@
-import React, {ReactNode, useCallback, useEffect, useRef, useMemo} from 'react'
+import React, {ReactNode, useCallback, useEffect, useRef, useMemo, ReactNodeArray} from 'react'
 
 export interface ITextStatusState {
 	message: ReactNode | null
@@ -16,6 +16,7 @@ export const initialTextStatusState: TTextStatusState = {
 interface IProps {
 	textStatus: TTextStatusState
 	clearTextStatus: () => void
+	children?: ReactNode | ReactNodeArray
 }
 
 export const TextStatus = (props: IProps) => {
@@ -45,5 +46,5 @@ export const TextStatus = (props: IProps) => {
 			{textStatus.message}
 		</span>
 		:
-		null
+		props.children ?? null
 }
