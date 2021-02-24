@@ -12,5 +12,5 @@ interface IProps {
     clearTextStatus: () => void;
     children?: ReactNode;
 }
-export declare const TextStatus: (props: IProps) => {} | null;
+export declare const TextStatus: (props: IProps) => JSX.Element | null;
 export {};

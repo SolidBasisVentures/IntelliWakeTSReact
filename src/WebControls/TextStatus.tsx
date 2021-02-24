@@ -45,6 +45,10 @@ export const TextStatus = (props: IProps) => {
 		<span className={(!!textStatus.className ? textStatus.className : '') + (!!textStatus.color ? ` text-${textStatus.color}` : '')}>
 			{textStatus.message}
 		</span>
-		:
-		props.children ?? null
+		: !!props.children ?
+			<>
+				{props.children}
+			</>
+			:
+			null
 }
