@@ -53,7 +53,7 @@ export const InputSearch = (props: IPropsInputSearch) => {
 	const handleKeyDown = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter') {
 			clearTimeout(searchTimeout.current)
-			triggerChange()
+			triggerChange(currentText, true)
 		}
 		
 		if (!!props.onKeyDown) {
@@ -66,10 +66,10 @@ export const InputSearch = (props: IPropsInputSearch) => {
 		triggerChange()
 	}
 	
-	const triggerChange = (searchText?: string) => {
+	const triggerChange = (searchText?: string, force?: boolean) => {
 		const textToSearch = searchText ?? currentText
 		
-		if (textToSearch !== triggeredText.current) {
+		if (!!force || textToSearch !== triggeredText.current) {
 			triggeredText.current = textToSearch
 			props.triggerSearchText(textToSearch)
 		}
