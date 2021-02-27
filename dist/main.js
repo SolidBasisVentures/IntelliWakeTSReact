@@ -1240,7 +1240,7 @@ var InputSearch = function (props) {
     var handleKeyDown = function (e) {
         if (e.key === 'Enter') {
             clearTimeout(searchTimeout.current);
-            triggerChange();
+            triggerChange(currentText, true);
         }
         if (!!props.onKeyDown) {
             props.onKeyDown(e);
@@ -1250,9 +1250,9 @@ var InputSearch = function (props) {
         clearTimeout(searchTimeout.current);
         triggerChange();
     };
-    var triggerChange = function (searchText) {
+    var triggerChange = function (searchText, force) {
         var textToSearch = searchText !== null && searchText !== void 0 ? searchText : currentText;
-        if (textToSearch !== triggeredText.current) {
+        if (!!force || textToSearch !== triggeredText.current) {
             triggeredText.current = textToSearch;
             props.triggerSearchText(textToSearch);
         }
