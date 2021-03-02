@@ -42,6 +42,7 @@ export function InputPassword<T>(props: IProps<T>) {
 					{...inputProps}
 					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
 					autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
+					placeholder={props.placeholder ?? '******'}
 				/>
 			)}
 		</>

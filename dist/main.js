@@ -1205,6 +1205,21 @@ function InputNumber(props) {
 //              : props.value
 //
 
+function InputPassword(props) {
+    var _a, _b, _c;
+    var inputProps = React.useMemo(function () {
+        var subset = ReduceInputProps(props);
+        delete subset.className;
+        delete subset.onChange;
+        if (subset.autoComplete === undefined) {
+            subset.autoComplete = 'off';
+        }
+        return subset;
+    }, [props]);
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
+        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "password", className: (_a = 'inputPassword ' + props.className) !== null && _a !== void 0 ? _a : '' }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_b = props.name) !== null && _b !== void 0 ? _b : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: (_c = props.placeholder) !== null && _c !== void 0 ? _c : '******' })))));
+}
+
 function InputRadio(props) {
     var _a;
     var newID = React.useMemo(function () { var _a; return (_a = props.id) !== null && _a !== void 0 ? _a : 'r' + props.name + Math.floor(Math.random() * 100000 + 1); }, [
@@ -2228,6 +2243,7 @@ exports.InputDatePicker = InputDatePicker;
 exports.InputEmail = InputEmail;
 exports.InputGender = InputGender;
 exports.InputNumber = InputNumber;
+exports.InputPassword = InputPassword;
 exports.InputRadio = InputRadio;
 exports.InputSSN = InputSSN;
 exports.InputSearch = InputSearch;
