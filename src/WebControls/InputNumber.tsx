@@ -63,7 +63,7 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 				props.onChange(e)
 			}
 			if (!!props.changeValue) {
-				props.changeValue((e.target as any).customValue, e.target.name as any)
+				props.changeValue((e.target as any).customValue, e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
 			}
 		} else {
 			if (props.lowerBound !== undefined && cleanNumber < props.lowerBound) cleanNumber = props.lowerBound
@@ -77,7 +77,7 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 				props.onChange(e)
 			}
 			if (!!props.changeValue) {
-				props.changeValue((e.target as any).customValue, e.target.name as any)
+				props.changeValue((e.target as any).customValue, e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
 			}
 			// setCurrentStringOverride(undefined)
 		}

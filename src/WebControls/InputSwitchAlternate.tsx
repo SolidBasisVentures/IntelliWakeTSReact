@@ -28,7 +28,7 @@ export const InputSwitchAlternate = (props: IInputSwitchAlternateProps) => {
 
 		if (!!props.onChange) props.onChange(e)
 
-		if (!!props.changeValue) props.changeValue((e.target as any).customValue, e.target.name as any)
+		if (!!props.changeValue) props.changeValue(e.target.checked, e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
 	}
 
 	return (

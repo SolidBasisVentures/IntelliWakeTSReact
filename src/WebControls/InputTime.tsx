@@ -59,7 +59,9 @@ export function InputTime<T>(props: IProps<T>) {
 			props.onChange(e)
 		}
 
-		if (!!props.changeValue) props.changeValue(customValue, e.target.name as any)
+		if (!!props.changeValue) {
+			props.changeValue(customValue, e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
+		}
 	}
 
 	return (

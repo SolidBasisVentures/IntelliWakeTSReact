@@ -28,7 +28,7 @@ export function InputState<T>(props: IProps<T>) {
 		}
 
 		if (!!props.changeValue) {
-			props.changeValue(e.target.value.toUpperCase(), e.target.name as any)
+			props.changeValue(e.target.value.toUpperCase(), e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
 		}
 	}
 

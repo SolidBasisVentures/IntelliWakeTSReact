@@ -42,7 +42,9 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 		}
 
 		if (!!props.onChange) props.onChange(e)
-		if (!!props.changeValue) props.changeValue(ElementCustomValue(e), e.target.name as any)
+		if (!!props.changeValue) {
+			props.changeValue(ElementCustomValue(e), e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
+		}
 	}
 	
 	const className = `${props.className ?? ''} ${!!props.required ? 'is-required' : ''}`

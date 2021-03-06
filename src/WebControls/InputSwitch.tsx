@@ -29,7 +29,7 @@ export function InputSwitch<T>(props: IInputSwitchProps<T>) {
 		}
 
 		if (!!props.changeValue) {
-			props.changeValue(e.target.checked, e.target.name as any)
+			props.changeValue(e.target.checked, e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
 		}
 	}
 

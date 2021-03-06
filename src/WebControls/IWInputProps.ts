@@ -2,7 +2,7 @@ import {InputProps} from 'reactstrap'
 import React from 'react'
 import {ElementCustomValue} from '../Functions'
 
-export type TChangeValueFunction<T = unknown> = (value: any, name?: T extends object ? keyof T : string) => void
+export type TChangeValueFunction<T = unknown> = (value: any, name?: T extends object ? keyof T : string, shiftKey?: boolean, ctrlKey?: boolean, altKey?: boolean) => void
 
 export interface IIWInputProps<T = unknown> extends InputProps {
 	plainText?: boolean

@@ -45,14 +45,16 @@ export const InputSelectStep = (props: IProps) => {
 		props.value
 	])
 
-	const click = () => {
+	const click = (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
 		let newValue = props.options.find(() => true)?.key
 
 		if (currentOptionIDX < props.options.length - 1 && currentOptionIDX >= 0) {
 			newValue = props.options[currentOptionIDX + 1].key
 		}
 
-		if (!!props.changeValue) props.changeValue(newValue, props.name)
+		if (!!props.changeValue) {
+			props.changeValue(newValue, props.name, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
+		}
 	}
 
 	return (
