@@ -120,7 +120,7 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 		})
 		} name={props.name as string | undefined} inputMode={hasDecimals ? 'decimal' : 'numeric'} value={currentStringOverride} onChange={handleInputChange} onBlur={e => {
 			if (!!props.onBlur) props.onBlur(e)
-		if (!!props.changeValueLate) {
+		if (!!props.changeValueLate && lateValue !== props.value) {
 			props.changeValueLate(lateValue, props.name, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
 		}
 	}} htmlRef={props.htmlRef} onKeyDown={handleKeyDown} onFocus={handleFocus} autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`} placeholder={props.placeholder} required={props.required} autoFocus={props.autoFocus} style={props.style} id={props.id} />

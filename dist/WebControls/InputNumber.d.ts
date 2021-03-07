@@ -25,6 +25,7 @@ export interface IPropsInputNumber<T = unknown> {
     plainTextProps?: any;
     invalid?: boolean;
     changeValue?: TChangeValueFunction<T>;
+    changeValueLate?: TChangeValueFunction<T>;
     prepend?: ReactNode;
     append?: ReactNode;
 }

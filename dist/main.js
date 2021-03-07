@@ -1186,7 +1186,7 @@ function InputNumber(props) {
         }), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: function (e) {
             if (!!props.onBlur)
                 props.onBlur(e);
-            if (!!props.changeValueLate) {
+            if (!!props.changeValueLate && lateValue !== props.value) {
                 props.changeValueLate(lateValue, props.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
             }
         }, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_c = props.name) !== null && _c !== void 0 ? _c : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id });
