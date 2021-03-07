@@ -942,7 +942,7 @@ function InputCheckBox(props) {
             props.onChange(e);
         }
         if (!!props.changeValue) {
-            props.changeValue(e.target.checked, e.target.name);
+            props.changeValue(e.target.checked, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
     return (React__default['default'].createElement(reactstrap.CustomInput, { type: "checkbox", label: props.label, name: props.name, className: 'inputCheckbox ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText }));
@@ -1018,7 +1018,7 @@ function InputDate(props) {
             props.onChange(e);
         }
         if (!!props.changeValue) {
-            props.changeValue(customValue, e.target.name);
+            props.changeValue(customValue, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.showTime && !!intelliwaketsfoundation.MomentTimeString(props.value)
@@ -1081,8 +1081,9 @@ function InputSelect(props) {
         }
         if (!!props.onChange)
             props.onChange(e);
-        if (!!props.changeValue)
-            props.changeValue(ElementCustomValue(e), e.target.name);
+        if (!!props.changeValue) {
+            props.changeValue(ElementCustomValue(e), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
+        }
     };
     var className = ((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + (!!props.required ? 'is-required' : '');
     return !!props.plainText && !!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
@@ -1111,6 +1112,8 @@ function InputGender(props) {
 function InputNumber(props) {
     var _a, _b, _c, _d, _e;
     var _f = React.useState(undefined), currentStringOverride = _f[0], setCurrentStringOverride = _f[1];
+    var _g = React.useState(props.value), lateValue = _g[0], setLateValue = _g[1];
+    React.useEffect(function () { return setLateValue(props.value); }, [props.value]);
     var handleKeyDown = function (e) {
         if (e.key === '-') {
             if (!(props.lowerBound !== undefined && props.lowerBound < 0)) {
@@ -1135,7 +1138,7 @@ function InputNumber(props) {
                 props.onChange(e);
             }
             if (!!props.changeValue) {
-                props.changeValue(e.target.customValue, e.target.name);
+                props.changeValue(e.target.customValue, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
             }
         }
         else {
@@ -1148,8 +1151,9 @@ function InputNumber(props) {
                 props.onChange(e);
             }
             if (!!props.changeValue) {
-                props.changeValue(e.target.customValue, e.target.name);
+                props.changeValue(e.target.customValue, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
             }
+            setLateValue(e.target.customValue);
             // setCurrentStringOverride(undefined)
         }
     };
@@ -1174,10 +1178,18 @@ function InputNumber(props) {
         var newVal = !props.value ? '' : ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString();
         setCurrentStringOverride(newVal);
     }, [props.value]);
-    var showCleave = React__default['default'].createElement(Cleave__default['default'], { options: options, className: props.className +
-            ' inputNumber form-control ' +
-            (hasDecimals ? 'numerics' : 'integers') +
-            (!!props.invalid ? ' is-invalid' : ''), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: props.onBlur, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_c = props.name) !== null && _c !== void 0 ? _c : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id });
+    var showCleave = React__default['default'].createElement(Cleave__default['default'], { options: options, className: ClassNames({
+            'inputNumber form-control': true,
+            numerics: hasDecimals,
+            integers: !hasDecimals,
+            'is_invalid': !!props.invalid
+        }), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: function (e) {
+            if (!!props.onBlur)
+                props.onBlur(e);
+            if (!!props.changeValueLate) {
+                props.changeValueLate(lateValue, props.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
+            }
+        }, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_c = props.name) !== null && _c !== void 0 ? _c : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id });
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value !== null
         && !!props.currency
         ? (React__default['default'].createElement(React__default['default'].Fragment, null,
@@ -1345,14 +1357,15 @@ var InputSelectStep = function (props) {
         props.options,
         props.value
     ]);
-    var click = function () {
+    var click = function (e) {
         var _a;
         var newValue = (_a = props.options.find(function () { return true; })) === null || _a === void 0 ? void 0 : _a.key;
         if (currentOptionIDX < props.options.length - 1 && currentOptionIDX >= 0) {
             newValue = props.options[currentOptionIDX + 1].key;
         }
-        if (!!props.changeValue)
-            props.changeValue(newValue, props.name);
+        if (!!props.changeValue) {
+            props.changeValue(newValue, props.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
+        }
     };
     return (React__default['default'].createElement("div", { className: classNames, onClick: click, onKeyPress: click, tabIndex: 0 }, (_d = (_c = props.options[currentOptionIDX]) === null || _c === void 0 ? void 0 : _c.description) !== null && _d !== void 0 ? _d : ''));
 };
@@ -1387,7 +1400,7 @@ function InputState(props) {
             props.onChange(e);
         }
         if (!!props.changeValue) {
-            props.changeValue(e.target.value.toUpperCase(), e.target.name);
+            props.changeValue(e.target.value.toUpperCase(), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
@@ -1407,7 +1420,7 @@ function InputSwitch(props) {
             props.onChange(e);
         }
         if (!!props.changeValue) {
-            props.changeValue(e.target.checked, e.target.name);
+            props.changeValue(e.target.checked, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
     return (React__default['default'].createElement(reactstrap.CustomInput, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch cursor-pointer ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText }));
@@ -1426,7 +1439,7 @@ var InputSwitchAlternate = function (props) {
         if (!!props.onChange)
             props.onChange(e);
         if (!!props.changeValue)
-            props.changeValue(e.target.customValue, e.target.name);
+            props.changeValue(e.target.checked, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
     };
     return (React__default['default'].createElement(reactstrap.CustomInput, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch ' + ((_b = props.className) !== null && _b !== void 0 ? _b : '') + (props.plainText ? ' plainText' : ''), id: newID, checked: props.value === valuesOnOff[0], onChange: !props.plainText ? handleInputChange : function () { } }));
 };
@@ -1517,8 +1530,9 @@ function InputTime(props) {
             e.target.customValue = customValue;
             props.onChange(e);
         }
-        if (!!props.changeValue)
-            props.changeValue(customValue, e.target.name);
+        if (!!props.changeValue) {
+            props.changeValue(customValue, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
+        }
     };
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.MomentDisplayTime(props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "time", className: "inputTime" }, inputProps, { value: overrideValue, onChange: handleInputChange, step: !!props.editSeconds ? 1 : 60 })))));
 }

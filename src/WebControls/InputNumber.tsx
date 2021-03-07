@@ -4,6 +4,7 @@ import {CleanNumber, RandomString, ToCurrency, ToDigits} from '@solidbasisventur
 import {TChangeValueFunction} from './IWInputProps'
 import {CleaveOptions} from 'cleave.js/options'
 import {InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap'
+import {ClassNames} from '../Functions'
 
 export interface IPropsInputNumber<T = unknown> {
 	name?: T extends object ? keyof T : string
@@ -30,12 +31,16 @@ export interface IPropsInputNumber<T = unknown> {
 	plainTextProps?: any
 	invalid?: boolean
 	changeValue?: TChangeValueFunction<T>
+	changeValueLate?: TChangeValueFunction<T>
 	prepend?: ReactNode
 	append?: ReactNode
 }
 
 export function InputNumber<T>(props: IPropsInputNumber<T>) {
 	const [currentStringOverride, setCurrentStringOverride] = useState<string | undefined>(undefined)
+	const [lateValue, setLateValue] = useState<number | null>(props.value)
+	
+	useEffect(() => setLateValue(props.value), [props.value])
 	
 	const handleKeyDown = (e: React.KeyboardEvent) => {
 		if (e.key === '-') {
@@ -79,6 +84,7 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 			if (!!props.changeValue) {
 				props.changeValue((e.target as any).customValue, e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
 			}
+			setLateValue((e.target as any).customValue)
 			// setCurrentStringOverride(undefined)
 		}
 	}
@@ -106,23 +112,27 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 		setCurrentStringOverride(newVal)
 	}, [props.value])
 	
-	const showCleave = <Cleave options={options} className={
-		props.className +
-		' inputNumber form-control ' +
-		(hasDecimals ? 'numerics' : 'integers') +
-		(!!props.invalid ? ' is-invalid' : '')
-	} name={props.name as string | undefined} inputMode={hasDecimals ? 'decimal' : 'numeric'}
-	
-														 value={currentStringOverride} onChange={handleInputChange} onBlur={props.onBlur} htmlRef={props.htmlRef} onKeyDown={handleKeyDown} onFocus={handleFocus} autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`} placeholder={props.placeholder} required={props.required} autoFocus={props.autoFocus} style={props.style} id={props.id} />
+	const showCleave = <Cleave options={options} className={ClassNames({
+			'inputNumber form-control': true,
+			numerics: hasDecimals,
+			integers: !hasDecimals,
+			'is_invalid': !!props.invalid
+		})
+		} name={props.name as string | undefined} inputMode={hasDecimals ? 'decimal' : 'numeric'} value={currentStringOverride} onChange={handleInputChange} onBlur={e => {
+			if (!!props.onBlur) props.onBlur(e)
+		if (!!props.changeValueLate) {
+			props.changeValueLate(lateValue, props.name, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
+		}
+	}} htmlRef={props.htmlRef} onKeyDown={handleKeyDown} onFocus={handleFocus} autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`} placeholder={props.placeholder} required={props.required} autoFocus={props.autoFocus} style={props.style} id={props.id} />
 	
 	return (
 		<>
 			{!!props.plainText ? (
 				<div className="form-control-plaintext" {...props.plainTextProps}>
 					{props.value !== null
-						&& !!props.currency
-							? (<>{props.prepend} {ToCurrency(props.value, props.decimalScale ?? 0)} {props.append}</>)
-							: (<>{props.prepend} {ToDigits(props.value, props.decimalScale ?? 0)} {props.append}</>)}
+					&& !!props.currency
+						? (<>{props.prepend} {ToCurrency(props.value, props.decimalScale ?? 0)} {props.append}</>)
+						: (<>{props.prepend} {ToDigits(props.value, props.decimalScale ?? 0)} {props.append}</>)}
 				</div>
 			) : !!props.prepend || !!props.append ? (
 				<InputGroup>

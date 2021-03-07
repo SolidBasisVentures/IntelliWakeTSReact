@@ -1,6 +1,6 @@
 import { InputProps } from 'reactstrap';
 import React from 'react';
-export declare type TChangeValueFunction<T = unknown> = (value: any, name?: T extends object ? keyof T : string) => void;
+export declare type TChangeValueFunction<T = unknown> = (value: any, name?: T extends object ? keyof T : string, shiftKey?: boolean, ctrlKey?: boolean, altKey?: boolean) => void;
 export interface IIWInputProps<T = unknown> extends InputProps {
     plainText?: boolean;
     plainTextURL?: string;
