@@ -5,7 +5,6 @@
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "scripts": {
-    "M1-Rebuild-Node-SASS": "npm rebuild node-sass",
     "BuildAndPublish": "rollup -c && npm version patch --no-git-tag-version && npm publish",
     "YarnInstall": "yarn add -D @solidbasisventures/intelliwaketsfoundation -W && yarn install",
     "YarnUpgrade": "yarn add -D @solidbasisventures/intelliwaketsfoundation -W && yarn upgrade"
