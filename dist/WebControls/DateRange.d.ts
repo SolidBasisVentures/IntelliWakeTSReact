@@ -41,6 +41,8 @@ export declare const defaultRanges: IDateRange[];
 export declare const defaultRangeStrings: IDateRangeString[];
 export declare const defaultRangesReport: IDateRange[];
 export declare const defaultRangeStringsReport: IDateRangeString[];
+export declare const defaultRangesReportQuarterly: IDateRange[];
+export declare const defaultRangeStringsReportQuarterly: IDateRangeString[];
 /**
  * Default to this month
  *
