@@ -861,6 +861,59 @@ var defaultRangesReport = [
     }
 ];
 var defaultRangeStringsReport = defaultRangesReport.map(function (range) { return DateRangeToString(range); });
+var defaultRangesReportQuarterly = [
+    {
+        name: 'This Month',
+        start: moment__default['default']().startOf('month'),
+        end: moment__default['default']().endOf('month')
+    },
+    {
+        name: 'Last Month',
+        start: moment__default['default']().subtract(1, 'month').startOf('month'),
+        end: moment__default['default']().subtract(1, 'month').endOf('month')
+    },
+    {
+        name: 'This Quarter',
+        start: moment__default['default']().startOf('quarter'),
+        end: moment__default['default']().endOf('quarter')
+    },
+    {
+        name: 'Last Quarter',
+        start: moment__default['default']().subtract(1, 'quarter').startOf('quarter'),
+        end: moment__default['default']().subtract(1, 'quarter').endOf('quarter')
+    },
+    {
+        name: '2 Quarters ago',
+        start: moment__default['default']().subtract(2, 'quarter').startOf('quarter'),
+        end: moment__default['default']().subtract(2, 'quarter').endOf('quarter')
+    },
+    {
+        name: '3 Quarters ago',
+        start: moment__default['default']().subtract(3, 'quarter').startOf('quarter'),
+        end: moment__default['default']().subtract(3, 'quarter').endOf('quarter')
+    },
+    {
+        name: '4 Quarters ago',
+        start: moment__default['default']().subtract(4, 'quarter').startOf('quarter'),
+        end: moment__default['default']().subtract(4, 'quarter').endOf('quarter')
+    },
+    {
+        name: 'Year to Date',
+        start: moment__default['default']().startOf('year'),
+        end: moment__default['default']()
+    },
+    {
+        name: 'This Year',
+        start: moment__default['default']().startOf('year'),
+        end: moment__default['default']().endOf('year')
+    },
+    {
+        name: 'Last Year',
+        start: moment__default['default']().subtract(1, 'year').startOf('year'),
+        end: moment__default['default']().subtract(1, 'year').endOf('year')
+    }
+];
+var defaultRangeStringsReportQuarterly = defaultRangesReportQuarterly.map(function (range) { return DateRangeToString(range); });
 /**
  * Default to this month
  *
@@ -2322,10 +2375,12 @@ exports.defaultRangeLast4Weeks = defaultRangeLast4Weeks;
 exports.defaultRangeString = defaultRangeString;
 exports.defaultRangeStrings = defaultRangeStrings;
 exports.defaultRangeStringsReport = defaultRangeStringsReport;
+exports.defaultRangeStringsReportQuarterly = defaultRangeStringsReportQuarterly;
 exports.defaultRangeWeek = defaultRangeWeek;
 exports.defaultRangeYear = defaultRangeYear;
 exports.defaultRanges = defaultRanges;
 exports.defaultRangesReport = defaultRangesReport;
+exports.defaultRangesReportQuarterly = defaultRangesReportQuarterly;
 exports.initialActivityOverlayState = initialActivityOverlayState;
 exports.initialDateRange = initialDateRange;
 exports.initialDateRangeString = initialDateRangeString;

@@ -385,6 +385,61 @@ export const defaultRangesReport: IDateRange[] = [
 
 export const defaultRangeStringsReport: IDateRangeString[] = defaultRangesReport.map(range => DateRangeToString(range))
 
+export const defaultRangesReportQuarterly: IDateRange[] = [
+	{
+		name: 'This Month',
+		start: moment().startOf('month'),
+		end: moment().endOf('month')
+	},
+	{
+		name: 'Last Month',
+		start: moment().subtract(1, 'month').startOf('month'),
+		end: moment().subtract(1, 'month').endOf('month')
+	},
+	{
+		name: 'This Quarter',
+		start: moment().startOf('quarter'),
+		end: moment().endOf('quarter')
+	},
+	{
+		name: 'Last Quarter',
+		start: moment().subtract(1, 'quarter').startOf('quarter'),
+		end: moment().subtract(1, 'quarter').endOf('quarter')
+	},
+	{
+		name: '2 Quarters ago',
+		start: moment().subtract(2, 'quarter').startOf('quarter'),
+		end: moment().subtract(2, 'quarter').endOf('quarter')
+	},
+	{
+		name: '3 Quarters ago',
+		start: moment().subtract(3, 'quarter').startOf('quarter'),
+		end: moment().subtract(3, 'quarter').endOf('quarter')
+	},
+	{
+		name: '4 Quarters ago',
+		start: moment().subtract(4, 'quarter').startOf('quarter'),
+		end: moment().subtract(4, 'quarter').endOf('quarter')
+	},
+	{
+		name: 'Year to Date',
+		start: moment().startOf('year'),
+		end: moment()
+	},
+	{
+		name: 'This Year',
+		start: moment().startOf('year'),
+		end: moment().endOf('year')
+	},
+	{
+		name: 'Last Year',
+		start: moment().subtract(1, 'year').startOf('year'),
+		end: moment().subtract(1, 'year').endOf('year')
+	}
+]
+
+export const defaultRangeStringsReportQuarterly: IDateRangeString[] = defaultRangesReportQuarterly.map(range => DateRangeToString(range))
+
 /**
  * Default to this month
  *
