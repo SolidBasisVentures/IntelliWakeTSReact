@@ -136,6 +136,7 @@ interface IPropsMasterLink {
 	onDoubleClick?: () => void
 	noAutoScroll?: boolean
 	postPath?: string
+	blockActivate?: boolean
 }
 
 export const MDLink = (props: IPropsMasterLink | any) => {
@@ -164,8 +165,10 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 	delete displayProps.id
 
 	const selectItem = () => {
-		window.sessionStorage.removeItem(mdContext.baseFullPath + '-LastURL')
-		history.push(linkActive ? mdContext.baseFullPath : panelURLAddOn)
+		if (!props.blockActivate) {
+			window.sessionStorage.removeItem(mdContext.baseFullPath + '-LastURL')
+			history.push(linkActive ? mdContext.baseFullPath : panelURLAddOn)
+		}
 	}
 
 	useEffect(() => {
