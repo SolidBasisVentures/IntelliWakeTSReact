@@ -37,6 +37,7 @@ interface IPropsMasterLink {
     onDoubleClick?: () => void;
     noAutoScroll?: boolean;
     postPath?: string;
+    blockActivate?: boolean;
 }
 export declare const MDLink: (props: IPropsMasterLink | any) => JSX.Element;
 interface IPropsDetail {

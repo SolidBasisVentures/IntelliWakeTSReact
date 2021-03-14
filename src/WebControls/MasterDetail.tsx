@@ -154,7 +154,7 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 			(window.location.pathname.startsWith(panelURLAddOn + '/') || window.location.pathname === panelURLAddOn)) ||
 		(!props.panel && window.location.pathname === panelURLAddOn)
 
-	let displayProps = Object.assign({}, props)
+	let displayProps = {...props}
 	let classNames: string[] = ['cursor-pointer']
 	if (displayProps.className) classNames.push(displayProps.className)
 	if (linkActive) classNames.push('active')
@@ -163,6 +163,7 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 	displayProps.className = classNames.join(' ')
 	delete displayProps.postPath
 	delete displayProps.id
+	delete displayProps.blockActivate
 
 	const selectItem = () => {
 		if (!props.blockActivate) {

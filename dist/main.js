@@ -1998,8 +1998,10 @@ var MDLink = function (props) {
     delete displayProps.postPath;
     delete displayProps.id;
     var selectItem = function () {
-        window.sessionStorage.removeItem(mdContext.baseFullPath + '-LastURL');
-        history.push(linkActive ? mdContext.baseFullPath : panelURLAddOn);
+        if (!props.blockActivate) {
+            window.sessionStorage.removeItem(mdContext.baseFullPath + '-LastURL');
+            history.push(linkActive ? mdContext.baseFullPath : panelURLAddOn);
+        }
     };
     React.useEffect(function () {
         var _a;
