@@ -1983,8 +1983,9 @@ var MDLink = function (props) {
         (props.panel ? '/' + props.panel.replace(/\s+/g, '') : '') +
         (props.id ? '/' + props.id : '') +
         (!!props.postPath ? '/' + props.postPath : '');
-    var linkActive = (props.panel &&
-        (window.location.pathname.startsWith(panelURLAddOn + '/') || window.location.pathname === panelURLAddOn)) ||
+    var linkActive = !props.blockActivate &&
+        (props.panel &&
+            (window.location.pathname.startsWith(panelURLAddOn + '/') || window.location.pathname === panelURLAddOn)) ||
         (!props.panel && window.location.pathname === panelURLAddOn);
     var displayProps = __assign({}, props);
     var classNames = ['cursor-pointer'];

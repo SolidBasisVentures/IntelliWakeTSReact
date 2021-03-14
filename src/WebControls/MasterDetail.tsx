@@ -149,7 +149,7 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 		(props.panel ? '/' + props.panel.replace(/\s+/g, '') : '') +
 		(props.id ? '/' + props.id : '') +
 		(!!props.postPath ? '/' + props.postPath : '')
-	const linkActive =
+	const linkActive = !props.blockActivate &&
 		(props.panel &&
 			(window.location.pathname.startsWith(panelURLAddOn + '/') || window.location.pathname === panelURLAddOn)) ||
 		(!props.panel && window.location.pathname === panelURLAddOn)
