@@ -1986,7 +1986,7 @@ var MDLink = function (props) {
     var linkActive = (props.panel &&
         (window.location.pathname.startsWith(panelURLAddOn + '/') || window.location.pathname === panelURLAddOn)) ||
         (!props.panel && window.location.pathname === panelURLAddOn);
-    var displayProps = Object.assign({}, props);
+    var displayProps = __assign({}, props);
     var classNames = ['cursor-pointer'];
     if (displayProps.className)
         classNames.push(displayProps.className);
@@ -1997,6 +1997,7 @@ var MDLink = function (props) {
     displayProps.className = classNames.join(' ');
     delete displayProps.postPath;
     delete displayProps.id;
+    delete displayProps.blockActivate;
     var selectItem = function () {
         if (!props.blockActivate) {
             window.sessionStorage.removeItem(mdContext.baseFullPath + '-LastURL');
