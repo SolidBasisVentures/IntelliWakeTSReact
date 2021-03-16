@@ -32,6 +32,7 @@ export function InputCheckBox<T>(props: IInputSwitchProps<T>) {
 			checked={props.checked}
 			onChange={!props.plainText ? handleInputChange : () => {}}
 			disabled={props.plainText}
+			onClick={props.onClick}
 		/>
 	)
 }

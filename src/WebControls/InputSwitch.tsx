@@ -11,6 +11,7 @@ export interface IInputSwitchProps<T = unknown> {
 	id?: string
 	plainText?: boolean
 	changeValue?: TChangeValueFunction<T>
+	onClick?: (e: React.MouseEvent<HTMLInputElement>) => void
 	hidden?: boolean
 }
 
@@ -44,6 +45,7 @@ export function InputSwitch<T>(props: IInputSwitchProps<T>) {
 			checked={props.checked}
 			onChange={!props.plainText ? handleInputChange : () => {}}
 			disabled={props.plainText}
+			onClick={props.onClick}
 		/>
 	)
 }
