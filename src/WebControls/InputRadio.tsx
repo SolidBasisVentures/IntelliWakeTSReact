@@ -12,6 +12,7 @@ interface IProps<T = unknown> {
 	id?: string
 	plainText?: boolean
 	changeValue?: TChangeValueFunction<T>
+	onClick?: (e: React.MouseEvent<HTMLInputElement>) => void
 }
 
 export function InputRadio<T>(props: IProps<T>) {
@@ -34,6 +35,7 @@ export function InputRadio<T>(props: IProps<T>) {
 			checked={props.checked}
 			onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
 			value={props.value}
+			onClick={props.onClick}
 		/>
 	)
 }

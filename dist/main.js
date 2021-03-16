@@ -998,7 +998,7 @@ function InputCheckBox(props) {
             props.changeValue(e.target.checked, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
-    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "checkbox", label: props.label, name: props.name, className: 'inputCheckbox ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText }));
+    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "checkbox", label: props.label, name: props.name, className: 'inputCheckbox ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText, onClick: props.onClick }));
 }
 
 var ReduceInputProps = function (props) {
@@ -1291,7 +1291,7 @@ function InputRadio(props) {
         props.name,
         props.id
     ]);
-    return !!props.plainText ? (props.checked ? (props.label) : null) : (React__default['default'].createElement(reactstrap.CustomInput, { type: "radio", label: props.label, name: props.name, id: newID, className: 'inputRadio ' + ((_a = props.className) !== null && _a !== void 0 ? _a : ''), checked: props.checked, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, value: props.value }));
+    return !!props.plainText ? (props.checked ? (props.label) : null) : (React__default['default'].createElement(reactstrap.CustomInput, { type: "radio", label: props.label, name: props.name, id: newID, className: 'inputRadio ' + ((_a = props.className) !== null && _a !== void 0 ? _a : ''), checked: props.checked, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, value: props.value, onClick: props.onClick }));
 }
 
 /**
@@ -1476,7 +1476,7 @@ function InputSwitch(props) {
             props.changeValue(e.target.checked, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
-    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch cursor-pointer ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText }));
+    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch cursor-pointer ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText, onClick: props.onClick }));
 }
 
 var InputSwitchAlternate = function (props) {
