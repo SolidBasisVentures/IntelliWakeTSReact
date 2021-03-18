@@ -10,6 +10,7 @@ interface IProps<T = unknown> {
     id?: string;
     plainText?: boolean;
     changeValue?: TChangeValueFunction<T>;
+    onClick?: (e: React.MouseEvent<HTMLInputElement>) => void;
 }
 export declare function InputRadio<T>(props: IProps<T>): any;
 export {};
