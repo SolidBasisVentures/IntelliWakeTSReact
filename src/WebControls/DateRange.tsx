@@ -12,6 +12,14 @@ export interface IDateRangeString {
 	end: string
 }
 
+export const CreateCustomDateRange = (dateStart: Moment | string, dateEnd: Moment | string): IDateRangeString => {
+	return {
+		name: customRangeName,
+		start: DateRangeDateMomentToString(dateStart),
+		end: DateRangeDateMomentToString(dateEnd)
+	}
+}
+
 export const DateRangeDateMomentToString = (date: Moment | string): string => typeof date === 'string' ? date : MomentDateString(date.startOf('day')) ?? moment().format('YYYY-MM-DD')
 
 export const DateRangeDateStringToMoment = (date: Moment | string): Moment => typeof date === 'string' ? MomentFromString(date) ?? moment() : date
