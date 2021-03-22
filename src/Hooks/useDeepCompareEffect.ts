@@ -13,7 +13,7 @@ import { checkDeps, useDeepCompareMemoize } from './useDeepCompareMemoize';
  * objects. Otherwise you should just use React.useEffect.
  *
  */
-function useDeepCompareEffect(
+export function useDeepCompareEffect(
   effect: React.EffectCallback,
   dependencies: React.DependencyList
 ) {
@@ -24,4 +24,3 @@ function useDeepCompareEffect(
   React.useEffect(effect, useDeepCompareMemoize(dependencies));
 }
 
-export default useDeepCompareEffect;

@@ -4,6 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var intelliwaketsfoundation = require('@solidbasisventures/intelliwaketsfoundation');
 var React = require('react');
+var _ = require('lodash');
 var moment = require('moment');
 var reactstrap = require('reactstrap');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
@@ -12,16 +13,15 @@ var reactRouterDom = require('react-router-dom');
 var ReactDatePicker = require('react-datepicker');
 var Cleave = require('cleave.js/react');
 var axios = require('axios');
-var _ = require('lodash');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var ___default = /*#__PURE__*/_interopDefaultLegacy(_);
 var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
 var ReactDatePicker__default = /*#__PURE__*/_interopDefaultLegacy(ReactDatePicker);
 var Cleave__default = /*#__PURE__*/_interopDefaultLegacy(Cleave);
 var axios__default = /*#__PURE__*/_interopDefaultLegacy(axios);
-var ___default = /*#__PURE__*/_interopDefaultLegacy(_);
 
 // ----------------------------
 //   Cookie Manager
@@ -298,6 +298,69 @@ var DownloadBase64Data = function (fileName, base64, type) {
         link.click();
     }
 };
+
+function checkDeps(deps, name) {
+    var reactHookName = "React." + name.replace(/DeepCompare/, "");
+    if (!deps || deps.length === 0) {
+        throw new Error(name + " should not be used with no dependencies. Use " + reactHookName + " instead.");
+    }
+}
+function useDeepCompareMemoize(value) {
+    var ref = React__default['default'].useRef([]);
+    if (!___default['default'].isEqual(value, ref.current)) {
+        ref.current = value;
+    }
+    return ref.current;
+}
+
+/**
+ * `useDeepCompareEffect` will return a memoized version of the callback that
+ * only changes if one of the `deps` has changed.
+ *
+ * Usage note: only use this if `deps` are objects or arrays that contain
+ * objects. Otherwise you should just use React.useEffect.
+ *
+ */
+function useDeepCompareCallback(callback, dependencies) {
+    if (process.env.NODE_ENV !== 'production') {
+        checkDeps(dependencies, 'useDeepCompareCallback');
+    }
+    return React__default['default'].useCallback(callback, useDeepCompareMemoize(dependencies));
+}
+
+/**
+ * `useDeepCompareEffect` Accepts a function that contains imperative, possibly
+ * effectful code.
+ *
+ * @param effect Imperative function that can return a cleanup function
+ * @param dependencies
+ * change.
+ *
+ * Usage note: only use this if `deps` are objects or arrays that contain
+ * objects. Otherwise you should just use React.useEffect.
+ *
+ */
+function useDeepCompareEffect(effect, dependencies) {
+    if (process.env.NODE_ENV !== 'production') {
+        checkDeps(dependencies, 'useDeepCompareEffect');
+    }
+    React__default['default'].useEffect(effect, useDeepCompareMemoize(dependencies));
+}
+
+/**
+ * `useDeepCompareMemo` will only recompute the memoized value when one of the
+ * `deps` has changed.
+ *
+ * Usage note: only use this if `deps` are objects or arrays that contain
+ * objects. Otherwise you should just use React.useMemo.
+ *
+ */
+function useDeepCompareMemo(factory, dependencies) {
+    if (process.env.NODE_ENV !== 'production') {
+        checkDeps(dependencies, 'useDeepCompareMemo');
+    }
+    return React__default['default'].useMemo(factory, useDeepCompareMemoize(dependencies));
+}
 
 var initialActivityOverlayState = {
     nestedCount: 0,
@@ -2380,6 +2443,7 @@ exports.WriteFootTR = WriteFootTR;
 exports.WriteHeadTR = WriteHeadTR;
 exports.arrayIDMapsForArrayWithID = arrayIDMapsForArrayWithID;
 exports.arrayMapWithMapIDIndex = arrayMapWithMapIDIndex;
+exports.checkDeps = checkDeps;
 exports.customRangeName = customRangeName;
 exports.defaultRange = defaultRange;
 exports.defaultRangeLast4Weeks = defaultRangeLast4Weeks;
@@ -2399,3 +2463,7 @@ exports.initialMenuBackItem = initialMenuBackItem;
 exports.initialMessageBoxState = initialMessageBoxState;
 exports.initialSortProperties = initialSortProperties;
 exports.initialTextStatusState = initialTextStatusState;
+exports.useDeepCompareCallback = useDeepCompareCallback;
+exports.useDeepCompareEffect = useDeepCompareEffect;
+exports.useDeepCompareMemo = useDeepCompareMemo;
+exports.useDeepCompareMemoize = useDeepCompareMemoize;

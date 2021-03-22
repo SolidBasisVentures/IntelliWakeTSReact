@@ -9,7 +9,7 @@ import { checkDeps, useDeepCompareMemoize } from './useDeepCompareMemoize';
  * objects. Otherwise you should just use React.useMemo.
  *
  */
-function useDeepCompareMemo<T>(
+export function useDeepCompareMemo<T>(
   factory: () => T,
   dependencies: React.DependencyList
 ) {
@@ -19,5 +19,3 @@ function useDeepCompareMemo<T>(
 
   return React.useMemo(factory, useDeepCompareMemoize(dependencies));
 }
-
-export default useDeepCompareMemo;
