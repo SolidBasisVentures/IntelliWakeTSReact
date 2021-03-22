@@ -774,9 +774,8 @@ var DateRange = function (props) {
         };
     });
     return (React__default['default'].createElement("div", { className: 'DateRangeDD ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.borderless ? '' : ' border') + (props.showCaret ? ' dropdown-toggle' : ''), onClick: setOpen, ref: nodeParent, color: props.color },
-        props.faIcon !== null ?
-            React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: props.faIcon ? props.faIcon : proRegularSvgIcons.faCalendarAlt, fixedWidth: true })
-            : null,
+        props.faIcon !== null &&
+            React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: props.faIcon ? props.faIcon : proRegularSvgIcons.faCalendarAlt, fixedWidth: true }),
         " ",
         rangeDescription(state.selectedRange),
         React__default['default'].createElement("div", { className: ClassNames({ DateRangeLB: true, OpensRight: !props.rightAlign, 'd-none': !state.isOpen }), ref: nodeBody },
