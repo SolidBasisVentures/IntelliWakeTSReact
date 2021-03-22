@@ -308,7 +308,7 @@ function checkDeps(deps, name) {
 function useDeepCompareMemoize(value) {
     var ref = React__default['default'].useRef([]);
     if (!___default['default'].isEqual(value, ref.current)) {
-        ref.current = value;
+        ref.current = __assign({}, value);
     }
     return ref.current;
 }
