@@ -5,6 +5,7 @@ export interface IDateRangeString {
     start: string;
     end: string;
 }
+export declare const CreateCustomDateRange: (dateStart: Moment | string, dateEnd: Moment | string) => IDateRangeString;
 export declare const DateRangeDateMomentToString: (date: Moment | string) => string;
 export declare const DateRangeDateStringToMoment: (date: Moment | string) => Moment;
 export declare const DateRangeToMoment: (dateRange: IDateRange | IDateRangeString) => IDateRange;
@@ -35,6 +36,7 @@ export interface IPropsDateRange {
     borderless?: boolean;
     color?: string;
     className?: string;
+    rightAlign?: boolean;
 }
 export declare const DateRange: (props: IPropsDateRange) => JSX.Element;
 export declare const defaultRanges: IDateRange[];

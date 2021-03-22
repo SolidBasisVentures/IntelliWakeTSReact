@@ -584,6 +584,13 @@ var ArrayTable = function (props) {
 };
 
 var customRangeName = 'Custom Range';
+var CreateCustomDateRange = function (dateStart, dateEnd) {
+    return {
+        name: customRangeName,
+        start: DateRangeDateMomentToString(dateStart),
+        end: DateRangeDateMomentToString(dateEnd)
+    };
+};
 var DateRangeDateMomentToString = function (date) { var _a; return typeof date === 'string' ? date : (_a = intelliwaketsfoundation.MomentDateString(date.startOf('day'))) !== null && _a !== void 0 ? _a : moment__default['default']().format('YYYY-MM-DD'); };
 var DateRangeDateStringToMoment = function (date) { var _a; return typeof date === 'string' ? (_a = intelliwaketsfoundation.MomentFromString(date)) !== null && _a !== void 0 ? _a : moment__default['default']() : date; };
 var DateRangeToMoment = function (dateRange) { return ({
@@ -772,7 +779,7 @@ var DateRange = function (props) {
             : null,
         " ",
         rangeDescription(state.selectedRange),
-        React__default['default'].createElement("div", { className: 'DateRangeLB OpensRight' + (state.isOpen ? '' : ' d-none'), ref: nodeBody },
+        React__default['default'].createElement("div", { className: ClassNames({ DateRangeLB: true, OpensRight: !props.rightAlign, 'd-none': !state.isOpen }), ref: nodeBody },
             React__default['default'].createElement("div", { className: 'ranges' + (state.prevPreset ? ' d-none' : '') },
                 React__default['default'].createElement("ul", null,
                     props.presetRanges.map(function (preset, idx) {
@@ -2291,6 +2298,7 @@ exports.ComputeValue = ComputeValue;
 exports.CookieCreate = CookieCreate;
 exports.CookieErase = CookieErase;
 exports.CookieRead = CookieRead;
+exports.CreateCustomDateRange = CreateCustomDateRange;
 exports.DDActions = DDActions;
 exports.DateRange = DateRange;
 exports.DateRangeCalendar = DateRangeCalendar;

@@ -3,6 +3,7 @@ import moment, {Moment} from 'moment'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCalendarAlt} from '@fortawesome/pro-regular-svg-icons'
 import {MomentDateString, MomentFromString} from '@solidbasisventures/intelliwaketsfoundation'
+import {ClassNames} from '../Functions'
 
 export const customRangeName = 'Custom Range'
 
@@ -148,7 +149,8 @@ export interface IPropsDateRange {
 	faIcon?: any | undefined | null,
 	borderless?: boolean,
 	color?: string,
-	className?: string
+	className?: string,
+	rightAlign?: boolean
 }
 
 export const DateRange = (props: IPropsDateRange) => {
@@ -279,12 +281,12 @@ export const DateRange = (props: IPropsDateRange) => {
 	})
 	
 	return (
-		<div className={'DateRangeDD ' + (props.className ?? '') + (props.borderless ? '' : ' border') + (props.showCaret ? ' dropdown-toggle' : '')} onClick={setOpen} ref={nodeParent} color={props.color}>
-			{props.faIcon !== null ?
+		<div className={'DateRangeDD ' + (props.className ?? '') + (props.borderless ? '' : ' border') + (props.showCaret ? ' dropdown-toggle' : '')}
+				 onClick={setOpen} ref={nodeParent} color={props.color}>
+			{props.faIcon !== null &&
 				<FontAwesomeIcon icon={props.faIcon ? props.faIcon : faCalendarAlt} fixedWidth />
-				: null
 			} {rangeDescription(state.selectedRange!)}
-			<div className={'DateRangeLB OpensRight' + (state.isOpen ? '' : ' d-none')} ref={nodeBody}>
+			<div className={ClassNames({DateRangeLB: true, OpensRight: !props.rightAlign, 'd-none': !state.isOpen})} ref={nodeBody}>
 				<div className={'ranges' + (state.prevPreset ? ' d-none' : '')}>
 					<ul>
 						{props.presetRanges!.map((preset: IDateRange, idx: number) =>
