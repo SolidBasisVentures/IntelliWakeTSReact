@@ -56,7 +56,7 @@ export const DDActions = (props: IPropsDDActions) => {
 				{visibleDDActions.map((ddAction, idx) => (
 					<DropdownItem
 						key={idx}
-						disabled={!!ddAction.disabled}
+						disabled={!!ddAction.disabled || !ddAction.action}
 						divider={!!ddAction.divider}
 						header={!!ddAction.header}
 						onClick={() => (!!ddAction.action ? ddAction.action() : () => {})}>
