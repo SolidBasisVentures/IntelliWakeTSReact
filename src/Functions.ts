@@ -141,3 +141,29 @@ export const DownloadBase64Data = (fileName: string, base64: string, type: strin
 		link.click()
 	}
 }
+
+export const CopyRefToClipboard = (ref: any): boolean => {
+	if (document.createRange && window.getSelection) {
+		let range = document.createRange()
+		let sel = window.getSelection()
+		if (sel) {
+			// unselect any element in the page
+			sel.removeAllRanges()
+			
+			try {
+				range.selectNodeContents(ref.current as any)
+				sel.addRange(range)
+			} catch (e) {
+				range.selectNode(ref.current as any)
+				sel.addRange(range)
+			}
+			
+			document.execCommand('copy')
+			
+			sel.removeAllRanges()
+			
+			return true
+		}
+	}
+	return false
+}

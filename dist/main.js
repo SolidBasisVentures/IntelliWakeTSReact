@@ -298,6 +298,28 @@ var DownloadBase64Data = function (fileName, base64, type) {
         link.click();
     }
 };
+var CopyRefToClipboard = function (ref) {
+    if (document.createRange && window.getSelection) {
+        var range = document.createRange();
+        var sel = window.getSelection();
+        if (sel) {
+            // unselect any element in the page
+            sel.removeAllRanges();
+            try {
+                range.selectNodeContents(ref.current);
+                sel.addRange(range);
+            }
+            catch (e) {
+                range.selectNode(ref.current);
+                sel.addRange(range);
+            }
+            document.execCommand('copy');
+            sel.removeAllRanges();
+            return true;
+        }
+    }
+    return false;
+};
 
 function checkDeps(deps, name) {
     var reactHookName = "React." + name.replace(/DeepCompare/, "");
@@ -2360,6 +2382,7 @@ exports.ComputeValue = ComputeValue;
 exports.CookieCreate = CookieCreate;
 exports.CookieErase = CookieErase;
 exports.CookieRead = CookieRead;
+exports.CopyRefToClipboard = CopyRefToClipboard;
 exports.CreateCustomDateRange = CreateCustomDateRange;
 exports.DDActions = DDActions;
 exports.DateRange = DateRange;
