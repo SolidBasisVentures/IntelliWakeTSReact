@@ -143,7 +143,7 @@ export const DownloadBase64Data = (fileName: string, base64: string, type: strin
 }
 
 export const CopyRefToClipboard = (ref: any): boolean => {
-	if (document.createRange && window.getSelection) {
+	if (ref && ref.current && document.createRange && window.getSelection) {
 		let range = document.createRange()
 		let sel = window.getSelection()
 		if (sel) {
