@@ -299,7 +299,7 @@ var DownloadBase64Data = function (fileName, base64, type) {
     }
 };
 var CopyRefToClipboard = function (ref) {
-    if (document.createRange && window.getSelection) {
+    if (ref && ref.current && document.createRange && window.getSelection) {
         var range = document.createRange();
         var sel = window.getSelection();
         if (sel) {
