@@ -6,9 +6,7 @@ interface IProps {
 }
 
 export function ViewEmail(props: IProps) {
-	if (!props.email) return null
-	
-	return (
+	return !!props.email ? (
 		<a href={'mailto:' + props.email}>{props.label ?? props.email}</a>
-	)
+	) : (props.label ?? null)
 }

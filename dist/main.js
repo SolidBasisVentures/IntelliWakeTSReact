@@ -1195,6 +1195,11 @@ function InputDatePicker(props) {
         : intelliwaketsfoundation.MomentDisplayDayDate(props.value))) : (React__default['default'].createElement(ReactDatePicker__default['default'], { value: (_b = intelliwaketsfoundation.MomentDateString((_a = props.value) !== null && _a !== void 0 ? _a : '')) !== null && _b !== void 0 ? _b : '', onChange: setValue, className: "form-control inputDate", placeholderText: props.placeholder, todayButton: !props.noTodayButton ? 'Today' : undefined }))));
 }
 
+function ViewEmail(props) {
+    var _a, _b;
+    return !!props.email ? (React__default['default'].createElement("a", { href: 'mailto:' + props.email }, (_a = props.label) !== null && _a !== void 0 ? _a : props.email)) : ((_b = props.label) !== null && _b !== void 0 ? _b : null);
+}
+
 function InputEmail(props) {
     var _a;
     var inputProps = React.useMemo(function () {
@@ -1205,7 +1210,7 @@ function InputEmail(props) {
         return subset;
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.value ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
-        React__default['default'].createElement("a", { href: 'mailto:' + props.value }, props.value))) : null) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "email", inputMode: "email", className: "inputEmail" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
+        React__default['default'].createElement(ViewEmail, { email: props.value, label: props.plainTextLabel }))) : null) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "email", inputMode: "email", className: "inputEmail" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
 }
 
 function InputSelect(props) {
@@ -2460,6 +2465,7 @@ exports.SortObjects = SortObjects;
 exports.StructuredArray = StructuredArray;
 exports.TextStatus = TextStatus;
 exports.ValidColumns = ValidColumns;
+exports.ViewEmail = ViewEmail;
 exports.WriteBodyTD = WriteBodyTD;
 exports.WriteBodyTR = WriteBodyTR;
 exports.WriteFootTR = WriteFootTR;
