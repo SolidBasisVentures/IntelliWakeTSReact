@@ -44,3 +44,4 @@ export * from './WebControls/MessageBox';
 export * from './WebControls/ModalPrompt';
 export * from './WebControls/SelectDD';
 export * from './WebControls/TextStatus';
+export * from './WebControls/ViewEmail';

@@ -2,9 +2,11 @@ import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
+import {ViewEmail} from './ViewEmail'
 
 interface IProps<T = unknown> extends IIWInputProps<T> {
 	autoCompleteOn?: boolean
+	plainTextLabel?: string | null
 }
 
 export function InputEmail<T>(props: IProps<T>) {
@@ -23,7 +25,7 @@ export function InputEmail<T>(props: IProps<T>) {
 			{!!props.plainText ? (
 				!!props.value ? (
 					<div className="form-control-plaintext" {...props.plainTextProps}>
-						<a href={'mailto:' + props.value}>{props.value}</a>
+						<ViewEmail email={props.value as any} label={props.plainTextLabel}/>
 					</div>
 				) : null
 			) : (
