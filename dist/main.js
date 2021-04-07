@@ -1197,7 +1197,7 @@ function InputDatePicker(props) {
 
 function ViewEmail(props) {
     var _a, _b;
-    return !!props.email ? (React__default['default'].createElement("a", { href: 'mailto:' + props.email }, (_a = props.label) !== null && _a !== void 0 ? _a : props.email)) : ((_b = props.label) !== null && _b !== void 0 ? _b : null);
+    return React__default['default'].createElement(React__default['default'].Fragment, null, !!props.email ? React__default['default'].createElement("a", { href: 'mailto:' + props.email }, (_a = props.label) !== null && _a !== void 0 ? _a : props.email) : (_b = props.label) !== null && _b !== void 0 ? _b : null);
 }
 
 function InputEmail(props) {
