@@ -1,16 +1,17 @@
-import React, {CSSProperties, Dispatch, SetStateAction, useContext, useEffect, useMemo, useRef} from 'react'
+import React, {Dispatch, SetStateAction, useContext, useEffect, useMemo, useRef} from 'react'
 import {Redirect, useHistory} from 'react-router-dom'
 // AddMenuBackItem, CleanMenuBackItem,
 // import {useDispatch} from "react-redux";
-import {GetPathComponentAfter, GetPathThrough} from '../Functions'
+import {GetPathComponentAfter, GetPathThrough, TBootStrapExtendedSizes} from '../Functions'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
+import {StyleControl} from './StyleControl'
 
 export interface MenuBackItem {
 	menuBackActive: boolean
 	menuBackButtonTitle: string
 	menuBackButtonURL: string
 	menuPageTitle: string
-	menuDisplaySize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+	menuDisplaySize?: TBootStrapExtendedSizes
 }
 
 export const initialMenuBackItem: MenuBackItem = {
@@ -22,7 +23,7 @@ export const initialMenuBackItem: MenuBackItem = {
 }
 
 interface IMDContext {
-	breakAt: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+	breakAt: TBootStrapExtendedSizes
 	mdPath: string
 	baseFullPath: string
 	isOpen: boolean
@@ -45,7 +46,7 @@ export interface IMasterDetailProps {
 	children: any
 	mdPath: string
 	backText?: string
-	breakAt: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+	breakAt: TBootStrapExtendedSizes
 	rememberLast?: boolean
 	className?: string
 	setMenuBackItemState: Dispatch<SetStateAction<MenuBackItem[]>>
@@ -103,13 +104,12 @@ interface IPropsMaster {
 export const MDMaster = (props: IPropsMaster) => {
 	const mdContext = useContext(MDContext)
 
-	const id = useMemo(() => `MDM-ID-${RandomString(5)}`, [])
+	const id = useMemo(() => `mdm-id-${RandomString(5)}`.toLowerCase(), [])
 
-	let style: CSSProperties = {}
+	let css: string | null = null
 
 	if (props.width) {
-		style.width = props.width
-		style.minWidth = props.width
+		css = `@media (min-width: ${mdContext.breakAt}) { #${id} {width: ${props.width}; min-width: ${props.width};}}`
 	}
 
 	return (
@@ -120,8 +120,8 @@ export const MDMaster = (props: IPropsMaster) => {
 				' masterDetailMaster' +
 				(mdContext.isOpen ? ' isOpen' : '')
 			}
-			id={id}
-			style={style}>
+			id={id}>
+			<StyleControl css={css} />
 			{props.children}
 		</div>
 	)

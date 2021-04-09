@@ -187,3 +187,44 @@ export const CopyRefToClipboard = (ref: any): boolean => {
 	}
 	return false
 }
+
+export type TBootStrapSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+export type TBootStrapExtendedSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl'
+
+export const SizeAtMin = (size: TBootStrapExtendedSizes): number => {
+	switch (size) {
+		case 'xs':
+			return 0
+		case 'sm':
+			return 576
+		case 'md':
+			return 768
+		case 'lg':
+			return 992
+		case 'xl':
+			return 1200
+		case 'xxl':
+			return 1300
+		case 'xxxl':
+			return 1400
+	}
+}
+
+export const SizeAtMax = (size: TBootStrapExtendedSizes): number => {
+	switch (size) {
+		case 'xs':
+			return 575.98
+		case 'sm':
+			return 767.98
+		case 'md':
+			return 991.98
+		case 'lg':
+			return 1199.98
+		case 'xl':
+			return 1299.98
+		case 'xxl':
+			return 1399.98
+		case 'xxxl':
+			return 999999
+	}
+}

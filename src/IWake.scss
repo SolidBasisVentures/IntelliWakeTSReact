@@ -834,6 +834,44 @@ img.img-inline {
   }
 }
 
+@media (max-width: 1300px) {
+  .masterDetail-xxl {
+
+    > .masterDetailMaster.isOpen {
+      display: none;
+    }
+
+    > .masterDetailMaster {
+      border-right: none !important;
+      flex: 1;
+      min-height: 0;
+    }
+
+    > .masterDetailDetail.hideWhenSmall {
+      display: none !important;
+    }
+  }
+}
+
+@media (max-width: 1400px) {
+  .masterDetail-xxxl {
+
+    > .masterDetailMaster.isOpen {
+      display: none;
+    }
+
+    > .masterDetailMaster {
+      border-right: none !important;
+      flex: 1;
+      min-height: 0;
+    }
+
+    > .masterDetailDetail.hideWhenSmall {
+      display: none !important;
+    }
+  }
+}
+
 .DateRangeDD {
   position: relative;
   cursor: pointer;
