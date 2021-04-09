@@ -338,6 +338,42 @@ var CopyRefToClipboard = function (ref) {
     }
     return false;
 };
+var SizeAtMin = function (size) {
+    switch (size) {
+        case 'xs':
+            return 0;
+        case 'sm':
+            return 576;
+        case 'md':
+            return 768;
+        case 'lg':
+            return 992;
+        case 'xl':
+            return 1200;
+        case 'xxl':
+            return 1300;
+        case 'xxxl':
+            return 1400;
+    }
+};
+var SizeAtMax = function (size) {
+    switch (size) {
+        case 'xs':
+            return 575.98;
+        case 'sm':
+            return 767.98;
+        case 'md':
+            return 991.98;
+        case 'lg':
+            return 1199.98;
+        case 'xl':
+            return 1299.98;
+        case 'xxl':
+            return 1399.98;
+        case 'xxxl':
+            return 999999;
+    }
+};
 
 function checkDeps(deps, name) {
     var reactHookName = "React." + name.replace(/DeepCompare/, "");
@@ -524,9 +560,13 @@ var FilterObjects = function (objects, filter) {
 
 var ComputeValue = function (value, column, rowData, sumsInFooter) {
     var _a, _b;
-    var computedValue = !!column.customWriter ? column.customWriter(value) : !!column.customWriterFromRow ? column.customWriterFromRow(rowData) : value;
+    var computedValue = !!column.customWriter
+        ? column.customWriter(value)
+        : !!column.customWriterFromRow
+            ? column.customWriterFromRow(rowData)
+            : value;
     if (column.sumInFooter) {
-        sumsInFooter[column.fieldName] = ((_a = sumsInFooter[column.fieldName]) !== null && _a !== void 0 ? _a : 0.0);
+        sumsInFooter[column.fieldName] = (_a = sumsInFooter[column.fieldName]) !== null && _a !== void 0 ? _a : 0.0;
         if (computedValue) {
             sumsInFooter[column.fieldName] += (_b = parseFloat(computedValue)) !== null && _b !== void 0 ? _b : 0.0;
         }
@@ -553,10 +593,10 @@ var IsColumnEmpty = function (arrayData, fieldName) {
 };
 var ValidColumns = function (arrayData, arrayStructure) {
     var _a;
-    return (_a = arrayStructure.columns.filter(function (column) {
+    return ((_a = arrayStructure.columns.filter(function (column) {
         return (!column.hideOnEmpty || !IsColumnEmpty(arrayData, column.fieldName)) &&
             (!column.hideOnFunction || column.hideOnFunction(arrayData));
-    })) !== null && _a !== void 0 ? _a : [];
+    })) !== null && _a !== void 0 ? _a : []);
 };
 var StructuredArray = function (arrayData, arrayStructure) {
     var structuredArray = [];
@@ -566,7 +606,7 @@ var StructuredArray = function (arrayData, arrayStructure) {
     var _loop_1 = function (row) {
         structuredArray.push(validColumns.map(function (column) { var _a; return FormatValue(ComputeValue((_a = row[column.fieldName]) !== null && _a !== void 0 ? _a : null, column, row, sumsInFooter), column); }));
     };
-    for (var _i = 0, _a = (arrayData !== null && arrayData !== void 0 ? arrayData : []); _i < _a.length; _i++) {
+    for (var _i = 0, _a = arrayData !== null && arrayData !== void 0 ? arrayData : []; _i < _a.length; _i++) {
         var row = _a[_i];
         _loop_1(row);
     }
@@ -605,17 +645,19 @@ var ScreenFormatValue = function (value, column) {
 };
 var ColumnHeadClassNames = function (column, arrayStructure, otherClasses) {
     if (otherClasses === void 0) { otherClasses = {}; }
-    return ColumnClassNames(column, __assign({ 'hoverAction': !!arrayStructure.sortable && !column.doNotSort }, otherClasses));
+    return ColumnClassNames(column, __assign({ hoverAction: !!arrayStructure.sortable && !column.doNotSort }, otherClasses));
 };
 var ColumnBodyClassNames = function (column, otherClasses) {
     if (otherClasses === void 0) { otherClasses = {}; }
-    return ColumnClassNames(column, __assign({ 'small': !!column.bodySmall }, otherClasses));
+    return ColumnClassNames(column, __assign({ small: !!column.bodySmall }, otherClasses));
 };
 var ColumnClassNames = function (column, otherClasses) {
     var _a;
     var _b;
     if (otherClasses === void 0) { otherClasses = {}; }
-    return ClassNames(__assign((_a = { 'text-right': column.toDigitsPrecision !== undefined || column.toCurrencyPrecision !== undefined || column.momentTSFormat !== undefined }, _a['td-' + ((_b = column.size) !== null && _b !== void 0 ? _b : '')] = !!column.size, _a), otherClasses));
+    return ClassNames(__assign((_a = { 'text-right': column.toDigitsPrecision !== undefined ||
+                column.toCurrencyPrecision !== undefined ||
+                column.momentTSFormat !== undefined }, _a['td-' + ((_b = column.size) !== null && _b !== void 0 ? _b : '')] = !!column.size, _a), otherClasses));
 };
 var ColumnHeaderClick = function (column, arrayStructure, sorter, setSorter) {
     if (!!arrayStructure.sortable && !column.doNotSort) {
@@ -625,11 +667,9 @@ var ColumnHeaderClick = function (column, arrayStructure, sorter, setSorter) {
 };
 var WriteHeadTR = function (arrayStructure, validColumns, hideCosts, sorter, setSorter) {
     return (React__default['default'].createElement("tr", { className: "table-secondary" }, validColumns.map(function (column, idx) {
-        return !hideCosts || !column.isACost ?
-            React__default['default'].createElement("th", { key: idx, className: ColumnHeadClassNames(column, arrayStructure), onClick: function () {
-                    ColumnHeaderClick(column, arrayStructure, sorter, setSorter);
-                } }, column.title)
-            : null;
+        return !hideCosts || !column.isACost ? (React__default['default'].createElement("th", { key: idx, className: ColumnHeadClassNames(column, arrayStructure), onClick: function () {
+                ColumnHeaderClick(column, arrayStructure, sorter, setSorter);
+            } }, column.title)) : null;
     })));
 };
 var WriteBodyTR = function (rowData, idx, arrayStructure, validColumns, hideCosts, sumsInFooter) {
@@ -650,14 +690,9 @@ var WriteBodyTD = function (columnValue, column, hideCosts, rowData, sumsInFoote
 };
 var WriteFootTR = function (validColumns, sums, hideCosts) {
     return (React__default['default'].createElement("tr", { className: "border-top" }, validColumns.map(function (column, idx) {
-        return (!hideCosts || !column.isACost) ?
-            React__default['default'].createElement("th", { key: idx, className: ColumnClassNames(column, {
-                    'border-0': true
-                }) }, sums[column.fieldName] === undefined ?
-                null
-                :
-                    ScreenFormatValue(sums[column.fieldName], column))
-            : null;
+        return !hideCosts || !column.isACost ? (React__default['default'].createElement("th", { key: idx, className: ColumnClassNames(column, {
+                'border-0': true
+            }) }, sums[column.fieldName] === undefined ? null : ScreenFormatValue(sums[column.fieldName], column))) : null;
     })));
 };
 
@@ -2027,6 +2062,10 @@ var IWServerData = function (props) {
             ((_l = props.loadingReactNodes) !== null && _l !== void 0 ? _l : React__default['default'].createElement(ActivityOverlayControl, { show: true }))));
 };
 
+function StyleControl(props) {
+    return !props.css ? React__default['default'].createElement(React__default['default'].Fragment, null) : React__default['default'].createElement("style", { dangerouslySetInnerHTML: { __html: props.css } });
+}
+
 var initialMenuBackItem = {
     menuBackActive: false,
     menuBackButtonTitle: '',
@@ -2078,16 +2117,17 @@ var MasterDetail = function (props) {
 };
 var MDMaster = function (props) {
     var mdContext = React.useContext(MDContext);
-    var id = React.useMemo(function () { return "MDM-ID-" + intelliwaketsfoundation.RandomString(5); }, []);
-    var style = {};
+    var id = React.useMemo(function () { return ("mdm-id-" + intelliwaketsfoundation.RandomString(5)).toLowerCase(); }, []);
+    var css = null;
     if (props.width) {
-        style.width = props.width;
-        style.minWidth = props.width;
+        css = "@media (min-width: " + mdContext.breakAt + ") { #" + id + " {width: " + props.width + "; min-width: " + props.width + ";}}";
     }
     return (React__default['default'].createElement("div", { className: (!!props.includePrint ? '' : 'd-print-none ') +
             props.className +
             ' masterDetailMaster' +
-            (mdContext.isOpen ? ' isOpen' : ''), id: id, style: style }, props.children));
+            (mdContext.isOpen ? ' isOpen' : ''), id: id },
+        React__default['default'].createElement(StyleControl, { css: css }),
+        props.children));
 };
 var MDLink = function (props) {
     var _a, _b, _c;
@@ -2364,10 +2404,6 @@ var SelectDD = function (props) {
         }))));
 };
 
-function StyleControl(props) {
-    return !props.css ? React__default['default'].createElement(React__default['default'].Fragment, null) : React__default['default'].createElement("style", { dangerouslySetInnerHTML: { __html: props.css } });
-}
-
 var initialTextStatusState = {
     message: null
 };
@@ -2484,6 +2520,8 @@ exports.RemoveActivityOverlay = RemoveActivityOverlay;
 exports.ScreenFormatValue = ScreenFormatValue;
 exports.SelectDD = SelectDD;
 exports.SetSort = SetSort;
+exports.SizeAtMax = SizeAtMax;
+exports.SizeAtMin = SizeAtMin;
 exports.SortObjects = SortObjects;
 exports.StructuredArray = StructuredArray;
 exports.StyleControl = StyleControl;
