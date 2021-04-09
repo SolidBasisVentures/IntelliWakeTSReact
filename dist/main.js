@@ -305,16 +305,34 @@ var CopyRefToClipboard = function (ref) {
         if (sel) {
             // unselect any element in the page
             sel.removeAllRanges();
+            var ths = ref.current.getElementsByTagName('th');
+            for (var i = 0; i < ths.length; i++) {
+                ths[i].setAttribute('copyuserselect', ths[i].style.userSelect);
+                ths[i].style.userSelect = 'auto';
+            }
+            var tds = ref.current.getElementsByTagName('td');
+            for (var i = 0; i < tds.length; i++) {
+                tds[i].setAttribute('copyuserselect', tds[i].style.userSelect);
+                tds[i].style.userSelect = 'auto';
+            }
             try {
-                range.selectNodeContents(ref.current);
+                range.selectNode(ref.current);
                 sel.addRange(range);
             }
             catch (e) {
-                range.selectNode(ref.current);
+                range.selectNodeContents(ref.current);
                 sel.addRange(range);
             }
             document.execCommand('copy');
             sel.removeAllRanges();
+            for (var i = 0; i < ths.length; i++) {
+                ths[i].style.userSelect = ths[i].getAttribute('copyuserselect');
+                ths[i].removeAttribute('copyuserselect');
+            }
+            for (var i = 0; i < tds.length; i++) {
+                tds[i].style.userSelect = tds[i].getAttribute('copyuserselect');
+                tds[i].removeAttribute('copyuserselect');
+            }
             return true;
         }
     }
@@ -2060,6 +2078,7 @@ var MasterDetail = function (props) {
 };
 var MDMaster = function (props) {
     var mdContext = React.useContext(MDContext);
+    var id = React.useMemo(function () { return "MDM-ID-" + intelliwaketsfoundation.RandomString(5); }, []);
     var style = {};
     if (props.width) {
         style.width = props.width;
@@ -2068,7 +2087,7 @@ var MDMaster = function (props) {
     return (React__default['default'].createElement("div", { className: (!!props.includePrint ? '' : 'd-print-none ') +
             props.className +
             ' masterDetailMaster' +
-            (mdContext.isOpen ? ' isOpen' : ''), style: style }, props.children));
+            (mdContext.isOpen ? ' isOpen' : ''), id: id, style: style }, props.children));
 };
 var MDLink = function (props) {
     var _a, _b, _c;
@@ -2079,9 +2098,9 @@ var MDLink = function (props) {
         (props.panel ? '/' + props.panel.replace(/\s+/g, '') : '') +
         (props.id ? '/' + props.id : '') +
         (!!props.postPath ? '/' + props.postPath : '');
-    var linkActive = !props.blockActivate &&
-        (props.panel &&
-            (window.location.pathname.startsWith(panelURLAddOn + '/') || window.location.pathname === panelURLAddOn)) ||
+    var linkActive = (!props.blockActivate &&
+        props.panel &&
+        (window.location.pathname.startsWith(panelURLAddOn + '/') || window.location.pathname === panelURLAddOn)) ||
         (!props.panel && window.location.pathname === panelURLAddOn);
     var displayProps = __assign({}, props);
     var classNames = ['cursor-pointer'];
@@ -2345,6 +2364,10 @@ var SelectDD = function (props) {
         }))));
 };
 
+function StyleControl(props) {
+    return !props.css ? React__default['default'].createElement(React__default['default'].Fragment, null) : React__default['default'].createElement("style", { dangerouslySetInnerHTML: { __html: props.css } });
+}
+
 var initialTextStatusState = {
     message: null
 };
@@ -2463,6 +2486,7 @@ exports.SelectDD = SelectDD;
 exports.SetSort = SetSort;
 exports.SortObjects = SortObjects;
 exports.StructuredArray = StructuredArray;
+exports.StyleControl = StyleControl;
 exports.TextStatus = TextStatus;
 exports.ValidColumns = ValidColumns;
 exports.ViewEmail = ViewEmail;

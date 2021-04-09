@@ -1,14 +1,15 @@
-import React, {CSSProperties, Dispatch, SetStateAction, useContext, useEffect, useRef} from 'react'
+import React, {CSSProperties, Dispatch, SetStateAction, useContext, useEffect, useMemo, useRef} from 'react'
 import {Redirect, useHistory} from 'react-router-dom'
 // AddMenuBackItem, CleanMenuBackItem,
 // import {useDispatch} from "react-redux";
 import {GetPathComponentAfter, GetPathThrough} from '../Functions'
+import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 
 export interface MenuBackItem {
-	menuBackActive: boolean,
-	menuBackButtonTitle: string,
-	menuBackButtonURL: string,
-	menuPageTitle: string,
+	menuBackActive: boolean
+	menuBackButtonTitle: string
+	menuBackButtonURL: string
+	menuPageTitle: string
 	menuDisplaySize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
@@ -102,6 +103,8 @@ interface IPropsMaster {
 export const MDMaster = (props: IPropsMaster) => {
 	const mdContext = useContext(MDContext)
 
+	const id = useMemo(() => `MDM-ID-${RandomString(5)}`, [])
+
 	let style: CSSProperties = {}
 
 	if (props.width) {
@@ -117,6 +120,7 @@ export const MDMaster = (props: IPropsMaster) => {
 				' masterDetailMaster' +
 				(mdContext.isOpen ? ' isOpen' : '')
 			}
+			id={id}
 			style={style}>
 			{props.children}
 		</div>
@@ -149,8 +153,9 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 		(props.panel ? '/' + props.panel.replace(/\s+/g, '') : '') +
 		(props.id ? '/' + props.id : '') +
 		(!!props.postPath ? '/' + props.postPath : '')
-	const linkActive = !props.blockActivate &&
-		(props.panel &&
+	const linkActive =
+		(!props.blockActivate &&
+			props.panel &&
 			(window.location.pathname.startsWith(panelURLAddOn + '/') || window.location.pathname === panelURLAddOn)) ||
 		(!props.panel && window.location.pathname === panelURLAddOn)
 
