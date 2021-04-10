@@ -432,9 +432,7 @@ img.img-inline {
 .none-xs {
   display: none; }
 
-@media screen and (min-width: 768px) {
-  .none-sm {
-    display: none; }
+@media screen and (min-width: 576px) {
   .fill-height-sm-larger {
     overflow-y: hidden; }
   .fill-height-sm-larger,
@@ -451,8 +449,8 @@ img.img-inline {
   .fill-height-sm-larger-scroll:not(.row) {
     flex: 1 1 auto; } }
 
-@media (min-width: 992px) {
-  .none-md {
+@media screen and (min-width: 768px) {
+  .none-sm {
     display: none; }
   .fill-height-md-larger {
     overflow-y: hidden; }
@@ -470,8 +468,8 @@ img.img-inline {
   .fill-height-md-larger-scroll:not(.row) {
     flex: 1 1 auto; } }
 
-@media (min-width: 1200px) {
-  .none-lg {
+@media (min-width: 992px) {
+  .none-md {
     display: none; }
   .fill-height-lg-larger {
     overflow-y: hidden; }
@@ -487,6 +485,25 @@ img.img-inline {
   .fill-height-lg-larger-scroll {
     overflow-y: auto !important; }
   .fill-height-lg-larger-scroll:not(.row) {
+    flex: 1 1 auto; } }
+
+@media (min-width: 1200px) {
+  .none-lg {
+    display: none; }
+  .fill-height-xl-larger {
+    overflow-y: hidden; }
+  .fill-height-xl-larger,
+  .fill-height-xl-larger-scroll {
+    display: flex;
+    min-height: 0;
+    max-height: 100%;
+    flex: 1; }
+  .fill-height-xl-larger:not(.row),
+  .fill-height-xl-larger-scroll:not(.row) {
+    flex-direction: column; }
+  .fill-height-xl-larger-scroll {
+    overflow-y: auto !important; }
+  .fill-height-xl-larger-scroll:not(.row) {
     flex: 1 1 auto; } }
 
 .text-strike-through {
@@ -560,6 +577,23 @@ img.img-inline {
 
 .masterDetail-xs > .masterDetailDetail.hideWhenSmall {
   display: none !important; }
+
+@media (max-width: 575.98px) {
+  .fill-height-xs-smaller {
+    overflow-y: hidden; }
+  .fill-height-xs-smaller,
+  .fill-height-xs-smaller-scroll {
+    display: flex;
+    min-height: 0;
+    max-height: 100%;
+    flex: 1; }
+  .fill-height-xs-smaller:not(.row),
+  .fill-height-xs-smaller-scroll:not(.row) {
+    flex-direction: column; }
+  .fill-height-xs-smaller-scroll {
+    overflow-y: auto !important; }
+  .fill-height-xs-smaller-scroll:not(.row) {
+    flex: 1 1 auto; } }
 
 @media (max-width: 767.98px) {
   .masterDetail-sm > .masterDetailMaster.isOpen {
