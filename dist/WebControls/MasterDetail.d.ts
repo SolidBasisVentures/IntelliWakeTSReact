@@ -1,17 +1,18 @@
 import { Dispatch, SetStateAction } from 'react';
+import { TBootStrapExtendedSizes } from '../Functions';
 export interface MenuBackItem {
     menuBackActive: boolean;
     menuBackButtonTitle: string;
     menuBackButtonURL: string;
     menuPageTitle: string;
-    menuDisplaySize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    menuDisplaySize?: TBootStrapExtendedSizes;
 }
 export declare const initialMenuBackItem: MenuBackItem;
 export interface IMasterDetailProps {
     children: any;
     mdPath: string;
     backText?: string;
-    breakAt: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    breakAt: TBootStrapExtendedSizes;
     rememberLast?: boolean;
     className?: string;
     setMenuBackItemState: Dispatch<SetStateAction<MenuBackItem[]>>;

@@ -2122,12 +2122,12 @@ var MDMaster = function (props) {
     if (props.width) {
         css = "@media (min-width: " + mdContext.breakAt + ") { #" + id + " {width: " + props.width + "; min-width: " + props.width + ";}}";
     }
-    return (React__default['default'].createElement("div", { className: (!!props.includePrint ? '' : 'd-print-none ') +
-            props.className +
-            ' masterDetailMaster' +
-            (mdContext.isOpen ? ' isOpen' : ''), id: id },
+    return (React__default['default'].createElement(React__default['default'].Fragment, null,
         React__default['default'].createElement(StyleControl, { css: css }),
-        props.children));
+        React__default['default'].createElement("div", { className: (!!props.includePrint ? '' : 'd-print-none ') +
+                props.className +
+                ' masterDetailMaster' +
+                (mdContext.isOpen ? ' isOpen' : ''), id: id }, props.children)));
 };
 var MDLink = function (props) {
     var _a, _b, _c;

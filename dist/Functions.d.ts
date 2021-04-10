@@ -26,3 +26,7 @@ export declare const GetPathThrough: (search: string) => any | undefined;
 export declare const CaptureGPS: () => Promise<Position | null>;
 export declare const DownloadBase64Data: (fileName: string, base64: string, type: string) => void;
 export declare const CopyRefToClipboard: (ref: any) => boolean;
+export declare type TBootStrapSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export declare type TBootStrapExtendedSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl';
+export declare const SizeAtMin: (size: TBootStrapExtendedSizes) => number;
+export declare const SizeAtMax: (size: TBootStrapExtendedSizes) => number;

@@ -113,17 +113,19 @@ export const MDMaster = (props: IPropsMaster) => {
 	}
 
 	return (
-		<div
-			className={
-				(!!props.includePrint ? '' : 'd-print-none ') +
-				props.className +
-				' masterDetailMaster' +
-				(mdContext.isOpen ? ' isOpen' : '')
-			}
-			id={id}>
+		<>
 			<StyleControl css={css} />
-			{props.children}
-		</div>
+			<div
+				className={
+					(!!props.includePrint ? '' : 'd-print-none ') +
+					props.className +
+					' masterDetailMaster' +
+					(mdContext.isOpen ? ' isOpen' : '')
+				}
+				id={id}>
+				{props.children}
+			</div>
+		</>
 	)
 }
 

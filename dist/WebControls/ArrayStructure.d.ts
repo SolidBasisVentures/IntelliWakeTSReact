@@ -1,16 +1,17 @@
 import { ISortProperties } from './ArrayManipulators';
+import { TBootStrapExtendedSizes, TBootStrapSizes } from '../Functions';
 /**
  * Functions to write Table rows and columns
  */
 export interface IArrayColumn {
     fieldName: string;
     title: string;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl';
-    customWriter?: ((value: any | null | undefined) => string);
-    customWriterFromRow?: ((rowData: any | null | undefined) => string);
+    size?: TBootStrapExtendedSizes;
+    customWriter?: (value: any | null | undefined) => string;
+    customWriterFromRow?: (rowData: any | null | undefined) => string;
     hideOnEmpty?: boolean;
     hideOnColumn?: string;
-    hideOnFunction?: ((rowData: any | null | undefined) => boolean);
+    hideOnFunction?: (rowData: any | null | undefined) => boolean;
     toDigitsPrecision?: number;
     toCurrencyPrecision?: number;
     momentTSFormat?: string;
@@ -26,8 +27,8 @@ export interface IArrayStructure {
     columns: IArrayColumn[];
     sortable?: boolean;
     defaultSortColumn?: string;
-    minColSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    rowClick?: ((rowData: any) => void);
+    minColSize?: TBootStrapSizes;
+    rowClick?: (rowData: any) => void;
 }
 export declare const ComputeValue: (value: any | null | undefined, column: IArrayColumn, rowData: any | null, sumsInFooter: {
     [key: string]: number;

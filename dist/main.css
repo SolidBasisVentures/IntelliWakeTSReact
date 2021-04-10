@@ -556,6 +556,26 @@ img.img-inline {
   .masterDetail-xl > .masterDetailDetail.hideWhenSmall {
     display: none !important; } }
 
+@media (max-width: 1300px) {
+  .masterDetail-xxl > .masterDetailMaster.isOpen {
+    display: none; }
+  .masterDetail-xxl > .masterDetailMaster {
+    border-right: none !important;
+    flex: 1;
+    min-height: 0; }
+  .masterDetail-xxl > .masterDetailDetail.hideWhenSmall {
+    display: none !important; } }
+
+@media (max-width: 1400px) {
+  .masterDetail-xxxl > .masterDetailMaster.isOpen {
+    display: none; }
+  .masterDetail-xxxl > .masterDetailMaster {
+    border-right: none !important;
+    flex: 1;
+    min-height: 0; }
+  .masterDetail-xxxl > .masterDetailDetail.hideWhenSmall {
+    display: none !important; } }
+
 .DateRangeDD {
   position: relative;
   cursor: pointer;
