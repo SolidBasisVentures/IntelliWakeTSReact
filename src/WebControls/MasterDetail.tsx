@@ -109,7 +109,7 @@ export const MDMaster = (props: IPropsMaster) => {
 	let css: string | null = null
 
 	if (props.width) {
-		css = `@media screen (min-width: ${SizeAtMin(mdContext.breakAt)}px) { #${id} {width: ${props.width}; min-width: ${
+		css = `@media (min-width: ${SizeAtMin(mdContext.breakAt)}px) { #${id} {width: ${props.width}; min-width: ${
 			props.width
 		};}}`
 	}

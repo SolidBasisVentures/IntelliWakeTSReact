@@ -2120,7 +2120,7 @@ var MDMaster = function (props) {
     var id = React.useMemo(function () { return ("mdm-id-" + intelliwaketsfoundation.RandomString(5)).toLowerCase(); }, []);
     var css = null;
     if (props.width) {
-        css = "@media screen (min-width: " + SizeAtMin(mdContext.breakAt) + "px) { #" + id + " {width: " + props.width + "; min-width: " + props.width + ";}}";
+        css = "@media (min-width: " + SizeAtMin(mdContext.breakAt) + "px) { #" + id + " {width: " + props.width + "; min-width: " + props.width + ";}}";
     }
     return (React__default['default'].createElement(React__default['default'].Fragment, null,
         React__default['default'].createElement(StyleControl, { css: css }),
