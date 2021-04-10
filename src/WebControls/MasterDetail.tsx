@@ -2,7 +2,7 @@ import React, {Dispatch, SetStateAction, useContext, useEffect, useMemo, useRef}
 import {Redirect, useHistory} from 'react-router-dom'
 // AddMenuBackItem, CleanMenuBackItem,
 // import {useDispatch} from "react-redux";
-import {GetPathComponentAfter, GetPathThrough, TBootStrapExtendedSizes} from '../Functions'
+import {GetPathComponentAfter, GetPathThrough, SizeAtMin, TBootStrapExtendedSizes} from '../Functions'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 import {StyleControl} from './StyleControl'
 
@@ -109,7 +109,9 @@ export const MDMaster = (props: IPropsMaster) => {
 	let css: string | null = null
 
 	if (props.width) {
-		css = `@media (min-width: ${mdContext.breakAt}) { #${id} {width: ${props.width}; min-width: ${props.width};}}`
+		css = `@media screen (min-width: ${SizeAtMin(mdContext.breakAt)}px) { #${id} {width: ${props.width}; min-width: ${
+			props.width
+		};}}`
 	}
 
 	return (
