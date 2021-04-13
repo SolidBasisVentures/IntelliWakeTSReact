@@ -530,6 +530,7 @@ table.table-sortable thead th {
       display: block;
       overflow-y: auto;
       overflow-x: hidden;
+      touch-action: auto;
 
       > tr {
         display: table;
@@ -559,6 +560,7 @@ table.table-sortable thead th {
 
   .fill-height-scroll {
     overflow-y: auto !important;
+    touch-action: auto;
   }
 
   .fill-height-scroll:not(.row) {

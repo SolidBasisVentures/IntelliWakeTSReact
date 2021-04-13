@@ -359,7 +359,8 @@ table.table-sortable thead th {
       flex: 1 1 auto;
       display: block;
       overflow-y: auto;
-      overflow-x: hidden; }
+      overflow-x: hidden;
+      touch-action: auto; }
       table.table-scrollable > tbody > tr {
         display: table;
         table-layout: fixed;
@@ -376,7 +377,8 @@ table.table-sortable thead th {
   .fill-height-scroll:not(.row) {
     flex-direction: column; }
   .fill-height-scroll {
-    overflow-y: auto !important; }
+    overflow-y: auto !important;
+    touch-action: auto; }
   .fill-height-scroll:not(.row) {
     flex: 1 1 auto; }
   .horizontal-scroll {
