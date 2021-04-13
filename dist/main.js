@@ -375,6 +375,185 @@ var SizeAtMax = function (size) {
     }
 };
 
+var GetOrientation = function (file) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/, new Promise(function (resolve) { return __awaiter(void 0, void 0, void 0, function () {
+                var oreader;
+                return __generator(this, function (_a) {
+                    oreader = new FileReader();
+                    oreader.onload = function (event) {
+                        //@ts-ignore
+                        var view = new DataView(event.target.result);
+                        if (view.getUint16(0, false) !== 0xFFD8) {
+                            resolve(-2);
+                            return;
+                        }
+                        var length = view.byteLength, offset = 2;
+                        while (offset < length) {
+                            var marker = view.getUint16(offset, false);
+                            offset += 2;
+                            if (marker === 0xFFE1) {
+                                if (view.getUint32(offset += 2, false) !== 0x45786966) {
+                                    resolve(-1);
+                                    return;
+                                }
+                                var little = view.getUint16(offset += 6, false) === 0x4949;
+                                offset += view.getUint32(offset + 4, little);
+                                var tags = view.getUint16(offset, little);
+                                offset += 2;
+                                for (var i = 0; i < tags; i++) {
+                                    if (view.getUint16(offset + (i * 12), little) === 0x0112) {
+                                        resolve(view.getUint16(offset + (i * 12) + 8, little));
+                                        return;
+                                    }
+                                }
+                            }
+                            else if ((marker & 0xFF00) !== 0xFF00) {
+                                break;
+                            }
+                            else
+                                offset += view.getUint16(offset, false);
+                        }
+                        resolve(-1);
+                    };
+                    oreader.readAsArrayBuffer(file.slice(0, 64 * 1024));
+                    return [2 /*return*/];
+                });
+            }); })];
+    });
+}); };
+var PhotoFileToData = function (file, maxSize) {
+    if (maxSize === void 0) { maxSize = 4096; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, new Promise(function (resolve) { return __awaiter(void 0, void 0, void 0, function () {
+                    var srcOrientation, reader;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, GetOrientation(file)];
+                            case 1:
+                                srcOrientation = _a.sent();
+                                reader = new FileReader();
+                                reader.onload = function (e) {
+                                    var img = document.createElement("img");
+                                    img.onload = function () {
+                                        return __awaiter(this, void 0, void 0, function () {
+                                            var width, height, canvas, ctx;
+                                            return __generator(this, function (_a) {
+                                                width = img.width;
+                                                height = img.height;
+                                                if (width > height) {
+                                                    if (width > maxSize) {
+                                                        height *= maxSize / width;
+                                                        width = maxSize;
+                                                    }
+                                                }
+                                                else {
+                                                    if (height > maxSize) {
+                                                        width *= maxSize / height;
+                                                        height = maxSize;
+                                                    }
+                                                }
+                                                canvas = document.createElement("canvas");
+                                                ctx = canvas.getContext("2d");
+                                                if ([5, 6, 7, 8].indexOf(srcOrientation) > -1) {
+                                                    // noinspection JSSuspiciousNameCombination
+                                                    canvas.width = height;
+                                                    // noinspection JSSuspiciousNameCombination
+                                                    canvas.height = width;
+                                                }
+                                                else {
+                                                    canvas.width = width;
+                                                    canvas.height = height;
+                                                }
+                                                switch (srcOrientation) {
+                                                    case 2:
+                                                        ctx.transform(-1, 0, 0, 1, width, 0);
+                                                        break;
+                                                    case 3:
+                                                        ctx.transform(-1, 0, 0, -1, width, height);
+                                                        break;
+                                                    case 4:
+                                                        ctx.transform(1, 0, 0, -1, 0, height);
+                                                        break;
+                                                    case 5:
+                                                        ctx.transform(0, 1, 1, 0, 0, 0);
+                                                        break;
+                                                    case 6:
+                                                        ctx.transform(0, 1, -1, 0, height, 0);
+                                                        break;
+                                                    case 7:
+                                                        ctx.transform(0, -1, -1, 0, height, width);
+                                                        break;
+                                                    case 8:
+                                                        ctx.transform(0, -1, 1, 0, 0, width);
+                                                        break;
+                                                    default:
+                                                        ctx.transform(1, 0, 0, 1, 0, 0);
+                                                        break;
+                                                }
+                                                ctx.drawImage(img, 0, 0, width, height);
+                                                resolve(canvas.toDataURL(file['type']));
+                                                return [2 /*return*/];
+                                            });
+                                        });
+                                    };
+                                    img.onerror = function () {
+                                        resolve(false);
+                                    };
+                                    img.src = e.target.result;
+                                };
+                                reader.readAsDataURL(file);
+                                return [2 /*return*/];
+                        }
+                    });
+                }); })];
+        });
+    });
+};
+var FileToBase64 = function (file) {
+    return new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {
+        var reader;
+        return __generator(this, function (_a) {
+            reader = new FileReader();
+            reader.onload = function (e) {
+                resolve(e.target.result);
+            };
+            reader.onerror = function () {
+                reject();
+            };
+            reader.readAsDataURL(file);
+            return [2 /*return*/];
+        });
+    }); });
+};
+// Thumb 128
+var ResizeBase64 = function (base64Str, maxSize) {
+    if (maxSize === void 0) { maxSize = 4096; }
+    var img = new Image();
+    img.src = base64Str;
+    var canvas = document.createElement('canvas');
+    var width = img.width;
+    var height = img.height;
+    if (width > height) {
+        if (width > maxSize) {
+            height *= maxSize / width;
+            width = maxSize;
+        }
+    }
+    else {
+        if (height > maxSize) {
+            width *= maxSize / height;
+            height = maxSize;
+        }
+    }
+    canvas.width = width;
+    canvas.height = height;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, width, height);
+    return canvas.toDataURL();
+};
+
 function checkDeps(deps, name) {
     var reactHookName = "React." + name.replace(/DeepCompare/, "");
     if (!deps || deps.length === 0) {
@@ -2457,8 +2636,10 @@ exports.DateRangeToMoment = DateRangeToMoment;
 exports.DateRangeToString = DateRangeToString;
 exports.DownloadBase64Data = DownloadBase64Data;
 exports.ElementCustomValue = ElementCustomValue;
+exports.FileToBase64 = FileToBase64;
 exports.FilterObjects = FilterObjects;
 exports.FormatValue = FormatValue;
+exports.GetOrientation = GetOrientation;
 exports.GetPathComponentAfter = GetPathComponentAfter;
 exports.GetPathThrough = GetPathThrough;
 exports.HandleChangeValue = HandleChangeValue;
@@ -2515,8 +2696,10 @@ exports.MessageBox = MessageBox;
 exports.ModalPrompt = ModalPrompt;
 exports.OptionsActive = OptionsActive;
 exports.OptionsActiveAll = OptionsActiveAll;
+exports.PhotoFileToData = PhotoFileToData;
 exports.ReduceInputProps = ReduceInputProps;
 exports.RemoveActivityOverlay = RemoveActivityOverlay;
+exports.ResizeBase64 = ResizeBase64;
 exports.ScreenFormatValue = ScreenFormatValue;
 exports.SelectDD = SelectDD;
 exports.SetSort = SetSort;
