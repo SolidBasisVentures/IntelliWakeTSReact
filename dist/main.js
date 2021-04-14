@@ -901,17 +901,13 @@ var ArrayTable = function (props) {
 };
 
 var BRAfter = function (props) {
-    if (!props.text || !!props.hidden)
-        return null;
-    return (React__default['default'].createElement("span", { className: props.className },
+    return (React__default['default'].createElement("span", { className: props.className, hidden: props.hidden || !props.text },
         props.text,
         React__default['default'].createElement("br", null)));
 };
 
 var BRBefore = function (props) {
-    if (!props.text || !!props.hidden)
-        return null;
-    return (React__default['default'].createElement("span", { className: props.className },
+    return (React__default['default'].createElement("span", { className: props.className, hidden: props.hidden || !props.text },
         React__default['default'].createElement("br", null),
         props.text));
 };

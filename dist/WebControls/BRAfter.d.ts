@@ -4,5 +4,5 @@ interface IProps {
     className?: string;
     hidden?: boolean;
 }
-export declare const BRAfter: (props: IProps) => JSX.Element | null;
+export declare const BRAfter: (props: IProps) => JSX.Element;
 export {};
