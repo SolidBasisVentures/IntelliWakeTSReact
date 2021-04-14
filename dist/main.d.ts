@@ -13,6 +13,8 @@ export * from './WebControls/ActivityOverlayControl';
 export * from './WebControls/ArrayManipulators';
 export * from './WebControls/ArrayStructure';
 export * from './WebControls/ArrayTable';
+export * from './WebControls/BRAfter';
+export * from './WebControls/BRBefore';
 export * from './WebControls/DateRange';
 export * from './WebControls/DDActions';
 export * from './WebControls/InputCheckBox';
