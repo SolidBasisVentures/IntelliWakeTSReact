@@ -900,6 +900,22 @@ var ArrayTable = function (props) {
                 null));
 };
 
+var BRAfter = function (props) {
+    if (!props.text || !!props.hidden)
+        return null;
+    return (React__default['default'].createElement("span", { className: props.className },
+        props.text,
+        React__default['default'].createElement("br", null)));
+};
+
+var BRBefore = function (props) {
+    if (!props.text || !!props.hidden)
+        return null;
+    return (React__default['default'].createElement("span", { className: props.className },
+        React__default['default'].createElement("br", null),
+        props.text));
+};
+
 var customRangeName = 'Custom Range';
 var CreateCustomDateRange = function (dateStart, dateEnd) {
     return {
@@ -2615,6 +2631,8 @@ exports.ActivityOverlay = ActivityOverlay;
 exports.ActivityOverlayControl = ActivityOverlayControl;
 exports.AddActivityOverlay = AddActivityOverlay;
 exports.ArrayTable = ArrayTable;
+exports.BRAfter = BRAfter;
+exports.BRBefore = BRBefore;
 exports.CaptureGPS = CaptureGPS;
 exports.ClassNames = ClassNames;
 exports.ColumnBodyClassNames = ColumnBodyClassNames;
