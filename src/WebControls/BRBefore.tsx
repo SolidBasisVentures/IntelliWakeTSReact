@@ -7,10 +7,8 @@ interface IProps {
 }
 
 export const BRBefore = (props: IProps) => {
-	if (!props.text || !!props.hidden) return null
-
 	return (
-		<span className={props.className}>
+		<span className={props.className} hidden={props.hidden || !props.text}>
 			<br />
 			{props.text}
 		</span>
