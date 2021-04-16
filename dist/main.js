@@ -1460,6 +1460,7 @@ function InputEmail(props) {
 function InputSelect(props) {
     var _a;
     var handleInputChange = function (e) {
+        delete e.target.customValue;
         if (!!props.isNumeric || !!props.isNumericOrNull) {
             var value = intelliwaketsfoundation.CleanNumber(e.target.value);
             if (!!props.isNumericOrNull && value === 0) {

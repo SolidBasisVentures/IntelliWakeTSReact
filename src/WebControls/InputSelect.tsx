@@ -29,6 +29,8 @@ export interface IPropsSelect<T = unknown> {
 
 export function InputSelect<T>(props: IPropsSelect<T>) {
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		delete (e.target as any).customValue
+
 		if (!!props.isNumeric || !!props.isNumericOrNull) {
 			const value = CleanNumber(e.target.value)
 
