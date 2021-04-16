@@ -1475,6 +1475,7 @@ function InputSelect(props) {
         if (!!props.onChange)
             props.onChange(e);
         if (!!props.changeValue) {
+            console.log('SelectC2', e.target.value, ElementCustomValue(e));
             props.changeValue(ElementCustomValue(e), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
