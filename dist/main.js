@@ -1346,9 +1346,9 @@ var ReduceInputProps = function (props) {
     delete subset.onChange;
     return subset;
 };
-var HandleChangeValue = function (e, changeValue, onChange) {
+var HandleChangeValue = function (e, changeValue, onChange, isNumeric) {
     if (!!changeValue) {
-        changeValue(ElementCustomValue(e), e.target.name);
+        changeValue(ElementCustomValue(e, isNumeric), e.target.name);
     }
     if (!!onChange) {
         onChange(e);

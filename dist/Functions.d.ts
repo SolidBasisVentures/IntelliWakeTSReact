@@ -16,7 +16,7 @@ export declare const KEY_STRING_RIGHT_ARROW = "ArrowRight";
 export declare const KEY_STRING_TAB = "Tab";
 export declare const KEY_STRING_BACKSPACE = "Backspace";
 export declare const KEY_STRING_ESCAPE = "Escape";
-export declare const ElementCustomValue: (e: React.ChangeEvent<HTMLInputElement>) => any;
+export declare const ElementCustomValue: (e: React.ChangeEvent<HTMLInputElement>, isNumber?: boolean | undefined) => any;
 export declare const ClassNames: (classes: {
     [key: string]: boolean;
 }) => string;

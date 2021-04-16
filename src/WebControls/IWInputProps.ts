@@ -31,10 +31,11 @@ export const ReduceInputProps = (props: IIWInputProps | any): InputProps => {
 export const HandleChangeValue = <T>(
 	e: React.ChangeEvent<HTMLInputElement>,
 	changeValue?: TChangeValueFunction<T>,
-	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+	isNumeric?: boolean
 ) => {
 	if (!!changeValue) {
-		changeValue(ElementCustomValue(e), e.target.name as any)
+		changeValue(ElementCustomValue(e, isNumeric), e.target.name as any)
 	}
 
 	if (!!onChange) {
