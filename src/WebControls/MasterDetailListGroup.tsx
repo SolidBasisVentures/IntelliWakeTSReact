@@ -3,12 +3,14 @@ import React, {ReactNode, useMemo} from 'react'
 import {Badge, ListGroup, ListGroupItemHeading, Spinner} from 'reactstrap'
 import {IMasterDetailProps, MasterDetail, MDDetail, MDLink, MDMaster} from './MasterDetail'
 import {ToDigits, ToPascalCase} from '@solidbasisventures/intelliwaketsfoundation'
+import {ClassNames} from '../Functions'
 
 export interface IMasterDetailListGroupMDLink {
 	hidden?: boolean
 	faProps?: FontAwesomeIconProps
 	color?: string
-	bodyNode: ReactNode
+	bodyNode?: ReactNode
+	linkClick?: React.MouseEventHandler<any>
 	/** undefined = don't show, null = show with spinner, number (0, 1, etc.) = show */
 	counter?: number | null
 	counterColor?: string
@@ -104,9 +106,14 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 									hidden={listGroupItem.collapsed}
 									tag="li"
 									panel={listGroupItem.panelURLCalc}
+									onClick={listGroupItem.linkClick ?? (() => {})}
 									className={
-										'list-group-item list-group-item-action ' +
-										(prefix === '' ? 'mt-4 ' : '') +
+										ClassNames({
+											'list-group-item': true,
+											'list-group-item-action': !!listGroupItem.mdDetail || !!listGroupItem.linkClick,
+											'mt-4': prefix === ''
+										}) +
+										' ' +
 										(listGroupItem.className ?? '')
 									}>
 									{!!listGroupItem.faProps && <FontAwesomeIcon fixedWidth {...listGroupItem.faProps} />}

@@ -1,11 +1,12 @@
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { IMasterDetailProps } from './MasterDetail';
 export interface IMasterDetailListGroupMDLink {
     hidden?: boolean;
     faProps?: FontAwesomeIconProps;
     color?: string;
-    title: ReactNode;
+    bodyNode?: ReactNode;
+    linkClick?: React.MouseEventHandler<any>;
     /** undefined = don't show, null = show with spinner, number (0, 1, etc.) = show */
     counter?: number | null;
     counterColor?: string;
@@ -15,6 +16,7 @@ export interface IMasterDetailListGroupMDLink {
     mdDetail?: ReactNode;
     section?: string;
     sectionNode?: ReactNode;
+    className?: string;
 }
 export interface IMasterDetailListGroupProps extends Omit<IMasterDetailProps, 'children'> {
     mdMasterWidth?: string;
@@ -22,8 +24,9 @@ export interface IMasterDetailListGroupProps extends Omit<IMasterDetailProps, 'c
     mdMasterTopNode?: ReactNode;
     mdMasterBottomNode?: ReactNode;
     sectionBreak?: 'Title' | 'HR' | 'Gap';
-    listGroupClassName?: string;
     listGroupItems: IMasterDetailListGroupMDLink[];
-    mdLinkClassName?: string;
+    collapsedSections?: string[];
+    setCollapsedSections?: (sections: string[]) => void;
+    noTextLargeSmaller?: boolean;
 }
 export declare const MasterDetailListGroup: (props: IMasterDetailListGroupProps) => JSX.Element;

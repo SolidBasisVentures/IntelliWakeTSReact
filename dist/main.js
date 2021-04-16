@@ -2439,29 +2439,58 @@ var MDDetail = function (props) {
 };
 
 var MasterDetailListGroup = function (props) {
-    var _a;
     var listGroupItems = React.useMemo(function () {
         return props.listGroupItems
             .filter(function (listGroupItem) { return !listGroupItem.hidden; })
             .map(function (listGroupItem, idx) {
-            var _a;
-            return (__assign(__assign({}, listGroupItem), { key: listGroupItem.panelTitle + listGroupItem.id + idx, panelURLCalc: (_a = listGroupItem.panelURL) !== null && _a !== void 0 ? _a : intelliwaketsfoundation.ToPascalCase(listGroupItem.panelTitle) }));
+            var _a, _b;
+            return (__assign(__assign({}, listGroupItem), { key: listGroupItem.panelTitle + listGroupItem.id + idx, panelURLCalc: (_a = listGroupItem.panelURL) !== null && _a !== void 0 ? _a : intelliwaketsfoundation.ToPascalCase(listGroupItem.panelTitle), collapsed: !!listGroupItem.section && ((_b = props.collapsedSections) !== null && _b !== void 0 ? _b : []).includes(listGroupItem.section) }));
         });
-    }, [props.listGroupItems]);
+    }, [props.listGroupItems, props.collapsedSections]);
+    var prevListGroupItem = null;
     return (React__default['default'].createElement(MasterDetail, { setMenuBackItemState: props.setMenuBackItemState, mdPath: props.mdPath, breakAt: props.breakAt, backText: props.backText, rememberLast: props.rememberLast, className: props.className },
         React__default['default'].createElement(MDMaster, { width: props.mdMasterWidth, className: props.mdMasterClassName },
             props.mdMasterTopNode,
-            React__default['default'].createElement(reactstrap.ListGroup, { flush: true, className: "fill-height-scroll text-large-" + props.breakAt + "-smaller " + ((_a = props.listGroupClassName) !== null && _a !== void 0 ? _a : '') },
+            React__default['default'].createElement(reactstrap.ListGroup, { flush: true, className: "fill-height-scroll " + (props.noTextLargeSmaller ? '' : "text-large-" + props.breakAt + "-smaller") },
                 listGroupItems.map(function (listGroupItem) {
-                    var _a;
+                    var _a, _b, _c, _d;
+                    var prefix = null;
+                    if (!!listGroupItem.section) {
+                        if (!prevListGroupItem || prevListGroupItem.section !== listGroupItem.section) {
+                            switch (props.sectionBreak) {
+                                case 'HR':
+                                    prefix = React__default['default'].createElement("hr", null);
+                                    break;
+                                case 'Gap':
+                                    prefix = '';
+                                    break;
+                                default:
+                                    prefix = (React__default['default'].createElement(reactstrap.ListGroupItemHeading, null, (_a = listGroupItem.sectionNode) !== null && _a !== void 0 ? _a : listGroupItem.section));
+                                    break;
+                            }
+                        }
+                    }
+                    else if (!!listGroupItem.sectionNode) {
+                        console.warn("MasterDetail " + props.mdPath + " Item " + listGroupItem.panelTitle + ":" + ((_b = listGroupItem.id) !== null && _b !== void 0 ? _b : '') + " has a sectionNode, but no section");
+                    }
+                    prevListGroupItem = listGroupItem;
                     return (React__default['default'].createElement(React__default['default'].Fragment, { key: listGroupItem.key },
-                        React__default['default'].createElement(MDLink, { tag: "li", panel: listGroupItem.panelURLCalc, className: 'list-group-item list-group-item-action ' + ((_a = props.mdLinkClassName) !== null && _a !== void 0 ? _a : '') },
+                        prefix,
+                        React__default['default'].createElement(MDLink, { hidden: listGroupItem.collapsed, tag: "li", panel: listGroupItem.panelURLCalc, onClick: (_c = listGroupItem.linkClick) !== null && _c !== void 0 ? _c : (function () { }), className: ClassNames({
+                                'list-group-item': true,
+                                'list-group-item-action': !!listGroupItem.mdDetail || !!listGroupItem.linkClick,
+                                'mt-4': prefix === ''
+                            }) +
+                                ' ' +
+                                ((_d = listGroupItem.className) !== null && _d !== void 0 ? _d : '') },
                             !!listGroupItem.faProps && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ fixedWidth: true }, listGroupItem.faProps)),
-                            listGroupItem.title,
+                            listGroupItem.bodyNode,
                             listGroupItem.counter !== undefined && (React__default['default'].createElement(reactstrap.Badge, { color: listGroupItem.counterColor, className: "float-right small text-white border-round ml-2" }, listGroupItem.counter !== null ? (intelliwaketsfoundation.ToDigits(listGroupItem.counter, 0)) : (React__default['default'].createElement(reactstrap.Spinner, { size: "sm", style: { width: '0.8em', height: '0.8em' } })))))));
                 }),
                 props.mdMasterBottomNode)),
-        listGroupItems.map(function (listGroupItem) { return (React__default['default'].createElement(MDDetail, { key: listGroupItem.key, panel: listGroupItem.panelURLCalc, titleText: listGroupItem.panelTitle }, listGroupItem.mdDetail)); })));
+        listGroupItems.map(function (listGroupItem) {
+            return !listGroupItem.collapsed && (React__default['default'].createElement(MDDetail, { key: listGroupItem.key, panel: listGroupItem.panelURLCalc, titleText: listGroupItem.panelTitle }, listGroupItem.mdDetail));
+        })));
 };
 
 var initialMessageBoxState = {
