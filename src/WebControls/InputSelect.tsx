@@ -29,7 +29,7 @@ export interface IPropsSelect<T = unknown> {
 
 export function InputSelect<T>(props: IPropsSelect<T>) {
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		delete (e.target as any).customValue
+		;(e.target as any).customValue = e.target.value
 
 		if (!!props.isNumeric || !!props.isNumericOrNull) {
 			const value = CleanNumber(e.target.value)
@@ -45,7 +45,6 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 
 		if (!!props.onChange) props.onChange(e)
 		if (!!props.changeValue) {
-			console.log('IS', ElementCustomValue(e), e.target.value)
 			props.changeValue(
 				ElementCustomValue(e),
 				e.target.name as any,
