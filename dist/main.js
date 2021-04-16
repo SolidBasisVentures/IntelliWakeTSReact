@@ -1345,7 +1345,7 @@ var ReduceInputProps = function (props) {
     delete subset.onChange;
     return subset;
 };
-var HandleChangeValue = function (e, changeValue, onChange, isNumeric) {
+var HandleChangeValue = function (e, changeValue, onChange) {
     if (!!changeValue) {
         changeValue(ElementCustomValue(e), e.target.name);
     }
@@ -1460,7 +1460,7 @@ function InputEmail(props) {
 function InputSelect(props) {
     var _a;
     var handleInputChange = function (e) {
-        delete e.target.customValue;
+        e.target.customValue = e.target.value;
         if (!!props.isNumeric || !!props.isNumericOrNull) {
             var value = intelliwaketsfoundation.CleanNumber(e.target.value);
             if (!!props.isNumericOrNull && value === 0) {
@@ -1476,7 +1476,6 @@ function InputSelect(props) {
         if (!!props.onChange)
             props.onChange(e);
         if (!!props.changeValue) {
-            console.log('IS', ElementCustomValue(e), e.target.value);
             props.changeValue(ElementCustomValue(e), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };

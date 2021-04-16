@@ -8,4 +8,4 @@ export interface IIWInputProps<T = unknown> extends InputProps {
     changeValue?: TChangeValueFunction<T>;
 }
 export declare const ReduceInputProps: (props: IIWInputProps | any) => InputProps;
-export declare const HandleChangeValue: <T>(e: React.ChangeEvent<HTMLInputElement>, changeValue?: TChangeValueFunction<T> | undefined, onChange?: ((e: React.ChangeEvent<HTMLInputElement>) => void) | undefined, isNumeric?: boolean | undefined) => void;
+export declare const HandleChangeValue: <T>(e: React.ChangeEvent<HTMLInputElement>, changeValue?: TChangeValueFunction<T> | undefined, onChange?: ((e: React.ChangeEvent<HTMLInputElement>) => void) | undefined) => void;
