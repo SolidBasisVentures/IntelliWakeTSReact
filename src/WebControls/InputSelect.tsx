@@ -44,7 +44,7 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 		if (!!props.onChange) props.onChange(e)
 		if (!!props.changeValue) {
 			props.changeValue(
-				ElementCustomValue(e),
+				ElementCustomValue(e, !!props.isNumeric || !!props.isNumericOrNull),
 				e.target.name as any,
 				(e.nativeEvent as any).shiftKey,
 				(e.nativeEvent as any).ctrlKey,

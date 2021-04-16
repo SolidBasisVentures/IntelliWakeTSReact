@@ -199,12 +199,12 @@ var KEY_STRING_RIGHT_ARROW = 'ArrowRight';
 var KEY_STRING_TAB = 'Tab';
 var KEY_STRING_BACKSPACE = 'Backspace';
 var KEY_STRING_ESCAPE = 'Escape';
-var ElementCustomValue = function (e) {
+var ElementCustomValue = function (e, isNumber) {
     var _a;
     var target = e.target;
     if (!!target) {
         var returnValue = (_a = target.customValue) !== null && _a !== void 0 ? _a : target.value;
-        if (target.classList.contains('isNumber')) {
+        if (isNumber || target.classList.contains('isNumber')) {
             return intelliwaketsfoundation.CleanNumber(returnValue);
         }
         return returnValue;
@@ -1476,7 +1476,7 @@ function InputSelect(props) {
         if (!!props.onChange)
             props.onChange(e);
         if (!!props.changeValue) {
-            props.changeValue(ElementCustomValue(e), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
+            props.changeValue(ElementCustomValue(e, !!props.isNumeric || !!props.isNumericOrNull), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
     var className = ((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + (!!props.required ? 'is-required' : '');
