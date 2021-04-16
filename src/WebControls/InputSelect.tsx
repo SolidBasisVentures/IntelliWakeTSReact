@@ -29,6 +29,7 @@ export interface IPropsSelect<T = unknown> {
 
 export function InputSelect<T>(props: IPropsSelect<T>) {
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		console.log('SelectC', e.target.value)
 		if (!!props.isNumeric || !!props.isNumericOrNull) {
 			const value = CleanNumber(e.target.value)
 
@@ -43,10 +44,16 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 
 		if (!!props.onChange) props.onChange(e)
 		if (!!props.changeValue) {
-			props.changeValue(ElementCustomValue(e), e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
+			props.changeValue(
+				ElementCustomValue(e),
+				e.target.name as any,
+				(e.nativeEvent as any).shiftKey,
+				(e.nativeEvent as any).ctrlKey,
+				(e.nativeEvent as any).altKey
+			)
 		}
 	}
-	
+
 	const className = `${props.className ?? ''} ${!!props.required ? 'is-required' : ''}`
 
 	return !!props.plainText && !!props.plainTextURL ? (
