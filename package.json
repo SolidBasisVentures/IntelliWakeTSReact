@@ -1,6 +1,6 @@
 {
   "name": "@solidbasisventures/intelliwaketsreact",
-  "version": "2.0.209",
+  "version": "2.0.210",
   "description": "NPM package for IntelliWake React Components",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -24,7 +24,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/pro-regular-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
-    "@solidbasisventures/intelliwaketsfoundation": "^2.0.89",
+    "@solidbasisventures/intelliwaketsfoundation": "^2.0.90",
     "@types/cleave.js": "^1.4.1",
     "@types/lodash": "^4.14.164",
     "@types/node": "^14.0.5",
