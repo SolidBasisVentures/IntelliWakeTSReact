@@ -200,9 +200,10 @@ var KEY_STRING_TAB = 'Tab';
 var KEY_STRING_BACKSPACE = 'Backspace';
 var KEY_STRING_ESCAPE = 'Escape';
 var ElementCustomValue = function (e) {
+    var _a;
     var target = e.target;
     if (!!target) {
-        var returnValue = target['customValue'] === undefined ? target.value : target.customValue;
+        var returnValue = (_a = target.customValue) !== null && _a !== void 0 ? _a : target.value;
         if (target.classList.contains('isNumber')) {
             return intelliwaketsfoundation.CleanNumber(returnValue);
         }
@@ -1475,7 +1476,6 @@ function InputSelect(props) {
         if (!!props.onChange)
             props.onChange(e);
         if (!!props.changeValue) {
-            console.log('SelectC2', e.target.value, ElementCustomValue(e));
             props.changeValue(ElementCustomValue(e), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };

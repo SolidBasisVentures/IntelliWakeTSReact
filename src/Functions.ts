@@ -24,7 +24,7 @@ export const ElementCustomValue = (e: React.ChangeEvent<HTMLInputElement>): any 
 	const target: any = e.target
 
 	if (!!target) {
-		const returnValue = target['customValue'] === undefined ? target.value : target.customValue
+		const returnValue = target.customValue ?? target.value
 		if (target.classList.contains('isNumber')) {
 			return CleanNumber(returnValue)
 		}
