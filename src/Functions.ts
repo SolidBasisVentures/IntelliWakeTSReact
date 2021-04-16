@@ -20,12 +20,12 @@ export const KEY_STRING_TAB = 'Tab'
 export const KEY_STRING_BACKSPACE = 'Backspace'
 export const KEY_STRING_ESCAPE = 'Escape'
 
-export const ElementCustomValue = (e: React.ChangeEvent<HTMLInputElement>, isNumber?: boolean): any => {
+export const ElementCustomValue = (e: React.ChangeEvent<HTMLInputElement>): any => {
 	const target: any = e.target
 
 	if (!!target) {
-		const returnValue = target.customValue ?? target.value
-		if (isNumber || target.classList.contains('isNumber')) {
+		const returnValue = target['customValue'] === undefined ? target.value : target.customValue
+		if (target.classList.contains('isNumber')) {
 			return CleanNumber(returnValue)
 		}
 		return returnValue

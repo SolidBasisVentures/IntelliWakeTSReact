@@ -199,12 +199,11 @@ var KEY_STRING_RIGHT_ARROW = 'ArrowRight';
 var KEY_STRING_TAB = 'Tab';
 var KEY_STRING_BACKSPACE = 'Backspace';
 var KEY_STRING_ESCAPE = 'Escape';
-var ElementCustomValue = function (e, isNumber) {
-    var _a;
+var ElementCustomValue = function (e) {
     var target = e.target;
     if (!!target) {
-        var returnValue = (_a = target.customValue) !== null && _a !== void 0 ? _a : target.value;
-        if (isNumber || target.classList.contains('isNumber')) {
+        var returnValue = target['customValue'] === undefined ? target.value : target.customValue;
+        if (target.classList.contains('isNumber')) {
             return intelliwaketsfoundation.CleanNumber(returnValue);
         }
         return returnValue;
@@ -1348,7 +1347,7 @@ var ReduceInputProps = function (props) {
 };
 var HandleChangeValue = function (e, changeValue, onChange, isNumeric) {
     if (!!changeValue) {
-        changeValue(ElementCustomValue(e, isNumeric), e.target.name);
+        changeValue(ElementCustomValue(e), e.target.name);
     }
     if (!!onChange) {
         onChange(e);
@@ -1476,7 +1475,8 @@ function InputSelect(props) {
         if (!!props.onChange)
             props.onChange(e);
         if (!!props.changeValue) {
-            props.changeValue(ElementCustomValue(e, !!props.isNumeric || !!props.isNumericOrNull), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
+            console.log('IS', ElementCustomValue(e), e.target.value);
+            props.changeValue(ElementCustomValue(e), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
     var className = ((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + (!!props.required ? 'is-required' : '');

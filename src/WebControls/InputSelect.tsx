@@ -43,8 +43,9 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 
 		if (!!props.onChange) props.onChange(e)
 		if (!!props.changeValue) {
+			console.log('IS', ElementCustomValue(e), e.target.value)
 			props.changeValue(
-				ElementCustomValue(e, !!props.isNumeric || !!props.isNumericOrNull),
+				ElementCustomValue(e),
 				e.target.name as any,
 				(e.nativeEvent as any).shiftKey,
 				(e.nativeEvent as any).ctrlKey,
