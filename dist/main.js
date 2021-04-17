@@ -2453,17 +2453,17 @@ var MasterDetailListGroup = function (props) {
         React__default['default'].createElement(MDMaster, { width: props.mdMasterWidth, className: props.mdMasterClassName },
             props.mdMasterTopNode,
             React__default['default'].createElement(reactstrap.ListGroup, { flush: true, className: "fill-height-scroll " + (props.noTextLargeSmaller ? '' : "text-large-" + props.breakAt + "-smaller") },
-                listGroupItems.map(function (listGroupItem) {
+                listGroupItems.map(function (listGroupItem, idx) {
                     var _a, _b, _c, _d;
                     var prefix = null;
                     if (!!listGroupItem.section) {
                         if (!prevListGroupItem || prevListGroupItem.section !== listGroupItem.section) {
                             switch (props.sectionBreak) {
                                 case 'HR':
-                                    prefix = React__default['default'].createElement("hr", null);
+                                    prefix = idx > 0 ? React__default['default'].createElement("hr", null) : null;
                                     break;
                                 case 'Gap':
-                                    prefix = '';
+                                    prefix = idx > 0 ? '' : null;
                                     break;
                                 default:
                                     prefix = (React__default['default'].createElement(reactstrap.ListGroupItemHeading, { onClick: function () {
