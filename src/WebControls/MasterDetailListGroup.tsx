@@ -79,17 +79,17 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 				<ListGroup
 					flush
 					className={`fill-height-scroll ${props.noTextLargeSmaller ? '' : `text-large-${props.breakAt}-smaller`}`}>
-					{listGroupItems.map((listGroupItem) => {
+					{listGroupItems.map((listGroupItem, idx) => {
 						let prefix: ReactNode = null
 
 						if (!!listGroupItem.section) {
 							if (!prevListGroupItem || prevListGroupItem.section !== listGroupItem.section) {
 								switch (props.sectionBreak) {
 									case 'HR':
-										prefix = <hr />
+										prefix = idx > 0 ? <hr /> : null
 										break
 									case 'Gap':
-										prefix = ''
+										prefix = idx > 0 ? '' : null
 										break
 									default:
 										prefix = (
