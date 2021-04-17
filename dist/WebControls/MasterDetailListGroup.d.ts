@@ -1,5 +1,5 @@
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
-import React, { ReactNode } from 'react';
+import React, { Dispatch, ReactNode, SetStateAction } from 'react';
 import { IMasterDetailProps } from './MasterDetail';
 export interface IMasterDetailListGroupMDLink {
     hidden?: boolean;
@@ -31,7 +31,7 @@ export interface IMasterDetailListGroupProps extends Omit<IMasterDetailProps, 'c
     sectionBreak?: 'Title' | 'HR' | 'Gap';
     listGroupItems: IMasterDetailListGroupMDLink[];
     collapsedSections?: string[];
-    setCollapsedSections?: (sections: string[]) => void;
+    setCollapsedSections?: Dispatch<SetStateAction<string[]>>;
     noTextLargeSmaller?: boolean;
     mdDetails?: IMasterDetailListGroupDetail[];
 }

@@ -1,5 +1,5 @@
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
-import React, {ReactNode, useMemo} from 'react'
+import React, {Dispatch, ReactNode, SetStateAction, useMemo} from 'react'
 import {Badge, ListGroup, ListGroupItemHeading, Spinner} from 'reactstrap'
 import {IMasterDetailProps, MasterDetail, MDDetail, MDLink, MDMaster} from './MasterDetail'
 import {ToDigits, ToPascalCase} from '@solidbasisventures/intelliwaketsfoundation'
@@ -37,7 +37,7 @@ export interface IMasterDetailListGroupProps extends Omit<IMasterDetailProps, 'c
 	sectionBreak?: 'Title' | 'HR' | 'Gap'
 	listGroupItems: IMasterDetailListGroupMDLink[]
 	collapsedSections?: string[]
-	setCollapsedSections?: (sections: string[]) => void
+	setCollapsedSections?: Dispatch<SetStateAction<string[]>>
 	noTextLargeSmaller?: boolean
 	mdDetails?: IMasterDetailListGroupDetail[]
 }
@@ -93,7 +93,25 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 										break
 									default:
 										prefix = (
-											<ListGroupItemHeading>{listGroupItem.sectionNode ?? listGroupItem.section}</ListGroupItemHeading>
+											<ListGroupItemHeading
+												onClick={() => {
+													if (!!props.setCollapsedSections && !!listGroupItem.section) {
+														props.setCollapsedSections((prevState) => {
+															if (!listGroupItem.section) return prevState
+
+															if (prevState.includes(listGroupItem.section)) {
+																return prevState.filter((pS) => pS !== listGroupItem.section)
+															}
+
+															return [...prevState, listGroupItem.section]
+														})
+													}
+												}}
+												className={ClassNames({
+													'cursor-pointer': !!props.setCollapsedSections && !!listGroupItem.section
+												})}>
+												{listGroupItem.sectionNode ?? listGroupItem.section}
+											</ListGroupItemHeading>
 										)
 										break
 								}

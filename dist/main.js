@@ -2466,7 +2466,20 @@ var MasterDetailListGroup = function (props) {
                                     prefix = '';
                                     break;
                                 default:
-                                    prefix = (React__default['default'].createElement(reactstrap.ListGroupItemHeading, null, (_a = listGroupItem.sectionNode) !== null && _a !== void 0 ? _a : listGroupItem.section));
+                                    prefix = (React__default['default'].createElement(reactstrap.ListGroupItemHeading, { onClick: function () {
+                                            if (!!props.setCollapsedSections && !!listGroupItem.section) {
+                                                props.setCollapsedSections(function (prevState) {
+                                                    if (!listGroupItem.section)
+                                                        return prevState;
+                                                    if (prevState.includes(listGroupItem.section)) {
+                                                        return prevState.filter(function (pS) { return pS !== listGroupItem.section; });
+                                                    }
+                                                    return __spreadArrays(prevState, [listGroupItem.section]);
+                                                });
+                                            }
+                                        }, className: ClassNames({
+                                            'cursor-pointer': !!props.setCollapsedSections && !!listGroupItem.section
+                                        }) }, (_a = listGroupItem.sectionNode) !== null && _a !== void 0 ? _a : listGroupItem.section));
                                     break;
                             }
                         }
