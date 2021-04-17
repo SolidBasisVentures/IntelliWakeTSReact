@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useContext, useEffect, useMemo, useRef} from 'react'
+import React, {Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useRef} from 'react'
 import {Redirect, useHistory} from 'react-router-dom'
 // AddMenuBackItem, CleanMenuBackItem,
 // import {useDispatch} from "react-redux";
@@ -8,9 +8,9 @@ import {StyleControl} from './StyleControl'
 
 export interface MenuBackItem {
 	menuBackActive: boolean
-	menuBackButtonTitle: string
+	menuBackButtonTitle: ReactNode
 	menuBackButtonURL: string
-	menuPageTitle: string
+	menuPageTitle: ReactNode
 	menuDisplaySize?: TBootStrapExtendedSizes
 }
 
@@ -27,7 +27,7 @@ interface IMDContext {
 	mdPath: string
 	baseFullPath: string
 	isOpen: boolean
-	backText?: string
+	backText?: ReactNode
 	parentMDContext?: IMDContext | undefined // undefined = no parent, null = is the parent
 	setMenuBackItemState: Dispatch<SetStateAction<MenuBackItem[]>>
 }
@@ -45,7 +45,7 @@ const MDContext = React.createContext(initialMDContext)
 export interface IMasterDetailProps {
 	children: any
 	mdPath: string
-	backText?: string
+	backText?: ReactNode
 	breakAt: TBootStrapExtendedSizes
 	rememberLast?: boolean
 	className?: string
@@ -139,7 +139,7 @@ interface IPropsMasterLink {
 	children?: any
 	tag?: 'li' | 'tr' | 'div' | 'span'
 	style?: any
-	title?: string
+	title?: ReactNode
 	onClick?: () => void
 	onDoubleClick?: () => void
 	noAutoScroll?: boolean
@@ -249,7 +249,7 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 
 interface IPropsDetail {
 	children: any
-	titleText?: string
+	titleText: ReactNode
 	backText?: string
 	exact?: boolean
 	panel?: string
@@ -282,7 +282,7 @@ export const MDDetail = (props: IPropsDetail) => {
 						menuBackActive: activated,
 						menuBackButtonTitle: props.backText ?? mdContext.backText ?? 'Back',
 						menuBackButtonURL: mdContext.baseFullPath,
-						menuPageTitle: props.titleText ?? 'Detail',
+						menuPageTitle: props.titleText,
 						menuDisplaySize: mdContext.breakAt
 					}
 

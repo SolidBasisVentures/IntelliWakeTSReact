@@ -66,8 +66,6 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 
 	let prevListGroupItem: IListGroupItem | null = null
 
-	console.log(listGroupItems)
-
 	return (
 		<MasterDetail
 			setMenuBackItemState={props.setMenuBackItemState}
@@ -151,7 +149,10 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 				(listGroupItem) =>
 					!listGroupItem.collapsed &&
 					!!listGroupItem.mdDetail && (
-						<MDDetail key={listGroupItem.key} panel={listGroupItem.panelURLCalc} titleText={listGroupItem.panelTitle}>
+						<MDDetail
+							key={listGroupItem.key}
+							panel={listGroupItem.panelURLCalc}
+							titleText={listGroupItem.panelTitle ?? listGroupItem.linkNode}>
 							{listGroupItem.mdDetail}
 						</MDDetail>
 					)

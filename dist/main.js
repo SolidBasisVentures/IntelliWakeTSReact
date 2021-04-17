@@ -2394,13 +2394,13 @@ var MDDetail = function (props) {
                     console.log('titleText not set on MDDetail!');
                 }
                 mdContext.setMenuBackItemState(function (prevState) {
-                    var _a, _b, _c;
+                    var _a, _b;
                     var location = window.location.pathname;
                     var newMenuBackItem = {
                         menuBackActive: activated,
                         menuBackButtonTitle: (_b = (_a = props.backText) !== null && _a !== void 0 ? _a : mdContext.backText) !== null && _b !== void 0 ? _b : 'Back',
                         menuBackButtonURL: mdContext.baseFullPath,
-                        menuPageTitle: (_c = props.titleText) !== null && _c !== void 0 ? _c : 'Detail',
+                        menuPageTitle: props.titleText,
                         menuDisplaySize: mdContext.breakAt
                     };
                     return __spreadArrays(prevState, [newMenuBackItem]).filter(function (item) {
@@ -2449,7 +2449,6 @@ var MasterDetailListGroup = function (props) {
         });
     }, [props.listGroupItems, props.collapsedSections]);
     var prevListGroupItem = null;
-    console.log(listGroupItems);
     return (React__default['default'].createElement(MasterDetail, { setMenuBackItemState: props.setMenuBackItemState, mdPath: props.mdPath, breakAt: props.breakAt, backText: props.backText, rememberLast: props.rememberLast, className: props.className },
         React__default['default'].createElement(MDMaster, { width: props.mdMasterWidth, className: props.mdMasterClassName },
             props.mdMasterTopNode,
@@ -2478,7 +2477,7 @@ var MasterDetailListGroup = function (props) {
                     prevListGroupItem = listGroupItem;
                     return (React__default['default'].createElement(React__default['default'].Fragment, { key: listGroupItem.key },
                         prefix,
-                        React__default['default'].createElement(MDLink, { hidden: listGroupItem.collapsed, tag: "li", panel: listGroupItem.panelURLCalc, onClick: (_c = listGroupItem.linkClick) !== null && _c !== void 0 ? _c : (function () { }), className: ClassNames({
+                        React__default['default'].createElement(MDLink, { hidden: listGroupItem.collapsed, tag: "li", panel: listGroupItem.panelURLCalc, onClick: (_c = listGroupItem.linkClick) !== null && _c !== void 0 ? _c : undefined, className: ClassNames({
                                 'list-group-item': true,
                                 'list-group-item-action': !!listGroupItem.mdDetail || !!listGroupItem.linkClick,
                                 'mt-4': prefix === ''
@@ -2491,8 +2490,9 @@ var MasterDetailListGroup = function (props) {
                 }),
                 props.mdMasterBottomNode)),
         listGroupItems.map(function (listGroupItem) {
+            var _a;
             return !listGroupItem.collapsed &&
-                !!listGroupItem.mdDetail && (React__default['default'].createElement(MDDetail, { key: listGroupItem.key, panel: listGroupItem.panelURLCalc, titleText: listGroupItem.panelTitle }, listGroupItem.mdDetail));
+                !!listGroupItem.mdDetail && (React__default['default'].createElement(MDDetail, { key: listGroupItem.key, panel: listGroupItem.panelURLCalc, titleText: (_a = listGroupItem.panelTitle) !== null && _a !== void 0 ? _a : listGroupItem.linkNode }, listGroupItem.mdDetail));
         }),
         ((_a = props.mdDetails) !== null && _a !== void 0 ? _a : []).map(function (mdDetail, idx) {
             var _a, _b, _c;
