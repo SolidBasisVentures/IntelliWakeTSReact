@@ -2444,8 +2444,8 @@ var MasterDetailListGroup = function (props) {
         return props.listGroupItems
             .filter(function (listGroupItem) { return !listGroupItem.hidden; })
             .map(function (listGroupItem, idx) {
-            var _a, _b, _c, _d;
-            return (__assign(__assign({}, listGroupItem), { key: listGroupItem.panelTitle + listGroupItem.id + idx, panelURLCalc: (_a = listGroupItem.panelURL) !== null && _a !== void 0 ? _a : intelliwaketsfoundation.ToPascalCase((_b = listGroupItem.panelTitle) !== null && _b !== void 0 ? _b : ((_c = listGroupItem.linkNode) !== null && _c !== void 0 ? _c : idx).toString()), collapsed: !!listGroupItem.section && ((_d = props.collapsedSections) !== null && _d !== void 0 ? _d : []).includes(listGroupItem.section) }));
+            var _a, _b, _c, _d, _e, _f, _g;
+            return (__assign(__assign({}, listGroupItem), { key: ((_b = (_a = listGroupItem.panelTitle) !== null && _a !== void 0 ? _a : listGroupItem.linkNode) !== null && _b !== void 0 ? _b : idx).toString() + ((_c = listGroupItem.id) !== null && _c !== void 0 ? _c : '') + idx, panelURLCalc: (_d = listGroupItem.panelURL) !== null && _d !== void 0 ? _d : intelliwaketsfoundation.ToPascalCase((_e = listGroupItem.panelTitle) !== null && _e !== void 0 ? _e : ((_f = listGroupItem.linkNode) !== null && _f !== void 0 ? _f : idx).toString()), collapsed: !!listGroupItem.section && ((_g = props.collapsedSections) !== null && _g !== void 0 ? _g : []).includes(listGroupItem.section) }));
         });
     }, [props.listGroupItems, props.collapsedSections]);
     var prevListGroupItem = null;
