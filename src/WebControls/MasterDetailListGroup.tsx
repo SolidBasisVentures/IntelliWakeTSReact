@@ -9,18 +9,24 @@ export interface IMasterDetailListGroupMDLink {
 	hidden?: boolean
 	faProps?: FontAwesomeIconProps
 	color?: string
-	bodyNode?: ReactNode
+	linkNode: ReactNode
 	linkClick?: React.MouseEventHandler<any>
 	/** undefined = don't show, null = show with spinner, number (0, 1, etc.) = show */
 	counter?: number | null
 	counterColor?: string
-	panelTitle: string
+	panelTitle?: string
 	panelURL?: string
 	id?: any
 	mdDetail?: ReactNode
 	section?: string
 	sectionNode?: ReactNode
 	className?: string
+}
+
+export interface IMasterDetailListGroupDetail {
+	panelTitle: string
+	panelURL?: string
+	mdDetail: ReactNode
 }
 
 export interface IMasterDetailListGroupProps extends Omit<IMasterDetailProps, 'children'> {
@@ -33,6 +39,7 @@ export interface IMasterDetailListGroupProps extends Omit<IMasterDetailProps, 'c
 	collapsedSections?: string[]
 	setCollapsedSections?: (sections: string[]) => void
 	noTextLargeSmaller?: boolean
+	mdDetails?: IMasterDetailListGroupDetail[]
 }
 
 export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
@@ -49,7 +56,9 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 				.map((listGroupItem, idx) => ({
 					...listGroupItem,
 					key: listGroupItem.panelTitle + listGroupItem.id + idx,
-					panelURLCalc: listGroupItem.panelURL ?? ToPascalCase(listGroupItem.panelTitle),
+					panelURLCalc:
+						listGroupItem.panelURL ??
+						ToPascalCase(listGroupItem.panelTitle ?? (listGroupItem.linkNode ?? idx).toString()),
 					collapsed: !!listGroupItem.section && (props.collapsedSections ?? []).includes(listGroupItem.section)
 				})),
 		[props.listGroupItems, props.collapsedSections]
@@ -119,7 +128,7 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 										(listGroupItem.className ?? '')
 									}>
 									{!!listGroupItem.faProps && <FontAwesomeIcon fixedWidth {...listGroupItem.faProps} />}
-									{listGroupItem.bodyNode}
+									{listGroupItem.linkNode}
 									{listGroupItem.counter !== undefined && (
 										<Badge
 											color={listGroupItem.counterColor}
@@ -140,12 +149,21 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 			</MDMaster>
 			{listGroupItems.map(
 				(listGroupItem) =>
-					!listGroupItem.collapsed && (
+					!listGroupItem.collapsed &&
+					!!listGroupItem.mdDetail && (
 						<MDDetail key={listGroupItem.key} panel={listGroupItem.panelURLCalc} titleText={listGroupItem.panelTitle}>
 							{listGroupItem.mdDetail}
 						</MDDetail>
 					)
 			)}
+			{(props.mdDetails ?? []).map((mdDetail, idx) => (
+				<MDDetail
+					key={mdDetail.panelURL ?? mdDetail.panelTitle ?? idx}
+					panel={mdDetail.panelURL ?? ToPascalCase(mdDetail.panelTitle)}
+					titleText={mdDetail.panelTitle}>
+					{mdDetail.mdDetail}
+				</MDDetail>
+			))}
 		</MasterDetail>
 	)
 }

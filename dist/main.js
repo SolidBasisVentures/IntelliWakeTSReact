@@ -2439,15 +2439,17 @@ var MDDetail = function (props) {
 };
 
 var MasterDetailListGroup = function (props) {
+    var _a;
     var listGroupItems = React.useMemo(function () {
         return props.listGroupItems
             .filter(function (listGroupItem) { return !listGroupItem.hidden; })
             .map(function (listGroupItem, idx) {
-            var _a, _b;
-            return (__assign(__assign({}, listGroupItem), { key: listGroupItem.panelTitle + listGroupItem.id + idx, panelURLCalc: (_a = listGroupItem.panelURL) !== null && _a !== void 0 ? _a : intelliwaketsfoundation.ToPascalCase(listGroupItem.panelTitle), collapsed: !!listGroupItem.section && ((_b = props.collapsedSections) !== null && _b !== void 0 ? _b : []).includes(listGroupItem.section) }));
+            var _a, _b, _c, _d;
+            return (__assign(__assign({}, listGroupItem), { key: listGroupItem.panelTitle + listGroupItem.id + idx, panelURLCalc: (_a = listGroupItem.panelURL) !== null && _a !== void 0 ? _a : intelliwaketsfoundation.ToPascalCase((_b = listGroupItem.panelTitle) !== null && _b !== void 0 ? _b : ((_c = listGroupItem.linkNode) !== null && _c !== void 0 ? _c : idx).toString()), collapsed: !!listGroupItem.section && ((_d = props.collapsedSections) !== null && _d !== void 0 ? _d : []).includes(listGroupItem.section) }));
         });
     }, [props.listGroupItems, props.collapsedSections]);
     var prevListGroupItem = null;
+    console.log(listGroupItems);
     return (React__default['default'].createElement(MasterDetail, { setMenuBackItemState: props.setMenuBackItemState, mdPath: props.mdPath, breakAt: props.breakAt, backText: props.backText, rememberLast: props.rememberLast, className: props.className },
         React__default['default'].createElement(MDMaster, { width: props.mdMasterWidth, className: props.mdMasterClassName },
             props.mdMasterTopNode,
@@ -2484,12 +2486,17 @@ var MasterDetailListGroup = function (props) {
                                 ' ' +
                                 ((_d = listGroupItem.className) !== null && _d !== void 0 ? _d : '') },
                             !!listGroupItem.faProps && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ fixedWidth: true }, listGroupItem.faProps)),
-                            listGroupItem.bodyNode,
+                            listGroupItem.linkNode,
                             listGroupItem.counter !== undefined && (React__default['default'].createElement(reactstrap.Badge, { color: listGroupItem.counterColor, className: "float-right small text-white border-round ml-2" }, listGroupItem.counter !== null ? (intelliwaketsfoundation.ToDigits(listGroupItem.counter, 0)) : (React__default['default'].createElement(reactstrap.Spinner, { size: "sm", style: { width: '0.8em', height: '0.8em' } })))))));
                 }),
                 props.mdMasterBottomNode)),
         listGroupItems.map(function (listGroupItem) {
-            return !listGroupItem.collapsed && (React__default['default'].createElement(MDDetail, { key: listGroupItem.key, panel: listGroupItem.panelURLCalc, titleText: listGroupItem.panelTitle }, listGroupItem.mdDetail));
+            return !listGroupItem.collapsed &&
+                !!listGroupItem.mdDetail && (React__default['default'].createElement(MDDetail, { key: listGroupItem.key, panel: listGroupItem.panelURLCalc, titleText: listGroupItem.panelTitle }, listGroupItem.mdDetail));
+        }),
+        ((_a = props.mdDetails) !== null && _a !== void 0 ? _a : []).map(function (mdDetail, idx) {
+            var _a, _b, _c;
+            return (React__default['default'].createElement(MDDetail, { key: (_b = (_a = mdDetail.panelURL) !== null && _a !== void 0 ? _a : mdDetail.panelTitle) !== null && _b !== void 0 ? _b : idx, panel: (_c = mdDetail.panelURL) !== null && _c !== void 0 ? _c : intelliwaketsfoundation.ToPascalCase(mdDetail.panelTitle), titleText: mdDetail.panelTitle }, mdDetail.mdDetail));
         })));
 };
 
