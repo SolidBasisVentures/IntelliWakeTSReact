@@ -57,6 +57,8 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 
 	let prevListGroupItem: IListGroupItem | null = null
 
+	console.log(listGroupItems)
+
 	return (
 		<MasterDetail
 			setMenuBackItemState={props.setMenuBackItemState}
