@@ -5,18 +5,23 @@ export interface IMasterDetailListGroupMDLink {
     hidden?: boolean;
     faProps?: FontAwesomeIconProps;
     color?: string;
-    bodyNode?: ReactNode;
+    linkNode: ReactNode;
     linkClick?: React.MouseEventHandler<any>;
     /** undefined = don't show, null = show with spinner, number (0, 1, etc.) = show */
     counter?: number | null;
     counterColor?: string;
-    panelTitle: string;
+    panelTitle?: string;
     panelURL?: string;
     id?: any;
     mdDetail?: ReactNode;
     section?: string;
     sectionNode?: ReactNode;
     className?: string;
+}
+export interface IMasterDetailListGroupDetail {
+    panelTitle: string;
+    panelURL?: string;
+    mdDetail: ReactNode;
 }
 export interface IMasterDetailListGroupProps extends Omit<IMasterDetailProps, 'children'> {
     mdMasterWidth?: string;
@@ -28,5 +33,6 @@ export interface IMasterDetailListGroupProps extends Omit<IMasterDetailProps, 'c
     collapsedSections?: string[];
     setCollapsedSections?: (sections: string[]) => void;
     noTextLargeSmaller?: boolean;
+    mdDetails?: IMasterDetailListGroupDetail[];
 }
 export declare const MasterDetailListGroup: (props: IMasterDetailListGroupProps) => JSX.Element;

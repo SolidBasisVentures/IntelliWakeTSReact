@@ -117,7 +117,7 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 									hidden={listGroupItem.collapsed}
 									tag="li"
 									panel={listGroupItem.panelURLCalc}
-									onClick={listGroupItem.linkClick ?? (() => {})}
+									onClick={listGroupItem.linkClick ?? undefined}
 									className={
 										ClassNames({
 											'list-group-item': true,
