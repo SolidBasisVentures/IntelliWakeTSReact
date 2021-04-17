@@ -159,7 +159,7 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 			)}
 			{(props.mdDetails ?? []).map((mdDetail, idx) => (
 				<MDDetail
-					key={mdDetail.panelURL ?? mdDetail.panelTitle ?? idx}
+					key={(mdDetail.panelURL ?? mdDetail.panelTitle).toString() + idx}
 					panel={mdDetail.panelURL ?? ToPascalCase(mdDetail.panelTitle)}
 					titleText={mdDetail.panelTitle}>
 					{mdDetail.mdDetail}

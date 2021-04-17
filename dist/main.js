@@ -2495,8 +2495,8 @@ var MasterDetailListGroup = function (props) {
                 !!listGroupItem.mdDetail && (React__default['default'].createElement(MDDetail, { key: listGroupItem.key, panel: listGroupItem.panelURLCalc, titleText: (_a = listGroupItem.panelTitle) !== null && _a !== void 0 ? _a : listGroupItem.linkNode }, listGroupItem.mdDetail));
         }),
         ((_a = props.mdDetails) !== null && _a !== void 0 ? _a : []).map(function (mdDetail, idx) {
-            var _a, _b, _c;
-            return (React__default['default'].createElement(MDDetail, { key: (_b = (_a = mdDetail.panelURL) !== null && _a !== void 0 ? _a : mdDetail.panelTitle) !== null && _b !== void 0 ? _b : idx, panel: (_c = mdDetail.panelURL) !== null && _c !== void 0 ? _c : intelliwaketsfoundation.ToPascalCase(mdDetail.panelTitle), titleText: mdDetail.panelTitle }, mdDetail.mdDetail));
+            var _a, _b;
+            return (React__default['default'].createElement(MDDetail, { key: ((_a = mdDetail.panelURL) !== null && _a !== void 0 ? _a : mdDetail.panelTitle).toString() + idx, panel: (_b = mdDetail.panelURL) !== null && _b !== void 0 ? _b : intelliwaketsfoundation.ToPascalCase(mdDetail.panelTitle), titleText: mdDetail.panelTitle }, mdDetail.mdDetail));
         })));
 };
 

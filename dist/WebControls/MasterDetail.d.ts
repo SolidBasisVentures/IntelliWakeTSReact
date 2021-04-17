@@ -1,17 +1,17 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { TBootStrapExtendedSizes } from '../Functions';
 export interface MenuBackItem {
     menuBackActive: boolean;
-    menuBackButtonTitle: string;
+    menuBackButtonTitle: ReactNode;
     menuBackButtonURL: string;
-    menuPageTitle: string;
+    menuPageTitle: ReactNode;
     menuDisplaySize?: TBootStrapExtendedSizes;
 }
 export declare const initialMenuBackItem: MenuBackItem;
 export interface IMasterDetailProps {
     children: any;
     mdPath: string;
-    backText?: string;
+    backText?: ReactNode;
     breakAt: TBootStrapExtendedSizes;
     rememberLast?: boolean;
     className?: string;
@@ -33,7 +33,7 @@ interface IPropsMasterLink {
     children?: any;
     tag?: 'li' | 'tr' | 'div' | 'span';
     style?: any;
-    title?: string;
+    title?: ReactNode;
     onClick?: () => void;
     onDoubleClick?: () => void;
     noAutoScroll?: boolean;
@@ -43,7 +43,7 @@ interface IPropsMasterLink {
 export declare const MDLink: (props: IPropsMasterLink | any) => JSX.Element;
 interface IPropsDetail {
     children: any;
-    titleText?: string;
+    titleText: ReactNode;
     backText?: string;
     exact?: boolean;
     panel?: string;
