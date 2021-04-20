@@ -1572,32 +1572,29 @@ function InputNumber(props) {
         var newVal = !props.value ? '' : ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString();
         setCurrentStringOverride(newVal);
     }, [props.value]);
-    var showCleave = React__default['default'].createElement(Cleave__default['default'], { options: options, className: ClassNames({
+    var showCleave = (React__default['default'].createElement(Cleave__default['default'], { options: options, className: ClassNames({
             'inputNumber form-control': true,
             numerics: hasDecimals,
             integers: !hasDecimals,
-            'is_invalid': !!props.invalid
+            is_invalid: !!props.invalid
         }), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: function (e) {
             if (!!props.onBlur)
                 props.onBlur(e);
             if (!!props.changeValueLate && lateValue !== props.value) {
                 props.changeValueLate(lateValue, props.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
             }
-        }, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_c = props.name) !== null && _c !== void 0 ? _c : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id });
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value !== null
-        && !!props.currency
-        ? (React__default['default'].createElement(React__default['default'].Fragment, null,
-            props.prepend,
-            " ",
-            intelliwaketsfoundation.ToCurrency(props.value, (_d = props.decimalScale) !== null && _d !== void 0 ? _d : 0),
-            " ",
-            props.append))
-        : (React__default['default'].createElement(React__default['default'].Fragment, null,
-            props.prepend,
-            " ",
-            intelliwaketsfoundation.ToDigits(props.value, (_e = props.decimalScale) !== null && _e !== void 0 ? _e : 0),
-            " ",
-            props.append)))) : !!props.prepend || !!props.append ? (React__default['default'].createElement(reactstrap.InputGroup, null,
+        }, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_c = props.name) !== null && _c !== void 0 ? _c : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id }));
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps), props.value !== null && !!props.currency ? (React__default['default'].createElement(React__default['default'].Fragment, null,
+        props.prepend,
+        " ",
+        intelliwaketsfoundation.ToCurrency(props.value, (_d = props.decimalScale) !== null && _d !== void 0 ? _d : 0),
+        " ",
+        props.append)) : (React__default['default'].createElement(React__default['default'].Fragment, null,
+        props.prepend,
+        " ",
+        intelliwaketsfoundation.ToDigits(props.value, (_e = props.decimalScale) !== null && _e !== void 0 ? _e : 0),
+        " ",
+        props.append)))) : !!props.prepend || !!props.append ? (React__default['default'].createElement(reactstrap.InputGroup, null,
         React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "prepend", hidden: !props.prepend },
             React__default['default'].createElement(reactstrap.InputGroupText, null, props.prepend)),
         showCleave,
