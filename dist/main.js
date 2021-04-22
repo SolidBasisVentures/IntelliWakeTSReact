@@ -901,15 +901,23 @@ var ArrayTable = function (props) {
 };
 
 var BRAfter = function (props) {
-    return (React__default['default'].createElement("span", { className: props.className, hidden: props.hidden || !props.text },
+    if (props.hidden || !props.text)
+        return null;
+    return (React__default['default'].createElement("span", { className: props.className },
+        props.prefix,
         props.text,
+        props.suffix,
         React__default['default'].createElement("br", null)));
 };
 
 var BRBefore = function (props) {
-    return (React__default['default'].createElement("span", { className: props.className, hidden: props.hidden || !props.text },
+    if (props.hidden || !props.text)
+        return null;
+    return (React__default['default'].createElement("span", { className: props.className },
         React__default['default'].createElement("br", null),
-        props.text));
+        props.prefix,
+        props.text,
+        props.suffix));
 };
 
 var customRangeName = 'Custom Range';
@@ -2487,7 +2495,7 @@ var MasterDetailListGroup = function (props) {
                     prevListGroupItem = listGroupItem;
                     return (React__default['default'].createElement(React__default['default'].Fragment, { key: listGroupItem.key },
                         prefix,
-                        React__default['default'].createElement(MDLink, { hidden: listGroupItem.collapsed, tag: "li", panel: listGroupItem.panelURLCalc, onClick: (_c = listGroupItem.linkClick) !== null && _c !== void 0 ? _c : undefined, className: ClassNames({
+                        React__default['default'].createElement(MDLink, { hidden: listGroupItem.collapsed, tag: "li", id: listGroupItem.id, panel: listGroupItem.panelURLCalc, onClick: (_c = listGroupItem.linkClick) !== null && _c !== void 0 ? _c : undefined, className: ClassNames({
                                 'list-group-item': true,
                                 'list-group-item-action': !!listGroupItem.mdDetail || !!listGroupItem.linkClick,
                                 'mt-4': prefix === ''
