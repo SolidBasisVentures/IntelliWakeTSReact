@@ -132,6 +132,7 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 								<MDLink
 									hidden={listGroupItem.collapsed}
 									tag="li"
+									id={listGroupItem.id}
 									panel={listGroupItem.panelURLCalc}
 									onClick={listGroupItem.linkClick ?? undefined}
 									className={
