@@ -1320,9 +1320,12 @@ var DDActions = function (props) {
         React__default['default'].createElement(reactstrap.DropdownToggle, { caret: !props.noCaret, className: props.className, color: props.color, size: props.size },
             props.faProps !== null && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, ((_a = props.faProps) !== null && _a !== void 0 ? _a : { icon: proRegularSvgIcons.faCog }), { fixedWidth: !!props.buttonText }))),
             props.buttonText),
-        React__default['default'].createElement(reactstrap.DropdownMenu, { right: props.right }, visibleDDActions.map(function (ddAction, idx) { return (React__default['default'].createElement(reactstrap.DropdownItem, { key: idx, disabled: !!ddAction.disabled || !ddAction.action, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return (!!ddAction.action ? ddAction.action() : function () { }); } },
-            showFAProps && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, ddAction.faProps, { className: !ddAction.faProps || ddAction.faPropHidden ? 'invisible' : '', fixedWidth: true }))),
-            ddAction.title)); }))));
+        React__default['default'].createElement(reactstrap.DropdownMenu, { right: props.right }, visibleDDActions.map(function (ddAction, idx) {
+            var _a;
+            return (React__default['default'].createElement(reactstrap.DropdownItem, { className: ((_a = ddAction.className) !== null && _a !== void 0 ? _a : '') + (!!ddAction.color ? " text-" + ddAction.color : ''), key: idx, disabled: !!ddAction.disabled || !ddAction.action, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return (!!ddAction.action ? ddAction.action() : function () { }); } },
+                showFAProps && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, ddAction.faProps, { className: !ddAction.faProps || ddAction.faPropHidden ? 'invisible' : '', fixedWidth: true }))),
+                ddAction.title));
+        }))));
 };
 
 function InputCheckBox(props) {

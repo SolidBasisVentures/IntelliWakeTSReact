@@ -12,6 +12,8 @@ export interface IDDAction {
 	faPropHidden?: boolean
 	title?: ReactNode
 	action?: () => void
+	color?: string
+	className?: string
 }
 
 export interface IPropsDDActions {
@@ -55,6 +57,7 @@ export const DDActions = (props: IPropsDDActions) => {
 			<DropdownMenu right={props.right}>
 				{visibleDDActions.map((ddAction, idx) => (
 					<DropdownItem
+						className={(ddAction.className ?? '') + (!!ddAction.color ? ` text-${ddAction.color}` : '')}
 						key={idx}
 						disabled={!!ddAction.disabled || !ddAction.action}
 						divider={!!ddAction.divider}
