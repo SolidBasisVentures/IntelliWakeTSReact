@@ -74,7 +74,7 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 				(props.promptResponses !== null && props.promptResponses !== undefined) ||
 				(!!props.okLabel && !!props.okAction)) &&
 			!props.hidden,
-		[props.promptResponses, props.okLabel, props.okAction, props.hidden]
+		[props.title, props.messageBody, props.promptResponses, props.okLabel, props.okAction, props.hidden]
 	)
 
 	const dismiss = useCallback(

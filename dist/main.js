@@ -2591,7 +2591,7 @@ var ModalPrompt = function (props) {
             (props.promptResponses !== null && props.promptResponses !== undefined) ||
             (!!props.okLabel && !!props.okAction)) &&
             !props.hidden;
-    }, [props.promptResponses, props.okLabel, props.okAction, props.hidden]);
+    }, [props.title, props.messageBody, props.promptResponses, props.okLabel, props.okAction, props.hidden]);
     var dismiss = React.useCallback(function (canceled) {
         if (!!props.dismiss)
             props.dismiss(null, canceled);
