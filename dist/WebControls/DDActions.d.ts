@@ -9,6 +9,8 @@ export interface IDDAction {
     faPropHidden?: boolean;
     title?: ReactNode;
     action?: () => void;
+    color?: string;
+    className?: string;
 }
 export interface IPropsDDActions {
     ddActions: IDDAction[] | (() => IDDAction[]);
