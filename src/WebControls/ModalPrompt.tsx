@@ -70,7 +70,8 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 
 	const isOpen = useMemo(
 		() =>
-			((props.promptResponses !== null && props.promptResponses !== undefined) ||
+			((props.title && props.messageBody) ||
+				(props.promptResponses !== null && props.promptResponses !== undefined) ||
 				(!!props.okLabel && !!props.okAction)) &&
 			!props.hidden,
 		[props.promptResponses, props.okLabel, props.okAction, props.hidden]

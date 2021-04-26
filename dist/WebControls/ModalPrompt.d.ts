@@ -12,9 +12,9 @@ export interface IModalPromptProps {
     messageBody?: ReactNode;
     variables?: TVariables;
     color?: string;
-    okLabel?: string;
+    okLabel?: ReactNode;
     okAction?: () => void;
-    okKeys?: (string)[] | string;
+    okKeys?: string[] | string;
     promptResponses?: TModalPromptResponse;
     cancelLabel?: ReactNode;
     cancelColor?: string;
