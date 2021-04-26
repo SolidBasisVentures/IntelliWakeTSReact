@@ -27,6 +27,7 @@ export interface IModalPromptProps {
 	cancelAction?: () => void
 	dismiss?: (nullValue: null, canceled: boolean) => void
 	hidden?: boolean
+	promptOnly?: boolean
 }
 
 /**
@@ -70,7 +71,7 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 
 	const isOpen = useMemo(
 		() =>
-			((!!props.title && !!props.messageBody) ||
+			(!!props.promptOnly ||
 				(props.promptResponses !== null && props.promptResponses !== undefined) ||
 				(!!props.okLabel && !!props.okAction)) &&
 			!props.hidden,
