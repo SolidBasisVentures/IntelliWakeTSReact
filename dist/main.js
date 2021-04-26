@@ -2587,7 +2587,8 @@ var ModalPrompt = function (props) {
         return intelliwaketsfoundation.EvaluateString(props.messageBody, props.variables);
     }, [props.messageBody, props.variables]);
     var isOpen = React.useMemo(function () {
-        return ((props.promptResponses !== null && props.promptResponses !== undefined) ||
+        return ((!!props.title && !!props.messageBody) ||
+            (props.promptResponses !== null && props.promptResponses !== undefined) ||
             (!!props.okLabel && !!props.okAction)) &&
             !props.hidden;
     }, [props.promptResponses, props.okLabel, props.okAction, props.hidden]);
