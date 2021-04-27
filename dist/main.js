@@ -2509,7 +2509,8 @@ var MasterDetailListGroup = function (props) {
                             listGroupItem.linkNode,
                             listGroupItem.counter !== undefined && (React__default['default'].createElement(reactstrap.Badge, { color: listGroupItem.counterColor, className: "float-right small text-white border-round ml-2" }, listGroupItem.counter !== null ? (intelliwaketsfoundation.ToDigits(listGroupItem.counter, 0)) : (React__default['default'].createElement(reactstrap.Spinner, { size: "sm", style: { width: '0.8em', height: '0.8em' } })))))));
                 }),
-                props.mdMasterBottomNode)),
+                props.mdMasterBottomNode),
+            props.mdMasterBottomOutsideNode),
         listGroupItems.map(function (listGroupItem) {
             var _a;
             return !listGroupItem.collapsed &&
@@ -2587,7 +2588,7 @@ var ModalPrompt = function (props) {
         return intelliwaketsfoundation.EvaluateString(props.messageBody, props.variables);
     }, [props.messageBody, props.variables]);
     var isOpen = React.useMemo(function () {
-        return ((!!props.title && !!props.messageBody) ||
+        return (!!props.promptOnly ||
             (props.promptResponses !== null && props.promptResponses !== undefined) ||
             (!!props.okLabel && !!props.okAction)) &&
             !props.hidden;

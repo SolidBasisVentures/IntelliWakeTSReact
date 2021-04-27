@@ -22,6 +22,7 @@ export interface IModalPromptProps {
     cancelAction?: () => void;
     dismiss?: (nullValue: null, canceled: boolean) => void;
     hidden?: boolean;
+    promptOnly?: boolean;
 }
 /**
  * A wrapper for Bootstrap's Modal that handles all the actions.
