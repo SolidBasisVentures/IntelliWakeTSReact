@@ -28,6 +28,7 @@ export interface IMasterDetailListGroupProps extends Omit<IMasterDetailProps, 'c
     mdMasterClassName?: string;
     mdMasterTopNode?: ReactNode;
     mdMasterBottomNode?: ReactNode;
+    mdMasterBottomOutsideNode?: ReactNode;
     sectionBreak?: 'Title' | 'HR' | 'Gap';
     listGroupItems: IMasterDetailListGroupMDLink[];
     collapsedSections?: string[];

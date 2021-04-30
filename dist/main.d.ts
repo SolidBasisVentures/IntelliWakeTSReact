@@ -17,6 +17,7 @@ export * from './WebControls/BRAfter';
 export * from './WebControls/BRBefore';
 export * from './WebControls/DateRange';
 export * from './WebControls/DDActions';
+export * from './WebControls/EllipsesTruncate';
 export * from './WebControls/InputCheckBox';
 export * from './WebControls/InputColor';
 export * from './WebControls/InputDate';
