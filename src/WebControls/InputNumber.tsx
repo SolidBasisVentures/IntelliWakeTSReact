@@ -3,8 +3,8 @@ import Cleave from 'cleave.js/react'
 import {CleanNumber, RandomString, ToCurrency, ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
 import {TChangeValueFunction} from './IWInputProps'
 import {CleaveOptions} from 'cleave.js/options'
-import {InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap'
 import {ClassNames} from '../Functions'
+import {InputGroupWrapper} from './InputGroupWrapper'
 
 export interface IPropsInputNumber<T = unknown> {
 	name?: T extends object ? keyof T : string
@@ -124,43 +124,6 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 		setCurrentStringOverride(newVal)
 	}, [props.value])
 
-	const showCleave = (
-		<Cleave
-			options={options}
-			className={ClassNames({
-				'inputNumber form-control': true,
-				numerics: hasDecimals,
-				integers: !hasDecimals,
-				is_invalid: !!props.invalid
-			})}
-			name={props.name as string | undefined}
-			inputMode={hasDecimals ? 'decimal' : 'numeric'}
-			value={currentStringOverride}
-			onChange={handleInputChange}
-			onBlur={(e) => {
-				if (!!props.onBlur) props.onBlur(e)
-				if (!!props.changeValueLate && lateValue !== props.value) {
-					props.changeValueLate(
-						lateValue,
-						props.name,
-						(e.nativeEvent as any).shiftKey,
-						(e.nativeEvent as any).ctrlKey,
-						(e.nativeEvent as any).altKey
-					)
-				}
-			}}
-			htmlRef={props.htmlRef}
-			onKeyDown={handleKeyDown}
-			onFocus={handleFocus}
-			autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
-			placeholder={props.placeholder}
-			required={props.required}
-			autoFocus={props.autoFocus}
-			style={props.style}
-			id={props.id}
-		/>
-	)
-
 	return (
 		<>
 			{!!props.plainText ? (
@@ -175,26 +138,44 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 						</>
 					)}
 				</div>
-			) : !!props.prepend || !!props.append ? (
-				<InputGroup>
-					<InputGroupAddon addonType="prepend" hidden={!props.prepend}>
-						<InputGroupText>{props.prepend}</InputGroupText>
-					</InputGroupAddon>
-					{showCleave}
-					<InputGroupAddon addonType="append" hidden={!props.append}>
-						<InputGroupText>{props.append}</InputGroupText>
-					</InputGroupAddon>
-				</InputGroup>
 			) : (
-				<>{showCleave}</>
+				<InputGroupWrapper prepend={props.prepend} append={props.append}>
+					<Cleave
+						options={options}
+						className={ClassNames({
+							'inputNumber form-control': true,
+							numerics: hasDecimals,
+							integers: !hasDecimals,
+							is_invalid: !!props.invalid
+						})}
+						name={props.name as string | undefined}
+						inputMode={hasDecimals ? 'decimal' : 'numeric'}
+						value={currentStringOverride}
+						onChange={handleInputChange}
+						onBlur={(e) => {
+							if (!!props.onBlur) props.onBlur(e)
+							if (!!props.changeValueLate && lateValue !== props.value) {
+								props.changeValueLate(
+									lateValue,
+									props.name,
+									(e.nativeEvent as any).shiftKey,
+									(e.nativeEvent as any).ctrlKey,
+									(e.nativeEvent as any).altKey
+								)
+							}
+						}}
+						htmlRef={props.htmlRef}
+						onKeyDown={handleKeyDown}
+						onFocus={handleFocus}
+						autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
+						placeholder={props.placeholder}
+						required={props.required}
+						autoFocus={props.autoFocus}
+						style={props.style}
+						id={props.id}
+					/>
+				</InputGroupWrapper>
 			)}
 		</>
 	)
 }
-
-// !== undefined
-//              ? currentStringOverride
-//              : props.value === null || (!!props.hideZero && !CleanNumber(props.value))
-//              ? undefined
-//              : props.value
-//
