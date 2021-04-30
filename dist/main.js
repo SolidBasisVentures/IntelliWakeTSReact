@@ -1328,6 +1328,16 @@ var DDActions = function (props) {
         }))));
 };
 
+var EllipsesTruncate = function (props) {
+    var _a;
+    if (props.hidden || !props.text)
+        return null;
+    return (React__default['default'].createElement(React__default['default'].Fragment, null,
+        props.prefix,
+        React__default['default'].createElement("div", { className: 'w-100 ' + (!!props.noTruncate ? '' : 'ellipses-truncate ') + ((_a = props.className) !== null && _a !== void 0 ? _a : '') }, props.text),
+        props.suffix));
+};
+
 function InputCheckBox(props) {
     var _a;
     var newID = React.useMemo(function () { var _a; return (_a = props.id) !== null && _a !== void 0 ? _a : 'cb' + props.name + Math.floor(Math.random() * 100000 + 1); }, [
@@ -2736,6 +2746,7 @@ exports.DateRangeToMoment = DateRangeToMoment;
 exports.DateRangeToString = DateRangeToString;
 exports.DownloadBase64Data = DownloadBase64Data;
 exports.ElementCustomValue = ElementCustomValue;
+exports.EllipsesTruncate = EllipsesTruncate;
 exports.FileToBase64 = FileToBase64;
 exports.FilterObjects = FilterObjects;
 exports.FormatValue = FormatValue;
