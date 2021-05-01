@@ -1,5 +1,6 @@
 import { IIWInputProps } from './IWInputProps';
-export interface IPropsInputNumber<T = unknown> extends IIWInputProps<T> {
+export interface IPropsInputNumber<T = unknown> extends Omit<IIWInputProps<T>, 'value'> {
+    value: number | null;
     htmlRef?: (ref: any) => void;
     decimalScale?: number | null;
     integerScale?: number | null;
