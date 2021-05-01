@@ -2,28 +2,28 @@ import {InputProps} from 'reactstrap'
 import React, {ReactNode} from 'react'
 import {ElementCustomValue} from '../Functions'
 
-export type TChangeValueFunction<T = unknown> = (
-	value: any,
+export type TChangeValueFunction<T = unknown, V = any> = (
+	value: V,
 	name?: T extends object ? keyof T : string,
 	shiftKey?: boolean,
 	ctrlKey?: boolean,
 	altKey?: boolean
 ) => void
 
-export interface IIWInputAddProps<T = unknown> {
+export interface IIWInputAddProps<T = unknown, V = any> {
 	plainText?: boolean
 	plainTextURL?: string
 	plainTextProps?: any
-	changeValue?: TChangeValueFunction<T>
-	changeValueLate?: TChangeValueFunction<T>
+	changeValue?: TChangeValueFunction<T, V>
+	changeValueLate?: TChangeValueFunction<T, V>
 	autoCompleteOn?: boolean
 	prepend?: ReactNode
 	append?: ReactNode
 }
 
-export interface IIWInputProps<T = unknown> extends InputProps, IIWInputAddProps<T> {}
+export interface IIWInputProps<T = unknown, V = any> extends InputProps, IIWInputAddProps<T, V> {}
 
-export const ReduceInputProps = (props: IIWInputProps | any): InputProps => {
+export const ReduceInputProps = <T = unknown, V = any>(props: IIWInputProps<T, V> | any): InputProps => {
 	const subset = {...props}
 	delete subset.plainText
 	delete subset.plainTextURL
@@ -38,7 +38,9 @@ export const ReduceInputProps = (props: IIWInputProps | any): InputProps => {
 	return subset
 }
 
-export const ReduceToInputAddProps = (props: IIWInputProps | any): IIWInputAddProps => {
+export const ReduceToInputAddProps = <T = unknown, V = any>(
+	props: IIWInputProps<T, V> | any
+): IIWInputAddProps<T, V> => {
 	return {
 		plainText: props.plainText,
 		plainTextURL: props.plainTextURL,
@@ -51,13 +53,13 @@ export const ReduceToInputAddProps = (props: IIWInputProps | any): IIWInputAddPr
 	}
 }
 
-export const HandleChangeValue = <T>(
+export const HandleChangeValue = <T, V>(
 	e: React.ChangeEvent<HTMLInputElement>,
-	changeValue?: TChangeValueFunction<T>,
+	changeValue?: TChangeValueFunction<T, V>,
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 ) => {
 	if (!!changeValue) {
-		changeValue(ElementCustomValue(e), e.target.name as any)
+		changeValue(ElementCustomValue(e) as V, e.target.name as any)
 	}
 
 	if (!!onChange) {

@@ -4,8 +4,8 @@ import {InputGroupWrapper} from './InputGroupWrapper'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 import {AppendPrependWrapper} from './AppendPrependWrapper'
 
-interface IProps<T = unknown> extends IIWInputAddProps<T> {
-	children: ReactElement<IIWInputProps<T>>
+interface IProps<T = unknown, V = any> extends IIWInputAddProps<T, V> {
+	children: ReactElement<IIWInputProps<T, V>>
 	className?: string
 	inputIsValid?: (value: any) => boolean
 	valueOnInvalid?: (value: any) => any
@@ -15,11 +15,11 @@ interface IProps<T = unknown> extends IIWInputAddProps<T> {
 	lateDelayMS?: number
 }
 
-export const InputWrapper = <T,>(props: IProps<T>) => {
+export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	const isMounted = useRef(false)
 	const lateTrigger = useRef(setTimeout(() => {}, 100))
 	const [lateValue, setLateValue] = useState<any>(props.children.props.value)
-	const [currentStringOverride, setCurrentStringOverride] = useState<any>(undefined)
+	const [currentStringOverride, setCurrentStringOverride] = useState<V | ''>('')
 
 	useEffect(() => {
 		isMounted.current = true
@@ -32,7 +32,7 @@ export const InputWrapper = <T,>(props: IProps<T>) => {
 	useEffect(() => setLateValue(props.children.props.value), [props.children.props.value])
 
 	useEffect(() => {
-		const newVal = !props.children.props.value ? '' : (props.children.props.value ?? '').toString()
+		const newVal = (!props.children.props.value ? '' : props.children.props.value ?? '') as V | ''
 		setCurrentStringOverride(newVal)
 	}, [props.children.props.value])
 
@@ -77,7 +77,7 @@ export const InputWrapper = <T,>(props: IProps<T>) => {
 
 								const isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value)
 								if (!isValid) {
-									setCurrentStringOverride(e.target.value ?? '')
+									setCurrentStringOverride((e.target.value ?? '') as V | '')
 								}
 
 								let customValue = !isValid
@@ -111,7 +111,7 @@ export const InputWrapper = <T,>(props: IProps<T>) => {
 								}
 							},
 							autoComplete: props.autoCompleteOn ? 'on' : `AC_${props.children.props.name ?? ''}_${RandomString(5)}`,
-							value: currentStringOverride
+							value: currentStringOverride ?? ''
 						})
 					)}
 				</InputGroupWrapper>

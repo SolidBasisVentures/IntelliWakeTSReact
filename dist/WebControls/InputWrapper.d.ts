@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 import { IIWInputAddProps, IIWInputProps } from './IWInputProps';
-interface IProps<T = unknown> extends IIWInputAddProps<T> {
-    children: ReactElement<IIWInputProps<T>>;
+interface IProps<T = unknown, V = any> extends IIWInputAddProps<T, V> {
+    children: ReactElement<IIWInputProps<T, V>>;
     className?: string;
     inputIsValid?: (value: any) => boolean;
     valueOnInvalid?: (value: any) => any;
@@ -10,5 +10,5 @@ interface IProps<T = unknown> extends IIWInputAddProps<T> {
     plainTextControl?: ReactNode;
     lateDelayMS?: number;
 }
-export declare const InputWrapper: <T>(props: IProps<T>) => JSX.Element;
+export declare const InputWrapper: <T, V>(props: IProps<T, V>) => JSX.Element;
 export {};

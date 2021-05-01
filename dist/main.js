@@ -1563,7 +1563,7 @@ var InputWrapper = function (props) {
     var isMounted = React.useRef(false);
     var lateTrigger = React.useRef(setTimeout(function () { }, 100));
     var _e = React.useState(props.children.props.value), lateValue = _e[0], setLateValue = _e[1];
-    var _f = React.useState(undefined), currentStringOverride = _f[0], setCurrentStringOverride = _f[1];
+    var _f = React.useState(''), currentStringOverride = _f[0], setCurrentStringOverride = _f[1];
     React.useEffect(function () {
         isMounted.current = true;
         return function () {
@@ -1573,7 +1573,7 @@ var InputWrapper = function (props) {
     React.useEffect(function () { return setLateValue(props.children.props.value); }, [props.children.props.value]);
     React.useEffect(function () {
         var _a;
-        var newVal = !props.children.props.value ? '' : ((_a = props.children.props.value) !== null && _a !== void 0 ? _a : '').toString();
+        var newVal = (!props.children.props.value ? '' : (_a = props.children.props.value) !== null && _a !== void 0 ? _a : '');
         setCurrentStringOverride(newVal);
     }, [props.children.props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
@@ -1601,7 +1601,7 @@ var InputWrapper = function (props) {
             clearTimeout(lateTrigger.current);
             var isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value);
             if (!isValid) {
-                setCurrentStringOverride((_a = e.target.value) !== null && _a !== void 0 ? _a : '');
+                setCurrentStringOverride(((_a = e.target.value) !== null && _a !== void 0 ? _a : ''));
             }
             var customValue = !isValid
                 ? !!props.children.props.valueOnInvalid
@@ -1631,7 +1631,7 @@ var InputWrapper = function (props) {
             }
         },
         autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_d = props.children.props.name) !== null && _d !== void 0 ? _d : '') + "_" + intelliwaketsfoundation.RandomString(5),
-        value: currentStringOverride
+        value: currentStringOverride !== null && currentStringOverride !== void 0 ? currentStringOverride : ''
     }))))));
 };
 
