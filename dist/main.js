@@ -1573,8 +1573,8 @@ var InputWrapper = function (props) {
     React.useEffect(function () { return setLateValue(props.children.props.value); }, [props.children.props.value]);
     React.useEffect(function () {
         var _a;
-        var newVal = (!props.children.props.value ? '' : (_a = props.children.props.value) !== null && _a !== void 0 ? _a : '');
-        setCurrentStringOverride(newVal);
+        var newVal = !props.children.props.value ? '' : (_a = props.children.props.value) !== null && _a !== void 0 ? _a : '';
+        setCurrentStringOverride(newVal.toString());
     }, [props.children.props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
         React__default['default'].createElement(AppendPrependWrapper, { append: props.append, prepend: props.prepend }, (_a = props.plainTextControl) !== null && _a !== void 0 ? _a : props.children.props.value))) : (React__default['default'].createElement(InputGroupWrapper, { append: props.append, prepend: props.prepend }, React__default['default'].cloneElement(props.children, ReduceInputProps({
@@ -1601,7 +1601,7 @@ var InputWrapper = function (props) {
             clearTimeout(lateTrigger.current);
             var isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value);
             if (!isValid) {
-                setCurrentStringOverride(((_a = e.target.value) !== null && _a !== void 0 ? _a : ''));
+                setCurrentStringOverride((_a = e.target.value) !== null && _a !== void 0 ? _a : '');
             }
             var customValue = (!isValid
                 ? !!props.children.props.valueOnInvalid

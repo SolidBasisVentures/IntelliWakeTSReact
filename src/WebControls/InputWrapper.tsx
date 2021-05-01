@@ -19,7 +19,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	const isMounted = useRef(false)
 	const lateTrigger = useRef(setTimeout(() => {}, 100))
 	const [lateValue, setLateValue] = useState<V>((props.children.props.value as unknown) as V)
-	const [currentStringOverride, setCurrentStringOverride] = useState<V | ''>('')
+	const [currentStringOverride, setCurrentStringOverride] = useState<string>('')
 
 	useEffect(() => {
 		isMounted.current = true
@@ -32,8 +32,8 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	useEffect(() => setLateValue((props.children.props.value as unknown) as V), [props.children.props.value])
 
 	useEffect(() => {
-		const newVal = (!props.children.props.value ? '' : props.children.props.value ?? '') as V | ''
-		setCurrentStringOverride(newVal)
+		const newVal = !props.children.props.value ? '' : props.children.props.value ?? ''
+		setCurrentStringOverride(newVal.toString())
 	}, [props.children.props.value])
 
 	return (
@@ -77,7 +77,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 
 								const isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value)
 								if (!isValid) {
-									setCurrentStringOverride((e.target.value ?? '') as V | '')
+									setCurrentStringOverride(e.target.value ?? '')
 								}
 
 								let customValue = (!isValid
