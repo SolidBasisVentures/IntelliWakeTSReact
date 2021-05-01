@@ -1676,7 +1676,7 @@ function InputNumber(props) {
                 'inputNumber form-control': true,
                 numerics: hasDecimals,
                 integers: !hasDecimals
-            }), inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown })));
+            }), htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown })));
 }
 
 function InputPassword(props) {

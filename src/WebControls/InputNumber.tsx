@@ -7,6 +7,7 @@ import {ClassNames} from '../Functions'
 import {InputWrapper} from './InputWrapper'
 
 export interface IPropsInputNumber<T = unknown> extends IIWInputProps<T> {
+	htmlRef?: (ref: any) => void
 	decimalScale?: number | null
 	integerScale?: number | null
 	allowNegative?: boolean
@@ -66,6 +67,7 @@ export function InputNumber<T>(props: IPropsInputNumber<T>) {
 					numerics: hasDecimals,
 					integers: !hasDecimals
 				})}
+				htmlRef={props.htmlRef}
 				inputMode={hasDecimals ? 'decimal' : 'numeric'}
 				onKeyDown={handleKeyDown}
 			/>
