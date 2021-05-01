@@ -2,7 +2,7 @@ import {InputProps} from 'reactstrap'
 import React, {ReactNode} from 'react'
 import {ElementCustomValue} from '../Functions'
 
-export type TChangeValueFunction<T = unknown, V = any> = (
+export type TChangeValueFunction<T = any, V = any> = (
 	value: V,
 	name?: T extends object ? keyof T : string,
 	shiftKey?: boolean,
@@ -10,7 +10,7 @@ export type TChangeValueFunction<T = unknown, V = any> = (
 	altKey?: boolean
 ) => void
 
-export interface IIWInputAddProps<T = unknown, V = any> {
+export interface IIWInputAddProps<T = any, V = any> {
 	plainText?: boolean
 	plainTextURL?: string
 	plainTextProps?: any
@@ -21,9 +21,9 @@ export interface IIWInputAddProps<T = unknown, V = any> {
 	append?: ReactNode
 }
 
-export interface IIWInputProps<T = unknown, V = any> extends InputProps, IIWInputAddProps<T, V> {}
+export interface IIWInputProps<T = any, V = any> extends InputProps, IIWInputAddProps<T, V> {}
 
-export const ReduceInputProps = <T = unknown, V = any>(props: IIWInputProps<T, V> | any): InputProps => {
+export const ReduceInputProps = <T = any, V = any>(props: IIWInputProps<T, V> | any): InputProps => {
 	const subset = {...props}
 	delete subset.plainText
 	delete subset.plainTextURL
@@ -38,9 +38,7 @@ export const ReduceInputProps = <T = unknown, V = any>(props: IIWInputProps<T, V
 	return subset
 }
 
-export const ReduceToInputAddProps = <T = unknown, V = any>(
-	props: IIWInputProps<T, V> | any
-): IIWInputAddProps<T, V> => {
+export const ReduceToInputAddProps = <T = any, V = any>(props: IIWInputProps<T, V> | any): IIWInputAddProps<T, V> => {
 	return {
 		plainText: props.plainText,
 		plainTextURL: props.plainTextURL,
@@ -53,7 +51,7 @@ export const ReduceToInputAddProps = <T = unknown, V = any>(
 	}
 }
 
-export const HandleChangeValue = <T, V>(
+export const HandleChangeValue = <T = any, V = any>(
 	e: React.ChangeEvent<HTMLInputElement>,
 	changeValue?: TChangeValueFunction<T, V>,
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
