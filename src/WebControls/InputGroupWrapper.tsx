@@ -7,7 +7,7 @@ export interface IProps {
 	append?: ReactNode
 }
 
-export function InputGroupWrapper(props: IProps) {
+export const InputGroupWrapper = (props: IProps) => {
 	return (
 		<>
 			{!!props.prepend || !!props.append ? (

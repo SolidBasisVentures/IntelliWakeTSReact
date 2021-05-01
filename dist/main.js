@@ -1363,8 +1363,24 @@ var ReduceInputProps = function (props) {
     delete subset.plainTextURL;
     delete subset.plainTextProps;
     delete subset.changeValue;
-    delete subset.onChange;
+    delete subset.changeValueLate;
+    delete subset.autoCompleteOn;
+    delete subset.append;
+    delete subset.prepend;
+    // delete subset.onChange
     return subset;
+};
+var ReduceToInputAddProps = function (props) {
+    return {
+        plainText: props.plainText,
+        plainTextURL: props.plainTextURL,
+        plainTextProps: props.plainTextProps,
+        changeValue: props.changeValue,
+        changeValueLate: props.changeValueLate,
+        autoCompleteOn: props.autoCompleteOn,
+        prepend: props.prepend,
+        append: props.append
+    };
 };
 var HandleChangeValue = function (e, changeValue, onChange) {
     if (!!changeValue) {
@@ -1524,20 +1540,103 @@ function InputGender(props) {
             React__default['default'].createElement("option", { value: "Female" }, "Female"))))));
 }
 
-function InputGroupWrapper(props) {
+var InputGroupWrapper = function (props) {
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.prepend || !!props.append ? (React__default['default'].createElement(reactstrap.InputGroup, null,
         !!props.prepend && (React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "prepend" },
             React__default['default'].createElement(reactstrap.InputGroupText, null, props.prepend))),
         props.children,
         !!props.append && (React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "append" },
             React__default['default'].createElement(reactstrap.InputGroupText, null, props.append))))) : (React__default['default'].createElement(React__default['default'].Fragment, null, props.children))));
-}
+};
+
+var AppendPrependWrapper = function (props) {
+    if (!props.children)
+        return null;
+    return (React__default['default'].createElement(React__default['default'].Fragment, null,
+        !!props.prepend && props.prepend,
+        props.children,
+        !!props.append && props.append));
+};
+
+var InputWrapper = function (props) {
+    var _a, _b, _c, _d;
+    var isMounted = React.useRef(false);
+    var lateTrigger = React.useRef(setTimeout(function () { }, 100));
+    var _e = React.useState(props.children.props.value), lateValue = _e[0], setLateValue = _e[1];
+    var _f = React.useState(undefined), currentStringOverride = _f[0], setCurrentStringOverride = _f[1];
+    React.useEffect(function () {
+        isMounted.current = true;
+        return function () {
+            isMounted.current = false;
+        };
+    });
+    React.useEffect(function () { return setLateValue(props.children.props.value); }, [props.children.props.value]);
+    React.useEffect(function () {
+        var _a;
+        var newVal = !props.children.props.value ? '' : ((_a = props.children.props.value) !== null && _a !== void 0 ? _a : '').toString();
+        setCurrentStringOverride(newVal);
+    }, [props.children.props.value]);
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
+        React__default['default'].createElement(AppendPrependWrapper, { append: props.append, prepend: props.prepend }, (_a = props.plainTextControl) !== null && _a !== void 0 ? _a : props.children.props.value))) : (React__default['default'].createElement(InputGroupWrapper, { append: props.append, prepend: props.prepend }, React__default['default'].cloneElement(props.children, ReduceInputProps({
+        className: (((_b = props.children.props.className) !== null && _b !== void 0 ? _b : '') +
+            ' ' +
+            ((_c = props.className) !== null && _c !== void 0 ? _c : '') +
+            (props.children.props.invalid ? ' is_invalid' : '')).trim(),
+        onFocus: function (e) {
+            if (!props.doNotSelectOnFocus && !!e.target.select)
+                e.target.select();
+            if (props.children.props.onFocus)
+                props.children.props.onFocus(e);
+        },
+        onBlur: function (e) {
+            if (!!props.changeValueLate && lateValue !== props.children.props.value) {
+                clearTimeout(lateTrigger.current);
+                props.changeValueLate(lateValue, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
+            }
+            if (props.children.props.onBlur)
+                props.children.props.onBlur(e);
+        },
+        onChange: function (e) {
+            var _a, _b;
+            clearTimeout(lateTrigger.current);
+            var isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value);
+            if (!isValid) {
+                setCurrentStringOverride((_a = e.target.value) !== null && _a !== void 0 ? _a : '');
+            }
+            var customValue = !isValid
+                ? !!props.children.props.valueOnInvalid
+                    ? props.children.props.valueOnInvalid(e.target.value)
+                    : ''
+                : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value));
+            e.target.customValue = customValue;
+            var name = e.target.name;
+            var shiftKey = e.nativeEvent.shiftKey;
+            var ctrlKey = e.nativeEvent.ctrlKey;
+            var altKey = e.nativeEvent.altKey;
+            if (!!props.children.props.onChange) {
+                props.children.props.onChange(e);
+            }
+            if (!!props.changeValue) {
+                props.changeValue(customValue, name, shiftKey, ctrlKey, altKey);
+            }
+            if (!!props.changeValueLate) {
+                lateTrigger.current = setTimeout(function () {
+                    if (!!props.changeValueLate && isMounted.current) {
+                        props.changeValueLate(customValue, name, shiftKey, ctrlKey, altKey);
+                    }
+                }, (_b = props.lateDelayMS) !== null && _b !== void 0 ? _b : 500);
+            }
+            if (isValid) {
+                setLateValue(customValue);
+            }
+        },
+        autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_d = props.children.props.name) !== null && _d !== void 0 ? _d : '') + "_" + intelliwaketsfoundation.RandomString(5),
+        value: currentStringOverride
+    }))))));
+};
 
 function InputNumber(props) {
-    var _a, _b, _c, _d, _e;
-    var _f = React.useState(undefined), currentStringOverride = _f[0], setCurrentStringOverride = _f[1];
-    var _g = React.useState(props.value), lateValue = _g[0], setLateValue = _g[1];
-    React.useEffect(function () { return setLateValue(props.value); }, [props.value]);
+    var _a, _b;
     var handleKeyDown = function (e) {
         if (e.key === '-') {
             if (!(props.lowerBound !== undefined && props.lowerBound < 0)) {
@@ -1552,38 +1651,6 @@ function InputNumber(props) {
         if (!!props.onKeyDown)
             props.onKeyDown(e);
     };
-    var handleInputChange = function (e) {
-        var _a, _b;
-        var cleanNumber = intelliwaketsfoundation.CleanNumber((_a = e.target.value) !== null && _a !== void 0 ? _a : '');
-        if (isNaN(cleanNumber)) {
-            setCurrentStringOverride((_b = e.target.value) !== null && _b !== void 0 ? _b : '');
-            e.target.customValue = 0;
-            if (!!props.onChange) {
-                props.onChange(e);
-            }
-            if (!!props.changeValue) {
-                props.changeValue(e.target.customValue, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
-            }
-        }
-        else {
-            if (props.lowerBound !== undefined && cleanNumber < props.lowerBound)
-                cleanNumber = props.lowerBound;
-            if (props.upperBound !== undefined && cleanNumber > props.upperBound)
-                cleanNumber = props.upperBound;
-            e.target.customValue = cleanNumber;
-            if (!!props.onChange) {
-                props.onChange(e);
-            }
-            if (!!props.changeValue) {
-                props.changeValue(e.target.customValue, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
-            }
-            setLateValue(e.target.customValue);
-            // setCurrentStringOverride(undefined)
-        }
-    };
-    var handleFocus = function (e) {
-        e.target.select();
-    };
     var options = {
         numeral: true,
         numeralThousandsGroupStyle: 'thousand'
@@ -1597,34 +1664,19 @@ function InputNumber(props) {
         options.numeralDecimalScale = props.decimalScale === undefined ? 2 : (_a = props.decimalScale) !== null && _a !== void 0 ? _a : undefined;
     }
     var hasDecimals = ((_b = props.decimalScale) !== null && _b !== void 0 ? _b : 0) > 0;
-    React.useEffect(function () {
-        var _a;
-        var newVal = !props.value ? '' : ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString();
-        setCurrentStringOverride(newVal);
-    }, [props.value]);
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps), props.value !== null && !!props.currency ? (React__default['default'].createElement(React__default['default'].Fragment, null,
-        props.prepend,
-        " ",
-        intelliwaketsfoundation.ToCurrency(props.value, (_c = props.decimalScale) !== null && _c !== void 0 ? _c : 0),
-        " ",
-        props.append)) : (React__default['default'].createElement(React__default['default'].Fragment, null,
-        props.prepend,
-        " ",
-        intelliwaketsfoundation.ToDigits(props.value, (_d = props.decimalScale) !== null && _d !== void 0 ? _d : 0),
-        " ",
-        props.append)))) : (React__default['default'].createElement(InputGroupWrapper, { prepend: props.prepend, append: props.append },
+    return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { inputIsValid: function (val) { return !isNaN(intelliwaketsfoundation.CleanNumber(val)); }, valueOnInvalid: function () { return 0; }, transformToValid: function (val) {
+            var cleanNumber = intelliwaketsfoundation.CleanNumber(val);
+            if (props.lowerBound !== undefined && cleanNumber < props.lowerBound)
+                return props.lowerBound;
+            if (props.upperBound !== undefined && cleanNumber > props.upperBound)
+                return props.upperBound;
+            return cleanNumber;
+        } }),
         React__default['default'].createElement(Cleave__default['default'], { options: options, className: ClassNames({
                 'inputNumber form-control': true,
                 numerics: hasDecimals,
-                integers: !hasDecimals,
-                is_invalid: !!props.invalid
-            }), name: props.name, inputMode: hasDecimals ? 'decimal' : 'numeric', value: currentStringOverride, onChange: handleInputChange, onBlur: function (e) {
-                if (!!props.onBlur)
-                    props.onBlur(e);
-                if (!!props.changeValueLate && lateValue !== props.value) {
-                    props.changeValueLate(lateValue, props.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
-                }
-            }, htmlRef: props.htmlRef, onKeyDown: handleKeyDown, onFocus: handleFocus, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_e = props.name) !== null && _e !== void 0 ? _e : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: props.placeholder, required: props.required, autoFocus: props.autoFocus, style: props.style, id: props.id })))));
+                integers: !hasDecimals
+            }), inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown })));
 }
 
 function InputPassword(props) {
@@ -2777,6 +2829,7 @@ exports.InputTextArea = InputTextArea;
 exports.InputTime = InputTime;
 exports.InputTimeZone = InputTimeZone;
 exports.InputUrl = InputUrl;
+exports.InputWrapper = InputWrapper;
 exports.InputZip = InputZip;
 exports.IsColumnEmpty = IsColumnEmpty;
 exports.IsDevFocused = IsDevFocused;
@@ -2809,6 +2862,7 @@ exports.OptionsActive = OptionsActive;
 exports.OptionsActiveAll = OptionsActiveAll;
 exports.PhotoFileToData = PhotoFileToData;
 exports.ReduceInputProps = ReduceInputProps;
+exports.ReduceToInputAddProps = ReduceToInputAddProps;
 exports.RemoveActivityOverlay = RemoveActivityOverlay;
 exports.ResizeBase64 = ResizeBase64;
 exports.ScreenFormatValue = ScreenFormatValue;

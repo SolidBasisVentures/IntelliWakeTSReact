@@ -4,4 +4,4 @@ export interface IProps {
     prepend?: ReactNode;
     append?: ReactNode;
 }
-export declare const InputGroupWrapper: (props: IProps) => JSX.Element;
+export declare const AppendPrependWrapper: (props: IProps) => JSX.Element | null;
