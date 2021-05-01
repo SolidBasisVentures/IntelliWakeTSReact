@@ -1358,7 +1358,7 @@ function InputCheckBox(props) {
 }
 
 var ReduceInputProps = function (props) {
-    var subset = __assign({}, props);
+    var subset = __assign(__assign({}, props), { value: props.value });
     delete subset.plainText;
     delete subset.plainTextURL;
     delete subset.plainTextProps;
@@ -1631,7 +1631,7 @@ var InputWrapper = function (props) {
             }
         },
         autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_d = props.children.props.name) !== null && _d !== void 0 ? _d : '') + "_" + intelliwaketsfoundation.RandomString(5),
-        value: currentStringOverride !== null && currentStringOverride !== void 0 ? currentStringOverride : ''
+        value: (currentStringOverride !== null && currentStringOverride !== void 0 ? currentStringOverride : '')
     }))))));
 };
 

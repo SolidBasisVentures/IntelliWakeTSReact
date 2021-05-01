@@ -11,7 +11,8 @@ export interface IIWInputAddProps<T = any, V = any> {
     prepend?: ReactNode;
     append?: ReactNode;
 }
-export interface IIWInputProps<T = any, V = any> extends InputProps, IIWInputAddProps<T, V> {
+export interface IIWInputProps<T = any, V = any> extends Omit<InputProps, 'value'>, IIWInputAddProps<T, V> {
+    value: V;
 }
 export declare const ReduceInputProps: <T = any, V = any>(props: any) => InputProps;
 export declare const ReduceToInputAddProps: <T = any, V = any>(props: any) => IIWInputAddProps<T, V>;

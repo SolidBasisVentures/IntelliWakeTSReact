@@ -33,7 +33,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 
 	useEffect(() => {
 		const newVal = !props.children.props.value ? '' : props.children.props.value ?? ''
-		setCurrentStringOverride(newVal.toString())
+		setCurrentStringOverride((newVal as any).toString())
 	}, [props.children.props.value])
 
 	return (
@@ -46,7 +46,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 				</div>
 			) : (
 				<InputGroupWrapper append={props.append} prepend={props.prepend}>
-					{React.cloneElement(
+					{React.cloneElement<any>(
 						props.children,
 						ReduceInputProps({
 							className: (
@@ -111,7 +111,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 								}
 							},
 							autoComplete: props.autoCompleteOn ? 'on' : `AC_${props.children.props.name ?? ''}_${RandomString(5)}`,
-							value: currentStringOverride ?? ''
+							value: (currentStringOverride ?? '') as any
 						})
 					)}
 				</InputGroupWrapper>

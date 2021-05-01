@@ -21,10 +21,12 @@ export interface IIWInputAddProps<T = any, V = any> {
 	append?: ReactNode
 }
 
-export interface IIWInputProps<T = any, V = any> extends InputProps, IIWInputAddProps<T, V> {}
+export interface IIWInputProps<T = any, V = any> extends Omit<InputProps, 'value'>, IIWInputAddProps<T, V> {
+	value: V
+}
 
 export const ReduceInputProps = <T = any, V = any>(props: IIWInputProps<T, V> | any): InputProps => {
-	const subset = {...props}
+	const subset = {...props, value: props.value as any}
 	delete subset.plainText
 	delete subset.plainTextURL
 	delete subset.plainTextProps
