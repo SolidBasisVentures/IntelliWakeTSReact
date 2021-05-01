@@ -1,6 +1,5 @@
 import { IIWInputProps } from './IWInputProps';
-export interface IPropsInputNumber<T = unknown> extends Omit<IIWInputProps<T>, 'value'> {
-    value: number | null;
+export interface IPropsInputNumber<T = unknown> extends IIWInputProps<T> {
     decimalScale?: number | null;
     integerScale?: number | null;
     allowNegative?: boolean;
