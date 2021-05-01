@@ -6,7 +6,7 @@ import {CleaveOptions} from 'cleave.js/options'
 import {ClassNames} from '../Functions'
 import {InputWrapper} from './InputWrapper'
 
-export interface IPropsInputNumber<T = any, V = number | null> extends IIWInputProps<T, V> {
+export interface IPropsInputNumber<T = any, V = any> extends IIWInputProps<T, V> {
 	htmlRef?: (ref: any) => void
 	decimalScale?: number | null
 	integerScale?: number | null
@@ -18,7 +18,7 @@ export interface IPropsInputNumber<T = any, V = number | null> extends IIWInputP
 	hideZero?: boolean
 }
 
-export function InputNumber<T = any, V = number | null>(props: IPropsInputNumber<T, V>) {
+export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === '-') {
 			if (!(props.lowerBound !== undefined && props.lowerBound < 0)) {
