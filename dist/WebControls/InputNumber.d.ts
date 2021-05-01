@@ -1,6 +1,5 @@
 import { IIWInputProps } from './IWInputProps';
-export interface IPropsInputNumber<T = unknown> extends Omit<IIWInputProps<T>, 'value'> {
-    value: number | null;
+export interface IPropsInputNumber<T = unknown, V = number | null> extends IIWInputProps<T, V> {
     htmlRef?: (ref: any) => void;
     decimalScale?: number | null;
     integerScale?: number | null;
@@ -11,4 +10,4 @@ export interface IPropsInputNumber<T = unknown> extends Omit<IIWInputProps<T>, '
     required?: boolean;
     hideZero?: boolean;
 }
-export declare function InputNumber<T>(props: IPropsInputNumber<T>): JSX.Element;
+export declare function InputNumber<T, V>(props: IPropsInputNumber<T, V>): JSX.Element;
