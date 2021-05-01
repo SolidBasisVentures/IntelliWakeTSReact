@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react';
 import { IIWInputAddProps, IIWInputProps } from './IWInputProps';
-interface IProps<T> extends IIWInputAddProps<T> {
+interface IProps<T = unknown> extends IIWInputAddProps<T> {
     children: ReactElement<IIWInputProps<T>>;
     className?: string;
     inputIsValid?: (value: any) => boolean;

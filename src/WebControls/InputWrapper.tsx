@@ -4,7 +4,7 @@ import {InputGroupWrapper} from './InputGroupWrapper'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 import {AppendPrependWrapper} from './AppendPrependWrapper'
 
-interface IProps<T> extends IIWInputAddProps<T> {
+interface IProps<T = unknown> extends IIWInputAddProps<T> {
 	children: ReactElement<IIWInputProps<T>>
 	className?: string
 	inputIsValid?: (value: any) => boolean
