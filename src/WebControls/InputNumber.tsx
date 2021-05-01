@@ -50,7 +50,7 @@ export function InputNumber<T, V>(props: IPropsInputNumber<T, V>) {
 	const hasDecimals = (props.decimalScale ?? 0) > 0
 
 	return (
-		<InputWrapper
+		<InputWrapper<T, V>
 			{...ReduceToInputAddProps(props)}
 			inputIsValid={(val) => !isNaN(CleanNumber(val))}
 			valueOnInvalid={() => 0}

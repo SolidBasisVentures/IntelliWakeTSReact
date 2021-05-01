@@ -18,7 +18,7 @@ interface IProps<T = unknown, V = any> extends IIWInputAddProps<T, V> {
 export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	const isMounted = useRef(false)
 	const lateTrigger = useRef(setTimeout(() => {}, 100))
-	const [lateValue, setLateValue] = useState<any>(props.children.props.value)
+	const [lateValue, setLateValue] = useState<V>((props.children.props.value as unknown) as V)
 	const [currentStringOverride, setCurrentStringOverride] = useState<V | ''>('')
 
 	useEffect(() => {
@@ -29,7 +29,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 		}
 	})
 
-	useEffect(() => setLateValue(props.children.props.value), [props.children.props.value])
+	useEffect(() => setLateValue((props.children.props.value as unknown) as V), [props.children.props.value])
 
 	useEffect(() => {
 		const newVal = (!props.children.props.value ? '' : props.children.props.value ?? '') as V | ''
@@ -60,7 +60,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 								if (props.children.props.onFocus) props.children.props.onFocus(e)
 							},
 							onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
-								if (!!props.changeValueLate && lateValue !== props.children.props.value) {
+								if (!!props.changeValueLate && lateValue !== ((props.children.props.value as unknown) as V)) {
 									clearTimeout(lateTrigger.current)
 									props.changeValueLate(
 										lateValue,
@@ -80,11 +80,11 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 									setCurrentStringOverride((e.target.value ?? '') as V | '')
 								}
 
-								let customValue = !isValid
+								let customValue = (!isValid
 									? !!props.children.props.valueOnInvalid
 										? props.children.props.valueOnInvalid(e.target.value)
 										: ''
-									: ((!props.transformToValid ? e.target.value : props.transformToValid(e.target.value)) as any)
+									: ((!props.transformToValid ? e.target.value : props.transformToValid(e.target.value)) as any)) as V
 
 								;(e.target as any).customValue = customValue
 

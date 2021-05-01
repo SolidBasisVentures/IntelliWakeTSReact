@@ -1603,11 +1603,11 @@ var InputWrapper = function (props) {
             if (!isValid) {
                 setCurrentStringOverride(((_a = e.target.value) !== null && _a !== void 0 ? _a : ''));
             }
-            var customValue = !isValid
+            var customValue = (!isValid
                 ? !!props.children.props.valueOnInvalid
                     ? props.children.props.valueOnInvalid(e.target.value)
                     : ''
-                : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value));
+                : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value)));
             e.target.customValue = customValue;
             var name = e.target.name;
             var shiftKey = e.nativeEvent.shiftKey;
