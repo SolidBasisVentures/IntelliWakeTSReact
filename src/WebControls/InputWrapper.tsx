@@ -65,6 +65,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 									lateValue.current !== undefined &&
 									lateValue.current !== ((props.children.props.value as unknown) as V)
 								) {
+									console.log('ChangeLate', 'Blur')
 									props.changeValueLate(
 										lateValue.current,
 										e.target.name as any,
@@ -72,6 +73,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 										(e.nativeEvent as any).ctrlKey,
 										(e.nativeEvent as any).altKey
 									)
+									lateValue.current = undefined
 								}
 								if (props.children.props.onBlur) props.children.props.onBlur(e)
 							},
@@ -108,7 +110,9 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 									}
 									lateTrigger.current = setTimeout(() => {
 										if (!!props.changeValueLate && isMounted.current && lateValue.current !== undefined) {
+											console.log('ChangeLate', 'Timeout')
 											props.changeValueLate(lateValue.current, name, shiftKey, ctrlKey, altKey)
+											lateValue.current = undefined
 										}
 									}, props.lateDelayMS ?? 500)
 								}

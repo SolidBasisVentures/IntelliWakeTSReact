@@ -1593,7 +1593,9 @@ var InputWrapper = function (props) {
             if (!!props.changeValueLate &&
                 lateValue.current !== undefined &&
                 lateValue.current !== props.children.props.value) {
+                console.log('ChangeLate', 'Blur');
                 props.changeValueLate(lateValue.current, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
+                lateValue.current = undefined;
             }
             if (props.children.props.onBlur)
                 props.children.props.onBlur(e);
@@ -1627,7 +1629,9 @@ var InputWrapper = function (props) {
                 }
                 lateTrigger.current = setTimeout(function () {
                     if (!!props.changeValueLate && isMounted.current && lateValue.current !== undefined) {
+                        console.log('ChangeLate', 'Timeout');
                         props.changeValueLate(lateValue.current, name, shiftKey, ctrlKey, altKey);
+                        lateValue.current = undefined;
                     }
                 }, (_b = props.lateDelayMS) !== null && _b !== void 0 ? _b : 500);
             }
