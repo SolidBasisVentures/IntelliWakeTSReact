@@ -20,6 +20,7 @@ interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	const isMounted = useRef(false)
 	const lateTrigger = useRef(setTimeout(() => {}, 100))
+
 	interface IState {
 		name?: T extends object ? keyof T : string
 		value: V
@@ -33,6 +34,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	const [internalState, setInternalState] = useState<InputProps['value'] | undefined>(
 		props.children.props.value as InputProps['value'] | undefined
 	)
+	const isManagingDirtyState = useRef(false)
 
 	useEffect(() => {
 		isMounted.current = true
@@ -44,7 +46,9 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 
 	useEffect(() => {
 		lateState.current = undefined
-		setInternalState(props.children.props.value as any)
+		if (!isManagingDirtyState.current && internalState !== props.children.props.value) {
+			setInternalState(props.children.props.value as any)
+		}
 	}, [props.children.props.value])
 
 	return (
@@ -112,6 +116,8 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 									const isValid =
 										!props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value)
 
+									isManagingDirtyState.current = isValid
+
 									let customValue = (!isValid
 										? !!props.children.props.valueOnInvalid
 											? props.children.props.valueOnInvalid(e.target.value)
@@ -161,9 +167,12 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 												lateState.current = undefined
 											}
 										}, props.lateDelayMS ?? 500)
+										if (!props.children.props.onChange && !props.changeValue && !props.changeValueLate) {
+											setInternalState(e.target.value)
+										}
+									} else {
+										setInternalState(e.target.value)
 									}
-
-									setInternalState(e.target.value)
 								}
 							},
 							autoComplete: props.autoCompleteOn ? 'on' : `AC_${props.children.props.name ?? ''}_${RandomString(5)}`,

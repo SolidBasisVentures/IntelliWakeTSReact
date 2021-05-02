@@ -1505,6 +1505,7 @@ var InputWrapper = function (props) {
     var lateTrigger = React.useRef(setTimeout(function () { }, 100));
     var lateState = React.useRef(undefined);
     var _f = React.useState(props.children.props.value), internalState = _f[0], setInternalState = _f[1];
+    var isManagingDirtyState = React.useRef(false);
     React.useEffect(function () {
         isMounted.current = true;
         return function () {
@@ -1513,7 +1514,9 @@ var InputWrapper = function (props) {
     });
     React.useEffect(function () {
         lateState.current = undefined;
-        setInternalState(props.children.props.value);
+        if (!isManagingDirtyState.current && internalState !== props.children.props.value) {
+            setInternalState(props.children.props.value);
+        }
     }, [props.children.props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
         React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
@@ -1545,6 +1548,7 @@ var InputWrapper = function (props) {
             clearTimeout(lateTrigger.current);
             if (!props.children.props.plainText && !props.children.props.disabled) {
                 var isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value);
+                isManagingDirtyState.current = isValid;
                 var customValue = (!isValid
                     ? !!props.children.props.valueOnInvalid
                         ? props.children.props.valueOnInvalid(e.target.value)
@@ -1577,8 +1581,13 @@ var InputWrapper = function (props) {
                             lateState.current = undefined;
                         }
                     }, (_a = props.lateDelayMS) !== null && _a !== void 0 ? _a : 500);
+                    if (!props.children.props.onChange && !props.changeValue && !props.changeValueLate) {
+                        setInternalState(e.target.value);
+                    }
                 }
-                setInternalState(e.target.value);
+                else {
+                    setInternalState(e.target.value);
+                }
             }
         }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_e = props.children.props.name) !== null && _e !== void 0 ? _e : '') + "_" + intelliwaketsfoundation.RandomString(5), value: internalState })))))));
 };
