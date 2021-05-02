@@ -59,14 +59,14 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 				if (props.lowerBound !== undefined && cleanNumber < props.lowerBound) return props.lowerBound
 				if (props.upperBound !== undefined && cleanNumber > props.upperBound) return props.upperBound
 				return cleanNumber
-			}}>
+			}}
+			className={ClassNames({
+				'inputNumber form-control': true,
+				numerics: hasDecimals,
+				integers: !hasDecimals
+			})}>
 			<Cleave
 				options={options}
-				className={ClassNames({
-					'inputNumber form-control': true,
-					numerics: hasDecimals,
-					integers: !hasDecimals
-				})}
 				htmlRef={props.htmlRef}
 				inputMode={hasDecimals ? 'decimal' : 'numeric'}
 				onKeyDown={handleKeyDown}

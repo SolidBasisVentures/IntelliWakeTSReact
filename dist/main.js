@@ -1504,7 +1504,7 @@ var InputWrapper = function (props) {
     var isMounted = React.useRef(false);
     var lateTrigger = React.useRef(setTimeout(function () { }, 100));
     var lateState = React.useRef(undefined);
-    var _f = React.useState(props.children.props.value), internalState = _f[0], setInternalState = _f[1];
+    var _f = React.useState(undefined), internalState = _f[0], setInternalState = _f[1];
     var isManagingDirtyState = React.useRef(false);
     React.useEffect(function () {
         isMounted.current = true;
@@ -1693,12 +1693,12 @@ function InputNumber(props) {
             if (props.upperBound !== undefined && cleanNumber > props.upperBound)
                 return props.upperBound;
             return cleanNumber;
-        } }),
-        React__default['default'].createElement(Cleave__default['default'], { options: options, className: ClassNames({
-                'inputNumber form-control': true,
-                numerics: hasDecimals,
-                integers: !hasDecimals
-            }), htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown })));
+        }, className: ClassNames({
+            'inputNumber form-control': true,
+            numerics: hasDecimals,
+            integers: !hasDecimals
+        }) }),
+        React__default['default'].createElement(Cleave__default['default'], { options: options, htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown })));
 }
 
 function InputPassword(props) {

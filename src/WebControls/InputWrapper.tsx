@@ -31,9 +31,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 
 	const lateState = useRef<IState | undefined>(undefined)
 
-	const [internalState, setInternalState] = useState<InputProps['value'] | undefined>(
-		props.children.props.value as InputProps['value'] | undefined
-	)
+	const [internalState, setInternalState] = useState<InputProps['value'] | undefined>(undefined)
 	const isManagingDirtyState = useRef(false)
 
 	useEffect(() => {
