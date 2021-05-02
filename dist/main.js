@@ -1518,18 +1518,15 @@ var InputWrapper = function (props) {
         setCurrentStringOverride(newVal.toString());
     }, [props.children.props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
-        React__default['default'].createElement(AppendPrependWrapper, { append: props.append, prepend: props.prepend }, (_a = props.plainTextControl) !== null && _a !== void 0 ? _a : props.children.props.value))) : (React__default['default'].createElement(InputGroupWrapper, { append: props.append, prepend: props.prepend }, React__default['default'].cloneElement(props.children, ReduceInputProps({
-        className: (((_b = props.children.props.className) !== null && _b !== void 0 ? _b : '') +
+        React__default['default'].createElement(AppendPrependWrapper, { append: props.append, prepend: props.prepend }, (_a = props.plainTextControl) !== null && _a !== void 0 ? _a : props.children.props.value))) : (React__default['default'].createElement(InputGroupWrapper, { append: props.append, prepend: props.prepend }, React__default['default'].cloneElement(props.children, ReduceInputProps(__assign(__assign({}, props.children.props), { className: (((_b = props.children.props.className) !== null && _b !== void 0 ? _b : '') +
             ' ' +
             ((_c = props.className) !== null && _c !== void 0 ? _c : '') +
-            (props.children.props.invalid ? ' is_invalid' : '')).trim(),
-        onFocus: function (e) {
+            (props.children.props.invalid ? ' is_invalid' : '')).trim(), onFocus: function (e) {
             if (!props.doNotSelectOnFocus && !!e.target.select)
                 e.target.select();
             if (props.children.props.onFocus)
                 props.children.props.onFocus(e);
-        },
-        onBlur: function (e) {
+        }, onBlur: function (e) {
             clearTimeout(lateTrigger.current);
             if (!!props.changeValueLate &&
                 lateValue.current !== undefined &&
@@ -1539,8 +1536,7 @@ var InputWrapper = function (props) {
             }
             if (props.children.props.onBlur)
                 props.children.props.onBlur(e);
-        },
-        onChange: function (e) {
+        }, onChange: function (e) {
             var _a, _b;
             clearTimeout(lateTrigger.current);
             var isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value);
@@ -1574,10 +1570,7 @@ var InputWrapper = function (props) {
                     }
                 }, (_b = props.lateDelayMS) !== null && _b !== void 0 ? _b : 500);
             }
-        },
-        autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_d = props.children.props.name) !== null && _d !== void 0 ? _d : '') + "_" + intelliwaketsfoundation.RandomString(5),
-        value: (currentStringOverride !== null && currentStringOverride !== void 0 ? currentStringOverride : '')
-    }))))));
+        }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_d = props.children.props.name) !== null && _d !== void 0 ? _d : '') + "_" + intelliwaketsfoundation.RandomString(5), value: (currentStringOverride !== null && currentStringOverride !== void 0 ? currentStringOverride : '') })))))));
 };
 
 function InputEmail(props) {

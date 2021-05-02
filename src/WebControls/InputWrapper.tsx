@@ -48,6 +48,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 					{React.cloneElement<any>(
 						props.children,
 						ReduceInputProps({
+							...props.children.props,
 							className: (
 								(props.children.props.className ?? '') +
 								' ' +

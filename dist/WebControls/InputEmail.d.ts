@@ -1,7 +1,7 @@
 import { IIWInputProps } from './IWInputProps';
-interface IProps<T = unknown> extends IIWInputProps<T> {
+interface IProps<T = any, V = any> extends IIWInputProps<T, V> {
     autoCompleteOn?: boolean;
     plainTextLabel?: string | null;
 }
-export declare function InputEmail<T>(props: IProps<T>): JSX.Element;
+export declare function InputEmail<T = any, V = any>(props: IProps<T, V>): JSX.Element;
 export {};
