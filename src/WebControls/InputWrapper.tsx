@@ -15,6 +15,7 @@ interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 	doNotSelectOnFocus?: boolean
 	plainTextControl?: ReactNode
 	lateDelayMS?: number
+	consoleVerbose?: boolean
 }
 
 export const InputWrapper = <T, V>(props: IProps<T, V>) => {
@@ -31,8 +32,14 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 
 	const lateState = useRef<IState | undefined>(undefined)
 
-	const [internalState, setInternalState] = useState<InputProps['value'] | undefined>(undefined)
+	const [internalState, setInternalState] = useState<InputProps['value'] | undefined>(
+		props.children.props.value as InputProps['value'] | undefined
+	)
 	const isManagingDirtyState = useRef(false)
+
+	if (props.consoleVerbose) {
+		console.log('IntState', props.children.props.name, ' = ', internalState)
+	}
 
 	useEffect(() => {
 		isMounted.current = true

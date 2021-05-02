@@ -9,6 +9,7 @@ interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
     doNotSelectOnFocus?: boolean;
     plainTextControl?: ReactNode;
     lateDelayMS?: number;
+    consoleVerbose?: boolean;
 }
 export declare const InputWrapper: <T, V>(props: IProps<T, V>) => JSX.Element;
 export {};

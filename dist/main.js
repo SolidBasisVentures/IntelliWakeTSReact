@@ -1504,8 +1504,11 @@ var InputWrapper = function (props) {
     var isMounted = React.useRef(false);
     var lateTrigger = React.useRef(setTimeout(function () { }, 100));
     var lateState = React.useRef(undefined);
-    var _f = React.useState(undefined), internalState = _f[0], setInternalState = _f[1];
+    var _f = React.useState(props.children.props.value), internalState = _f[0], setInternalState = _f[1];
     var isManagingDirtyState = React.useRef(false);
+    if (props.consoleVerbose) {
+        console.log('IntState', props.children.props.name, ' = ', internalState);
+    }
     React.useEffect(function () {
         isMounted.current = true;
         return function () {
@@ -1697,7 +1700,7 @@ function InputNumber(props) {
             'inputNumber form-control': true,
             numerics: hasDecimals,
             integers: !hasDecimals
-        }) }),
+        }), consoleVerbose: true }),
         React__default['default'].createElement(Cleave__default['default'], { options: options, htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown })));
 }
 

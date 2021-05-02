@@ -64,7 +64,8 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 				'inputNumber form-control': true,
 				numerics: hasDecimals,
 				integers: !hasDecimals
-			})}>
+			})}
+			consoleVerbose>
 			<Cleave
 				options={options}
 				htmlRef={props.htmlRef}
