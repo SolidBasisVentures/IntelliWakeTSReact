@@ -1679,18 +1679,9 @@ function InputNumber(props) {
 }
 
 function InputPassword(props) {
-    var _a, _b, _c;
-    var inputProps = React.useMemo(function () {
-        var subset = ReduceInputProps(props);
-        delete subset.className;
-        delete subset.onChange;
-        if (subset.autoComplete === undefined) {
-            subset.autoComplete = 'off';
-        }
-        return subset;
-    }, [props]);
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "password", className: (_a = 'inputPassword ' + props.className) !== null && _a !== void 0 ? _a : '' }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_b = props.name) !== null && _b !== void 0 ? _b : '') + "_" + intelliwaketsfoundation.RandomString(5), placeholder: (_c = props.placeholder) !== null && _c !== void 0 ? _c : '******' })))));
+    var _a;
+    return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputPassword" }),
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "password" }, ReduceInputProps(props), { placeholder: (_a = props.placeholder) !== null && _a !== void 0 ? _a : '******' }))));
 }
 
 function InputRadio(props) {
@@ -1832,7 +1823,7 @@ var InputSelectStep = function (props) {
 };
 
 function InputSSN(props) {
-    var _a, _b, _c;
+    var _a;
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.plainTextLast4Only;
@@ -1841,31 +1832,13 @@ function InputSSN(props) {
         }
         return subset;
     }, [props]);
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.plainTextLast4Only ? '...-' + ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString().substr(-4) : props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.plainTextLast4Only ? '...-' + ((_b = props.value) !== null && _b !== void 0 ? _b : '').toString().substr(-4) : props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputText" }, inputProps, { pattern: "\\d{3}-?\\d{2}-?\\d{4}", onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_c = props.name) !== null && _c !== void 0 ? _c : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
+    return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputText", plainTextControl: !!props.plainTextLast4Only ? '...-' + ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString().substr(-4) : props.value }),
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputText" }, inputProps, { pattern: "\\d{3}-?\\d{2}-?\\d{4}" }))));
 }
 
 function InputState(props) {
-    var _a;
-    var inputProps = React.useMemo(function () {
-        var subset = ReduceInputProps(props);
-        delete subset.onChange;
-        if (subset.autoComplete === undefined) {
-            subset.autoComplete = 'off';
-        }
-        return subset;
-    }, [props]);
-    var handleInputChange = function (e) {
-        if (!!props.onChange) {
-            e.target.customValue = e.target.value.toUpperCase();
-            props.onChange(e);
-        }
-        if (!!props.changeValue) {
-            props.changeValue(e.target.value.toUpperCase(), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
-        }
-    };
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "text", className: "inputText" }, inputProps, { onChange: handleInputChange, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
+    return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputText inputState", transformToValid: function (val) { return val.toUpperCase(); } }),
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "text" }, ReduceInputProps(props)))));
 }
 
 function InputSwitch(props) {
