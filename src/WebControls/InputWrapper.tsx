@@ -48,7 +48,12 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 						</div>
 					</Link>
 				) : (
-					<div className="form-control-plaintext " {...props.plainTextProps}>
+					<div
+						className={'form-control-plaintext' + (!!props.plainOnClick ? ' cursor-pointer' : '')}
+						{...props.plainTextProps}
+						onClick={() => {
+							if (!!props.plainOnClick) props.plainOnClick()
+						}}>
 						<AppendPrependWrapper append={props.append} prepend={props.prepend}>
 							{props.plainTextControl ?? props.children.props.value}
 						</AppendPrependWrapper>
@@ -64,7 +69,8 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 								(props.children.props.className ?? '') +
 								' ' +
 								(props.className ?? '') +
-								(props.children.props.invalid ? ' is_invalid' : '')
+								(props.children.props.invalid ? ' is_invalid' : '') +
+								(props.children.props.required ? ' is-required' : '')
 							).trim(),
 							onFocus: (e: React.FocusEvent<HTMLInputElement>) => {
 								if (!props.doNotSelectOnFocus && !!e.target.select) e.target.select()
@@ -91,40 +97,43 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 							onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
 								clearTimeout(lateTrigger.current)
 
-								const isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value)
-								if (!isValid) {
-									setCurrentStringOverride(e.target.value ?? '')
-								}
-
-								let customValue = (!isValid
-									? !!props.children.props.valueOnInvalid
-										? props.children.props.valueOnInvalid(e.target.value)
-										: ''
-									: ((!props.transformToValid ? e.target.value : props.transformToValid(e.target.value)) as any)) as V
-
-								;(e.target as any).customValue = customValue
-
-								const name = e.target.name as any
-								const shiftKey = (e.nativeEvent as any).shiftKey
-								const ctrlKey = (e.nativeEvent as any).ctrlKey
-								const altKey = (e.nativeEvent as any).altKey
-
-								if (!!props.children.props.onChange) {
-									props.children.props.onChange(e)
-								}
-								if (!!props.changeValue) {
-									props.changeValue(customValue, name, shiftKey, ctrlKey, altKey)
-								}
-								if (!!props.changeValueLate) {
-									if (isValid) {
-										lateValue.current = customValue
+								if (!props.children.props.plainText && !props.children.props.disabled) {
+									const isValid =
+										!props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value)
+									if (!isValid) {
+										setCurrentStringOverride(e.target.value ?? '')
 									}
-									lateTrigger.current = setTimeout(() => {
-										if (!!props.changeValueLate && isMounted.current && lateValue.current !== undefined) {
-											props.changeValueLate(lateValue.current, name, shiftKey, ctrlKey, altKey)
-											lateValue.current = undefined
+
+									let customValue = (!isValid
+										? !!props.children.props.valueOnInvalid
+											? props.children.props.valueOnInvalid(e.target.value)
+											: ''
+										: ((!props.transformToValid ? e.target.value : props.transformToValid(e.target.value)) as any)) as V
+
+									;(e.target as any).customValue = customValue
+
+									const name = e.target.name as any
+									const shiftKey = (e.nativeEvent as any).shiftKey
+									const ctrlKey = (e.nativeEvent as any).ctrlKey
+									const altKey = (e.nativeEvent as any).altKey
+
+									if (!!props.children.props.onChange) {
+										props.children.props.onChange(e)
+									}
+									if (!!props.changeValue) {
+										props.changeValue(customValue, name, shiftKey, ctrlKey, altKey)
+									}
+									if (!!props.changeValueLate) {
+										if (isValid) {
+											lateValue.current = customValue
 										}
-									}, props.lateDelayMS ?? 500)
+										lateTrigger.current = setTimeout(() => {
+											if (!!props.changeValueLate && isMounted.current && lateValue.current !== undefined) {
+												props.changeValueLate(lateValue.current, name, shiftKey, ctrlKey, altKey)
+												lateValue.current = undefined
+											}
+										}, props.lateDelayMS ?? 500)
+									}
 								}
 							},
 							autoComplete: props.autoCompleteOn ? 'on' : `AC_${props.children.props.name ?? ''}_${RandomString(5)}`,

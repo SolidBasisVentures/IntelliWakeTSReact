@@ -1,113 +1,69 @@
-import React from 'react'
-import {Input} from 'reactstrap'
-import {ElementCustomValue} from '../Functions'
-import {Link} from 'react-router-dom'
+import React, {useMemo} from 'react'
 import {CleanNumber} from '@solidbasisventures/intelliwaketsfoundation'
-import {TChangeValueFunction} from './IWInputProps'
+import {IIWInputAddProps, IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
+import {InputWrapper} from './InputWrapper'
+import {Input, InputProps} from 'reactstrap'
 
-export interface IPropsSelect<T = unknown> {
-	name?: T extends object ? keyof T : string
-	value: string | number
-	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-	onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
-	onKeyDown?: (e: React.KeyboardEvent) => void
+export interface IPropsSelect<T = any, V = any> extends IIWInputProps<T, V> {
 	innerRef?: (ref: any) => void
-	className?: string
-	style?: any
 	children?: any
 	isNumeric?: boolean
 	isNumericOrNull?: boolean
 	isStringOrNull?: boolean
-	id?: string
-	plainText?: boolean
-	plainTextURL?: string
 	plainOnClick?: () => void
-	invalid?: boolean
-	changeValue?: TChangeValueFunction<T>
 	required?: boolean
 }
 
 export function InputSelect<T>(props: IPropsSelect<T>) {
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		;(e.target as any).customValue = e.target.value
+	const inputProps = useMemo<InputProps>(() => {
+		const subset = {...ReduceInputProps(props)}
 
-		if (!!props.isNumeric || !!props.isNumericOrNull) {
-			const value = CleanNumber(e.target.value)
+		delete subset.isNumeric
+		delete subset.isNumericOrNull
+		delete subset.isStringOrNull
+		delete subset.plainOnClick
 
-			if (!!props.isNumericOrNull && value === 0) {
-				;(e.target as any).customValue = null
-			} else {
-				;(e.target as any).customValue = value
-			}
-		} else if (!!props.isStringOrNull && !e.target.value) {
-			;(e.target as any).customValue = null
-		}
+		return subset
+	}, [props])
 
-		if (!!props.onChange) props.onChange(e)
-		if (!!props.changeValue) {
-			props.changeValue(
-				ElementCustomValue(e),
-				e.target.name as any,
-				(e.nativeEvent as any).shiftKey,
-				(e.nativeEvent as any).ctrlKey,
-				(e.nativeEvent as any).altKey
-			)
-		}
-	}
+	const wrapperProps = useMemo<IIWInputAddProps>(() => {
+		const subset = {...ReduceToInputAddProps(props)}
 
-	const className = `${props.className ?? ''} ${!!props.required ? 'is-required' : ''}`
+		delete subset.plainTextURL
+		delete subset.plainText
+		delete subset.plainTextProps
 
-	return !!props.plainText && !!props.plainTextURL ? (
-		<Link to={props.plainTextURL}>
+		return subset
+	}, [props])
+
+	return (
+		<InputWrapper
+			{...wrapperProps}
+			className="inputSelect"
+			transformToValid={(val) => {
+				if (!!props.isNumeric || !!props.isNumericOrNull) {
+					const value = CleanNumber(val)
+
+					if (!!props.isNumericOrNull && value === 0) {
+						return null
+					} else {
+						return value
+					}
+				} else if (!!props.isStringOrNull && !val) {
+					return null
+				}
+
+				return val
+			}}>
 			<Input
 				type="select"
-				name={props.name as string}
-				value={props.value}
-				onChange={() => {}}
-				innerRef={props.innerRef}
-				className={'inputSelect disabledLink ' + className}
+				{...inputProps}
 				style={{
 					...props.style,
-					pointerEvents: 'none'
-				}}
-				id={props.id}
-				invalid={props.invalid}>
+					pointerEvents: !!props.plainText ? 'none' : undefined
+				}}>
 				{props.children}
 			</Input>
-		</Link>
-	) : !!props.plainText && !!props.plainOnClick ? (
-		<div onClick={props.plainOnClick} className="cursor-pointer">
-			<Input
-				type="select"
-				name={props.name as string}
-				value={props.value}
-				onChange={() => {}}
-				innerRef={props.innerRef}
-				className={'inputSelect disabledLink ' + className}
-				style={{
-					...props.style,
-					pointerEvents: 'none'
-				}}
-				id={props.id}
-				invalid={props.invalid}>
-				{props.children}
-			</Input>
-		</div>
-	) : (
-		<Input
-			type="select"
-			name={props.name as string}
-			value={props.value}
-			onChange={handleInputChange}
-			onBlur={props.onBlur}
-			onKeyDown={props.onKeyDown}
-			innerRef={props.innerRef}
-			className={'inputSelect ' + className}
-			style={props.style}
-			id={props.id}
-			disabled={!!props.plainText}
-			invalid={props.invalid}>
-			{props.children}
-		</Input>
+		</InputWrapper>
 	)
 }

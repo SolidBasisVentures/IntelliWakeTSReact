@@ -14,6 +14,7 @@ export interface IIWInputAddProps<T = any, V = any> {
 	plainText?: boolean
 	plainTextURL?: string
 	plainTextProps?: any
+	plainOnClick?: () => void
 	changeValue?: TChangeValueFunction<T, V>
 	changeValueLate?: TChangeValueFunction<T, V>
 	autoCompleteOn?: boolean

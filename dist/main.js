@@ -1519,11 +1519,15 @@ var InputWrapper = function (props) {
     }, [props.children.props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
         React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
-            React__default['default'].createElement(AppendPrependWrapper, { append: props.append, prepend: props.prepend }, (_a = props.plainTextControl) !== null && _a !== void 0 ? _a : props.children.props.value)))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
+            React__default['default'].createElement(AppendPrependWrapper, { append: props.append, prepend: props.prepend }, (_a = props.plainTextControl) !== null && _a !== void 0 ? _a : props.children.props.value)))) : (React__default['default'].createElement("div", __assign({ className: 'form-control-plaintext' + (!!props.plainOnClick ? ' cursor-pointer' : '') }, props.plainTextProps, { onClick: function () {
+            if (!!props.plainOnClick)
+                props.plainOnClick();
+        } }),
         React__default['default'].createElement(AppendPrependWrapper, { append: props.append, prepend: props.prepend }, (_b = props.plainTextControl) !== null && _b !== void 0 ? _b : props.children.props.value)))) : (React__default['default'].createElement(InputGroupWrapper, { append: props.append, prepend: props.prepend }, React__default['default'].cloneElement(props.children, ReduceInputProps(__assign(__assign({}, props.children.props), { className: (((_c = props.children.props.className) !== null && _c !== void 0 ? _c : '') +
             ' ' +
             ((_d = props.className) !== null && _d !== void 0 ? _d : '') +
-            (props.children.props.invalid ? ' is_invalid' : '')).trim(), onFocus: function (e) {
+            (props.children.props.invalid ? ' is_invalid' : '') +
+            (props.children.props.required ? ' is-required' : '')).trim(), onFocus: function (e) {
             if (!props.doNotSelectOnFocus && !!e.target.select)
                 e.target.select();
             if (props.children.props.onFocus)
@@ -1541,36 +1545,38 @@ var InputWrapper = function (props) {
         }, onChange: function (e) {
             var _a, _b;
             clearTimeout(lateTrigger.current);
-            var isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value);
-            if (!isValid) {
-                setCurrentStringOverride((_a = e.target.value) !== null && _a !== void 0 ? _a : '');
-            }
-            var customValue = (!isValid
-                ? !!props.children.props.valueOnInvalid
-                    ? props.children.props.valueOnInvalid(e.target.value)
-                    : ''
-                : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value)));
-            e.target.customValue = customValue;
-            var name = e.target.name;
-            var shiftKey = e.nativeEvent.shiftKey;
-            var ctrlKey = e.nativeEvent.ctrlKey;
-            var altKey = e.nativeEvent.altKey;
-            if (!!props.children.props.onChange) {
-                props.children.props.onChange(e);
-            }
-            if (!!props.changeValue) {
-                props.changeValue(customValue, name, shiftKey, ctrlKey, altKey);
-            }
-            if (!!props.changeValueLate) {
-                if (isValid) {
-                    lateValue.current = customValue;
+            if (!props.children.props.plainText && !props.children.props.disabled) {
+                var isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value);
+                if (!isValid) {
+                    setCurrentStringOverride((_a = e.target.value) !== null && _a !== void 0 ? _a : '');
                 }
-                lateTrigger.current = setTimeout(function () {
-                    if (!!props.changeValueLate && isMounted.current && lateValue.current !== undefined) {
-                        props.changeValueLate(lateValue.current, name, shiftKey, ctrlKey, altKey);
-                        lateValue.current = undefined;
+                var customValue = (!isValid
+                    ? !!props.children.props.valueOnInvalid
+                        ? props.children.props.valueOnInvalid(e.target.value)
+                        : ''
+                    : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value)));
+                e.target.customValue = customValue;
+                var name_1 = e.target.name;
+                var shiftKey_1 = e.nativeEvent.shiftKey;
+                var ctrlKey_1 = e.nativeEvent.ctrlKey;
+                var altKey_1 = e.nativeEvent.altKey;
+                if (!!props.children.props.onChange) {
+                    props.children.props.onChange(e);
+                }
+                if (!!props.changeValue) {
+                    props.changeValue(customValue, name_1, shiftKey_1, ctrlKey_1, altKey_1);
+                }
+                if (!!props.changeValueLate) {
+                    if (isValid) {
+                        lateValue.current = customValue;
                     }
-                }, (_b = props.lateDelayMS) !== null && _b !== void 0 ? _b : 500);
+                    lateTrigger.current = setTimeout(function () {
+                        if (!!props.changeValueLate && isMounted.current && lateValue.current !== undefined) {
+                            props.changeValueLate(lateValue.current, name_1, shiftKey_1, ctrlKey_1, altKey_1);
+                            lateValue.current = undefined;
+                        }
+                    }, (_b = props.lateDelayMS) !== null && _b !== void 0 ? _b : 500);
+                }
             }
         }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_e = props.children.props.name) !== null && _e !== void 0 ? _e : '') + "_" + intelliwaketsfoundation.RandomString(5), value: (currentStringOverride !== null && currentStringOverride !== void 0 ? currentStringOverride : '') })))))));
 };
@@ -1590,31 +1596,37 @@ function InputEmail(props) {
 }
 
 function InputSelect(props) {
-    var _a;
-    var handleInputChange = function (e) {
-        e.target.customValue = e.target.value;
-        if (!!props.isNumeric || !!props.isNumericOrNull) {
-            var value = intelliwaketsfoundation.CleanNumber(e.target.value);
-            if (!!props.isNumericOrNull && value === 0) {
-                e.target.customValue = null;
+    var inputProps = React.useMemo(function () {
+        var subset = __assign({}, ReduceInputProps(props));
+        delete subset.isNumeric;
+        delete subset.isNumericOrNull;
+        delete subset.isStringOrNull;
+        delete subset.plainOnClick;
+        return subset;
+    }, [props]);
+    var wrapperProps = React.useMemo(function () {
+        var subset = __assign({}, ReduceToInputAddProps(props));
+        delete subset.plainTextURL;
+        delete subset.plainText;
+        delete subset.plainTextProps;
+        return subset;
+    }, [props]);
+    return (React__default['default'].createElement(InputWrapper, __assign({}, wrapperProps, { className: "inputSelect", transformToValid: function (val) {
+            if (!!props.isNumeric || !!props.isNumericOrNull) {
+                var value = intelliwaketsfoundation.CleanNumber(val);
+                if (!!props.isNumericOrNull && value === 0) {
+                    return null;
+                }
+                else {
+                    return value;
+                }
             }
-            else {
-                e.target.customValue = value;
+            else if (!!props.isStringOrNull && !val) {
+                return null;
             }
-        }
-        else if (!!props.isStringOrNull && !e.target.value) {
-            e.target.customValue = null;
-        }
-        if (!!props.onChange)
-            props.onChange(e);
-        if (!!props.changeValue) {
-            props.changeValue(ElementCustomValue(e), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
-        }
-    };
-    var className = ((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + (!!props.required ? 'is-required' : '');
-    return !!props.plainText && !!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: function () { }, innerRef: props.innerRef, className: 'inputSelect disabledLink ' + className, style: __assign(__assign({}, props.style), { pointerEvents: 'none' }), id: props.id, invalid: props.invalid }, props.children))) : !!props.plainText && !!props.plainOnClick ? (React__default['default'].createElement("div", { onClick: props.plainOnClick, className: "cursor-pointer" },
-        React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: function () { }, innerRef: props.innerRef, className: 'inputSelect disabledLink ' + className, style: __assign(__assign({}, props.style), { pointerEvents: 'none' }), id: props.id, invalid: props.invalid }, props.children))) : (React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: handleInputChange, onBlur: props.onBlur, onKeyDown: props.onKeyDown, innerRef: props.innerRef, className: 'inputSelect ' + className, style: props.style, id: props.id, disabled: !!props.plainText, invalid: props.invalid }, props.children));
+            return val;
+        } }),
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "select" }, inputProps, { style: __assign(__assign({}, props.style), { pointerEvents: !!props.plainText ? 'none' : undefined }) }), props.children)));
 }
 
 function InputGender(props) {
