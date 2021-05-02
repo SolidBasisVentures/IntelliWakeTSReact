@@ -3,6 +3,7 @@ import {IIWInputAddProps, IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {InputGroupWrapper} from './InputGroupWrapper'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 import {AppendPrependWrapper} from './AppendPrependWrapper'
+import {Link} from 'react-router-dom'
 
 interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 	children: ReactElement<IIWInputProps<T, V>>
@@ -38,11 +39,21 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	return (
 		<>
 			{props.plainText ? (
-				<div className="form-control-plaintext " {...props.plainTextProps}>
-					<AppendPrependWrapper append={props.append} prepend={props.prepend}>
-						{props.plainTextControl ?? props.children.props.value}
-					</AppendPrependWrapper>
-				</div>
+				!!props.plainTextURL ? (
+					<Link to={props.plainTextURL}>
+						<div className="form-control-plaintext " {...props.plainTextProps}>
+							<AppendPrependWrapper append={props.append} prepend={props.prepend}>
+								{props.plainTextControl ?? props.children.props.value}
+							</AppendPrependWrapper>
+						</div>
+					</Link>
+				) : (
+					<div className="form-control-plaintext " {...props.plainTextProps}>
+						<AppendPrependWrapper append={props.append} prepend={props.prepend}>
+							{props.plainTextControl ?? props.children.props.value}
+						</AppendPrependWrapper>
+					</div>
+				)
 			) : (
 				<InputGroupWrapper append={props.append} prepend={props.prepend}>
 					{React.cloneElement<any>(

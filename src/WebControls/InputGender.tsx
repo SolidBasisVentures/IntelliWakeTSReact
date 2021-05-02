@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
-import {Link} from 'react-router-dom'
 import {InputSelect, IPropsSelect} from './InputSelect'
-import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
+import {IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
+import {InputWrapper} from './InputWrapper'
 
 export function InputGender<T>(props: IIWInputProps<T>) {
 	const inputProps = useMemo(() => {
@@ -17,31 +17,12 @@ export function InputGender<T>(props: IIWInputProps<T>) {
 	}, [props])
 
 	return (
-		<>
-			{!!props.plainText ? (
-				!!props.plainTextURL ? (
-					<Link to={props.plainTextURL}>
-						<div className="form-control-plaintext" {...props.plainTextProps}>
-							{props.value}
-						</div>
-					</Link>
-				) : (
-					<div className="form-control-plaintext" {...props.plainTextProps}>
-						{props.value}
-					</div>
-				)
-			) : (
-				<>
-					<InputSelect
-						{...inputProps}
-						isStringOrNull
-						onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}>
-						<option />
-						<option value="Male">Male</option>
-						<option value="Female">Female</option>
-					</InputSelect>
-				</>
-			)}
-		</>
+		<InputWrapper {...ReduceToInputAddProps(props)} className="inputGender">
+			<InputSelect {...inputProps} isStringOrNull>
+				<option />
+				<option value="Male">Male</option>
+				<option value="Female">Female</option>
+			</InputSelect>
+		</InputWrapper>
 	)
 }

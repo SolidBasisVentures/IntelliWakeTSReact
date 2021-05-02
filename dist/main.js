@@ -1500,11 +1500,11 @@ var AppendPrependWrapper = function (props) {
 };
 
 var InputWrapper = function (props) {
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e;
     var isMounted = React.useRef(false);
     var lateTrigger = React.useRef(setTimeout(function () { }, 100));
     var lateValue = React.useRef(undefined);
-    var _e = React.useState(''), currentStringOverride = _e[0], setCurrentStringOverride = _e[1];
+    var _f = React.useState(''), currentStringOverride = _f[0], setCurrentStringOverride = _f[1];
     React.useEffect(function () {
         isMounted.current = true;
         return function () {
@@ -1517,10 +1517,12 @@ var InputWrapper = function (props) {
         lateValue.current = undefined;
         setCurrentStringOverride(newVal.toString());
     }, [props.children.props.value]);
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
-        React__default['default'].createElement(AppendPrependWrapper, { append: props.append, prepend: props.prepend }, (_a = props.plainTextControl) !== null && _a !== void 0 ? _a : props.children.props.value))) : (React__default['default'].createElement(InputGroupWrapper, { append: props.append, prepend: props.prepend }, React__default['default'].cloneElement(props.children, ReduceInputProps(__assign(__assign({}, props.children.props), { className: (((_b = props.children.props.className) !== null && _b !== void 0 ? _b : '') +
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
+        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
+            React__default['default'].createElement(AppendPrependWrapper, { append: props.append, prepend: props.prepend }, (_a = props.plainTextControl) !== null && _a !== void 0 ? _a : props.children.props.value)))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
+        React__default['default'].createElement(AppendPrependWrapper, { append: props.append, prepend: props.prepend }, (_b = props.plainTextControl) !== null && _b !== void 0 ? _b : props.children.props.value)))) : (React__default['default'].createElement(InputGroupWrapper, { append: props.append, prepend: props.prepend }, React__default['default'].cloneElement(props.children, ReduceInputProps(__assign(__assign({}, props.children.props), { className: (((_c = props.children.props.className) !== null && _c !== void 0 ? _c : '') +
             ' ' +
-            ((_c = props.className) !== null && _c !== void 0 ? _c : '') +
+            ((_d = props.className) !== null && _d !== void 0 ? _d : '') +
             (props.children.props.invalid ? ' is_invalid' : '')).trim(), onFocus: function (e) {
             if (!props.doNotSelectOnFocus && !!e.target.select)
                 e.target.select();
@@ -1570,7 +1572,7 @@ var InputWrapper = function (props) {
                     }
                 }, (_b = props.lateDelayMS) !== null && _b !== void 0 ? _b : 500);
             }
-        }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_d = props.children.props.name) !== null && _d !== void 0 ? _d : '') + "_" + intelliwaketsfoundation.RandomString(5), value: (currentStringOverride !== null && currentStringOverride !== void 0 ? currentStringOverride : '') })))))));
+        }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_e = props.children.props.name) !== null && _e !== void 0 ? _e : '') + "_" + intelliwaketsfoundation.RandomString(5), value: (currentStringOverride !== null && currentStringOverride !== void 0 ? currentStringOverride : '') })))))));
 };
 
 function InputEmail(props) {
@@ -1625,12 +1627,11 @@ function InputGender(props) {
         }
         return subset;
     }, [props]);
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(React__default['default'].Fragment, null,
-        React__default['default'].createElement(InputSelect, __assign({}, inputProps, { isStringOrNull: true, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } }),
+    return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputGender" }),
+        React__default['default'].createElement(InputSelect, __assign({}, inputProps, { isStringOrNull: true }),
             React__default['default'].createElement("option", null),
             React__default['default'].createElement("option", { value: "Male" }, "Male"),
-            React__default['default'].createElement("option", { value: "Female" }, "Female"))))));
+            React__default['default'].createElement("option", { value: "Female" }, "Female"))));
 }
 
 function InputNumber(props) {
