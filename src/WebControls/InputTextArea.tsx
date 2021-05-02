@@ -1,7 +1,8 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
-import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
+import {IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
 import {CleanScripts, ReplaceLinks} from '@solidbasisventures/intelliwaketsfoundation'
+import {InputWrapper} from './InputWrapper'
 
 interface IProps<T = unknown> extends IIWInputProps<T> {
 	bordered?: boolean
@@ -15,7 +16,7 @@ export function InputTextArea<T>(props: IProps<T>) {
 		delete subset.plainTextProps
 		delete subset.bordered
 		delete subset.onChange
-		
+
 		subset.value = props.value ?? ''
 
 		return subset
@@ -23,24 +24,22 @@ export function InputTextArea<T>(props: IProps<T>) {
 
 	return (
 		<>
-			{!!props.plainText ? (
-				<div
-					className={'form-control-plaintext vertical-scroll horizontal-scroll' + (!!props.bordered ? ' border' : '')}
-					{...props.plainTextProps}
-					dangerouslySetInnerHTML={{__html: ReplaceLinks(CleanScripts('' + props.value))}}
-					style={{
-						maxHeight: !!props.rows ? props.rows + 'rem' : '5rem',
-						overflowY: 'scroll'
-					}}
-				/>
-			) : (
-				<Input
-					type="textarea"
-					className="inputTextArea"
-					{...inputProps}
-					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
-				/>
-			)}
+			<InputWrapper
+				{...ReduceToInputAddProps(props)}
+				className="inputTextArea"
+				plainTextControl={
+					<div
+						className={'form-control-plaintext vertical-scroll horizontal-scroll' + (!!props.bordered ? ' border' : '')}
+						{...props.plainTextProps}
+						dangerouslySetInnerHTML={{__html: ReplaceLinks(CleanScripts('' + props.value))}}
+						style={{
+							maxHeight: !!props.rows ? props.rows + 'em' : '5em',
+							overflowY: 'scroll'
+						}}
+					/>
+				}>
+				<Input type="textarea" {...inputProps} />
+			</InputWrapper>
 		</>
 	)
 }
