@@ -1503,8 +1503,8 @@ var InputWrapper = function (props) {
     var _a, _b, _c, _d, _e;
     var isMounted = React.useRef(false);
     var lateTrigger = React.useRef(setTimeout(function () { }, 100));
-    var lateValue = React.useRef(undefined);
-    var _f = React.useState(''), currentStringOverride = _f[0], setCurrentStringOverride = _f[1];
+    var lateState = React.useRef(undefined);
+    var _f = React.useState(props.children.props.value), internalState = _f[0], setInternalState = _f[1];
     React.useEffect(function () {
         isMounted.current = true;
         return function () {
@@ -1512,10 +1512,8 @@ var InputWrapper = function (props) {
         };
     });
     React.useEffect(function () {
-        var _a;
-        var newVal = !props.children.props.value ? '' : (_a = props.children.props.value) !== null && _a !== void 0 ? _a : '';
-        lateValue.current = undefined;
-        setCurrentStringOverride(newVal.toString());
+        lateState.current = undefined;
+        setInternalState(props.children.props.value);
     }, [props.children.props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
         React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
@@ -1535,50 +1533,54 @@ var InputWrapper = function (props) {
         }, onBlur: function (e) {
             clearTimeout(lateTrigger.current);
             if (!!props.changeValueLate &&
-                lateValue.current !== undefined &&
-                lateValue.current !== props.children.props.value) {
-                props.changeValueLate(lateValue.current, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
-                lateValue.current = undefined;
+                lateState.current !== undefined &&
+                lateState.current.value !== props.children.props.value) {
+                props.changeValueLate(lateState.current.value, lateState.current.name, lateState.current.shiftKey, lateState.current.ctrlKey, lateState.current.altKey);
+                lateState.current = undefined;
             }
             if (props.children.props.onBlur)
                 props.children.props.onBlur(e);
         }, onChange: function (e) {
-            var _a, _b;
+            var _a;
             clearTimeout(lateTrigger.current);
             if (!props.children.props.plainText && !props.children.props.disabled) {
                 var isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value);
-                if (!isValid) {
-                    setCurrentStringOverride((_a = e.target.value) !== null && _a !== void 0 ? _a : '');
-                }
                 var customValue = (!isValid
                     ? !!props.children.props.valueOnInvalid
                         ? props.children.props.valueOnInvalid(e.target.value)
                         : ''
                     : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value)));
                 e.target.customValue = customValue;
-                var name_1 = e.target.name;
-                var shiftKey_1 = e.nativeEvent.shiftKey;
-                var ctrlKey_1 = e.nativeEvent.ctrlKey;
-                var altKey_1 = e.nativeEvent.altKey;
+                var newState = {
+                    value: customValue,
+                    name: e.target.name,
+                    shiftKey: e.nativeEvent.shiftKey,
+                    ctrlKey: e.nativeEvent.ctrlKey,
+                    altKey: e.nativeEvent.altKey
+                };
                 if (!!props.children.props.onChange) {
                     props.children.props.onChange(e);
                 }
                 if (!!props.changeValue) {
-                    props.changeValue(customValue, name_1, shiftKey_1, ctrlKey_1, altKey_1);
+                    props.changeValue(newState.value, newState.name, newState.shiftKey, newState.ctrlKey, newState.altKey);
                 }
                 if (!!props.changeValueLate) {
                     if (isValid) {
-                        lateValue.current = customValue;
+                        lateState.current = newState;
                     }
                     lateTrigger.current = setTimeout(function () {
-                        if (!!props.changeValueLate && isMounted.current && lateValue.current !== undefined) {
-                            props.changeValueLate(lateValue.current, name_1, shiftKey_1, ctrlKey_1, altKey_1);
-                            lateValue.current = undefined;
+                        if (!!props.changeValueLate &&
+                            isMounted.current &&
+                            lateState.current !== undefined &&
+                            lateState.current.value !== props.children.props.value) {
+                            props.changeValueLate(lateState.current.value, lateState.current.name, lateState.current.shiftKey, lateState.current.ctrlKey, lateState.current.altKey);
+                            lateState.current = undefined;
                         }
-                    }, (_b = props.lateDelayMS) !== null && _b !== void 0 ? _b : 500);
+                    }, (_a = props.lateDelayMS) !== null && _a !== void 0 ? _a : 500);
                 }
+                setInternalState(e.target.value);
             }
-        }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_e = props.children.props.name) !== null && _e !== void 0 ? _e : '') + "_" + intelliwaketsfoundation.RandomString(5), value: (currentStringOverride !== null && currentStringOverride !== void 0 ? currentStringOverride : '') })))))));
+        }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_e = props.children.props.name) !== null && _e !== void 0 ? _e : '') + "_" + intelliwaketsfoundation.RandomString(5), value: internalState })))))));
 };
 
 function InputEmail(props) {

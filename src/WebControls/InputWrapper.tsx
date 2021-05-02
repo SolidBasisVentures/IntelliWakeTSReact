@@ -4,6 +4,7 @@ import {InputGroupWrapper} from './InputGroupWrapper'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 import {AppendPrependWrapper} from './AppendPrependWrapper'
 import {Link} from 'react-router-dom'
+import {InputProps} from 'reactstrap'
 
 interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 	children: ReactElement<IIWInputProps<T, V>>
@@ -19,8 +20,19 @@ interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	const isMounted = useRef(false)
 	const lateTrigger = useRef(setTimeout(() => {}, 100))
-	const lateValue = useRef<V | undefined>(undefined)
-	const [currentStringOverride, setCurrentStringOverride] = useState<string>('')
+	interface IState {
+		name?: T extends object ? keyof T : string
+		value: V
+		shiftKey: boolean
+		ctrlKey: boolean
+		altKey: boolean
+	}
+
+	const lateState = useRef<IState | undefined>(undefined)
+
+	const [internalState, setInternalState] = useState<InputProps['value'] | undefined>(
+		props.children.props.value as InputProps['value'] | undefined
+	)
 
 	useEffect(() => {
 		isMounted.current = true
@@ -31,9 +43,8 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	})
 
 	useEffect(() => {
-		const newVal = !props.children.props.value ? '' : props.children.props.value ?? ''
-		lateValue.current = undefined
-		setCurrentStringOverride((newVal as any).toString())
+		lateState.current = undefined
+		setInternalState(props.children.props.value as any)
 	}, [props.children.props.value])
 
 	return (
@@ -80,17 +91,17 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 								clearTimeout(lateTrigger.current)
 								if (
 									!!props.changeValueLate &&
-									lateValue.current !== undefined &&
-									lateValue.current !== ((props.children.props.value as unknown) as V)
+									lateState.current !== undefined &&
+									lateState.current.value !== props.children.props.value
 								) {
 									props.changeValueLate(
-										lateValue.current,
-										e.target.name as any,
-										(e.nativeEvent as any).shiftKey,
-										(e.nativeEvent as any).ctrlKey,
-										(e.nativeEvent as any).altKey
+										lateState.current.value,
+										lateState.current.name,
+										lateState.current.shiftKey,
+										lateState.current.ctrlKey,
+										lateState.current.altKey
 									)
-									lateValue.current = undefined
+									lateState.current = undefined
 								}
 								if (props.children.props.onBlur) props.children.props.onBlur(e)
 							},
@@ -100,9 +111,6 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 								if (!props.children.props.plainText && !props.children.props.disabled) {
 									const isValid =
 										!props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value)
-									if (!isValid) {
-										setCurrentStringOverride(e.target.value ?? '')
-									}
 
 									let customValue = (!isValid
 										? !!props.children.props.valueOnInvalid
@@ -112,32 +120,54 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 
 									;(e.target as any).customValue = customValue
 
-									const name = e.target.name as any
-									const shiftKey = (e.nativeEvent as any).shiftKey
-									const ctrlKey = (e.nativeEvent as any).ctrlKey
-									const altKey = (e.nativeEvent as any).altKey
+									const newState: IState = {
+										value: customValue,
+										name: e.target.name as any,
+										shiftKey: (e.nativeEvent as any).shiftKey,
+										ctrlKey: (e.nativeEvent as any).ctrlKey,
+										altKey: (e.nativeEvent as any).altKey
+									}
 
 									if (!!props.children.props.onChange) {
 										props.children.props.onChange(e)
 									}
 									if (!!props.changeValue) {
-										props.changeValue(customValue, name, shiftKey, ctrlKey, altKey)
+										props.changeValue(
+											newState.value,
+											newState.name,
+											newState.shiftKey,
+											newState.ctrlKey,
+											newState.altKey
+										)
 									}
 									if (!!props.changeValueLate) {
 										if (isValid) {
-											lateValue.current = customValue
+											lateState.current = newState
 										}
 										lateTrigger.current = setTimeout(() => {
-											if (!!props.changeValueLate && isMounted.current && lateValue.current !== undefined) {
-												props.changeValueLate(lateValue.current, name, shiftKey, ctrlKey, altKey)
-												lateValue.current = undefined
+											if (
+												!!props.changeValueLate &&
+												isMounted.current &&
+												lateState.current !== undefined &&
+												lateState.current.value !== props.children.props.value
+											) {
+												props.changeValueLate(
+													lateState.current.value,
+													lateState.current.name,
+													lateState.current.shiftKey,
+													lateState.current.ctrlKey,
+													lateState.current.altKey
+												)
+												lateState.current = undefined
 											}
 										}, props.lateDelayMS ?? 500)
 									}
+
+									setInternalState(e.target.value)
 								}
 							},
 							autoComplete: props.autoCompleteOn ? 'on' : `AC_${props.children.props.name ?? ''}_${RandomString(5)}`,
-							value: (currentStringOverride ?? '') as any
+							value: internalState
 						})
 					)}
 				</InputGroupWrapper>
