@@ -1517,7 +1517,10 @@ var InputWrapper = function (props) {
     });
     React.useEffect(function () {
         lateState.current = undefined;
-        if (!isManagingDirtyState.current && internalState !== props.children.props.value) {
+        if (!isManagingDirtyState.current &&
+            internalState !== props.children.props.value &&
+            (!props.isInvalid ||
+                (!!props.valueOnInvalid && props.children.props.value !== props.valueOnInvalid(internalState)))) {
             setInternalState(props.children.props.value);
         }
     }, [props.children.props.value]);
