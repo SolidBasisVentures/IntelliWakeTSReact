@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import Cleave from 'cleave.js/react'
 import {CleanNumber} from '@solidbasisventures/intelliwaketsfoundation'
-import {IIWInputProps, ReduceToInputAddProps} from './IWInputProps'
+import {IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
 import {CleaveOptions} from 'cleave.js/options'
 import {ClassNames} from '../Functions'
 import {InputWrapper} from './InputWrapper'
+import {InputProps} from 'reactstrap'
 
 export interface IPropsInputNumber<T = any, V = any> extends IIWInputProps<T, V> {
 	htmlRef?: (ref: any) => void
@@ -14,11 +15,23 @@ export interface IPropsInputNumber<T = any, V = any> extends IIWInputProps<T, V>
 	lowerBound?: number
 	upperBound?: number
 	currency?: boolean
-	required?: boolean
 	hideZero?: boolean
 }
 
 export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
+	const inputProps = useMemo<InputProps>(() => {
+		const subset = ReduceInputProps(props)
+		delete subset.decimalScale
+		delete subset.integerScale
+		delete subset.allowNegative
+		delete subset.lowerBound
+		delete subset.upperBound
+		delete subset.currency
+		delete subset.hideZero
+
+		return subset
+	}, [props])
+
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === '-') {
 			if (!(props.lowerBound !== undefined && props.lowerBound < 0)) {
@@ -64,13 +77,13 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 				'inputNumber form-control': true,
 				numerics: hasDecimals,
 				integers: !hasDecimals
-			})}
-			consoleVerbose>
+			})}>
 			<Cleave
 				options={options}
 				htmlRef={props.htmlRef}
 				inputMode={hasDecimals ? 'decimal' : 'numeric'}
 				onKeyDown={handleKeyDown}
+				{...inputProps}
 			/>
 		</InputWrapper>
 	)

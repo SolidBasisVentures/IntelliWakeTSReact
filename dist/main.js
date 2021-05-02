@@ -1662,6 +1662,17 @@ function InputGender(props) {
 
 function InputNumber(props) {
     var _a, _b;
+    var inputProps = React.useMemo(function () {
+        var subset = ReduceInputProps(props);
+        delete subset.decimalScale;
+        delete subset.integerScale;
+        delete subset.allowNegative;
+        delete subset.lowerBound;
+        delete subset.upperBound;
+        delete subset.currency;
+        delete subset.hideZero;
+        return subset;
+    }, [props]);
     var handleKeyDown = function (e) {
         if (e.key === '-') {
             if (!(props.lowerBound !== undefined && props.lowerBound < 0)) {
@@ -1700,8 +1711,8 @@ function InputNumber(props) {
             'inputNumber form-control': true,
             numerics: hasDecimals,
             integers: !hasDecimals
-        }), consoleVerbose: true }),
-        React__default['default'].createElement(Cleave__default['default'], { options: options, htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown })));
+        }) }),
+        React__default['default'].createElement(Cleave__default['default'], __assign({ options: options, htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown }, inputProps))));
 }
 
 function InputPassword(props) {
