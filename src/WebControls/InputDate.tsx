@@ -11,7 +11,6 @@ import {
 
 interface IProps<T = unknown> extends IIWInputProps<T> {
 	showTime?: boolean
-	autoCompleteOn?: boolean
 }
 
 const originalValue = ' '
@@ -53,7 +52,13 @@ export function InputDate<T>(props: IProps<T>) {
 		}
 
 		if (!!props.changeValue) {
-			props.changeValue(customValue, e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
+			props.changeValue(
+				customValue,
+				e.target.name as any,
+				(e.nativeEvent as any).shiftKey,
+				(e.nativeEvent as any).ctrlKey,
+				(e.nativeEvent as any).altKey
+			)
 		}
 	}
 

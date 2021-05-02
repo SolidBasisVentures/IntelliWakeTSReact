@@ -1481,65 +1481,6 @@ function ViewEmail(props) {
     return React__default['default'].createElement(React__default['default'].Fragment, null, !!props.email ? React__default['default'].createElement("a", { href: 'mailto:' + props.email }, (_a = props.label) !== null && _a !== void 0 ? _a : props.email) : (_b = props.label) !== null && _b !== void 0 ? _b : null);
 }
 
-function InputEmail(props) {
-    var _a;
-    var inputProps = React.useMemo(function () {
-        var subset = ReduceInputProps(props);
-        if (subset.autoComplete === undefined) {
-            subset.autoComplete = 'off';
-        }
-        return subset;
-    }, [props]);
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.value ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
-        React__default['default'].createElement(ViewEmail, { email: props.value, label: props.plainTextLabel }))) : null) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "email", inputMode: "email", className: "inputEmail" }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
-}
-
-function InputSelect(props) {
-    var _a;
-    var handleInputChange = function (e) {
-        e.target.customValue = e.target.value;
-        if (!!props.isNumeric || !!props.isNumericOrNull) {
-            var value = intelliwaketsfoundation.CleanNumber(e.target.value);
-            if (!!props.isNumericOrNull && value === 0) {
-                e.target.customValue = null;
-            }
-            else {
-                e.target.customValue = value;
-            }
-        }
-        else if (!!props.isStringOrNull && !e.target.value) {
-            e.target.customValue = null;
-        }
-        if (!!props.onChange)
-            props.onChange(e);
-        if (!!props.changeValue) {
-            props.changeValue(ElementCustomValue(e), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
-        }
-    };
-    var className = ((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + (!!props.required ? 'is-required' : '');
-    return !!props.plainText && !!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: function () { }, innerRef: props.innerRef, className: 'inputSelect disabledLink ' + className, style: __assign(__assign({}, props.style), { pointerEvents: 'none' }), id: props.id, invalid: props.invalid }, props.children))) : !!props.plainText && !!props.plainOnClick ? (React__default['default'].createElement("div", { onClick: props.plainOnClick, className: "cursor-pointer" },
-        React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: function () { }, innerRef: props.innerRef, className: 'inputSelect disabledLink ' + className, style: __assign(__assign({}, props.style), { pointerEvents: 'none' }), id: props.id, invalid: props.invalid }, props.children))) : (React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: handleInputChange, onBlur: props.onBlur, onKeyDown: props.onKeyDown, innerRef: props.innerRef, className: 'inputSelect ' + className, style: props.style, id: props.id, disabled: !!props.plainText, invalid: props.invalid }, props.children));
-}
-
-function InputGender(props) {
-    var inputProps = React.useMemo(function () {
-        var _a;
-        var subset = ReduceInputProps(props);
-        subset.value = (_a = subset.value) !== null && _a !== void 0 ? _a : '';
-        if (subset.autoComplete === undefined) {
-            subset.autoComplete = 'off';
-        }
-        return subset;
-    }, [props]);
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
-        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(React__default['default'].Fragment, null,
-        React__default['default'].createElement(InputSelect, __assign({}, inputProps, { isStringOrNull: true, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } }),
-            React__default['default'].createElement("option", null),
-            React__default['default'].createElement("option", { value: "Male" }, "Male"),
-            React__default['default'].createElement("option", { value: "Female" }, "Female"))))));
-}
-
 var InputGroupWrapper = function (props) {
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.prepend || !!props.append ? (React__default['default'].createElement(reactstrap.InputGroup, null,
         !!props.prepend && (React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "prepend" },
@@ -1593,7 +1534,6 @@ var InputWrapper = function (props) {
             if (!!props.changeValueLate &&
                 lateValue.current !== undefined &&
                 lateValue.current !== props.children.props.value) {
-                console.log('ChangeLate', 'Blur');
                 props.changeValueLate(lateValue.current, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
                 lateValue.current = undefined;
             }
@@ -1629,7 +1569,6 @@ var InputWrapper = function (props) {
                 }
                 lateTrigger.current = setTimeout(function () {
                     if (!!props.changeValueLate && isMounted.current && lateValue.current !== undefined) {
-                        console.log('ChangeLate', 'Timeout');
                         props.changeValueLate(lateValue.current, name, shiftKey, ctrlKey, altKey);
                         lateValue.current = undefined;
                     }
@@ -1640,6 +1579,58 @@ var InputWrapper = function (props) {
         value: (currentStringOverride !== null && currentStringOverride !== void 0 ? currentStringOverride : '')
     }))))));
 };
+
+function InputEmail(props) {
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.value && (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
+        React__default['default'].createElement(ViewEmail, { email: props.value, label: props.plainTextLabel })))) : (React__default['default'].createElement(InputWrapper, __assign({}, ReduceInputProps(props)),
+        React__default['default'].createElement(reactstrap.Input, { type: "email", inputMode: "email", className: "inputEmail" })))));
+}
+
+function InputSelect(props) {
+    var _a;
+    var handleInputChange = function (e) {
+        e.target.customValue = e.target.value;
+        if (!!props.isNumeric || !!props.isNumericOrNull) {
+            var value = intelliwaketsfoundation.CleanNumber(e.target.value);
+            if (!!props.isNumericOrNull && value === 0) {
+                e.target.customValue = null;
+            }
+            else {
+                e.target.customValue = value;
+            }
+        }
+        else if (!!props.isStringOrNull && !e.target.value) {
+            e.target.customValue = null;
+        }
+        if (!!props.onChange)
+            props.onChange(e);
+        if (!!props.changeValue) {
+            props.changeValue(ElementCustomValue(e), e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
+        }
+    };
+    var className = ((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + (!!props.required ? 'is-required' : '');
+    return !!props.plainText && !!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
+        React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: function () { }, innerRef: props.innerRef, className: 'inputSelect disabledLink ' + className, style: __assign(__assign({}, props.style), { pointerEvents: 'none' }), id: props.id, invalid: props.invalid }, props.children))) : !!props.plainText && !!props.plainOnClick ? (React__default['default'].createElement("div", { onClick: props.plainOnClick, className: "cursor-pointer" },
+        React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: function () { }, innerRef: props.innerRef, className: 'inputSelect disabledLink ' + className, style: __assign(__assign({}, props.style), { pointerEvents: 'none' }), id: props.id, invalid: props.invalid }, props.children))) : (React__default['default'].createElement(reactstrap.Input, { type: "select", name: props.name, value: props.value, onChange: handleInputChange, onBlur: props.onBlur, onKeyDown: props.onKeyDown, innerRef: props.innerRef, className: 'inputSelect ' + className, style: props.style, id: props.id, disabled: !!props.plainText, invalid: props.invalid }, props.children));
+}
+
+function InputGender(props) {
+    var inputProps = React.useMemo(function () {
+        var _a;
+        var subset = ReduceInputProps(props);
+        subset.value = (_a = subset.value) !== null && _a !== void 0 ? _a : '';
+        if (subset.autoComplete === undefined) {
+            subset.autoComplete = 'off';
+        }
+        return subset;
+    }, [props]);
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
+        React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), props.value))) : (React__default['default'].createElement(React__default['default'].Fragment, null,
+        React__default['default'].createElement(InputSelect, __assign({}, inputProps, { isStringOrNull: true, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } }),
+            React__default['default'].createElement("option", null),
+            React__default['default'].createElement("option", { value: "Male" }, "Male"),
+            React__default['default'].createElement("option", { value: "Female" }, "Female"))))));
+}
 
 function InputNumber(props) {
     var _a, _b;

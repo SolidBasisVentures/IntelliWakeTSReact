@@ -1,42 +1,27 @@
-import React, {useMemo} from 'react'
+import React from 'react'
 import {Input} from 'reactstrap'
-import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
-import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
+import {IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {ViewEmail} from './ViewEmail'
+import {InputWrapper} from './InputWrapper'
 
-interface IProps<T = unknown> extends IIWInputProps<T> {
+interface IProps<T = any, V = any> extends IIWInputProps<T, V> {
 	autoCompleteOn?: boolean
 	plainTextLabel?: string | null
 }
 
-export function InputEmail<T>(props: IProps<T>) {
-	const inputProps = useMemo(() => {
-		const subset = ReduceInputProps(props)
-
-		if (subset.autoComplete === undefined) {
-			subset.autoComplete = 'off'
-		}
-
-		return subset
-	}, [props])
-
+export function InputEmail<T = any, V = any>(props: IProps<T, V>) {
 	return (
 		<>
 			{!!props.plainText ? (
-				!!props.value ? (
+				!!props.value && (
 					<div className="form-control-plaintext" {...props.plainTextProps}>
-						<ViewEmail email={props.value as any} label={props.plainTextLabel}/>
+						<ViewEmail email={props.value as any} label={props.plainTextLabel} />
 					</div>
-				) : null
+				)
 			) : (
-				<Input
-					type="email"
-					inputMode="email"
-					className="inputEmail"
-					{...inputProps}
-					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
-					autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
-				/>
+				<InputWrapper {...ReduceInputProps(props)}>
+					<Input type="email" inputMode="email" className="inputEmail" />
+				</InputWrapper>
 			)}
 		</>
 	)
