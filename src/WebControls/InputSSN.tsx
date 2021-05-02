@@ -22,9 +22,9 @@ export function InputSSN<T>(props: IProps<T>) {
 	return (
 		<InputWrapper
 			{...ReduceToInputAddProps(props)}
-			className="inputText"
+			className="inputSSN"
 			plainTextControl={!!props.plainTextLast4Only ? '...-' + (props.value ?? '').toString().substr(-4) : props.value}>
-			<Input type="text" className="inputText" {...inputProps} pattern="\d{3}-?\d{2}-?\d{4}" />
+			<Input type="text" {...inputProps} pattern="\d{3}-?\d{2}-?\d{4}" />
 		</InputWrapper>
 	)
 }

@@ -1,36 +1,28 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
-import {IIWInputProps, ReduceInputProps, HandleChangeValue} from './IWInputProps'
-import {FormatZip, RandomString} from '@solidbasisventures/intelliwaketsfoundation'
+import {IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
+import {FormatZip} from '@solidbasisventures/intelliwaketsfoundation'
+import {InputWrapper} from './InputWrapper'
 
 export interface IZipProps<T = unknown> extends IIWInputProps<T> {
 	withNine?: boolean
-	autoCompleteOn?: boolean
 }
-
 
 export function InputZip<T>(props: IZipProps<T>) {
 	const inputProps = useMemo(() => {
-		return ReduceInputProps(props)
+		const subset = ReduceInputProps(props)
+
+		delete subset.withNine
+
+		return subset
 	}, [props])
 
-	//pattern={!!props.withNine ? 'd{5}-?d{4}' : 'd{5}'}
-
 	return (
-		<>
-			{!!props.plainText ? (
-				<div className="form-control-plaintext" {...props.plainTextProps}>
-					{FormatZip((props.value ?? '').toString())}
-				</div>
-			) : (
-				<Input
-					type="text"
-					className="inputZip"
-					{...inputProps}
-					onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}
-					autoComplete={props.autoCompleteOn ? 'on' : `AC_${props.name ?? ''}_${RandomString(5)}`}
-				/>
-			)}
-		</>
+		<InputWrapper
+			{...ReduceToInputAddProps(props)}
+			className="inputZip"
+			plainTextControl={FormatZip((props.value ?? '').toString())}>
+			<Input type="text" {...inputProps} />
+		</InputWrapper>
 	)
 }
