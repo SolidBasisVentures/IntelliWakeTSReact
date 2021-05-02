@@ -1628,7 +1628,7 @@ function InputSelect(props) {
         delete subset.plainTextProps;
         return subset;
     }, [props]);
-    return (React__default['default'].createElement(InputWrapper, __assign({}, wrapperProps, { className: "inputSelect", transformToValid: function (val) {
+    return (React__default['default'].createElement(InputWrapper, __assign({}, wrapperProps, { className: 'inputSelect' + (props.plainText ? ' disabledLink' : ''), transformToValid: function (val) {
             if (!!props.isNumeric || !!props.isNumericOrNull) {
                 var value = intelliwaketsfoundation.CleanNumber(val);
                 if (!!props.isNumericOrNull && value === 0) {

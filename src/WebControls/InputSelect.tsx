@@ -39,7 +39,7 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 	return (
 		<InputWrapper
 			{...wrapperProps}
-			className="inputSelect"
+			className={'inputSelect' + (props.plainText ? ' disabledLink' : '')}
 			transformToValid={(val) => {
 				if (!!props.isNumeric || !!props.isNumericOrNull) {
 					const value = CleanNumber(val)
