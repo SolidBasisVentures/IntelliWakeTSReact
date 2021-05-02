@@ -1574,9 +1574,17 @@ var InputWrapper = function (props) {
 };
 
 function InputEmail(props) {
+    var inputProps = React.useMemo(function () {
+        var subset = ReduceInputProps(props);
+        delete subset.plaintext;
+        if (subset.autoComplete === undefined) {
+            subset.autoComplete = 'off';
+        }
+        return subset;
+    }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.value && (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
-        React__default['default'].createElement(ViewEmail, { email: props.value, label: props.plainTextLabel })))) : (React__default['default'].createElement(InputWrapper, __assign({}, ReduceInputProps(props)),
-        React__default['default'].createElement(reactstrap.Input, { type: "email", inputMode: "email", className: "inputEmail" })))));
+        React__default['default'].createElement(ViewEmail, { email: props.value, label: props.plainTextLabel })))) : (React__default['default'].createElement(InputWrapper, __assign({}, ReduceInputProps(props), { className: "inputEmail" }),
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "email", inputMode: "email" }, inputProps))))));
 }
 
 function InputSelect(props) {
