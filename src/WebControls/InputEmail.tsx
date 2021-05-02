@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {Input} from 'reactstrap'
-import {IIWInputProps, ReduceInputProps} from './IWInputProps'
+import {IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
 import {ViewEmail} from './ViewEmail'
 import {InputWrapper} from './InputWrapper'
 
@@ -30,7 +30,7 @@ export function InputEmail<T = any, V = any>(props: IProps<T, V>) {
 					</div>
 				)
 			) : (
-				<InputWrapper {...ReduceInputProps(props)} className="inputEmail">
+				<InputWrapper {...ReduceToInputAddProps(props)} className="inputEmail">
 					<Input type="email" inputMode="email" {...inputProps} />
 				</InputWrapper>
 			)}
