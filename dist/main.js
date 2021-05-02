@@ -1562,18 +1562,18 @@ var InputWrapper = function (props) {
     var _a, _b, _c, _d;
     var isMounted = React.useRef(false);
     var lateTrigger = React.useRef(setTimeout(function () { }, 100));
-    var _e = React.useState(props.children.props.value), lateValue = _e[0], setLateValue = _e[1];
-    var _f = React.useState(''), currentStringOverride = _f[0], setCurrentStringOverride = _f[1];
+    var lateValue = React.useRef(undefined);
+    var _e = React.useState(''), currentStringOverride = _e[0], setCurrentStringOverride = _e[1];
     React.useEffect(function () {
         isMounted.current = true;
         return function () {
             isMounted.current = false;
         };
     });
-    React.useEffect(function () { return setLateValue(props.children.props.value); }, [props.children.props.value]);
     React.useEffect(function () {
         var _a;
         var newVal = !props.children.props.value ? '' : (_a = props.children.props.value) !== null && _a !== void 0 ? _a : '';
+        lateValue.current = undefined;
         setCurrentStringOverride(newVal.toString());
     }, [props.children.props.value]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext " }, props.plainTextProps),
@@ -1589,9 +1589,11 @@ var InputWrapper = function (props) {
                 props.children.props.onFocus(e);
         },
         onBlur: function (e) {
-            if (!!props.changeValueLate && lateValue !== props.children.props.value) {
-                clearTimeout(lateTrigger.current);
-                props.changeValueLate(lateValue, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
+            clearTimeout(lateTrigger.current);
+            if (!!props.changeValueLate &&
+                lateValue.current !== undefined &&
+                lateValue.current !== props.children.props.value) {
+                props.changeValueLate(lateValue.current, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
             }
             if (props.children.props.onBlur)
                 props.children.props.onBlur(e);
@@ -1620,14 +1622,14 @@ var InputWrapper = function (props) {
                 props.changeValue(customValue, name, shiftKey, ctrlKey, altKey);
             }
             if (!!props.changeValueLate) {
+                if (isValid) {
+                    lateValue.current = customValue;
+                }
                 lateTrigger.current = setTimeout(function () {
-                    if (!!props.changeValueLate && isMounted.current) {
-                        props.changeValueLate(customValue, name, shiftKey, ctrlKey, altKey);
+                    if (!!props.changeValueLate && isMounted.current && lateValue.current !== undefined) {
+                        props.changeValueLate(lateValue.current, name, shiftKey, ctrlKey, altKey);
                     }
                 }, (_b = props.lateDelayMS) !== null && _b !== void 0 ? _b : 500);
-            }
-            if (isValid) {
-                setLateValue(customValue);
             }
         },
         autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_d = props.children.props.name) !== null && _d !== void 0 ? _d : '') + "_" + intelliwaketsfoundation.RandomString(5),

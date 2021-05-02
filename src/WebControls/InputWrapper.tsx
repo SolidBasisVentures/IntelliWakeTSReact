@@ -18,7 +18,7 @@ interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	const isMounted = useRef(false)
 	const lateTrigger = useRef(setTimeout(() => {}, 100))
-	const [lateValue, setLateValue] = useState<V>((props.children.props.value as unknown) as V)
+	const lateValue = useRef<V | undefined>(undefined)
 	const [currentStringOverride, setCurrentStringOverride] = useState<string>('')
 
 	useEffect(() => {
@@ -29,10 +29,9 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 		}
 	})
 
-	useEffect(() => setLateValue((props.children.props.value as unknown) as V), [props.children.props.value])
-
 	useEffect(() => {
 		const newVal = !props.children.props.value ? '' : props.children.props.value ?? ''
+		lateValue.current = undefined
 		setCurrentStringOverride((newVal as any).toString())
 	}, [props.children.props.value])
 
@@ -60,10 +59,14 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 								if (props.children.props.onFocus) props.children.props.onFocus(e)
 							},
 							onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
-								if (!!props.changeValueLate && lateValue !== ((props.children.props.value as unknown) as V)) {
-									clearTimeout(lateTrigger.current)
+								clearTimeout(lateTrigger.current)
+								if (
+									!!props.changeValueLate &&
+									lateValue.current !== undefined &&
+									lateValue.current !== ((props.children.props.value as unknown) as V)
+								) {
 									props.changeValueLate(
-										lateValue,
+										lateValue.current,
 										e.target.name as any,
 										(e.nativeEvent as any).shiftKey,
 										(e.nativeEvent as any).ctrlKey,
@@ -100,14 +103,14 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 									props.changeValue(customValue, name, shiftKey, ctrlKey, altKey)
 								}
 								if (!!props.changeValueLate) {
+									if (isValid) {
+										lateValue.current = customValue
+									}
 									lateTrigger.current = setTimeout(() => {
-										if (!!props.changeValueLate && isMounted.current) {
-											props.changeValueLate(customValue, name, shiftKey, ctrlKey, altKey)
+										if (!!props.changeValueLate && isMounted.current && lateValue.current !== undefined) {
+											props.changeValueLate(lateValue.current, name, shiftKey, ctrlKey, altKey)
 										}
 									}, props.lateDelayMS ?? 500)
-								}
-								if (isValid) {
-									setLateValue(customValue)
 								}
 							},
 							autoComplete: props.autoCompleteOn ? 'on' : `AC_${props.children.props.name ?? ''}_${RandomString(5)}`,
