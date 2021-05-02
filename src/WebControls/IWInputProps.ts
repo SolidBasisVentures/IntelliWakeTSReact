@@ -22,7 +22,7 @@ export interface IIWInputAddProps<T = any, V = any> {
 }
 
 export interface IIWInputProps<T = any, V = any> extends Omit<InputProps, 'value'>, IIWInputAddProps<T, V> {
-	value: V
+	value?: V
 }
 
 export const ReduceInputProps = <T = any, V = any>(props: IIWInputProps<T, V> | any): InputProps => {
