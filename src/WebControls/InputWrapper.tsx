@@ -14,6 +14,7 @@ interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 	transformToValid?: (value: any) => any
 	doNotSelectOnFocus?: boolean
 	plainTextControl?: ReactNode
+	isInvalid?: boolean
 	lateDelayMS?: number
 	consoleVerbose?: boolean
 }
@@ -89,7 +90,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 								(props.children.props.className ?? '') +
 								' ' +
 								(props.className ?? '') +
-								(props.children.props.invalid ? ' is_invalid' : '') +
+								(props.children.props.invalid || props.isInvalid ? ' is_invalid' : '') +
 								(props.children.props.required ? ' is-required' : '')
 							).trim(),
 							onFocus: (e: React.FocusEvent<HTMLInputElement>) => {

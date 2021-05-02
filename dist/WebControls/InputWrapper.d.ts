@@ -8,6 +8,7 @@ interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
     transformToValid?: (value: any) => any;
     doNotSelectOnFocus?: boolean;
     plainTextControl?: ReactNode;
+    isInvalid?: boolean;
     lateDelayMS?: number;
     consoleVerbose?: boolean;
 }

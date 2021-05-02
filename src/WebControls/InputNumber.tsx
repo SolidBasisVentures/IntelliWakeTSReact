@@ -28,6 +28,7 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 		delete subset.upperBound
 		delete subset.currency
 		delete subset.hideZero
+		delete subset.invalid
 
 		return subset
 	}, [props])
@@ -77,7 +78,8 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 				'inputNumber form-control': true,
 				numerics: hasDecimals,
 				integers: !hasDecimals
-			})}>
+			})}
+			isInvalid={!!props.invalid}>
 			<Cleave
 				options={options}
 				htmlRef={props.htmlRef}

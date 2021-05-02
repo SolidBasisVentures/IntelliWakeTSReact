@@ -1530,7 +1530,7 @@ var InputWrapper = function (props) {
         React__default['default'].createElement(AppendPrependWrapper, { append: props.append, prepend: props.prepend }, (_b = props.plainTextControl) !== null && _b !== void 0 ? _b : props.children.props.value)))) : (React__default['default'].createElement(InputGroupWrapper, { append: props.append, prepend: props.prepend }, React__default['default'].cloneElement(props.children, ReduceInputProps(__assign(__assign({}, props.children.props), { className: (((_c = props.children.props.className) !== null && _c !== void 0 ? _c : '') +
             ' ' +
             ((_d = props.className) !== null && _d !== void 0 ? _d : '') +
-            (props.children.props.invalid ? ' is_invalid' : '') +
+            (props.children.props.invalid || props.isInvalid ? ' is_invalid' : '') +
             (props.children.props.required ? ' is-required' : '')).trim(), onFocus: function (e) {
             if (!props.doNotSelectOnFocus && !!e.target.select)
                 e.target.select();
@@ -1671,6 +1671,7 @@ function InputNumber(props) {
         delete subset.upperBound;
         delete subset.currency;
         delete subset.hideZero;
+        delete subset.invalid;
         return subset;
     }, [props]);
     var handleKeyDown = function (e) {
@@ -1711,7 +1712,7 @@ function InputNumber(props) {
             'inputNumber form-control': true,
             numerics: hasDecimals,
             integers: !hasDecimals
-        }) }),
+        }), isInvalid: !!props.invalid }),
         React__default['default'].createElement(Cleave__default['default'], __assign({ options: options, htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown }, inputProps))));
 }
 
