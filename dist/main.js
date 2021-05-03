@@ -1554,7 +1554,7 @@ var InputWrapper = function (props) {
             clearTimeout(lateTrigger.current);
             if (!props.children.props.plainText && !props.children.props.disabled) {
                 var isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value);
-                isManagingDirtyState.current = isValid;
+                isManagingDirtyState.current = !isValid;
                 var customValue = (!isValid
                     ? !!props.children.props.valueOnInvalid
                         ? props.children.props.valueOnInvalid(e.target.value)
