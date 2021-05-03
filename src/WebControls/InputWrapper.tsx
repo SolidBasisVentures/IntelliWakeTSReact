@@ -51,6 +51,16 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	})
 
 	useEffect(() => {
+		console.log(
+			'Here',
+			props.children.props.value,
+			'int',
+			internalState,
+			'isDirt',
+			isManagingDirtyState.current,
+			'other',
+			!props.isInvalid || (!!props.valueOnInvalid && props.children.props.value !== props.valueOnInvalid(internalState))
+		)
 		lateState.current = undefined
 		if (
 			!isManagingDirtyState.current &&
