@@ -2703,18 +2703,17 @@ var SelectDD = function (props) {
     var _a;
     var _b, _c, _d, _e, _f;
     var _g = React.useState((_b = props.items.find(function (item) { return props.selectedID === undefined || item.id === props.selectedID; })) !== null && _b !== void 0 ? _b : undefined), selectedItem = _g[0], setSelectedItem = _g[1];
-    var handleSelect = function (id) {
-        var _a, _b, _c;
-        var newItem = (_a = props.items.find(function (item) { return id === undefined || item.id === id; })) !== null && _a !== void 0 ? _a : undefined;
-        setSelectedItem(newItem);
+    var handleSelect = function (item) {
+        var _a, _b;
+        setSelectedItem(item);
         if (!!props.handleSelectItem) {
-            props.handleSelectItem(newItem);
+            props.handleSelectItem(item);
         }
         if (!!props.handleSelectData) {
-            props.handleSelectData(!newItem ? null : (_b = newItem.data) !== null && _b !== void 0 ? _b : null);
+            props.handleSelectData((_a = item === null || item === void 0 ? void 0 : item.data) !== null && _a !== void 0 ? _a : null);
         }
         if (!!props.handleSelectID) {
-            props.handleSelectID((_c = (newItem !== null && newItem !== void 0 ? newItem : { id: undefined }).id) !== null && _c !== void 0 ? _c : null);
+            props.handleSelectID((_b = item === null || item === void 0 ? void 0 : item.id) !== null && _b !== void 0 ? _b : null);
         }
     };
     React.useEffect(function () {
@@ -2723,16 +2722,17 @@ var SelectDD = function (props) {
     }, [props.selectedID, props.items]);
     return (React__default['default'].createElement(reactstrap.UncontrolledDropdown, { size: props.size, className: ((_c = props.className) !== null && _c !== void 0 ? _c : '') + (!!props.likeSelect ? ' input-dd' : '') + (!!props.inline ? ' d-inline-block' : '') },
         React__default['default'].createElement(reactstrap.DropdownToggle, { color: (_d = props.color) !== null && _d !== void 0 ? _d : (!!props.inline ? 'primary-outline' : 'primary'), caret: !!props.caret, className: (!!props.classNameBtn ? props.classNameBtn : '') + ' ' + (!!props.inline ? ' btn-link-inline' : '') },
-            !!(props !== null && props !== void 0 ? props : {}).faIcon ? (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: props.faIcon, className: "mr-1" })) : !!selectedItem && selectedItem.faIcon ? (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: selectedItem.faIcon, className: ClassNames((_a = {
+            !!(props !== null && props !== void 0 ? props : {}).faIcon ? (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: props.faIcon, className: "mr-1" })) : (!!selectedItem &&
+                selectedItem.faIcon && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: selectedItem.faIcon, className: ClassNames((_a = {
                         'mr-1': true
                     },
                     _a[(_e = 'text-' + selectedItem.faIconColor) !== null && _e !== void 0 ? _e : ''] = !!selectedItem.faIconColor,
-                    _a)) })) : null, (_f = (selectedItem !== null && selectedItem !== void 0 ? selectedItem : {}).name) !== null && _f !== void 0 ? _f : 'No Selection'),
+                    _a)) }))), (_f = (selectedItem !== null && selectedItem !== void 0 ? selectedItem : {}).name) !== null && _f !== void 0 ? _f : 'No Selection'),
         React__default['default'].createElement(reactstrap.DropdownMenu, null, (props !== null && props !== void 0 ? props : {}).items.map(function (item) {
             var _a;
             var _b, _c;
-            return (React__default['default'].createElement(reactstrap.DropdownItem, { key: ((_b = item.id) !== null && _b !== void 0 ? _b : -1).toString(), onClick: function () { return handleSelect(item.id); } },
-                item.faIcon ? (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: item.faIcon, fixedWidth: true, className: ClassNames((_a = {}, _a[(_c = 'text-' + item.faIconColor) !== null && _c !== void 0 ? _c : ''] = !!item.faIconColor, _a)) })) : null,
+            return (React__default['default'].createElement(reactstrap.DropdownItem, { key: ((_b = item.id) !== null && _b !== void 0 ? _b : -1).toString(), onClick: function () { return handleSelect(item); } },
+                item.faIcon && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: item.faIcon, fixedWidth: true, className: ClassNames((_a = {}, _a[(_c = 'text-' + item.faIconColor) !== null && _c !== void 0 ? _c : ''] = !!item.faIconColor, _a)) })),
                 item.name));
         }))));
 };

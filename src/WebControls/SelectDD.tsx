@@ -34,17 +34,16 @@ export const SelectDD = (props: IPropsSelectDD) => {
 			undefined
 	)
 
-	const handleSelect = (id: any) => {
-		const newItem = props.items.find((item: IPropsSelectDDItem) => id === undefined || item.id === id) ?? undefined
-		setSelectedItem(newItem)
+	const handleSelect = (item: any) => {
+		setSelectedItem(item)
 		if (!!props.handleSelectItem) {
-			props.handleSelectItem(newItem)
+			props.handleSelectItem(item)
 		}
 		if (!!props.handleSelectData) {
-			props.handleSelectData(!newItem ? null : newItem.data ?? null)
+			props.handleSelectData(item?.data ?? null)
 		}
 		if (!!props.handleSelectID) {
-			props.handleSelectID((newItem ?? {id: undefined}).id ?? null)
+			props.handleSelectID(item?.id ?? null)
 		}
 	}
 
@@ -67,27 +66,30 @@ export const SelectDD = (props: IPropsSelectDD) => {
 				className={(!!props.classNameBtn ? props.classNameBtn : '') + ' ' + (!!props.inline ? ' btn-link-inline' : '')}>
 				{!!(props ?? {}).faIcon ? (
 					<FontAwesomeIcon icon={props.faIcon} className="mr-1" />
-				) : !!selectedItem && selectedItem.faIcon ? (
-					<FontAwesomeIcon
-						icon={selectedItem.faIcon}
-						className={ClassNames({
-							'mr-1': true,
-							['text-' + selectedItem.faIconColor ?? '']: !!selectedItem.faIconColor
-						})}
-					/>
-				) : null}
+				) : (
+					!!selectedItem &&
+					selectedItem.faIcon && (
+						<FontAwesomeIcon
+							icon={selectedItem.faIcon}
+							className={ClassNames({
+								'mr-1': true,
+								['text-' + selectedItem.faIconColor ?? '']: !!selectedItem.faIconColor
+							})}
+						/>
+					)
+				)}
 				{(selectedItem ?? {}).name ?? 'No Selection'}
 			</DropdownToggle>
 			<DropdownMenu>
 				{(props ?? {}).items.map((item: IPropsSelectDDItem) => (
-					<DropdownItem key={(item.id ?? -1).toString()} onClick={() => handleSelect(item.id)}>
-						{item.faIcon ? (
+					<DropdownItem key={(item.id ?? -1).toString()} onClick={() => handleSelect(item)}>
+						{item.faIcon && (
 							<FontAwesomeIcon
 								icon={item.faIcon}
 								fixedWidth
 								className={ClassNames({['text-' + item.faIconColor ?? '']: !!item.faIconColor})}
 							/>
-						) : null}
+						)}
 						{item.name}
 					</DropdownItem>
 				))}
