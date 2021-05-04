@@ -16,6 +16,7 @@ interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 	plainTextControl?: ReactNode
 	isInvalid?: boolean
 	lateDelayMS?: number
+	isEqual?: (internalValue: any, endValue: any) => boolean
 	consoleVerbose?: boolean
 }
 
@@ -54,7 +55,9 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 		lateState.current = undefined
 		if (
 			!isManagingDirtyState.current &&
-			internalState !== props.children.props.value &&
+			(!!props.isEqual
+				? !props.isEqual(internalState, props.children.props.value)
+				: internalState !== props.children.props.value) &&
 			(!props.isInvalid ||
 				(!!props.valueOnInvalid && props.children.props.value !== props.valueOnInvalid(internalState)))
 		) {

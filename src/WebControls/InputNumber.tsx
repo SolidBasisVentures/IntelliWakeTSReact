@@ -84,7 +84,8 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 					? ToCurrency(props.value, options.numeralDecimalScale)
 					: ToDigits(props.value, options.numeralDecimalScale)
 			}
-			isInvalid={!!props.invalid}>
+			isInvalid={!!props.invalid}
+			isEqual={(internal, props) => CleanNumber(internal) === CleanNumber(props)}>
 			<Cleave
 				options={options}
 				htmlRef={props.htmlRef}
