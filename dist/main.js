@@ -1715,7 +1715,9 @@ function InputNumber(props) {
             'inputNumber form-control': true,
             numerics: hasDecimals,
             integers: !hasDecimals
-        }), isInvalid: !!props.invalid }),
+        }), plainTextControl: !!props.currency
+            ? intelliwaketsfoundation.ToCurrency(props.value, options.numeralDecimalScale)
+            : intelliwaketsfoundation.ToDigits(props.value, options.numeralDecimalScale), isInvalid: !!props.invalid }),
         React__default['default'].createElement(Cleave__default['default'], __assign({ options: options, htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown }, inputProps))));
 }
 
