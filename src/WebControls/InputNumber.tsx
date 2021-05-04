@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import Cleave from 'cleave.js/react'
-import {CleanNumber} from '@solidbasisventures/intelliwaketsfoundation'
+import {CleanNumber, ToCurrency, ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
 import {IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
 import {CleaveOptions} from 'cleave.js/options'
 import {ClassNames} from '../Functions'
@@ -79,6 +79,11 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 				numerics: hasDecimals,
 				integers: !hasDecimals
 			})}
+			plainTextControl={
+				!!props.currency
+					? ToCurrency(props.value, options.numeralDecimalScale)
+					: ToDigits(props.value, options.numeralDecimalScale)
+			}
 			isInvalid={!!props.invalid}>
 			<Cleave
 				options={options}
