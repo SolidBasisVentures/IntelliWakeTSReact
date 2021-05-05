@@ -1518,7 +1518,9 @@ var InputWrapper = function (props) {
     React.useEffect(function () {
         lateState.current = undefined;
         if (!isManagingDirtyState.current &&
-            internalState !== props.children.props.value &&
+            (!!props.isEqual
+                ? !props.isEqual(internalState, props.children.props.value)
+                : internalState !== props.children.props.value) &&
             (!props.isInvalid ||
                 (!!props.valueOnInvalid && props.children.props.value !== props.valueOnInvalid(internalState)))) {
             setInternalState(props.children.props.value);
@@ -1717,7 +1719,7 @@ function InputNumber(props) {
             integers: !hasDecimals
         }), plainTextControl: !!props.currency
             ? intelliwaketsfoundation.ToCurrency(props.value, options.numeralDecimalScale)
-            : intelliwaketsfoundation.ToDigits(props.value, options.numeralDecimalScale), isInvalid: !!props.invalid }),
+            : intelliwaketsfoundation.ToDigits(props.value, options.numeralDecimalScale), isInvalid: !!props.invalid, isEqual: function (internal, props) { return intelliwaketsfoundation.CleanNumber(internal) === intelliwaketsfoundation.CleanNumber(props); } }),
         React__default['default'].createElement(Cleave__default['default'], __assign({ options: options, htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown }, inputProps))));
 }
 

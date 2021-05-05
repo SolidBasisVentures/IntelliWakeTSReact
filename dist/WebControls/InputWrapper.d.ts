@@ -10,6 +10,7 @@ interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
     plainTextControl?: ReactNode;
     isInvalid?: boolean;
     lateDelayMS?: number;
+    isEqual?: (internalValue: any, endValue: any) => boolean;
     consoleVerbose?: boolean;
 }
 export declare const InputWrapper: <T, V>(props: IProps<T, V>) => JSX.Element;
