@@ -255,7 +255,7 @@ table.table-sortable thead th {
   }
 
   .d-sm-none-larger,
-  .d-md-none-and-larger {
+  .d-xs-none-and-larger {
     display: none !important;
   }
 
@@ -272,7 +272,7 @@ table.table-sortable thead th {
   }
 
   .d-md-none-larger,
-  .d-lg-none-and-larger {
+  .d-sm-none-and-larger {
     display: none !important;
   }
 
@@ -289,7 +289,7 @@ table.table-sortable thead th {
   }
 
   .d-lg-none-larger,
-  .d-xl-none-and-larger {
+  .d-md-none-and-larger {
     display: none !important;
   }
 
@@ -306,7 +306,7 @@ table.table-sortable thead th {
   }
 
   .d-xl-none-larger,
-  .d-xxl-none-and-larger {
+  .d-lg-none-and-larger {
     display: none !important;
   }
 
@@ -321,7 +321,8 @@ table.table-sortable thead th {
     font-weight: 400;
   }
 
-  .d-xxl-none-larger {
+  .d-xxl-none-larger,
+  .d-xl-none-and-larger {
     display: none !important;
   }
 
