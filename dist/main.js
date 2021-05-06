@@ -1495,7 +1495,9 @@ var AppendPrependWrapper = function (props) {
         return null;
     return (React__default['default'].createElement(React__default['default'].Fragment, null,
         !!props.prepend && props.prepend,
+        !!props.prepend && ' ',
         props.children,
+        !!props.append && ' ',
         !!props.append && props.append));
 };
 
@@ -1666,7 +1668,7 @@ function InputGender(props) {
 }
 
 function InputNumber(props) {
-    var _a, _b;
+    var _a, _b, _c, _d;
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.decimalScale;
@@ -1697,15 +1699,13 @@ function InputNumber(props) {
         numeral: true,
         numeralThousandsGroupStyle: 'thousand'
     };
-    if (!!props.decimalScale)
-        options.numeralDecimalScale = props.decimalScale;
-    if (!!props.integerScale)
-        options.numeralIntegerScale = props.integerScale;
+    options.numeralDecimalScale = (_a = props.decimalScale) !== null && _a !== void 0 ? _a : options.numeralDecimalScale;
+    options.numeralIntegerScale = (_b = props.integerScale) !== null && _b !== void 0 ? _b : options.numeralIntegerScale;
     if (!!props.currency) {
         options.prefix = '$ ';
-        options.numeralDecimalScale = props.decimalScale === undefined ? 2 : (_a = props.decimalScale) !== null && _a !== void 0 ? _a : undefined;
+        options.numeralDecimalScale = props.decimalScale === undefined ? 2 : (_c = props.decimalScale) !== null && _c !== void 0 ? _c : undefined;
     }
-    var hasDecimals = ((_b = props.decimalScale) !== null && _b !== void 0 ? _b : 0) > 0;
+    var hasDecimals = ((_d = props.decimalScale) !== null && _d !== void 0 ? _d : 0) > 0;
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { inputIsValid: function (val) { return !isNaN(intelliwaketsfoundation.CleanNumber(val)); }, valueOnInvalid: function () { return 0; }, transformToValid: function (val) {
             var cleanNumber = intelliwaketsfoundation.CleanNumber(val);
             if (props.lowerBound !== undefined && cleanNumber < props.lowerBound)

@@ -254,7 +254,8 @@ table.table-sortable thead th {
     font-weight: 400;
   }
 
-  .d-sm-none-larger {
+  .d-sm-none-larger,
+  .d-md-none-and-larger {
     display: none !important;
   }
 
@@ -270,7 +271,8 @@ table.table-sortable thead th {
     font-weight: 400;
   }
 
-  .d-md-none-larger {
+  .d-md-none-larger,
+  .d-lg-none-and-larger {
     display: none !important;
   }
 
@@ -286,7 +288,8 @@ table.table-sortable thead th {
     font-weight: 400;
   }
 
-  .d-lg-none-larger {
+  .d-lg-none-larger,
+  .d-xl-none-and-larger {
     display: none !important;
   }
 
@@ -302,7 +305,8 @@ table.table-sortable thead th {
     font-weight: 400;
   }
 
-  .d-xl-none-larger {
+  .d-xl-none-larger,
+  .d-xxl-none-and-larger {
     display: none !important;
   }
 
