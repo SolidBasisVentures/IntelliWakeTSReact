@@ -12,7 +12,9 @@ export const AppendPrependWrapper = (props: IProps) => {
 	return (
 		<>
 			{!!props.prepend && props.prepend}
+			{!!props.prepend && ' '}
 			{props.children}
+			{!!props.append && ' '}
 			{!!props.append && props.append}
 		</>
 	)

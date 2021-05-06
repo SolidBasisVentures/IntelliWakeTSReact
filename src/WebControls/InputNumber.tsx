@@ -54,8 +54,8 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 		numeralThousandsGroupStyle: 'thousand'
 	}
 
-	if (!!props.decimalScale) options.numeralDecimalScale = props.decimalScale
-	if (!!props.integerScale) options.numeralIntegerScale = props.integerScale
+	options.numeralDecimalScale = props.decimalScale ?? options.numeralDecimalScale
+	options.numeralIntegerScale = props.integerScale ?? options.numeralIntegerScale
 	if (!!props.currency) {
 		options.prefix = '$ '
 		options.numeralDecimalScale = props.decimalScale === undefined ? 2 : props.decimalScale ?? undefined
