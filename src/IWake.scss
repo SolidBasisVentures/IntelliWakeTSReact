@@ -641,6 +641,7 @@ img.img-inline {
 .none-xs {
   display: none;
 }
+
 @media screen and (min-width: 576px) {
   .fill-height-sm-larger {
     overflow-y: hidden;
@@ -817,6 +818,7 @@ img.img-inline {
     width: 50%;
   }
 }
+
 @media (max-width: 767.98px) {
   .System_MessageBox {
     left: 2.5%;
@@ -1587,7 +1589,8 @@ img.img-inline {
   align-items: center;
   justify-content: center;
 
-  background: white;opacity: 0.75;
+  background: white;
+  opacity: 0.75;
 
   //background: rgba(0, 0, 0, 0.1);
   //margin: 10px;
@@ -1602,7 +1605,8 @@ img.img-inline {
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: black; opacity: 0.3;
+  background-color: black;
+  opacity: 0.3;
   z-index: 9999;
   align-items: center;
   justify-content: center;
@@ -1634,4 +1638,12 @@ img.img-inline {
     background-color: transparent;
     padding: 0 1rem;
   }
+}
+
+br {
+  mso-data-placement: same-cell;
+}
+
+p {
+  mso-data-placement: same-cell;
 }

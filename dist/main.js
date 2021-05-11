@@ -298,7 +298,8 @@ var DownloadBase64Data = function (fileName, base64, type) {
         link.click();
     }
 };
-var CopyRefToClipboard = function (ref) {
+var CopyRefToClipboard = function (ref, tryFormatted) {
+    if (tryFormatted === void 0) { tryFormatted = true; }
     if (ref && ref.current && document.createRange && window.getSelection) {
         var range = document.createRange();
         var sel = window.getSelection();
@@ -315,11 +316,17 @@ var CopyRefToClipboard = function (ref) {
                 tds[i].setAttribute('copyuserselect', tds[i].style.userSelect);
                 tds[i].style.userSelect = 'auto';
             }
-            try {
-                range.selectNode(ref.current);
-                sel.addRange(range);
+            if (tryFormatted) {
+                try {
+                    range.selectNode(ref.current);
+                    sel.addRange(range);
+                }
+                catch (e) {
+                    range.selectNodeContents(ref.current);
+                    sel.addRange(range);
+                }
             }
-            catch (e) {
+            else {
                 range.selectNodeContents(ref.current);
                 sel.addRange(range);
             }
