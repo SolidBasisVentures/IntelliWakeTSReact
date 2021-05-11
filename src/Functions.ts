@@ -142,7 +142,7 @@ export const DownloadBase64Data = (fileName: string, base64: string, type: strin
 	}
 }
 
-export const CopyRefToClipboard = (ref: any): boolean => {
+export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 	if (ref && ref.current && document.createRange && window.getSelection) {
 		let range = document.createRange()
 		let sel = window.getSelection()
@@ -161,10 +161,15 @@ export const CopyRefToClipboard = (ref: any): boolean => {
 				tds[i].style.userSelect = 'auto'
 			}
 
-			try {
-				range.selectNode(ref.current as any)
-				sel.addRange(range)
-			} catch (e) {
+			if (tryFormatted) {
+				try {
+					range.selectNode(ref.current as any)
+					sel.addRange(range)
+				} catch (e) {
+					range.selectNodeContents(ref.current as any)
+					sel.addRange(range)
+				}
+			} else {
 				range.selectNodeContents(ref.current as any)
 				sel.addRange(range)
 			}
