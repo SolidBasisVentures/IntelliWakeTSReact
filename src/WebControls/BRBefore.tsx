@@ -13,6 +13,7 @@ export const BRBefore = (props: IProps) => {
 
 	return (
 		<span className={props.className}>
+			{' '}
 			<br />
 			{props.prefix}
 			{props.text}

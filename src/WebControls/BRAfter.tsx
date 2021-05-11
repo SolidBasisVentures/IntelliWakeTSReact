@@ -15,8 +15,7 @@ export const BRAfter = (props: IProps) => {
 		<span className={props.className}>
 			{props.prefix}
 			{props.text}
-			{props.suffix}
-			<br />
+			{props.suffix} <br />
 		</span>
 	)
 }

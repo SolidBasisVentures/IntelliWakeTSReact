@@ -1120,3 +1120,9 @@ img.img-inline {
     border: none !important;
     background-color: transparent;
     padding: 0 1rem; }
+
+br {
+  mso-data-placement: same-cell; }
+
+p {
+  mso-data-placement: same-cell; }

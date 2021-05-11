@@ -914,6 +914,7 @@ var BRAfter = function (props) {
         props.prefix,
         props.text,
         props.suffix,
+        " ",
         React__default['default'].createElement("br", null)));
 };
 
@@ -921,6 +922,7 @@ var BRBefore = function (props) {
     if (props.hidden || !props.text)
         return null;
     return (React__default['default'].createElement("span", { className: props.className },
+        ' ',
         React__default['default'].createElement("br", null),
         props.prefix,
         props.text,
