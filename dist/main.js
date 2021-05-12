@@ -3,9 +3,9 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var intelliwaketsfoundation = require('@solidbasisventures/intelliwaketsfoundation');
+var moment = require('moment');
 var React = require('react');
 var _ = require('lodash');
-var moment = require('moment');
 var reactstrap = require('reactstrap');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
 var proRegularSvgIcons = require('@fortawesome/pro-regular-svg-icons');
@@ -16,9 +16,9 @@ var axios = require('axios');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
+var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var ___default = /*#__PURE__*/_interopDefaultLegacy(_);
-var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
 var ReactDatePicker__default = /*#__PURE__*/_interopDefaultLegacy(ReactDatePicker);
 var Cleave__default = /*#__PURE__*/_interopDefaultLegacy(Cleave);
 var axios__default = /*#__PURE__*/_interopDefaultLegacy(axios);
@@ -316,6 +316,16 @@ var CopyRefToClipboard = function (ref, tryFormatted) {
                 tds[i].setAttribute('copyuserselect', tds[i].style.userSelect);
                 tds[i].style.userSelect = 'auto';
             }
+            var brs = ref.current.getElementsByTagName('br');
+            for (var i = 0; i < brs.length; i++) {
+                brs[i].setAttribute('copyuserdisplay', brs[i].style.display);
+                brs[i].style.display = 'none';
+            }
+            var hrs = ref.current.getElementsByTagName('hr');
+            for (var i = 0; i < hrs.length; i++) {
+                hrs[i].setAttribute('copyuserdisplay', hrs[i].style.display);
+                hrs[i].style.display = 'none';
+            }
             if (tryFormatted) {
                 try {
                     range.selectNode(ref.current);
@@ -340,10 +350,44 @@ var CopyRefToClipboard = function (ref, tryFormatted) {
                 tds[i].style.userSelect = tds[i].getAttribute('copyuserselect');
                 tds[i].removeAttribute('copyuserselect');
             }
+            for (var i = 0; i < brs.length; i++) {
+                brs[i].style.display = brs[i].getAttribute('display');
+                brs[i].removeAttribute('copyuserdisplay');
+            }
+            for (var i = 0; i < hrs.length; i++) {
+                hrs[i].style.display = hrs[i].getAttribute('display');
+                hrs[i].removeAttribute('copyuserdisplay');
+            }
             return true;
         }
     }
     return false;
+};
+var TableIDToExcel = function (tableID, fileName, appendDateTime) {
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    // Specify file name
+    var filename = "" + (fileName !== null && fileName !== void 0 ? fileName : tableID) + (!!appendDateTime ? "-" + intelliwaketsfoundation.MomentDateString(moment__default['default']()) + "_" + intelliwaketsfoundation.MomentFormatString(moment__default['default'](), 'HH-MM-SS') : '') + ".xls";
+    // Create download link element
+    downloadLink = document.createElement('a');
+    document.body.appendChild(downloadLink);
+    if (navigator.msSaveOrOpenBlob) {
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob(blob, filename);
+    }
+    else {
+        tableHTML = intelliwaketsfoundation.ReplaceAll('<br>', encodeURI('\r'), tableHTML);
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+        // Setting the file name
+        downloadLink.download = filename;
+        //triggering the function
+        downloadLink.click();
+    }
 };
 var SizeAtMin = function (size) {
     switch (size) {
@@ -2879,6 +2923,7 @@ exports.SizeAtMin = SizeAtMin;
 exports.SortObjects = SortObjects;
 exports.StructuredArray = StructuredArray;
 exports.StyleControl = StyleControl;
+exports.TableIDToExcel = TableIDToExcel;
 exports.TextStatus = TextStatus;
 exports.ValidColumns = ValidColumns;
 exports.ViewEmail = ViewEmail;

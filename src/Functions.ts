@@ -1,5 +1,11 @@
 import React from 'react'
-import {CleanNumber} from '@solidbasisventures/intelliwaketsfoundation'
+import {
+	CleanNumber,
+	MomentDateString,
+	MomentFormatString,
+	ReplaceAll
+} from '@solidbasisventures/intelliwaketsfoundation'
+import moment from 'moment'
 
 export const KEY_UP_ARROW = 38
 export const KEY_DOWN_ARROW = 40
@@ -149,7 +155,7 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 		if (sel) {
 			// unselect any element in the page
 			sel.removeAllRanges()
-
+			
 			let ths = ref.current.getElementsByTagName('th') as any[]
 			for (let i = 0; i < ths.length; i++) {
 				ths[i].setAttribute('copyuserselect', ths[i].style.userSelect)
@@ -160,7 +166,17 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 				tds[i].setAttribute('copyuserselect', tds[i].style.userSelect)
 				tds[i].style.userSelect = 'auto'
 			}
-
+			let brs = ref.current.getElementsByTagName('br') as any[]
+			for (let i = 0; i < brs.length; i++) {
+				brs[i].setAttribute('copyuserdisplay', brs[i].style.display)
+				brs[i].style.display = 'none'
+			}
+			let hrs = ref.current.getElementsByTagName('hr') as any[]
+			for (let i = 0; i < hrs.length; i++) {
+				hrs[i].setAttribute('copyuserdisplay', hrs[i].style.display)
+				hrs[i].style.display = 'none'
+			}
+			
 			if (tryFormatted) {
 				try {
 					range.selectNode(ref.current as any)
@@ -173,11 +189,11 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 				range.selectNodeContents(ref.current as any)
 				sel.addRange(range)
 			}
-
+			
 			document.execCommand('copy')
-
+			
 			sel.removeAllRanges()
-
+			
 			for (let i = 0; i < ths.length; i++) {
 				ths[i].style.userSelect = ths[i].getAttribute('copyuserselect')
 				ths[i].removeAttribute('copyuserselect')
@@ -186,11 +202,50 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 				tds[i].style.userSelect = tds[i].getAttribute('copyuserselect')
 				tds[i].removeAttribute('copyuserselect')
 			}
-
+			for (let i = 0; i < brs.length; i++) {
+				brs[i].style.display = brs[i].getAttribute('display')
+				brs[i].removeAttribute('copyuserdisplay')
+			}
+			for (let i = 0; i < hrs.length; i++) {
+				hrs[i].style.display = hrs[i].getAttribute('display')
+				hrs[i].removeAttribute('copyuserdisplay')
+			}
+			
 			return true
 		}
 	}
 	return false
+}
+
+export const TableIDToExcel = (tableID: string, fileName?: string, appendDateTime?: boolean) => {
+	let downloadLink
+	let dataType = 'application/vnd.ms-excel'
+	let tableSelect = document.getElementById(tableID) as any
+	let tableHTML = tableSelect.outerHTML.replace(/ /g, '%20')
+	
+	// Specify file name
+	let filename = `${fileName ?? tableID}${!!appendDateTime ? `-${MomentDateString(moment())}_${MomentFormatString(moment(), 'HH-MM-SS')}` : ''}.xls`
+	
+	// Create download link element
+	downloadLink = document.createElement('a')
+	
+	document.body.appendChild(downloadLink)
+	
+	if (navigator.msSaveOrOpenBlob) {
+		let blob = new Blob(['\ufeff', tableHTML], {
+			type: dataType
+		})
+		navigator.msSaveOrOpenBlob(blob, filename)
+	} else {
+		tableHTML = ReplaceAll('<br>', encodeURI('\r'), tableHTML)
+		// Create a link to the file
+		downloadLink.href = 'data:' + dataType + ', ' + tableHTML
+		// Setting the file name
+		downloadLink.download = filename
+		
+		//triggering the function
+		downloadLink.click()
+	}
 }
 
 export type TBootStrapSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
