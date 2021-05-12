@@ -364,12 +364,13 @@ var CopyRefToClipboard = function (ref, tryFormatted) {
     return false;
 };
 var TableIDToExcel = function (tableID, fileName, appendDateTime) {
+    if (appendDateTime === void 0) { appendDateTime = true; }
     var downloadLink;
     var dataType = 'application/vnd.ms-excel';
     var tableSelect = document.getElementById(tableID);
     var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
     // Specify file name
-    var filename = "" + (fileName !== null && fileName !== void 0 ? fileName : tableID) + (!!appendDateTime ? "-" + intelliwaketsfoundation.MomentDateString(moment__default['default']()) + "_" + intelliwaketsfoundation.MomentFormatString(moment__default['default'](), 'HH-MM-SS') : '') + ".xls";
+    var filename = "" + (fileName !== null && fileName !== void 0 ? fileName : tableID) + (appendDateTime ? "-" + intelliwaketsfoundation.MomentDateString(moment__default['default']()) + "_" + intelliwaketsfoundation.MomentFormatString(moment__default['default'](), 'HH-MM-SS') : '') + ".xls";
     // Create download link element
     downloadLink = document.createElement('a');
     document.body.appendChild(downloadLink);

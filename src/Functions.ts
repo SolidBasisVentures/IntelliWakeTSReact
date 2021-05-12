@@ -155,7 +155,7 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 		if (sel) {
 			// unselect any element in the page
 			sel.removeAllRanges()
-			
+
 			let ths = ref.current.getElementsByTagName('th') as any[]
 			for (let i = 0; i < ths.length; i++) {
 				ths[i].setAttribute('copyuserselect', ths[i].style.userSelect)
@@ -176,7 +176,7 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 				hrs[i].setAttribute('copyuserdisplay', hrs[i].style.display)
 				hrs[i].style.display = 'none'
 			}
-			
+
 			if (tryFormatted) {
 				try {
 					range.selectNode(ref.current as any)
@@ -189,11 +189,11 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 				range.selectNodeContents(ref.current as any)
 				sel.addRange(range)
 			}
-			
+
 			document.execCommand('copy')
-			
+
 			sel.removeAllRanges()
-			
+
 			for (let i = 0; i < ths.length; i++) {
 				ths[i].style.userSelect = ths[i].getAttribute('copyuserselect')
 				ths[i].removeAttribute('copyuserselect')
@@ -210,27 +210,29 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 				hrs[i].style.display = hrs[i].getAttribute('display')
 				hrs[i].removeAttribute('copyuserdisplay')
 			}
-			
+
 			return true
 		}
 	}
 	return false
 }
 
-export const TableIDToExcel = (tableID: string, fileName?: string, appendDateTime?: boolean) => {
+export const TableIDToExcel = (tableID: string, fileName?: string, appendDateTime = true) => {
 	let downloadLink
 	let dataType = 'application/vnd.ms-excel'
 	let tableSelect = document.getElementById(tableID) as any
 	let tableHTML = tableSelect.outerHTML.replace(/ /g, '%20')
-	
+
 	// Specify file name
-	let filename = `${fileName ?? tableID}${!!appendDateTime ? `-${MomentDateString(moment())}_${MomentFormatString(moment(), 'HH-MM-SS')}` : ''}.xls`
-	
+	let filename = `${fileName ?? tableID}${
+		appendDateTime ? `-${MomentDateString(moment())}_${MomentFormatString(moment(), 'HH-MM-SS')}` : ''
+	}.xls`
+
 	// Create download link element
 	downloadLink = document.createElement('a')
-	
+
 	document.body.appendChild(downloadLink)
-	
+
 	if (navigator.msSaveOrOpenBlob) {
 		let blob = new Blob(['\ufeff', tableHTML], {
 			type: dataType
@@ -242,7 +244,7 @@ export const TableIDToExcel = (tableID: string, fileName?: string, appendDateTim
 		downloadLink.href = 'data:' + dataType + ', ' + tableHTML
 		// Setting the file name
 		downloadLink.download = filename
-		
+
 		//triggering the function
 		downloadLink.click()
 	}
