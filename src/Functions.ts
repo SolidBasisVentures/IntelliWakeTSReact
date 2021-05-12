@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-	CleanNumber,
-	MomentDateString,
-	MomentFormatString,
-	ReplaceAll
-} from '@solidbasisventures/intelliwaketsfoundation'
+import {CleanNumber, ReplaceAll} from '@solidbasisventures/intelliwaketsfoundation'
 import moment from 'moment'
 
 export const KEY_UP_ARROW = 38
@@ -218,36 +213,22 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 }
 
 export const TableIDToExcel = (tableID: string, fileName?: string, appendDateTime = true) => {
-	let downloadLink
-	let dataType = 'application/vnd.ms-excel'
-	let tableSelect = document.getElementById(tableID) as any
-	let tableHTML = tableSelect.outerHTML.replace(/ /g, '%20')
-
-	// Specify file name
-	let filename = `${fileName ?? tableID}${
-		appendDateTime ? `-${MomentDateString(moment())}_${MomentFormatString(moment(), 'HH-MM-SS')}` : ''
+	const downloadName = `${fileName ?? tableID}${
+		appendDateTime ? `-${moment(new Date()).format('YYYY-MM-DD_HH-mm-ss')}.xls` : ''
 	}.xls`
+	// const dataType = 'application/vnd.ms-excel'
+	const dataType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+	const tableSelect = document.getElementById(tableID) as any
 
-	// Create download link element
-	downloadLink = document.createElement('a')
+	let tableHTML = tableSelect.outerHTML //.replace(/ /g, '%20')
 
-	document.body.appendChild(downloadLink)
+	tableHTML = ReplaceAll('<br>', ' ', tableHTML)
 
-	if (navigator.msSaveOrOpenBlob) {
-		let blob = new Blob(['\ufeff', tableHTML], {
-			type: dataType
-		})
-		navigator.msSaveOrOpenBlob(blob, filename)
-	} else {
-		tableHTML = ReplaceAll('<br>', encodeURI('\r'), tableHTML)
-		// Create a link to the file
-		downloadLink.href = 'data:' + dataType + ', ' + tableHTML
-		// Setting the file name
-		downloadLink.download = filename
-
-		//triggering the function
-		downloadLink.click()
-	}
+	let a = document.createElement('a')
+	const blob = new Blob([tableHTML], {type: dataType})
+	a.href = URL.createObjectURL(blob)
+	a.download = downloadName
+	a.click()
 }
 
 export type TBootStrapSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl'

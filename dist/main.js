@@ -365,30 +365,17 @@ var CopyRefToClipboard = function (ref, tryFormatted) {
 };
 var TableIDToExcel = function (tableID, fileName, appendDateTime) {
     if (appendDateTime === void 0) { appendDateTime = true; }
-    var downloadLink;
-    var dataType = 'application/vnd.ms-excel';
+    var downloadName = "" + (fileName !== null && fileName !== void 0 ? fileName : tableID) + (appendDateTime ? "-" + moment__default['default'](new Date()).format('YYYY-MM-DD_HH-mm-ss') + ".xls" : '') + ".xls";
+    // const dataType = 'application/vnd.ms-excel'
+    var dataType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
     var tableSelect = document.getElementById(tableID);
-    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-    // Specify file name
-    var filename = "" + (fileName !== null && fileName !== void 0 ? fileName : tableID) + (appendDateTime ? "-" + intelliwaketsfoundation.MomentDateString(moment__default['default']()) + "_" + intelliwaketsfoundation.MomentFormatString(moment__default['default'](), 'HH-MM-SS') : '') + ".xls";
-    // Create download link element
-    downloadLink = document.createElement('a');
-    document.body.appendChild(downloadLink);
-    if (navigator.msSaveOrOpenBlob) {
-        var blob = new Blob(['\ufeff', tableHTML], {
-            type: dataType
-        });
-        navigator.msSaveOrOpenBlob(blob, filename);
-    }
-    else {
-        tableHTML = intelliwaketsfoundation.ReplaceAll('<br>', encodeURI('\r'), tableHTML);
-        // Create a link to the file
-        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-        // Setting the file name
-        downloadLink.download = filename;
-        //triggering the function
-        downloadLink.click();
-    }
+    var tableHTML = tableSelect.outerHTML; //.replace(/ /g, '%20')
+    tableHTML = intelliwaketsfoundation.ReplaceAll('<br>', ' ', tableHTML);
+    var a = document.createElement('a');
+    var blob = new Blob([tableHTML], { type: dataType });
+    a.href = URL.createObjectURL(blob);
+    a.download = downloadName;
+    a.click();
 };
 var SizeAtMin = function (size) {
     switch (size) {
