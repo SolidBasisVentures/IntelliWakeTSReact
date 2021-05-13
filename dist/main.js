@@ -1151,6 +1151,11 @@ var DateRange = function (props) {
             document.removeEventListener('mousedown', handleClick);
         };
     });
+    React.useEffect(function () {
+        if (!!props.defaultRange) {
+            setState(__assign(__assign({}, state), { selectedRange: DateRangeToMoment(props.defaultRange) }));
+        }
+    }, [props.defaultRange]);
     return (React__default['default'].createElement("div", { className: 'DateRangeDD ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.borderless ? '' : ' border') + (props.showCaret ? ' dropdown-toggle' : ''), onClick: setOpen, ref: nodeParent, color: props.color },
         props.faIcon !== null &&
             React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: props.faIcon ? props.faIcon : proRegularSvgIcons.faCalendarAlt, fixedWidth: true }),
@@ -1709,7 +1714,7 @@ function InputGender(props) {
 }
 
 function InputNumber(props) {
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e, _f;
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.decimalScale;
@@ -1759,8 +1764,8 @@ function InputNumber(props) {
             numerics: hasDecimals,
             integers: !hasDecimals
         }), plainTextControl: !!props.currency
-            ? intelliwaketsfoundation.ToCurrency(props.value, options.numeralDecimalScale)
-            : intelliwaketsfoundation.ToDigits(props.value, options.numeralDecimalScale), isInvalid: !!props.invalid, isEqual: function (internal, props) { return intelliwaketsfoundation.CleanNumber(internal) === intelliwaketsfoundation.CleanNumber(props); } }),
+            ? intelliwaketsfoundation.ToCurrency(props.value, (_e = props.decimalScaleDisplay) !== null && _e !== void 0 ? _e : options.numeralDecimalScale)
+            : intelliwaketsfoundation.ToDigits(props.value, (_f = props.decimalScaleDisplay) !== null && _f !== void 0 ? _f : options.numeralDecimalScale), isInvalid: !!props.invalid, isEqual: function (internal, props) { return intelliwaketsfoundation.CleanNumber(internal) === intelliwaketsfoundation.CleanNumber(props); } }),
         React__default['default'].createElement(Cleave__default['default'], __assign({ options: options, htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown }, inputProps))));
 }
 
@@ -2741,6 +2746,27 @@ var ModalPrompt = function (props) {
             !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactstrap.Button, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1", onKeyPress: okKeyPress, autoFocus: true, tabIndex: 0 }, props.okLabel)))));
 };
 
+function NumberFormat(props) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
+    return (React__default['default'].createElement("span", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') + ' ' + (((_b = props.value) !== null && _b !== void 0 ? _b : 0) < 0 ? (_c = props.classNameAddOnNegative) !== null && _c !== void 0 ? _c : 'text-danger' : '') }, props.displayType === 'Percent'
+        ? props.zeroShows === 'Blank'
+            ? intelliwaketsfoundation.ToPercentBlank((_d = props.value) !== null && _d !== void 0 ? _d : 0, (_e = props.decimals) !== null && _e !== void 0 ? _e : 0)
+            : props.zeroShows === 'Dash'
+                ? intelliwaketsfoundation.ToPercentDash((_f = props.value) !== null && _f !== void 0 ? _f : 0, (_g = props.decimals) !== null && _g !== void 0 ? _g : 0)
+                : intelliwaketsfoundation.ToPercent((_h = props.value) !== null && _h !== void 0 ? _h : 0, (_j = props.decimals) !== null && _j !== void 0 ? _j : 0)
+        : props.displayType === 'Currency'
+            ? props.zeroShows === 'Blank'
+                ? intelliwaketsfoundation.ToCurrencyBlank((_k = props.value) !== null && _k !== void 0 ? _k : 0, (_l = props.decimals) !== null && _l !== void 0 ? _l : 2)
+                : props.zeroShows === 'Dash'
+                    ? intelliwaketsfoundation.ToCurrencyDash((_m = props.value) !== null && _m !== void 0 ? _m : 0, (_o = props.decimals) !== null && _o !== void 0 ? _o : 2)
+                    : intelliwaketsfoundation.ToCurrency((_p = props.value) !== null && _p !== void 0 ? _p : 0, (_q = props.decimals) !== null && _q !== void 0 ? _q : 2)
+            : props.zeroShows === 'Blank'
+                ? intelliwaketsfoundation.ToDigitsBlank((_r = props.value) !== null && _r !== void 0 ? _r : 0, (_s = props.decimals) !== null && _s !== void 0 ? _s : 0)
+                : props.zeroShows === 'Dash'
+                    ? intelliwaketsfoundation.ToDigitsDash((_t = props.value) !== null && _t !== void 0 ? _t : 0, (_u = props.decimals) !== null && _u !== void 0 ? _u : 0)
+                    : intelliwaketsfoundation.ToDigits((_v = props.value) !== null && _v !== void 0 ? _v : 0, (_w = props.decimals) !== null && _w !== void 0 ? _w : 0)));
+}
+
 var SelectDD = function (props) {
     var _a;
     var _b, _c, _d, _e, _f;
@@ -2896,6 +2922,7 @@ exports.MasterDetail = MasterDetail;
 exports.MasterDetailListGroup = MasterDetailListGroup;
 exports.MessageBox = MessageBox;
 exports.ModalPrompt = ModalPrompt;
+exports.NumberFormat = NumberFormat;
 exports.OptionsActive = OptionsActive;
 exports.OptionsActiveAll = OptionsActiveAll;
 exports.PhotoFileToData = PhotoFileToData;

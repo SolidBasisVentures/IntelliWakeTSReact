@@ -10,6 +10,7 @@ import {InputProps} from 'reactstrap'
 export interface IPropsInputNumber<T = any, V = any> extends IIWInputProps<T, V> {
 	htmlRef?: (ref: any) => void
 	decimalScale?: number | null
+	decimalScaleDisplay?: number | null
 	integerScale?: number | null
 	allowNegative?: boolean
 	lowerBound?: number
@@ -81,8 +82,8 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 			})}
 			plainTextControl={
 				!!props.currency
-					? ToCurrency(props.value, options.numeralDecimalScale)
-					: ToDigits(props.value, options.numeralDecimalScale)
+					? ToCurrency(props.value, props.decimalScaleDisplay ?? options.numeralDecimalScale)
+					: ToDigits(props.value, props.decimalScaleDisplay ?? options.numeralDecimalScale)
 			}
 			isInvalid={!!props.invalid}
 			isEqual={(internal, props) => CleanNumber(internal) === CleanNumber(props)}>

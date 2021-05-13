@@ -60,7 +60,7 @@ export function InputTimeZone<T>(props: IIWInputProps<T>) {
 					<InputSelect
 						{...inputProps}
 						isStringOrNull
-						onChange={(e) => HandleChangeValue(e, props.changeValue, props.onChange)}>
+						onChange={(e: any) => HandleChangeValue(e, props.changeValue, props.onChange)}>
 						<option />
 						{timeZonesList.map((tzItem) => (
 							<option key={tzItem.olson} value={tzItem.olson}>

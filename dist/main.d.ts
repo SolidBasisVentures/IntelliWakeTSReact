@@ -49,6 +49,7 @@ export * from './WebControls/MasterDetail';
 export * from './WebControls/MasterDetailListGroup';
 export * from './WebControls/MessageBox';
 export * from './WebControls/ModalPrompt';
+export * from './WebControls/NumberFormat';
 export * from './WebControls/SelectDD';
 export * from './WebControls/StyleControl';
 export * from './WebControls/TextStatus';
