@@ -280,6 +280,12 @@ export const DateRange = (props: IPropsDateRange) => {
 		}
 	})
 	
+	useEffect(() => {
+		if (!!props.defaultRange) {
+			setState({...state, selectedRange: DateRangeToMoment(props.defaultRange)})
+		}
+	}, [props.defaultRange])
+	
 	return (
 		<div className={'DateRangeDD ' + (props.className ?? '') + (props.borderless ? '' : ' border') + (props.showCaret ? ' dropdown-toggle' : '')}
 				 onClick={setOpen} ref={nodeParent} color={props.color}>
