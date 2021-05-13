@@ -1,7 +1,9 @@
 interface IProps {
     value?: number | null;
-    displayType?: 'Digits' | 'Currency' | 'Percent';
-    zeroShows?: 'Zero' | 'Dash' | 'Blank';
+    currency?: boolean;
+    percent?: boolean;
+    dash?: boolean;
+    blank?: boolean;
     decimals?: number;
     className?: string;
     classNameAddOnNegative?: string;

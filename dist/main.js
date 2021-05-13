@@ -2748,21 +2748,21 @@ var ModalPrompt = function (props) {
 
 function NumberFormat(props) {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
-    return (React__default['default'].createElement("span", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') + ' ' + (((_b = props.value) !== null && _b !== void 0 ? _b : 0) < 0 ? (_c = props.classNameAddOnNegative) !== null && _c !== void 0 ? _c : 'text-danger' : '') }, props.displayType === 'Percent'
-        ? props.zeroShows === 'Blank'
+    return (React__default['default'].createElement("span", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') + ' ' + (((_b = props.value) !== null && _b !== void 0 ? _b : 0) < 0 ? (_c = props.classNameAddOnNegative) !== null && _c !== void 0 ? _c : 'text-danger' : '') }, props.percent
+        ? props.blank
             ? intelliwaketsfoundation.ToPercentBlank((_d = props.value) !== null && _d !== void 0 ? _d : 0, (_e = props.decimals) !== null && _e !== void 0 ? _e : 0)
-            : props.zeroShows === 'Dash'
+            : props.dash
                 ? intelliwaketsfoundation.ToPercentDash((_f = props.value) !== null && _f !== void 0 ? _f : 0, (_g = props.decimals) !== null && _g !== void 0 ? _g : 0)
                 : intelliwaketsfoundation.ToPercent((_h = props.value) !== null && _h !== void 0 ? _h : 0, (_j = props.decimals) !== null && _j !== void 0 ? _j : 0)
-        : props.displayType === 'Currency'
-            ? props.zeroShows === 'Blank'
+        : props.currency
+            ? props.blank
                 ? intelliwaketsfoundation.ToCurrencyBlank((_k = props.value) !== null && _k !== void 0 ? _k : 0, (_l = props.decimals) !== null && _l !== void 0 ? _l : 2)
-                : props.zeroShows === 'Dash'
+                : props.dash
                     ? intelliwaketsfoundation.ToCurrencyDash((_m = props.value) !== null && _m !== void 0 ? _m : 0, (_o = props.decimals) !== null && _o !== void 0 ? _o : 2)
                     : intelliwaketsfoundation.ToCurrency((_p = props.value) !== null && _p !== void 0 ? _p : 0, (_q = props.decimals) !== null && _q !== void 0 ? _q : 2)
-            : props.zeroShows === 'Blank'
+            : props.blank
                 ? intelliwaketsfoundation.ToDigitsBlank((_r = props.value) !== null && _r !== void 0 ? _r : 0, (_s = props.decimals) !== null && _s !== void 0 ? _s : 0)
-                : props.zeroShows === 'Dash'
+                : props.dash
                     ? intelliwaketsfoundation.ToDigitsDash((_t = props.value) !== null && _t !== void 0 ? _t : 0, (_u = props.decimals) !== null && _u !== void 0 ? _u : 0)
                     : intelliwaketsfoundation.ToDigits((_v = props.value) !== null && _v !== void 0 ? _v : 0, (_w = props.decimals) !== null && _w !== void 0 ? _w : 0)));
 }
