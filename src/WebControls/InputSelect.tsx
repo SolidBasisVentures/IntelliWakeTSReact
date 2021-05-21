@@ -61,7 +61,8 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 				style={{
 					...props.style,
 					pointerEvents: !!props.plainText ? 'none' : undefined
-				}}>
+				}}
+				tabIndex={!!props.plainText ? -1 : undefined}>
 				{props.children}
 			</Input>
 		</InputWrapper>

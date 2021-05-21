@@ -144,6 +144,8 @@ export interface IIWQueryProps<REQ = any, RES = any> {
     superVerboseConsole?: boolean;
     /** Turns off Axios.withCredentials */
     noCredentials?: boolean;
+    /** Delay before execution in MS */
+    delayMS?: number;
 }
 /**
  * The IWServerData control is a React control that calls API's to a server and manages the state of the data in its control.
