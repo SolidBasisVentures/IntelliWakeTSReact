@@ -56,7 +56,7 @@
     }
   }
 
-  .table-sticky:not(.table-sm) {
+  table.table-sticky.table-sticky-double-header:not(.table-sm) {
     > thead {
       > tr:nth-child(2) {
         > td, > th {
@@ -66,6 +66,58 @@
       }
     }
 
+    > .stickyTR {
+      > td, > th {
+        top: calc(5.6rem + 1px);
+      }
+    }
+
+    > .stickyTRL2 {
+      > td, > th {
+        top: calc(8.4rem + 1px);
+      }
+    }
+
+    > .stickyTRL3 {
+      > td, > th {
+        top: calc(11.2rem + 1px);
+      }
+    }
+  }
+
+  table.table-sticky.table-sticky-double-header.table-sm {
+    > thead {
+      > tr:nth-child(2) {
+        > td, > th {
+          top: calc(1.8rem + 1px);
+          height: 1.8rem
+        }
+      }
+    }
+
+    > tbody {
+      > .stickyTR {
+        > td, > th {
+          top: calc(3.6rem + 1px);
+          background-color: yellow !important;
+        }
+      }
+
+      > .stickyTRL2 {
+        > td, > th {
+          top: calc(5.4rem + 1px);
+        }
+      }
+
+      > .stickyTRL3 {
+        > td, > th {
+          top: calc(7.2rem + 1px);
+        }
+      }
+    }
+  }
+
+  .table-sticky:not(.table-sticky-double-header):not(.table-sm) {
     > tbody {
       > .stickyTR {
         > td, > th {
@@ -87,7 +139,7 @@
     }
   }
 
-  .table-sticky.table-sm {
+  .table-sticky:not(.table-sticky-double-header).table-sm {
     > thead {
       > tr:nth-child(2) {
         > td, > th {
@@ -146,7 +198,6 @@
     }
 
     .table-sticky.table-sm {
-
       > tbody {
         > .stickyTR {
           > td, > th {
