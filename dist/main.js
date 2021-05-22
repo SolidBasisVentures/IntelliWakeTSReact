@@ -1693,7 +1693,7 @@ function InputSelect(props) {
             }
             return val;
         } }),
-        React__default['default'].createElement(reactstrap.Input, __assign({ type: "select" }, inputProps, { style: __assign(__assign({}, props.style), { pointerEvents: !!props.plainText ? 'none' : undefined }) }), props.children)));
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "select" }, inputProps, { style: __assign(__assign({}, props.style), { pointerEvents: !!props.plainText ? 'none' : undefined }), tabIndex: !!props.plainText ? -1 : undefined }), props.children)));
 }
 
 function InputGender(props) {

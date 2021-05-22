@@ -1,0 +1,171 @@
+@media screen {
+  table.table-sticky {
+    border-collapse: separate; /* Don't collapse */
+    border-spacing: 0;
+    border-width: 0 !important;
+    margin-bottom: 0;
+
+    > * > tr:not([class*="table-"]):not([class*="alert-"]) {
+      td, th {
+        background-color: white;
+        border-width: 1px;
+      }
+    }
+
+    > thead {
+      border-width: 0 !important;
+
+      > tr {
+        > td, > th {
+          position: sticky;
+          position: -webkit-sticky;
+          z-index: 999;
+        }
+      }
+
+      > tr:first-child {
+        > td, > th {
+          top: 0;
+        }
+      }
+    }
+
+    > tbody {
+      border-width: 0 !important;
+
+      > .stickyTR, > .stickyTRL2, > .stickyTRL3 {
+        > td, > th {
+          position: sticky;
+          position: -webkit-sticky;
+          z-index: 999;
+        }
+      }
+    }
+  }
+
+  table.table-sticky.table-sticky-footer {
+    > tfoot {
+      > tr {
+        > td, > th {
+          position: sticky;
+          position: -webkit-sticky;
+          z-index: 999;
+          bottom: -1px;
+        }
+      }
+    }
+  }
+
+  .table-sticky:not(.table-sm) {
+    > thead {
+      > tr:nth-child(2) {
+        > td, > th {
+          top: calc(2.8rem + 1px);
+          height: 2.8rem;
+        }
+      }
+    }
+
+    > tbody {
+      > .stickyTR {
+        > td, > th {
+          top: calc(2.8rem + 1px);
+        }
+      }
+
+      > .stickyTRL2 {
+        > td, > th {
+          top: calc(5.6rem + 1px);
+        }
+      }
+
+      > .stickyTRL3 {
+        > td, > th {
+          top: calc(8.4rem + 1px);
+        }
+      }
+    }
+  }
+
+  .table-sticky.table-sm {
+    > thead {
+      > tr:nth-child(2) {
+        > td, > th {
+          top: calc(1.8rem + 1px);
+          height: 1.8rem
+        }
+      }
+    }
+
+    > tbody {
+      > .stickyTR {
+        > td, > th {
+          top: calc(1.8rem + 1px);
+          background-color: yellow !important;
+        }
+      }
+
+      > .stickyTRL2 {
+        > td, > th {
+          top: calc(3.6rem + 1px);
+        }
+      }
+
+      > .stickyTRL3 {
+        > td, > th {
+          top: calc(5.4rem + 1px);
+        }
+      }
+    }
+  }
+}
+
+// Safari only that treats the "top" of a tbody different than other tables
+@media not all and (min-resolution: .001dpcm) {
+  @supports (-webkit-appearance:none) {
+    .table-sticky:not(.table-sm) {
+      > tbody {
+        > .stickyTR {
+          > td, > th {
+            top: 0;
+          }
+        }
+
+        > .stickyTRL2 {
+          > td, > th {
+            top: calc(2.8rem + 1px);
+          }
+        }
+
+        > .stickyTRL3 {
+          > td, > th {
+            top: calc(5.6rem + 1px);
+          }
+        }
+      }
+    }
+
+    .table-sticky.table-sm {
+
+      > tbody {
+        > .stickyTR {
+          > td, > th {
+            top: 0;
+          }
+        }
+
+        > .stickyTRL2 {
+          > td, > th {
+            top: calc(1.8rem + 1px);
+          }
+        }
+
+        > .stickyTRL3 {
+          > td, > th {
+            top: calc(3.6rem + 1px);
+          }
+        }
+      }
+    }
+  }
+}
