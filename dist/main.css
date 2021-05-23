@@ -30,53 +30,59 @@
   table.table-sticky.table-sticky-double-header:not(.table-sm) > thead > tr:nth-child(2) > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > thead > tr:nth-child(2) > th {
     top: calc(2.8rem + 1px);
     height: 2.8rem; }
-  table.table-sticky.table-sticky-double-header:not(.table-sm) > .stickyTR > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > .stickyTR > th {
+  table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTR > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTR > th {
     top: calc(5.6rem + 1px); }
-  table.table-sticky.table-sticky-double-header:not(.table-sm) > .stickyTRL2 > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > .stickyTRL2 > th {
+  table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTRL2 > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTRL2 > th {
     top: calc(8.4rem + 1px); }
-  table.table-sticky.table-sticky-double-header:not(.table-sm) > .stickyTRL3 > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > .stickyTRL3 > th {
+  table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTRL3 > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTRL3 > th {
     top: calc(11.2rem + 1px); }
   table.table-sticky.table-sticky-double-header.table-sm > thead > tr:nth-child(2) > td, table.table-sticky.table-sticky-double-header.table-sm > thead > tr:nth-child(2) > th {
     top: calc(1.8rem + 1px);
     height: 1.8rem; }
   table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTR > td, table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTR > th {
-    top: calc(3.6rem + 1px);
-    background-color: yellow !important; }
+    top: calc(3.6rem + 1px); }
   table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTRL2 > td, table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTRL2 > th {
     top: calc(5.4rem + 1px); }
   table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTRL3 > td, table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTRL3 > th {
     top: calc(7.2rem + 1px); }
-  .table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTR > td, .table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTR > th {
+  table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTR > td, table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTR > th {
     top: calc(2.8rem + 1px); }
-  .table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTRL2 > td, .table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTRL2 > th {
+  table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTRL2 > td, table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTRL2 > th {
     top: calc(5.6rem + 1px); }
-  .table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTRL3 > td, .table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTRL3 > th {
+  table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTRL3 > td, table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTRL3 > th {
     top: calc(8.4rem + 1px); }
-  .table-sticky:not(.table-sticky-double-header).table-sm > thead > tr:nth-child(2) > td, .table-sticky:not(.table-sticky-double-header).table-sm > thead > tr:nth-child(2) > th {
+  table.table-sticky:not(.table-sticky-double-header).table-sm > thead > tr:nth-child(2) > td, table.table-sticky:not(.table-sticky-double-header).table-sm > thead > tr:nth-child(2) > th {
     top: calc(1.8rem + 1px);
     height: 1.8rem; }
-  .table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTR > td, .table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTR > th {
-    top: calc(1.8rem + 1px);
-    background-color: yellow !important; }
-  .table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTRL2 > td, .table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTRL2 > th {
+  table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTR > td, table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTR > th {
+    top: calc(1.8rem + 1px); }
+  table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTRL2 > td, table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTRL2 > th {
     top: calc(3.6rem + 1px); }
-  .table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTRL3 > td, .table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTRL3 > th {
+  table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTRL3 > td, table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTRL3 > th {
     top: calc(5.4rem + 1px); } }
 
 @media not all and (min-resolution: 0.001dpcm) {
   @supports (-webkit-appearance: none) {
-    .table-sticky:not(.table-sm) > tbody > .stickyTR > td, .table-sticky:not(.table-sm) > tbody > .stickyTR > th {
-      top: 0; }
-    .table-sticky:not(.table-sm) > tbody > .stickyTRL2 > td, .table-sticky:not(.table-sm) > tbody > .stickyTRL2 > th {
-      top: calc(2.8rem + 1px); }
-    .table-sticky:not(.table-sm) > tbody > .stickyTRL3 > td, .table-sticky:not(.table-sm) > tbody > .stickyTRL3 > th {
-      top: calc(5.6rem + 1px); }
-    .table-sticky.table-sm > tbody > .stickyTR > td, .table-sticky.table-sm > tbody > .stickyTR > th {
-      top: 0; }
-    .table-sticky.table-sm > tbody > .stickyTRL2 > td, .table-sticky.table-sm > tbody > .stickyTRL2 > th {
-      top: calc(1.8rem + 1px); }
-    .table-sticky.table-sm > tbody > .stickyTRL3 > td, .table-sticky.table-sm > tbody > .stickyTRL3 > th {
-      top: calc(3.6rem + 1px); } } }
+    table.table-sticky.table-sticky-double-header:not(.table-sm) > thead > tr:nth-child(2) > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > thead > tr:nth-child(2) > th {
+      top: calc(2.8rem - 1px) !important;
+      height: 2.8rem !important; }
+    table.table-sticky.table-sticky-double-header.table-sm > thead > tr:nth-child(2) > td, table.table-sticky.table-sticky-double-header.table-sm > thead > tr:nth-child(2) > th {
+      top: calc(1.8rem + 2px) !important;
+      height: 1.8rem !important; }
+    table.table-sticky:not(.table-sm) > tbody > .stickyTR > td, table.table-sticky:not(.table-sm) > tbody > .stickyTR > th {
+      top: -2px !important; }
+    table.table-sticky:not(.table-sm) > tbody > .stickyTRL2 > td, table.table-sticky:not(.table-sm) > tbody > .stickyTRL2 > th {
+      top: calc(2.8rem - 2px) !important; }
+    table.table-sticky:not(.table-sm) > tbody > .stickyTRL3 > td, table.table-sticky:not(.table-sm) > tbody > .stickyTRL3 > th {
+      top: calc(5.6rem - 2px) !important; }
+    table.table-sticky.table-sm > tbody > .stickyTR > td, table.table-sticky.table-sm > tbody > .stickyTR > th {
+      top: 0 !important; }
+    table.table-sticky.table-sm > tbody > .stickyTRL2 > td, table.table-sticky.table-sm > tbody > .stickyTRL2 > th {
+      top: calc(1.8rem) !important; }
+    table.table-sticky.table-sm > tbody > .stickyTRL3 > td, table.table-sticky.table-sm > tbody > .stickyTRL3 > th {
+      top: calc(3.6rem) !important; }
+    table.table-sticky.table-sticky-footer > tfoot > tr > td, table.table-sticky.table-sticky-footer > tfoot > tr > th {
+      bottom: 0 !important; } } }
 
 .btn-link-inline {
   align-items: normal;

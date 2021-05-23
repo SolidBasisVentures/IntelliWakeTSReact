@@ -66,21 +66,23 @@
       }
     }
 
-    > .stickyTR {
-      > td, > th {
-        top: calc(5.6rem + 1px);
+    > tbody {
+      > .stickyTR {
+        > td, > th {
+          top: calc(5.6rem + 1px);
+        }
       }
-    }
 
-    > .stickyTRL2 {
-      > td, > th {
-        top: calc(8.4rem + 1px);
+      > .stickyTRL2 {
+        > td, > th {
+          top: calc(8.4rem + 1px);
+        }
       }
-    }
 
-    > .stickyTRL3 {
-      > td, > th {
-        top: calc(11.2rem + 1px);
+      > .stickyTRL3 {
+        > td, > th {
+          top: calc(11.2rem + 1px);
+        }
       }
     }
   }
@@ -99,7 +101,6 @@
       > .stickyTR {
         > td, > th {
           top: calc(3.6rem + 1px);
-          background-color: yellow !important;
         }
       }
 
@@ -117,7 +118,7 @@
     }
   }
 
-  .table-sticky:not(.table-sticky-double-header):not(.table-sm) {
+  table.table-sticky:not(.table-sticky-double-header):not(.table-sm) {
     > tbody {
       > .stickyTR {
         > td, > th {
@@ -139,7 +140,7 @@
     }
   }
 
-  .table-sticky:not(.table-sticky-double-header).table-sm {
+  table.table-sticky:not(.table-sticky-double-header).table-sm {
     > thead {
       > tr:nth-child(2) {
         > td, > th {
@@ -153,7 +154,6 @@
       > .stickyTR {
         > td, > th {
           top: calc(1.8rem + 1px);
-          background-color: yellow !important;
         }
       }
 
@@ -175,45 +175,78 @@
 // Safari only that treats the "top" of a tbody different than other tables
 @media not all and (min-resolution: .001dpcm) {
   @supports (-webkit-appearance:none) {
-    .table-sticky:not(.table-sm) {
-      > tbody {
-        > .stickyTR {
+    table.table-sticky.table-sticky-double-header:not(.table-sm) {
+      > thead {
+        > tr:nth-child(2) {
           > td, > th {
-            top: 0;
-          }
-        }
-
-        > .stickyTRL2 {
-          > td, > th {
-            top: calc(2.8rem + 1px);
-          }
-        }
-
-        > .stickyTRL3 {
-          > td, > th {
-            top: calc(5.6rem + 1px);
+            top: calc(2.8rem - 1px) !important;
+            height: 2.8rem !important;
           }
         }
       }
     }
 
-    .table-sticky.table-sm {
+    table.table-sticky.table-sticky-double-header.table-sm {
+      > thead {
+        > tr:nth-child(2) {
+          > td, > th {
+            top: calc(1.8rem + 2px) !important;
+            height: 1.8rem !important;
+          }
+        }
+      }
+    }
+
+    table.table-sticky:not(.table-sm) {
       > tbody {
         > .stickyTR {
           > td, > th {
-            top: 0;
+            top: -2px !important;
           }
         }
 
         > .stickyTRL2 {
           > td, > th {
-            top: calc(1.8rem + 1px);
+            top: calc(2.8rem - 2px) !important;
           }
         }
 
         > .stickyTRL3 {
           > td, > th {
-            top: calc(3.6rem + 1px);
+            top: calc(5.6rem - 2px) !important;
+          }
+        }
+      }
+    }
+
+    table.table-sticky.table-sm {
+      > tbody {
+        > .stickyTR {
+          > td, > th {
+            top: 0 !important;
+          }
+        }
+
+        > .stickyTRL2 {
+          > td, > th {
+            top: calc(1.8rem) !important;
+          }
+        }
+
+        > .stickyTRL3 {
+          > td, > th {
+            top: calc(3.6rem) !important;
+          }
+        }
+      }
+    }
+
+    table.table-sticky.table-sticky-footer {
+      > tfoot {
+        > tr {
+          > td, > th {
+            bottom: 0 !important;
+            //color: red;
           }
         }
       }
