@@ -45,6 +45,10 @@
 
   table.table-sticky.table-sticky-footer {
     > tfoot {
+      position: sticky;
+      position: -webkit-sticky;
+      z-index: 999;
+      bottom: -1px;
       > tr {
         > td, > th {
           position: sticky;
@@ -236,17 +240,6 @@
         > .stickyTRL3 {
           > td, > th {
             top: calc(3.6rem) !important;
-          }
-        }
-      }
-    }
-
-    table.table-sticky.table-sticky-footer {
-      > tfoot {
-        > tr {
-          > td, > th {
-            bottom: 0 !important;
-            //color: red;
           }
         }
       }
