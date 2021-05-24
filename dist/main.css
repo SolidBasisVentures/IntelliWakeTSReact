@@ -22,16 +22,16 @@
         position: sticky;
         position: -webkit-sticky;
         z-index: 999; }
-  table.table-sticky.table-sticky-footer > tfoot {
-    position: sticky;
-    position: -webkit-sticky;
-    z-index: 999;
-    bottom: -1px; }
-    table.table-sticky.table-sticky-footer > tfoot > tr > td, table.table-sticky.table-sticky-footer > tfoot > tr > th {
+    table.table-sticky > tfoot {
       position: sticky;
       position: -webkit-sticky;
       z-index: 999;
       bottom: -1px; }
+      table.table-sticky > tfoot > tr > td, table.table-sticky > tfoot > tr > th {
+        position: sticky;
+        position: -webkit-sticky;
+        z-index: 999;
+        bottom: -1px; }
   table.table-sticky.table-sticky-double-header:not(.table-sm) > thead > tr:nth-child(2) > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > thead > tr:nth-child(2) > th {
     top: calc(2.8rem + 1px);
     height: 2.8rem; }
