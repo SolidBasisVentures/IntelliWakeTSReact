@@ -242,7 +242,10 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 		[props.noExecution, props.updateVerb, props.updateRequest, setUpdateResponse]
 	)
 
-	if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
+	if (
+		props.verboseConsole ||
+		props.superVerboseConsole /* && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)) */
+	)
 		console.log(
 			'IWServerData-Local',
 			props.item,
