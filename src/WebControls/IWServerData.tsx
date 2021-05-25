@@ -212,6 +212,8 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 	// const cancelTokenSource = useRef(null as CancelTokenSource | null)
 	const inProgress = useRef(false)
 	const lastTS = useRef(0)
+	const attemptingGet = useRef(false)
+	const attemptingUpdate = useRef(false)
 	const [showInProgressControl, setShowInProgressControl] = useState(false)
 
 	const setResponse = useCallback(props.setResponse ?? (() => {}), [props.setResponse])
@@ -234,18 +236,25 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 			!!setResponse &&
 			(props.response === undefined ||
 				forceRefreshRef.current !== props.forceRefresh ||
+				attemptingGet.current ||
 				(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))),
-		[props.noExecution, props.item, props.verb, setResponse, props.response, props.request, props.forceRefresh]
+		[
+			props.noExecution,
+			props.item,
+			props.verb,
+			setResponse,
+			props.response,
+			props.request,
+			props.forceRefresh,
+			attemptingGet.current
+		]
 	)
 	const isUpdate = useMemo(
 		() => !props.noExecution && !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse,
-		[props.noExecution, props.updateVerb, props.updateRequest, setUpdateResponse]
+		[props.noExecution, props.updateVerb, props.updateRequest, setUpdateResponse, attemptingUpdate.current]
 	)
 
-	if (
-		props.verboseConsole ||
-		props.superVerboseConsole /* && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)) */
-	)
+	if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
 		console.log(
 			'IWServerData-Local',
 			props.item,
@@ -253,8 +262,10 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 			props.updateVerb,
 			'isGet',
 			isGet,
+			attemptingGet.current,
 			'isUpdate',
 			isUpdate,
+			attemptingUpdate.current,
 			'inProgress',
 			inProgress.current,
 			'refresh',
@@ -270,9 +281,14 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 		isMounted.current = true
 
 		if (!inProgress.current && (isGet || isUpdate)) {
+			attemptingGet.current = isGet
+			attemptingUpdate.current = isUpdate
+
 			delayTimeout.current = setTimeout(() => {
 				if (isMounted.current) {
 					inProgress.current = true
+					attemptingGet.current = false
+					attemptingUpdate.current = false
 
 					const currentTS = moment().valueOf()
 

@@ -2159,6 +2159,8 @@ var IWServerData = function (props) {
     // const cancelTokenSource = useRef(null as CancelTokenSource | null)
     var inProgress = React.useRef(false);
     var lastTS = React.useRef(0);
+    var attemptingGet = React.useRef(false);
+    var attemptingUpdate = React.useRef(false);
     var _m = React.useState(false), showInProgressControl = _m[0], setShowInProgressControl = _m[1];
     var setResponse = React.useCallback((_a = props.setResponse) !== null && _a !== void 0 ? _a : (function () { }), [props.setResponse]);
     var setUpdateResponse = React.useCallback((_b = props.setUpdateResponse) !== null && _b !== void 0 ? _b : (function () { }), [props.setUpdateResponse]);
@@ -2178,20 +2180,34 @@ var IWServerData = function (props) {
             !!setResponse &&
             (props.response === undefined ||
                 forceRefreshRef.current !== props.forceRefresh ||
+                attemptingGet.current ||
                 (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current)));
-    }, [props.noExecution, props.item, props.verb, setResponse, props.response, props.request, props.forceRefresh]);
-    var isUpdate = React.useMemo(function () { return !props.noExecution && !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse; }, [props.noExecution, props.updateVerb, props.updateRequest, setUpdateResponse]);
+    }, [
+        props.noExecution,
+        props.item,
+        props.verb,
+        setResponse,
+        props.response,
+        props.request,
+        props.forceRefresh,
+        attemptingGet.current
+    ]);
+    var isUpdate = React.useMemo(function () { return !props.noExecution && !!props.updateVerb && !!props.updateRequest && !!setUpdateResponse; }, [props.noExecution, props.updateVerb, props.updateRequest, setUpdateResponse, attemptingUpdate.current]);
     if (props.verboseConsole && (props.superVerboseConsole || ((isGet || isUpdate) && !inProgress.current)))
-        console.log('IWServerData-Local', props.item, props.verb, props.updateVerb, 'isGet', isGet, 'isUpdate', isUpdate, 'inProgress', inProgress.current, 'refresh', props.forceRefresh, forceRefreshRef.current, 'starting', (isGet || isUpdate) && !inProgress.current);
+        console.log('IWServerData-Local', props.item, props.verb, props.updateVerb, 'isGet', isGet, attemptingGet.current, 'isUpdate', isUpdate, attemptingUpdate.current, 'inProgress', inProgress.current, 'refresh', props.forceRefresh, forceRefreshRef.current, 'starting', (isGet || isUpdate) && !inProgress.current);
     React.useEffect(function () {
         var _a;
         clearTimeout(delayTimeout.current);
         isMounted.current = true;
         if (!inProgress.current && (isGet || isUpdate)) {
+            attemptingGet.current = isGet;
+            attemptingUpdate.current = isUpdate;
             delayTimeout.current = setTimeout(function () {
                 var _a, _b, _c;
                 if (isMounted.current) {
                     inProgress.current = true;
+                    attemptingGet.current = false;
+                    attemptingUpdate.current = false;
                     var currentTS = moment__default['default']().valueOf();
                     if (lastTS.current > currentTS - 1000) {
                         console.log('!WARNING!', props.item, props.verb, 'processed less than a second ago!');
