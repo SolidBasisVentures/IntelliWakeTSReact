@@ -33,7 +33,7 @@
     > tbody {
       border-width: 0 !important;
 
-      > .stickyTR, > .stickyTRL2, > .stickyTRL3 {
+      > .stickyTR0, > .stickyTR, > .stickyTRL2, > .stickyTRL3 {
         > td, > th {
           position: sticky;
           position: -webkit-sticky;
@@ -69,6 +69,12 @@
     }
 
     > tbody {
+      > .stickyTR0 {
+        > td, > th {
+          top: 0;
+        }
+      }
+
       > .stickyTR {
         > td, > th {
           top: calc(5.6rem + 1px);
@@ -100,6 +106,12 @@
     }
 
     > tbody {
+      > .stickyTR0 {
+        > td, > th {
+          top: 0;
+        }
+      }
+
       > .stickyTR {
         > td, > th {
           top: calc(3.6rem + 1px);
@@ -122,6 +134,12 @@
 
   table.table-sticky:not(.table-sticky-double-header):not(.table-sm) {
     > tbody {
+      > .stickyTR0 {
+        > td, > th {
+          top: 0;
+        }
+      }
+
       > .stickyTR {
         > td, > th {
           top: calc(2.8rem + 1px);
@@ -153,6 +171,12 @@
     }
 
     > tbody {
+      > .stickyTR0 {
+        > td, > th {
+          top: 0;
+        }
+      }
+
       > .stickyTR {
         > td, > th {
           top: calc(1.8rem + 1px);
@@ -201,7 +225,7 @@
 
     table.table-sticky:not(.table-sm) {
       > tbody {
-        > .stickyTR {
+        > .stickyTR0, > .stickyTR {
           > td, > th {
             top: -2px !important;
           }
@@ -223,7 +247,7 @@
 
     table.table-sticky.table-sm {
       > tbody {
-        > .stickyTR {
+        > .stickyTR0, > .stickyTR {
           > td, > th {
             top: 0 !important;
           }
