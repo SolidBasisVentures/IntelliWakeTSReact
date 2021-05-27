@@ -2457,13 +2457,14 @@ var MDMaster = function (props) {
                 ' masterDetailMaster' +
                 (mdContext.isOpen ? ' isOpen' : ''), id: id }, props.children)));
 };
+var panelClean = function (panel) { return intelliwaketsfoundation.ReplaceAll('/', '', (panel !== null && panel !== void 0 ? panel : '').replace(/\s+/g, '')); };
 var MDLink = function (props) {
     var _a, _b, _c;
     var history = reactRouterDom.useHistory();
     var mdContext = React.useContext(MDContext);
     var selectedRow = React.useRef(null);
     var panelURLAddOn = mdContext.baseFullPath +
-        (props.panel ? '/' + props.panel.replace(/\s+/g, '') : '') +
+        (props.panel ? '/' + panelClean(props.panel) : '') +
         (props.id ? '/' + props.id : '') +
         (!!props.postPath ? '/' + props.postPath : '');
     var linkActive = (!props.blockActivate &&
@@ -2515,10 +2516,10 @@ var MDLink = function (props) {
     }
 };
 var MDDetail = function (props) {
-    var _a, _b;
+    var _a;
     // const dispatch = useDispatch();
     var mdContext = React.useContext(MDContext);
-    var checkPath = mdContext.baseFullPath + '/' + ((_a = props.panel) !== null && _a !== void 0 ? _a : '').replace(/\s+/g, '');
+    var checkPath = mdContext.baseFullPath + '/' + panelClean(props.panel);
     var activated = (props.panel &&
         !props.hidden &&
         (window.location.pathname.startsWith(checkPath + '/') || window.location.pathname === checkPath)) ||
@@ -2565,7 +2566,7 @@ var MDDetail = function (props) {
         mdContext.breakAt
     ]);
     if (activated) {
-        return (React__default['default'].createElement("div", { className: ((_b = props.className) !== null && _b !== void 0 ? _b : '') +
+        return (React__default['default'].createElement("div", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') +
                 ' masterDetailDetail' +
                 (window.location.pathname === mdContext.baseFullPath ? ' hideWhenSmall' : ''), hidden: props.hidden }, props.children));
     }
@@ -2993,6 +2994,7 @@ exports.initialMenuBackItem = initialMenuBackItem;
 exports.initialMessageBoxState = initialMessageBoxState;
 exports.initialSortProperties = initialSortProperties;
 exports.initialTextStatusState = initialTextStatusState;
+exports.panelClean = panelClean;
 exports.useDeepCompareCallback = useDeepCompareCallback;
 exports.useDeepCompareEffect = useDeepCompareEffect;
 exports.useDeepCompareMemo = useDeepCompareMemo;

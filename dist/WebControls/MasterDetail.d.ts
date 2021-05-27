@@ -40,6 +40,7 @@ interface IPropsMasterLink {
     postPath?: string;
     blockActivate?: boolean;
 }
+export declare const panelClean: (panel?: string | null | undefined) => string;
 export declare const MDLink: (props: IPropsMasterLink | any) => JSX.Element;
 interface IPropsDetail {
     children: any;

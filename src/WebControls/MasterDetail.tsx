@@ -3,7 +3,7 @@ import {Redirect, useHistory} from 'react-router-dom'
 // AddMenuBackItem, CleanMenuBackItem,
 // import {useDispatch} from "react-redux";
 import {GetPathComponentAfter, GetPathThrough, SizeAtMin, TBootStrapExtendedSizes} from '../Functions'
-import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
+import {RandomString, ReplaceAll} from '@solidbasisventures/intelliwaketsfoundation'
 import {StyleControl} from './StyleControl'
 
 export interface MenuBackItem {
@@ -147,6 +147,8 @@ interface IPropsMasterLink {
 	blockActivate?: boolean
 }
 
+export const panelClean = (panel?: string | null): string => ReplaceAll('/', '', (panel ?? '').replace(/\s+/g, ''))
+
 export const MDLink = (props: IPropsMasterLink | any) => {
 	const history = useHistory()
 	const mdContext = useContext(MDContext)
@@ -154,7 +156,7 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 
 	const panelURLAddOn =
 		mdContext.baseFullPath +
-		(props.panel ? '/' + props.panel.replace(/\s+/g, '') : '') +
+		(props.panel ? '/' + panelClean(props.panel) : '') +
 		(props.id ? '/' + props.id : '') +
 		(!!props.postPath ? '/' + props.postPath : '')
 	const linkActive =
@@ -261,7 +263,7 @@ export const MDDetail = (props: IPropsDetail) => {
 	// const dispatch = useDispatch();
 	const mdContext = useContext(MDContext)
 
-	const checkPath = mdContext.baseFullPath + '/' + (props.panel ?? '').replace(/\s+/g, '')
+	const checkPath = mdContext.baseFullPath + '/' + panelClean(props.panel)
 
 	const activated =
 		(props.panel &&
