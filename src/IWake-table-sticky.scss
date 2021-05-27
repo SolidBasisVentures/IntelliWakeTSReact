@@ -5,7 +5,7 @@
     border-width: 0 !important;
     margin-bottom: 0;
 
-    > * > tr:not([class*="table-"]):not([class*="alert-"]) {
+    > * > tr:not([class*="table-"]):not([class*="alert-"]):not([class*="active"]):not([class*="selected"]) {
       td, th {
         background-color: white;
         border-width: 1px;

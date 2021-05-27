@@ -5,7 +5,7 @@
     border-spacing: 0;
     border-width: 0 !important;
     margin-bottom: 0; }
-    table.table-sticky > * > tr:not([class*="table-"]):not([class*="alert-"]) td, table.table-sticky > * > tr:not([class*="table-"]):not([class*="alert-"]) th {
+    table.table-sticky > * > tr:not([class*="table-"]):not([class*="alert-"]):not([class*="active"]):not([class*="selected"]) td, table.table-sticky > * > tr:not([class*="table-"]):not([class*="alert-"]):not([class*="active"]):not([class*="selected"]) th {
       background-color: white;
       border-width: 1px; }
     table.table-sticky > thead {
@@ -18,7 +18,7 @@
         top: 0; }
     table.table-sticky > tbody {
       border-width: 0 !important; }
-      table.table-sticky > tbody > .stickyTR > td, table.table-sticky > tbody > .stickyTR > th, table.table-sticky > tbody > .stickyTRL2 > td, table.table-sticky > tbody > .stickyTRL2 > th, table.table-sticky > tbody > .stickyTRL3 > td, table.table-sticky > tbody > .stickyTRL3 > th {
+      table.table-sticky > tbody > .stickyTR0 > td, table.table-sticky > tbody > .stickyTR0 > th, table.table-sticky > tbody > .stickyTR > td, table.table-sticky > tbody > .stickyTR > th, table.table-sticky > tbody > .stickyTRL2 > td, table.table-sticky > tbody > .stickyTRL2 > th, table.table-sticky > tbody > .stickyTRL3 > td, table.table-sticky > tbody > .stickyTRL3 > th {
         position: sticky;
         position: -webkit-sticky;
         z-index: 999; }
@@ -35,6 +35,8 @@
   table.table-sticky.table-sticky-double-header:not(.table-sm) > thead > tr:nth-child(2) > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > thead > tr:nth-child(2) > th {
     top: calc(2.8rem + 1px);
     height: 2.8rem; }
+  table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTR0 > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTR0 > th {
+    top: 0; }
   table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTR > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTR > th {
     top: calc(5.6rem + 1px); }
   table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTRL2 > td, table.table-sticky.table-sticky-double-header:not(.table-sm) > tbody > .stickyTRL2 > th {
@@ -44,12 +46,16 @@
   table.table-sticky.table-sticky-double-header.table-sm > thead > tr:nth-child(2) > td, table.table-sticky.table-sticky-double-header.table-sm > thead > tr:nth-child(2) > th {
     top: calc(1.8rem + 1px);
     height: 1.8rem; }
+  table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTR0 > td, table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTR0 > th {
+    top: 0; }
   table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTR > td, table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTR > th {
     top: calc(3.6rem + 1px); }
   table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTRL2 > td, table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTRL2 > th {
     top: calc(5.4rem + 1px); }
   table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTRL3 > td, table.table-sticky.table-sticky-double-header.table-sm > tbody > .stickyTRL3 > th {
     top: calc(7.2rem + 1px); }
+  table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTR0 > td, table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTR0 > th {
+    top: 0; }
   table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTR > td, table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTR > th {
     top: calc(2.8rem + 1px); }
   table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTRL2 > td, table.table-sticky:not(.table-sticky-double-header):not(.table-sm) > tbody > .stickyTRL2 > th {
@@ -59,6 +65,8 @@
   table.table-sticky:not(.table-sticky-double-header).table-sm > thead > tr:nth-child(2) > td, table.table-sticky:not(.table-sticky-double-header).table-sm > thead > tr:nth-child(2) > th {
     top: calc(1.8rem + 1px);
     height: 1.8rem; }
+  table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTR0 > td, table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTR0 > th {
+    top: 0; }
   table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTR > td, table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTR > th {
     top: calc(1.8rem + 1px); }
   table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTRL2 > td, table.table-sticky:not(.table-sticky-double-header).table-sm > tbody > .stickyTRL2 > th {
@@ -74,13 +82,13 @@
     table.table-sticky.table-sticky-double-header.table-sm > thead > tr:nth-child(2) > td, table.table-sticky.table-sticky-double-header.table-sm > thead > tr:nth-child(2) > th {
       top: calc(1.8rem + 2px) !important;
       height: 1.8rem !important; }
-    table.table-sticky:not(.table-sm) > tbody > .stickyTR > td, table.table-sticky:not(.table-sm) > tbody > .stickyTR > th {
+    table.table-sticky:not(.table-sm) > tbody > .stickyTR0 > td, table.table-sticky:not(.table-sm) > tbody > .stickyTR0 > th, table.table-sticky:not(.table-sm) > tbody > .stickyTR > td, table.table-sticky:not(.table-sm) > tbody > .stickyTR > th {
       top: -2px !important; }
     table.table-sticky:not(.table-sm) > tbody > .stickyTRL2 > td, table.table-sticky:not(.table-sm) > tbody > .stickyTRL2 > th {
       top: calc(2.8rem - 2px) !important; }
     table.table-sticky:not(.table-sm) > tbody > .stickyTRL3 > td, table.table-sticky:not(.table-sm) > tbody > .stickyTRL3 > th {
       top: calc(5.6rem - 2px) !important; }
-    table.table-sticky.table-sm > tbody > .stickyTR > td, table.table-sticky.table-sm > tbody > .stickyTR > th {
+    table.table-sticky.table-sm > tbody > .stickyTR0 > td, table.table-sticky.table-sm > tbody > .stickyTR0 > th, table.table-sticky.table-sm > tbody > .stickyTR > td, table.table-sticky.table-sm > tbody > .stickyTR > th {
       top: 0 !important; }
     table.table-sticky.table-sm > tbody > .stickyTRL2 > td, table.table-sticky.table-sm > tbody > .stickyTRL2 > th {
       top: calc(1.8rem) !important; }
