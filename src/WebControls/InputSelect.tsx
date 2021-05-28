@@ -44,11 +44,11 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 			transformToValid={(val, e) => {
 				if (!!props.multiple) {
 					if (!!props.isNumeric) {
-						;(Array.from(e.target.children) as HTMLOptionElement[])
+						return (Array.from(e.target.children) as HTMLOptionElement[])
 							.filter((child) => child.selected)
 							.map((child) => CleanNumber(child.value))
 					} else {
-						;(Array.from(e.target.children) as HTMLOptionElement[])
+						return (Array.from(e.target.children) as HTMLOptionElement[])
 							.filter((child) => child.selected)
 							.map((child) => child.value)
 					}
@@ -67,14 +67,13 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 				return val
 			}}
 			internalStateValue={(val, e) => {
-				console.log('ISV', props.multiple, props.isNumeric, val, e)
 				if (!!props.multiple) {
 					if (!!props.isNumeric) {
-						;(Array.from(e.target.children) as HTMLOptionElement[])
+						return (Array.from(e.target.children) as HTMLOptionElement[])
 							.filter((child) => child.selected)
 							.map((child) => CleanNumber(child.value))
 					} else {
-						;(Array.from(e.target.children) as HTMLOptionElement[])
+						return (Array.from(e.target.children) as HTMLOptionElement[])
 							.filter((child) => child.selected)
 							.map((child) => child.value)
 					}
