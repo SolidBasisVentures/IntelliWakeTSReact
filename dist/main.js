@@ -1708,6 +1708,7 @@ function InputSelect(props) {
             }
             return val;
         }, internalStateValue: function (val, e) {
+            console.log('ISV', props.multiple, props.isNumeric, val, e);
             if (!!props.multiple) {
                 if (!!props.isNumeric) {
                     Array.from(e.target.children)
