@@ -6,6 +6,7 @@ export interface IPropsSelect<T = any, V = any> extends IIWInputProps<T, V> {
     isNumericOrNull?: boolean;
     isStringOrNull?: boolean;
     plainOnClick?: () => void;
+    multiple?: boolean;
     required?: boolean;
 }
 export declare function InputSelect<T>(props: IPropsSelect<T>): JSX.Element;
