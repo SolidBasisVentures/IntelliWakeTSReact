@@ -65,6 +65,21 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 				}
 
 				return val
+			}}
+			internalStateValue={(val, e) => {
+				if (!!props.multiple) {
+					if (!!props.isNumeric) {
+						;(Array.from(e.target.children) as HTMLOptionElement[])
+							.filter((child) => child.selected)
+							.map((child) => CleanNumber(child.value))
+					} else {
+						;(Array.from(e.target.children) as HTMLOptionElement[])
+							.filter((child) => child.selected)
+							.map((child) => child.value)
+					}
+				}
+
+				return val
 			}}>
 			<Input
 				type="select"

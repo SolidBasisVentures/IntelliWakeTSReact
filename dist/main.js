@@ -1609,7 +1609,9 @@ var InputWrapper = function (props) {
                     ? !!props.children.props.valueOnInvalid
                         ? props.children.props.valueOnInvalid(e.target.value)
                         : ''
-                    : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value)));
+                    : (!props.transformToValid
+                        ? e.target.value
+                        : props.transformToValid(e.target.value, e)));
                 e.target.customValue = customValue;
                 var newState = {
                     value: customValue,
@@ -1638,11 +1640,11 @@ var InputWrapper = function (props) {
                         }
                     }, (_a = props.lateDelayMS) !== null && _a !== void 0 ? _a : 500);
                     if (!props.children.props.onChange && !props.changeValue && !props.changeValueLate) {
-                        setInternalState(e.target.value);
+                        setInternalState(!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value);
                     }
                 }
                 else {
-                    setInternalState(e.target.value);
+                    setInternalState(!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value);
                 }
             }
         }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_e = props.children.props.name) !== null && _e !== void 0 ? _e : '') + "_" + intelliwaketsfoundation.RandomString(5), value: internalState })))))));
@@ -1678,8 +1680,20 @@ function InputSelect(props) {
         delete subset.plainTextProps;
         return subset;
     }, [props]);
-    return (React__default['default'].createElement(InputWrapper, __assign({}, wrapperProps, { className: 'inputSelect' + (props.plainText ? ' disabledLink' : ''), transformToValid: function (val) {
-            if (!!props.isNumeric || !!props.isNumericOrNull) {
+    return (React__default['default'].createElement(InputWrapper, __assign({}, wrapperProps, { className: 'inputSelect' + (props.plainText ? ' disabledLink' : ''), transformToValid: function (val, e) {
+            if (!!props.multiple) {
+                if (!!props.isNumeric) {
+                    Array.from(e.target.children)
+                        .filter(function (child) { return child.selected; })
+                        .map(function (child) { return intelliwaketsfoundation.CleanNumber(child.value); });
+                }
+                else {
+                    Array.from(e.target.children)
+                        .filter(function (child) { return child.selected; })
+                        .map(function (child) { return child.value; });
+                }
+            }
+            else if (!!props.isNumeric || !!props.isNumericOrNull) {
                 var value = intelliwaketsfoundation.CleanNumber(val);
                 if (!!props.isNumericOrNull && value === 0) {
                     return null;
@@ -1690,6 +1704,20 @@ function InputSelect(props) {
             }
             else if (!!props.isStringOrNull && !val) {
                 return null;
+            }
+            return val;
+        }, internalStateValue: function (val, e) {
+            if (!!props.multiple) {
+                if (!!props.isNumeric) {
+                    Array.from(e.target.children)
+                        .filter(function (child) { return child.selected; })
+                        .map(function (child) { return intelliwaketsfoundation.CleanNumber(child.value); });
+                }
+                else {
+                    Array.from(e.target.children)
+                        .filter(function (child) { return child.selected; })
+                        .map(function (child) { return child.value; });
+                }
             }
             return val;
         } }),

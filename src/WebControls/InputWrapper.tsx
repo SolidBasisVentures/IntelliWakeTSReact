@@ -18,6 +18,7 @@ interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 	lateDelayMS?: number
 	isEqual?: (internalValue: any, endValue: any) => boolean
 	consoleVerbose?: boolean
+	internalStateValue?: (value: any, e: any) => any
 }
 
 export const InputWrapper = <T, V>(props: IProps<T, V>) => {
@@ -184,10 +185,14 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 											}
 										}, props.lateDelayMS ?? 500)
 										if (!props.children.props.onChange && !props.changeValue && !props.changeValueLate) {
-											setInternalState(e.target.value)
+											setInternalState(
+												!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value
+											)
 										}
 									} else {
-										setInternalState(e.target.value)
+										setInternalState(
+											!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value
+										)
 									}
 								}
 							},
