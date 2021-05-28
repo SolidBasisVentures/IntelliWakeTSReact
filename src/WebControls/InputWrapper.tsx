@@ -11,7 +11,7 @@ interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 	className?: string
 	inputIsValid?: (value: any) => boolean
 	valueOnInvalid?: (value: any) => any
-	transformToValid?: (value: any) => any
+	transformToValid?: (value: any, e: any) => any
 	doNotSelectOnFocus?: boolean
 	plainTextControl?: ReactNode
 	isInvalid?: boolean
@@ -136,7 +136,9 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 										? !!props.children.props.valueOnInvalid
 											? props.children.props.valueOnInvalid(e.target.value)
 											: ''
-										: ((!props.transformToValid ? e.target.value : props.transformToValid(e.target.value)) as any)) as V
+										: ((!props.transformToValid
+												? e.target.value
+												: props.transformToValid(e.target.value, e)) as any)) as V
 
 									;(e.target as any).customValue = customValue
 

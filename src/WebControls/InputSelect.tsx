@@ -41,8 +41,18 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 		<InputWrapper
 			{...wrapperProps}
 			className={'inputSelect' + (props.plainText ? ' disabledLink' : '')}
-			transformToValid={(val) => {
-				if (!!props.isNumeric || !!props.isNumericOrNull) {
+			transformToValid={(val, e) => {
+				if (!!props.multiple) {
+					if (!!props.isNumeric) {
+						;(Array.from(e.target.children) as HTMLOptionElement[])
+							.filter((child) => child.selected)
+							.map((child) => CleanNumber(child.value))
+					} else {
+						;(Array.from(e.target.children) as HTMLOptionElement[])
+							.filter((child) => child.selected)
+							.map((child) => child.value)
+					}
+				} else if (!!props.isNumeric || !!props.isNumericOrNull) {
 					const value = CleanNumber(val)
 
 					if (!!props.isNumericOrNull && value === 0) {
