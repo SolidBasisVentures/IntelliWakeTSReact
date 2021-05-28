@@ -66,6 +66,8 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 		}
 	}, [props.children.props.value])
 
+	console.log('IS', internalState)
+
 	return (
 		<>
 			{props.plainText ? (
