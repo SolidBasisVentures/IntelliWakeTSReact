@@ -84,6 +84,7 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 			<Input
 				type="select"
 				{...inputProps}
+				value={inputProps.value ?? ''}
 				style={{
 					...props.style,
 					pointerEvents: !!props.plainText ? 'none' : undefined
