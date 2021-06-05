@@ -86,10 +86,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@solidbasisventures/intelliwaketsfoundation@^2.0.129":
-  version "2.0.129"
-  resolved "https://registry.yarnpkg.com/@solidbasisventures/intelliwaketsfoundation/-/intelliwaketsfoundation-2.0.129.tgz#de300697c1f784b18d576240879a9828bd6339c1"
-  integrity sha512-Bt5Rqp3/62kReeFDMrp6bvWq4RDRYv2a7QgXNQy5xtBiGQKxdU+A/18/EvHa9PJe9fXGV7onBZSXs417wAAdbg==
+"@solidbasisventures/intelliwaketsfoundation@^2.0.133":
+  version "2.0.133"
+  resolved "https://registry.yarnpkg.com/@solidbasisventures/intelliwaketsfoundation/-/intelliwaketsfoundation-2.0.133.tgz#beba4a2ecbba7b6bb4efb1dfa354bd32dedf2941"
+  integrity sha512-h1ZNKIY4sQf+tpjueerdQcYKZb8oCMChT/WAYdPt6RcY/55j4MLm2js4N7bca4lfBx1nY94+0oRQ+C/L/NQXyQ==
 
 "@types/cleave.js@^1.4.1":
   version "1.4.4"

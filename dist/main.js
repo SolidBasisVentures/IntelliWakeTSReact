@@ -1665,6 +1665,7 @@ function InputEmail(props) {
 }
 
 function InputSelect(props) {
+    var _a;
     var inputProps = React.useMemo(function () {
         var subset = __assign({}, ReduceInputProps(props));
         delete subset.isNumeric;
@@ -1721,7 +1722,7 @@ function InputSelect(props) {
             }
             return val;
         } }),
-        React__default['default'].createElement(reactstrap.Input, __assign({ type: "select" }, inputProps, { style: __assign(__assign({}, props.style), { pointerEvents: !!props.plainText ? 'none' : undefined }), tabIndex: !!props.plainText ? -1 : undefined }), props.children)));
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "select" }, inputProps, { value: (_a = inputProps.value) !== null && _a !== void 0 ? _a : '', style: __assign(__assign({}, props.style), { pointerEvents: !!props.plainText ? 'none' : undefined }), tabIndex: !!props.plainText ? -1 : undefined }), props.children)));
 }
 
 function InputGender(props) {
