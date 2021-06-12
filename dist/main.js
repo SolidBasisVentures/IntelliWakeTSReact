@@ -149,6 +149,7 @@ var arrayMapWithMapIDIndex = function (arrayValues, arrayIDMaps, map) {
     });
 };
 
+exports.Environments = void 0;
 (function (Environments) {
     Environments["ENV_Local"] = "ENV_Local";
     Environments["ENV_Dev"] = "ENV_Dev";
@@ -1454,12 +1455,12 @@ function InputColor(props) {
         props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "color", className: (_c = 'inputText ' + props.className) !== null && _c !== void 0 ? _c : '' }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
 }
 
-var originalValue = ' ';
+var originalValue$1 = ' ';
 function InputDate(props) {
     var _a;
-    var lastDateValue = React.useRef(originalValue);
-    var nextDateValue = React.useRef(originalValue);
-    var _b = React.useState(originalValue), overrideValue = _b[0], setOverrideValue = _b[1];
+    var lastDateValue = React.useRef(originalValue$1);
+    var nextDateValue = React.useRef(originalValue$1);
+    var _b = React.useState(originalValue$1), overrideValue = _b[0], setOverrideValue = _b[1];
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.value;
@@ -2035,11 +2036,11 @@ function InputTextArea(props) {
             React__default['default'].createElement(reactstrap.Input, __assign({ type: "textarea" }, inputProps)))));
 }
 
-var originalValue$1 = ' ';
+var originalValue = ' ';
 function InputTime(props) {
-    var lastTimeValue = React.useRef(originalValue$1);
-    var nextTimeValue = React.useRef(originalValue$1);
-    var _a = React.useState(originalValue$1), overrideValue = _a[0], setOverrideValue = _a[1];
+    var lastTimeValue = React.useRef(originalValue);
+    var nextTimeValue = React.useRef(originalValue);
+    var _a = React.useState(originalValue), overrideValue = _a[0], setOverrideValue = _a[1];
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.value;
