@@ -1789,7 +1789,7 @@ function InputNumber(props) {
             integers: !hasDecimals
         }), plainTextControl: !!props.currency
             ? intelliwaketsfoundation.ToCurrency(props.value, (_e = props.decimalScaleDisplay) !== null && _e !== void 0 ? _e : options.numeralDecimalScale)
-            : intelliwaketsfoundation.ToDigits(props.value, (_f = props.decimalScaleDisplay) !== null && _f !== void 0 ? _f : options.numeralDecimalScale), isInvalid: !!props.invalid, isEqual: function (internal, props) { return intelliwaketsfoundation.CleanNumber(internal) === intelliwaketsfoundation.CleanNumber(props); } }),
+            : intelliwaketsfoundation.ToDigits(props.value, (_f = props.decimalScaleDisplay) !== null && _f !== void 0 ? _f : options.numeralDecimalScale), isInvalid: !!props.isInvalid, isEqual: function (internal, props) { return intelliwaketsfoundation.CleanNumber(internal) === intelliwaketsfoundation.CleanNumber(props); } }),
         React__default['default'].createElement(Cleave__default['default'], __assign({ options: options, htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown }, inputProps))));
 }
 
