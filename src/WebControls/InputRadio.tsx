@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import {CustomInput} from 'reactstrap'
+import {Form} from 'react-bootstrap'
 import {HandleChangeValue, TChangeValueFunction} from './IWInputProps'
 
 interface IProps<T = unknown> {
@@ -26,7 +26,7 @@ export function InputRadio<T>(props: IProps<T>) {
 			props.label
 		) : null
 	) : (
-		<CustomInput
+		<Form.Check
 			type="radio"
 			label={props.label}
 			name={props.name as string}

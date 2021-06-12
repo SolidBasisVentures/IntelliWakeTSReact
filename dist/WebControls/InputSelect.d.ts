@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { IIWInputProps } from './IWInputProps';
 export interface IPropsSelect<T = any, V = any> extends IIWInputProps<T, V> {
     innerRef?: (ref: any) => void;

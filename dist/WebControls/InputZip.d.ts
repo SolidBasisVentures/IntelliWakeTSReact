@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { IIWInputProps } from './IWInputProps';
 export interface IZipProps<T = unknown> extends IIWInputProps<T> {
     withNine?: boolean;

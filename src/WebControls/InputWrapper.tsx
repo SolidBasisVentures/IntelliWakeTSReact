@@ -4,7 +4,7 @@ import {InputGroupWrapper} from './InputGroupWrapper'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 import {AppendPrependWrapper} from './AppendPrependWrapper'
 import {Link} from 'react-router-dom'
-import {InputProps} from 'reactstrap'
+import {FormControlProps} from 'react-bootstrap'
 
 interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 	children: ReactElement<IIWInputProps<T, V>>
@@ -35,8 +35,8 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 
 	const lateState = useRef<IState | undefined>(undefined)
 
-	const [internalState, setInternalState] = useState<InputProps['value'] | undefined>(
-		props.children.props.value as InputProps['value'] | undefined
+	const [internalState, setInternalState] = useState<FormControlProps['value'] | undefined>(
+		props.children.props.value as FormControlProps['value'] | undefined
 	)
 	const isManagingDirtyState = useRef(false)
 

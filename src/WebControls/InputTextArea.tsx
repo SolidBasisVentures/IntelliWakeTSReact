@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import {Input} from 'reactstrap'
+import {Form} from 'react-bootstrap'
 import {IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
 import {CleanScripts, ReplaceLinks} from '@solidbasisventures/intelliwaketsfoundation'
 import {InputWrapper} from './InputWrapper'
@@ -35,7 +35,7 @@ export function InputTextArea<T>(props: IProps<T>) {
 						}}
 					/>
 				}>
-				<Input type="textarea" {...inputProps} />
+				<Form.Control type="textarea" {...inputProps} />
 			</InputWrapper>
 		</>
 	)
