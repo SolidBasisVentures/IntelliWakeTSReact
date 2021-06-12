@@ -5,7 +5,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var intelliwaketsfoundation = require('@solidbasisventures/intelliwaketsfoundation');
 var moment = require('moment');
 var React = require('react');
-var reactBootstrap = require('react-bootstrap');
+var reactstrap = require('reactstrap');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
 var proRegularSvgIcons = require('@fortawesome/pro-regular-svg-icons');
 var reactRouterDom = require('react-router-dom');
@@ -690,7 +690,7 @@ var ActivityOverlay = function (props) {
     }
     if (props.activityOverlayState.nestedCount > 0) {
         return (React__default['default'].createElement("div", { className: "System_ActivityOverlay", onClick: resetActivityOverlay, color: "primary" },
-            React__default['default'].createElement(reactBootstrap.Spinner, { animation: "border", style: { width: '3rem', height: '3rem' } })));
+            React__default['default'].createElement(reactstrap.Spinner, { style: { width: '3rem', height: '3rem' } })));
     }
     return null;
 };
@@ -700,8 +700,10 @@ var ActivityOverlay = function (props) {
  */
 var ActivityOverlayControl = function (props) {
     var _a, _b;
-    return props.show ? (React__default['default'].createElement("div", { className: "System_ActivityOverlay_Control" },
-        React__default['default'].createElement(reactBootstrap.Spinner, { animation: "border", style: { width: (_a = props.spinnerSize) !== null && _a !== void 0 ? _a : '2rem', height: (_b = props.spinnerSize) !== null && _b !== void 0 ? _b : '2rem' } }))) : null;
+    return props.show ? React__default['default'].createElement("div", { className: "System_ActivityOverlay_Control" },
+        React__default['default'].createElement(reactstrap.Spinner, { style: { width: (_a = props.spinnerSize) !== null && _a !== void 0 ? _a : '2rem', height: (_b = props.spinnerSize) !== null && _b !== void 0 ? _b : '2rem' } }))
+        :
+            null;
 };
 
 var initialSortProperties = {
@@ -921,7 +923,7 @@ var ArrayTable = function (props) {
     if (props.minWidth) {
         styleSettings.minWidth = props.minWidth;
     }
-    return (React__default['default'].createElement(reactBootstrap.Table, { size: "sm", bordered: props.bordered, className: ClassNames((_a = {
+    return (React__default['default'].createElement(reactstrap.Table, { size: "sm", bordered: props.bordered, className: ClassNames((_a = {
                 'table-scrollable': !!props.scrollable
             },
             _a[(_c = 'table-col-min-' + props.arrayStructure.minColSize) !== null && _c !== void 0 ? _c : ''] = !!props.arrayStructure.minColSize,
@@ -930,7 +932,10 @@ var ArrayTable = function (props) {
         React__default['default'].createElement("tbody", null, SortObjects((_d = props.arrayData) !== null && _d !== void 0 ? _d : [], sorter).map(function (row, idx) {
             return WriteBodyTR(row, idx, props.arrayStructure, validColumns, !!props.hideCosts, sumsInFooter);
         })),
-        Object.keys(sumsInFooter).length > 0 ? (React__default['default'].createElement("tfoot", null, WriteFootTR(validColumns, sumsInFooter, !!props.hideCosts))) : null));
+        Object.keys(sumsInFooter).length > 0 ?
+            React__default['default'].createElement("tfoot", null, WriteFootTR(validColumns, sumsInFooter, !!props.hideCosts))
+            :
+                null));
 };
 
 var BRAfter = function (props) {
@@ -1356,14 +1361,13 @@ var DDActions = function (props) {
     var showFAProps = React.useMemo(function () { return !!visibleDDActions.find(function (ddAction) { return !!ddAction.faProps; }); }, [visibleDDActions]);
     if (!showDDActions)
         return null;
-    return (React__default['default'].createElement(reactBootstrap.Dropdown, null,
-        React__default['default'].createElement(reactBootstrap.Dropdown.Toggle, { className: props.className, color: props.color, size: props.size },
+    return (React__default['default'].createElement(reactstrap.UncontrolledButtonDropdown, null,
+        React__default['default'].createElement(reactstrap.DropdownToggle, { caret: !props.noCaret, className: props.className, color: props.color, size: props.size },
             props.faProps !== null && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, ((_a = props.faProps) !== null && _a !== void 0 ? _a : { icon: proRegularSvgIcons.faCog }), { fixedWidth: !!props.buttonText }))),
-            props.buttonText,
-            !props.noCaret && React__default['default'].createElement("span", { className: "caret" })),
-        React__default['default'].createElement(reactBootstrap.Dropdown.Menu, { align: props.right ? 'right' : undefined }, visibleDDActions.map(function (ddAction, idx) {
+            props.buttonText),
+        React__default['default'].createElement(reactstrap.DropdownMenu, { right: props.right }, visibleDDActions.map(function (ddAction, idx) {
             var _a;
-            return (React__default['default'].createElement(reactBootstrap.Dropdown.Item, { className: ((_a = ddAction.className) !== null && _a !== void 0 ? _a : '') + (!!ddAction.color ? " text-" + ddAction.color : ''), key: idx, disabled: !!ddAction.disabled || !ddAction.action, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return (!!ddAction.action ? ddAction.action() : function () { }); } },
+            return (React__default['default'].createElement(reactstrap.DropdownItem, { className: ((_a = ddAction.className) !== null && _a !== void 0 ? _a : '') + (!!ddAction.color ? " text-" + ddAction.color : ''), key: idx, disabled: !!ddAction.disabled || !ddAction.action, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return (!!ddAction.action ? ddAction.action() : function () { }); } },
                 showFAProps && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, ddAction.faProps, { className: !ddAction.faProps || ddAction.faPropHidden ? 'invisible' : '', fixedWidth: true }))),
                 ddAction.title));
         }))));
@@ -1395,7 +1399,7 @@ function InputCheckBox(props) {
             props.changeValue(e.target.checked, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
-    return (React__default['default'].createElement(reactBootstrap.Form.Check, { type: "checkbox", label: props.label, name: props.name, className: 'inputCheckbox ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText, onClick: props.onClick }));
+    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "checkbox", label: props.label, name: props.name, className: 'inputCheckbox ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText, onClick: props.onClick }));
 }
 
 var ReduceInputProps = function (props) {
@@ -1445,10 +1449,10 @@ function InputColor(props) {
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
         React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
-            React__default['default'].createElement("input", __assign({ type: "color", className: (_a = 'form-control inputText ' + props.className) !== null && _a !== void 0 ? _a : '' }, inputProps, { disabled: true })),
+            React__default['default'].createElement(reactstrap.Input, __assign({ type: "color", className: (_a = 'inputText ' + props.className) !== null && _a !== void 0 ? _a : '' }, inputProps, { disabled: true })),
             props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
-        React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "color", className: (_b = 'form-control inputText ' + props.className) !== null && _b !== void 0 ? _b : '' }, inputProps, { disabled: true })),
-        props.value))) : (React__default['default'].createElement("input", __assign({ type: "color", className: (_c = 'form-control inputText ' + props.className) !== null && _c !== void 0 ? _c : '' }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "color", className: (_b = 'inputText ' + props.className) !== null && _b !== void 0 ? _b : '' }, inputProps, { disabled: true })),
+        props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "color", className: (_c = 'inputText ' + props.className) !== null && _c !== void 0 ? _c : '' }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
 }
 
 var originalValue$1 = ' ';
@@ -1489,7 +1493,7 @@ function InputDate(props) {
     };
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.showTime && !!intelliwaketsfoundation.MomentTimeString(props.value)
         ? intelliwaketsfoundation.MomentDisplayDayDateTime(props.value)
-        : intelliwaketsfoundation.MomentDisplayDayDate(props.value))) : (React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "date", className: "inputDate" }, inputProps, { placeholder: "yyyy-mm-dd", value: overrideValue !== null && overrideValue !== void 0 ? overrideValue : '', onChange: handleInputChange, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
+        : intelliwaketsfoundation.MomentDisplayDayDate(props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "date", className: "inputDate" }, inputProps, { placeholder: "yyyy-mm-dd", value: overrideValue !== null && overrideValue !== void 0 ? overrideValue : '', onChange: handleInputChange, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
 }
 
 /**
@@ -1523,12 +1527,12 @@ function ViewEmail(props) {
 }
 
 var InputGroupWrapper = function (props) {
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.prepend || !!props.append ? (React__default['default'].createElement(reactBootstrap.InputGroup, null,
-        !!props.prepend && (React__default['default'].createElement(reactBootstrap.InputGroup.Prepend, null,
-            React__default['default'].createElement(reactBootstrap.InputGroup.Text, null, props.prepend))),
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.prepend || !!props.append ? (React__default['default'].createElement(reactstrap.InputGroup, null,
+        !!props.prepend && (React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "prepend" },
+            React__default['default'].createElement(reactstrap.InputGroupText, null, props.prepend))),
         props.children,
-        !!props.append && (React__default['default'].createElement(reactBootstrap.InputGroup.Append, null,
-            React__default['default'].createElement(reactBootstrap.InputGroup.Text, null, props.append))))) : (React__default['default'].createElement(React__default['default'].Fragment, null, props.children))));
+        !!props.append && (React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "append" },
+            React__default['default'].createElement(reactstrap.InputGroupText, null, props.append))))) : (React__default['default'].createElement(React__default['default'].Fragment, null, props.children))));
 };
 
 var AppendPrependWrapper = function (props) {
@@ -1656,7 +1660,7 @@ function InputEmail(props) {
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.value && (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
         React__default['default'].createElement(ViewEmail, { email: props.value, label: props.plainTextLabel })))) : (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputEmail" }),
-        React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "email", inputMode: "email" }, inputProps))))));
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "email", inputMode: "email" }, inputProps))))));
 }
 
 function InputSelect(props) {
@@ -1717,7 +1721,7 @@ function InputSelect(props) {
             }
             return val;
         } }),
-        React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "select" }, inputProps, { value: (_a = inputProps.value) !== null && _a !== void 0 ? _a : '', style: __assign(__assign({}, props.style), { pointerEvents: !!props.plainText ? 'none' : undefined }), tabIndex: !!props.plainText ? -1 : undefined }), props.children)));
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "select" }, inputProps, { value: (_a = inputProps.value) !== null && _a !== void 0 ? _a : '', style: __assign(__assign({}, props.style), { pointerEvents: !!props.plainText ? 'none' : undefined }), tabIndex: !!props.plainText ? -1 : undefined }), props.children)));
 }
 
 function InputGender(props) {
@@ -1790,14 +1794,14 @@ function InputNumber(props) {
             integers: !hasDecimals
         }), plainTextControl: !!props.currency
             ? intelliwaketsfoundation.ToCurrency(props.value, (_e = props.decimalScaleDisplay) !== null && _e !== void 0 ? _e : options.numeralDecimalScale)
-            : intelliwaketsfoundation.ToDigits(props.value, (_f = props.decimalScaleDisplay) !== null && _f !== void 0 ? _f : options.numeralDecimalScale), isInvalid: !!props.isInvalid, isEqual: function (internal, props) { return intelliwaketsfoundation.CleanNumber(internal) === intelliwaketsfoundation.CleanNumber(props); } }),
+            : intelliwaketsfoundation.ToDigits(props.value, (_f = props.decimalScaleDisplay) !== null && _f !== void 0 ? _f : options.numeralDecimalScale), isInvalid: !!props.invalid, isEqual: function (internal, props) { return intelliwaketsfoundation.CleanNumber(internal) === intelliwaketsfoundation.CleanNumber(props); } }),
         React__default['default'].createElement(Cleave__default['default'], __assign({ options: options, htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown }, inputProps))));
 }
 
 function InputPassword(props) {
     var _a;
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputPassword" }),
-        React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "password" }, ReduceInputProps(props), { placeholder: (_a = props.placeholder) !== null && _a !== void 0 ? _a : '******' }))));
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "password" }, ReduceInputProps(props), { placeholder: (_a = props.placeholder) !== null && _a !== void 0 ? _a : '******' }))));
 }
 
 function InputRadio(props) {
@@ -1806,7 +1810,7 @@ function InputRadio(props) {
         props.name,
         props.id
     ]);
-    return !!props.plainText ? (props.checked ? (props.label) : null) : (React__default['default'].createElement(reactBootstrap.Form.Check, { type: "radio", label: props.label, name: props.name, id: newID, className: 'inputRadio ' + ((_a = props.className) !== null && _a !== void 0 ? _a : ''), checked: props.checked, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, value: props.value, onClick: props.onClick }));
+    return !!props.plainText ? (props.checked ? (props.label) : null) : (React__default['default'].createElement(reactstrap.CustomInput, { type: "radio", label: props.label, name: props.name, id: newID, className: 'inputRadio ' + ((_a = props.className) !== null && _a !== void 0 ? _a : ''), checked: props.checked, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, value: props.value, onClick: props.onClick }));
 }
 
 /**
@@ -1841,7 +1845,7 @@ var InputSearch = function (props) {
             props.onKeyDown(e);
         }
     };
-    var handleOnBlur = function (_e) {
+    var handleOnBlur = function () {
         clearTimeout(searchTimeout.current);
         triggerChange();
     };
@@ -1875,13 +1879,13 @@ var InputSearch = function (props) {
         value: currentText,
         onChange: handleInputChange,
         onBlur: handleOnBlur,
-        innerRef: function (ref) {
+        innerRef: (function (ref) {
             if (!!props.innerRef) {
                 props.innerRef(ref);
             }
             inputRef.current = ref;
-        },
-        size: props.size,
+        }),
+        bsSize: props.size,
         style: props.style,
         placeholder: props.placeholder,
         onKeyDown: handleKeyDown,
@@ -1890,12 +1894,16 @@ var InputSearch = function (props) {
         onFocus: handleOnFocus,
         autoComplete: props.autoCompleteOn ? 'on' : "AC_" + intelliwaketsfoundation.RandomString(12)
     };
-    return !!props.iconPrefix || !!props.reactPrefix ? (React__default['default'].createElement(reactBootstrap.InputGroup, { className: "searchGroup " + ((_c = props.inputGroupClass) !== null && _c !== void 0 ? _c : '') + " " + (props.bordered ? '' : 'transparent') },
-        (!!props.iconPrefix || !!props.reactPrefix) && (React__default['default'].createElement(reactBootstrap.InputGroup.Text, { onClick: function () {
-                if (!!inputRef.current)
-                    inputRef.current.focus();
-            } }, props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ? (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: proRegularSvgIcons.faSearch })) : (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, props.iconPrefix)))) : (props.reactPrefix))),
-        React__default['default'].createElement(reactBootstrap.Form.Control, __assign({}, inputProps)))) : (React__default['default'].createElement(reactBootstrap.Form.Control, __assign({}, inputProps)));
+    return (!!props.iconPrefix || !!props.reactPrefix) ? (React__default['default'].createElement(reactstrap.InputGroup, { className: "searchGroup " + ((_c = props.inputGroupClass) !== null && _c !== void 0 ? _c : '') + " " + (props.bordered ? '' : 'transparent') },
+        (!!props.iconPrefix || !!props.reactPrefix) &&
+            React__default['default'].createElement(reactstrap.InputGroupText, { onClick: function () {
+                    if (!!inputRef.current)
+                        inputRef.current.focus();
+                } }, props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
+                React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: proRegularSvgIcons.faSearch })
+                :
+                    React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, props.iconPrefix))) : props.reactPrefix),
+        React__default['default'].createElement(reactstrap.Input, __assign({}, inputProps)))) : (React__default['default'].createElement(reactstrap.Input, __assign({}, inputProps)));
 };
 
 var OptionsActive = [
@@ -1945,12 +1953,12 @@ function InputSSN(props) {
         return subset;
     }, [props]);
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputSSN", plainTextControl: !!props.plainTextLast4Only ? '...-' + ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString().substr(-4) : props.value }),
-        React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "text" }, inputProps, { pattern: "\\d{3}-?\\d{2}-?\\d{4}" }))));
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "text" }, inputProps, { pattern: "\\d{3}-?\\d{2}-?\\d{4}" }))));
 }
 
 function InputState(props) {
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputText inputState", transformToValid: function (val) { return val.toUpperCase(); } }),
-        React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "text" }, ReduceInputProps(props)))));
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "text" }, ReduceInputProps(props)))));
 }
 
 function InputSwitch(props) {
@@ -1969,7 +1977,7 @@ function InputSwitch(props) {
             props.changeValue(e.target.checked, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
-    return (React__default['default'].createElement(reactBootstrap.Form.Check, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch cursor-pointer ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText, onClick: props.onClick }));
+    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch cursor-pointer ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText, onClick: props.onClick }));
 }
 
 var InputSwitchAlternate = function (props) {
@@ -1987,7 +1995,7 @@ var InputSwitchAlternate = function (props) {
         if (!!props.changeValue)
             props.changeValue(e.target.checked, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
     };
-    return (React__default['default'].createElement(reactBootstrap.Form.Check, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch ' + ((_b = props.className) !== null && _b !== void 0 ? _b : '') + (props.plainText ? ' plainText' : ''), id: newID, checked: props.value === valuesOnOff[0], onChange: !props.plainText ? handleInputChange : function () { } }));
+    return (React__default['default'].createElement(reactstrap.CustomInput, { type: "switch", label: props.label, name: props.name, className: 'inputSwitch ' + ((_b = props.className) !== null && _b !== void 0 ? _b : '') + (props.plainText ? ' plainText' : ''), id: newID, checked: props.value === valuesOnOff[0], onChange: !props.plainText ? handleInputChange : function () { } }));
 };
 
 function InputTel(props) {
@@ -2004,12 +2012,12 @@ function InputTel(props) {
         return props.showFAIcon;
     }, [props.showFAIcon]);
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputTel", append: !!faIconToShow && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: faIconToShow }), plainTextControl: intelliwaketsfoundation.FormatPhoneNumber(props.value) }),
-        React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "tel", inputMode: "tel" }, inputProps))));
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel" }, inputProps))));
 }
 
 function InputText(props) {
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputText" }),
-        React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "text" }, ReduceInputProps(props)))));
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "text" }, ReduceInputProps(props)))));
 }
 
 function InputTextArea(props) {
@@ -2025,7 +2033,7 @@ function InputTextArea(props) {
                     maxHeight: !!props.rows ? props.rows + 'em' : '5em',
                     overflowY: 'scroll'
                 } })) }),
-            React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "textarea" }, inputProps)))));
+            React__default['default'].createElement(reactstrap.Input, __assign({ type: "textarea" }, inputProps)))));
 }
 
 var originalValue = ' ';
@@ -2064,7 +2072,7 @@ function InputTime(props) {
             props.changeValue(customValue, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.MomentDisplayTime(props.value))) : (React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "time", className: "inputTime" }, inputProps, { value: overrideValue, onChange: handleInputChange, step: !!props.editSeconds ? 1 : 60 })))));
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.MomentDisplayTime(props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "time", className: "inputTime" }, inputProps, { value: overrideValue, onChange: handleInputChange, step: !!props.editSeconds ? 1 : 60 })))));
 }
 
 function InputTimeZone(props) {
@@ -2115,7 +2123,7 @@ function InputUrl(props) {
     return (React__default['default'].createElement(React__default['default'].Fragment, null,
         React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputUrl", plainTextControl: React__default['default'].createElement("a", { href: href, target: "_blank", rel: "noopener noreferrer", className: "d-block w-100" },
                 React__default['default'].createElement(EllipsesTruncate, { text: props.value })) }),
-            React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "url", pattern: "https://.*", inputMode: "url", className: "inputText" }, ReduceInputProps(props))))));
+            React__default['default'].createElement(reactstrap.Input, __assign({ type: "url", pattern: "https://.*", inputMode: "url", className: "inputText" }, ReduceInputProps(props))))));
 }
 
 function InputZip(props) {
@@ -2126,7 +2134,7 @@ function InputZip(props) {
         return subset;
     }, [props]);
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputZip", plainTextControl: intelliwaketsfoundation.FormatZip(((_a = props.value) !== null && _a !== void 0 ? _a : '').toString()) }),
-        React__default['default'].createElement(reactBootstrap.Form.Control, __assign({ type: "text" }, inputProps))));
+        React__default['default'].createElement(reactstrap.Input, __assign({ type: "text" }, inputProps))));
 }
 
 /**
@@ -2609,7 +2617,7 @@ var MasterDetailListGroup = function (props) {
     return (React__default['default'].createElement(MasterDetail, { setMenuBackItemState: props.setMenuBackItemState, mdPath: props.mdPath, breakAt: props.breakAt, backText: props.backText, rememberLast: props.rememberLast, className: props.className },
         React__default['default'].createElement(MDMaster, { width: props.mdMasterWidth, className: props.mdMasterClassName },
             props.mdMasterTopNode,
-            React__default['default'].createElement(reactBootstrap.ListGroup, { variant: "flush", className: "fill-height-scroll " + (props.noTextLargeSmaller ? '' : "text-large-" + props.breakAt + "-smaller") },
+            React__default['default'].createElement(reactstrap.ListGroup, { flush: true, className: "fill-height-scroll " + (props.noTextLargeSmaller ? '' : "text-large-" + props.breakAt + "-smaller") },
                 listGroupItems.map(function (listGroupItem, idx) {
                     var _a, _b, _c, _d;
                     var prefix = null;
@@ -2623,7 +2631,7 @@ var MasterDetailListGroup = function (props) {
                                     prefix = idx > 0 ? '' : null;
                                     break;
                                 default:
-                                    prefix = (React__default['default'].createElement(reactBootstrap.ListGroup.Item, { onClick: function () {
+                                    prefix = (React__default['default'].createElement(reactstrap.ListGroupItemHeading, { onClick: function () {
                                             if (!!props.setCollapsedSections && !!listGroupItem.section) {
                                                 props.setCollapsedSections(function (prevState) {
                                                     if (!listGroupItem.section)
@@ -2656,7 +2664,7 @@ var MasterDetailListGroup = function (props) {
                                 ((_d = listGroupItem.className) !== null && _d !== void 0 ? _d : '') },
                             !!listGroupItem.faProps && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ fixedWidth: true }, listGroupItem.faProps)),
                             listGroupItem.linkNode,
-                            listGroupItem.counter !== undefined && (React__default['default'].createElement(reactBootstrap.Badge, { color: listGroupItem.counterColor, className: "float-right small text-white border-round ml-2" }, listGroupItem.counter !== null ? (intelliwaketsfoundation.ToDigits(listGroupItem.counter, 0)) : (React__default['default'].createElement(reactBootstrap.Spinner, { animation: "border", size: "sm", style: { width: '0.8em', height: '0.8em' } })))))));
+                            listGroupItem.counter !== undefined && (React__default['default'].createElement(reactstrap.Badge, { color: listGroupItem.counterColor, className: "float-right small text-white border-round ml-2" }, listGroupItem.counter !== null ? (intelliwaketsfoundation.ToDigits(listGroupItem.counter, 0)) : (React__default['default'].createElement(reactstrap.Spinner, { size: "sm", style: { width: '0.8em', height: '0.8em' } })))))));
                 }),
                 props.mdMasterBottomNode),
             props.mdMasterBottomOutsideNode),
@@ -2679,10 +2687,9 @@ var initialMessageBoxState = {
  */
 var MessageBox = function (props) {
     var _a, _b;
-    var propsMessageBoxState = typeof props.messageBoxState === 'string'
-        ? __assign(__assign({}, initialMessageBoxState), { message: props.messageBoxState }) : props.messageBoxState;
+    var propsMessageBoxState = (typeof props.messageBoxState === 'string' || props.messageBoxState instanceof String) ? __assign(__assign({}, initialMessageBoxState), { message: props.messageBoxState }) : props.messageBoxState;
     var dismissTimeout = React.useRef(setTimeout(function () { }, 1));
-    var messageBoxHTML = intelliwaketsfoundation.TextToHTML((_a = propsMessageBoxState.messageBody) !== null && _a !== void 0 ? _a : '');
+    var messageBoxHTML = intelliwaketsfoundation.TextToHTML((_a = propsMessageBoxState.messageBody) !== null && _a !== void 0 ? _a : "");
     var dismissMessageBox = React.useCallback(props.dismissMessageBox, [props.dismissMessageBox]);
     React.useEffect(function () {
         clearTimeout(dismissTimeout.current);
@@ -2690,11 +2697,13 @@ var MessageBox = function (props) {
             dismissTimeout.current = setTimeout(dismissMessageBox, 3000);
         }
     }, [propsMessageBoxState.message, propsMessageBoxState.noDismiss, dismissMessageBox]);
-    return (React__default['default'].createElement(reactBootstrap.Alert, { className: "System_MessageBox", color: (_b = propsMessageBoxState.color) !== null && _b !== void 0 ? _b : 'primary', show: !!propsMessageBoxState.message, onClose: props.dismissMessageBox },
+    return (React__default['default'].createElement(reactstrap.Alert, { className: "System_MessageBox", color: (_b = propsMessageBoxState.color) !== null && _b !== void 0 ? _b : 'primary', isOpen: !!propsMessageBoxState.message, toggle: props.dismissMessageBox },
         propsMessageBoxState.message,
-        !!propsMessageBoxState.messageBody ? (React__default['default'].createElement("small", null,
-            React__default['default'].createElement("hr", null),
-            React__default['default'].createElement("span", { dangerouslySetInnerHTML: { __html: messageBoxHTML } }))) : null));
+        !!propsMessageBoxState.messageBody ?
+            React__default['default'].createElement("small", null,
+                React__default['default'].createElement("hr", null),
+                React__default['default'].createElement("span", { dangerouslySetInnerHTML: { __html: messageBoxHTML } }))
+            : null));
 };
 
 /**
@@ -2775,20 +2784,20 @@ var ModalPrompt = function (props) {
             okAction();
         }
     };
-    return (React__default['default'].createElement(reactBootstrap.Modal, { backdrop: true, keyboard: true, isOpen: isOpen, toggle: function () { return dismiss(true); }, autoFocus: false },
-        React__default['default'].createElement(reactBootstrap.Modal.Header, { className: 'alert-' + ((_a = props.color) !== null && _a !== void 0 ? _a : 'primary') }, title),
-        !!messageBody && React__default['default'].createElement(reactBootstrap.ModalBody, null, messageBody),
-        React__default['default'].createElement(reactBootstrap.ModalFooter, null,
-            React__default['default'].createElement(reactBootstrap.Button, { type: "button", onClick: function () { return dismiss(true); }, variant: (_b = (props.cancelOutline ? 'outline-' : '') + props.cancelColor) !== null && _b !== void 0 ? _b : (promptResponsesAsArray.length === 0 && (!props.okLabel || !props.okAction)
+    return (React__default['default'].createElement(reactstrap.Modal, { backdrop: true, keyboard: true, isOpen: isOpen, toggle: function () { return dismiss(true); }, autoFocus: false },
+        React__default['default'].createElement(reactstrap.ModalHeader, { className: 'alert-' + ((_a = props.color) !== null && _a !== void 0 ? _a : 'primary') }, title),
+        !!messageBody && React__default['default'].createElement(reactstrap.ModalBody, null, messageBody),
+        React__default['default'].createElement(reactstrap.ModalFooter, null,
+            React__default['default'].createElement(reactstrap.Button, { type: "button", onClick: function () { return dismiss(true); }, outline: props.cancelOutline, color: (_b = props.cancelColor) !== null && _b !== void 0 ? _b : (promptResponsesAsArray.length === 0 && (!props.okLabel || !props.okAction)
                     ? (_c = props.color) !== null && _c !== void 0 ? _c : 'primary' : 'link') }, (_d = props.cancelLabel) !== null && _d !== void 0 ? _d : (promptResponsesAsArray.length === 0 && (!props.okLabel || !props.okAction) ? 'OK' : 'Cancel')),
             promptResponsesAsArray.map(function (promptResponse, idx) {
                 var _a, _b;
-                return (React__default['default'].createElement(reactBootstrap.Button, { key: idx, onClick: function () {
+                return (React__default['default'].createElement(reactstrap.Button, { key: idx, onClick: function () {
                         promptResponse.action();
                         dismiss(false);
-                    }, variant: (promptResponse.outline ? 'outline-' : '') + ((_b = (_a = promptResponse.color) !== null && _a !== void 0 ? _a : props.color) !== null && _b !== void 0 ? _b : 'primary'), className: "ml-1" }, promptResponse.label));
+                    }, outline: promptResponse.outline, color: (_b = (_a = promptResponse.color) !== null && _a !== void 0 ? _a : props.color) !== null && _b !== void 0 ? _b : 'primary', className: "ml-1" }, promptResponse.label));
             }),
-            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactBootstrap.Button, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1", onKeyPress: okKeyPress, autoFocus: true, tabIndex: 0 }, props.okLabel)))));
+            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(reactstrap.Button, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1", onKeyPress: okKeyPress, autoFocus: true, tabIndex: 0 }, props.okLabel)))));
 };
 
 function NumberFormat(props) {
@@ -2833,22 +2842,18 @@ var SelectDD = function (props) {
         var _a;
         setSelectedItem((_a = props.items.find(function (item) { return props.selectedID === undefined || item.id === props.selectedID; })) !== null && _a !== void 0 ? _a : undefined);
     }, [props.selectedID, props.items]);
-    return (React__default['default'].createElement(reactBootstrap.Dropdown
-    // size={props.size}
-    , { 
-        // size={props.size}
-        className: ((_c = props.className) !== null && _c !== void 0 ? _c : '') + (!!props.likeSelect ? ' input-dd' : '') + (!!props.inline ? ' d-inline-block' : '') },
-        React__default['default'].createElement(reactBootstrap.Dropdown.Toggle, { color: (_d = props.color) !== null && _d !== void 0 ? _d : (!!props.inline ? 'primary-outline' : 'primary'), className: (!!props.classNameBtn ? props.classNameBtn : '') + ' ' + (!!props.inline ? ' btn-link-inline' : '') },
+    return (React__default['default'].createElement(reactstrap.UncontrolledDropdown, { size: props.size, className: ((_c = props.className) !== null && _c !== void 0 ? _c : '') + (!!props.likeSelect ? ' input-dd' : '') + (!!props.inline ? ' d-inline-block' : '') },
+        React__default['default'].createElement(reactstrap.DropdownToggle, { color: (_d = props.color) !== null && _d !== void 0 ? _d : (!!props.inline ? 'primary-outline' : 'primary'), caret: !!props.caret, className: (!!props.classNameBtn ? props.classNameBtn : '') + ' ' + (!!props.inline ? ' btn-link-inline' : '') },
             !!(props !== null && props !== void 0 ? props : {}).faIcon ? (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: props.faIcon, className: "mr-1" })) : (!!selectedItem &&
                 selectedItem.faIcon && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: selectedItem.faIcon, className: ClassNames((_a = {
                         'mr-1': true
                     },
                     _a[(_e = 'text-' + selectedItem.faIconColor) !== null && _e !== void 0 ? _e : ''] = !!selectedItem.faIconColor,
                     _a)) }))), (_f = (selectedItem !== null && selectedItem !== void 0 ? selectedItem : {}).name) !== null && _f !== void 0 ? _f : 'No Selection'),
-        React__default['default'].createElement(reactBootstrap.Dropdown.Menu, null, (props !== null && props !== void 0 ? props : {}).items.map(function (item) {
+        React__default['default'].createElement(reactstrap.DropdownMenu, null, (props !== null && props !== void 0 ? props : {}).items.map(function (item) {
             var _a;
             var _b, _c;
-            return (React__default['default'].createElement(reactBootstrap.Dropdown.Item, { key: ((_b = item.id) !== null && _b !== void 0 ? _b : -1).toString(), onClick: function () { return handleSelect(item); } },
+            return (React__default['default'].createElement(reactstrap.DropdownItem, { key: ((_b = item.id) !== null && _b !== void 0 ? _b : -1).toString(), onClick: function () { return handleSelect(item); } },
                 item.faIcon && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: item.faIcon, fixedWidth: true, className: ClassNames((_a = {}, _a[(_c = 'text-' + item.faIconColor) !== null && _c !== void 0 ? _c : ''] = !!item.faIconColor, _a)) })),
                 item.name));
         }))));
