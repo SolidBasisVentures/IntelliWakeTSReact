@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { IIWInputProps } from './IWInputProps';
 export interface IPropsInputNumber<T = any, V = any> extends IIWInputProps<T, V> {
     htmlRef?: (ref: any) => void;

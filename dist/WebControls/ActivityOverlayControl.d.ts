@@ -1,3 +1,4 @@
+/// <reference types="react" />
 interface IProps {
     show: boolean;
     spinnerSize?: string;

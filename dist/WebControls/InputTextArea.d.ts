@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { IIWInputProps } from './IWInputProps';
 interface IProps<T = unknown> extends IIWInputProps<T> {
     bordered?: boolean;
