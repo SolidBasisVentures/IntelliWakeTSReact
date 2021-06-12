@@ -1,22 +1,20 @@
-import React from "react";
-import _ from 'lodash'
+import React from 'react'
+import {DeepEqual} from '@solidbasisventures/intelliwaketsfoundation'
 
 export function checkDeps(deps: React.DependencyList, name: string) {
-  const reactHookName = `React.${name.replace(/DeepCompare/, "")}`;
+	const reactHookName = `React.${name.replace(/DeepCompare/, '')}`
 
-  if (!deps || deps.length === 0) {
-    throw new Error(
-      `${name} should not be used with no dependencies. Use ${reactHookName} instead.`
-    );
-  }
+	if (!deps || deps.length === 0) {
+		throw new Error(`${name} should not be used with no dependencies. Use ${reactHookName} instead.`)
+	}
 }
 
 export function useDeepCompareMemoize(value: React.DependencyList) {
-  const ref = React.useRef<React.DependencyList>([]);
+	const ref = React.useRef<React.DependencyList>([])
 
-  if (!_.isEqual(value, ref.current)) {
-    ref.current = {...value};
-  }
+	if (!DeepEqual(value, ref.current)) {
+		ref.current = {...value}
+	}
 
-  return ref.current;
+	return ref.current
 }

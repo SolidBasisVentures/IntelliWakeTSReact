@@ -2,8 +2,12 @@ import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios'
 import moment from 'moment'
 import React, {ReactNode, ReactNodeArray, useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {ActivityOverlayControl} from './ActivityOverlayControl'
-import {IsStageDevFocused, JSONParse, MOMENT_FORMAT_DATE_TIME} from '@solidbasisventures/intelliwaketsfoundation'
-import _ from 'lodash'
+import {
+	DeepEqual,
+	IsStageDevFocused,
+	JSONParse,
+	MOMENT_FORMAT_DATE_TIME
+} from '@solidbasisventures/intelliwaketsfoundation'
 
 /**
  * The IWServerData control is a React control that calls API's to a server and manages the state of the data in its control.
@@ -237,7 +241,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 			(props.response === undefined ||
 				forceRefreshRef.current !== props.forceRefresh ||
 				attemptingGet.current ||
-				(!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))),
+				(!props.noRefreshOnRequestChange && !DeepEqual(props.request, lastRequest.current))),
 		[
 			props.noExecution,
 			props.item,
@@ -296,7 +300,7 @@ export const IWServerData = <REQ, RES>(props: IIWQueryProps<REQ, RES>) => {
 						console.log('!WARNING!', props.item, props.verb, 'processed less than a second ago!')
 						if (props.response === undefined) console.log('Get re-run due to undefined response')
 						if (forceRefreshRef.current !== props.forceRefresh) console.log('Get re-run due to forceRefresh flag')
-						if (!props.noRefreshOnRequestChange && !_.isEqual(props.request, lastRequest.current))
+						if (!props.noRefreshOnRequestChange && !DeepEqual(props.request, lastRequest.current))
 							console.log('Get re-run due to request change')
 						if (isUpdate) console.log('Update re-run')
 					}
