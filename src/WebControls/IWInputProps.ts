@@ -28,12 +28,12 @@ export interface IIWInputProps<T = any, V = any> extends Omit<FormControlProps, 
 	name?: string
 	invalid?: boolean
 	required?: boolean
-	onFocus?: any
+	onFocus?: (e: React.FocusEvent) => void
 	inputIsValid?: any
-	onBlur?: any
+	onBlur?: (e: React.FocusEvent) => void
 	valueOnInvalid?: any
 	placeholder?: string
-	onKeyDown?: any
+	onKeyDown?: (e: React.KeyboardEvent) => void
 	autoComplete?: string
 	autoFocus?: boolean
 }
