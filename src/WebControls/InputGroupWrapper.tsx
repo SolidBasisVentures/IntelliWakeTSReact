@@ -1,5 +1,5 @@
 import React, {ReactNode, ReactNodeArray} from 'react'
-import {InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap'
+import {InputGroup} from 'react-bootstrap'
 
 interface IProps {
 	children?: ReactNode | ReactNodeArray
@@ -13,15 +13,15 @@ export const InputGroupWrapper = (props: IProps) => {
 			{!!props.prepend || !!props.append ? (
 				<InputGroup>
 					{!!props.prepend && (
-						<InputGroupAddon addonType="prepend">
-							<InputGroupText>{props.prepend}</InputGroupText>
-						</InputGroupAddon>
+						<InputGroup.Prepend>
+							<InputGroup.Text>{props.prepend}</InputGroup.Text>
+						</InputGroup.Prepend>
 					)}
 					{props.children}
 					{!!props.append && (
-						<InputGroupAddon addonType="append">
-							<InputGroupText>{props.append}</InputGroupText>
-						</InputGroupAddon>
+						<InputGroup.Append>
+							<InputGroup.Text>{props.append}</InputGroup.Text>
+						</InputGroup.Append>
 					)}
 				</InputGroup>
 			) : (

@@ -1,5 +1,5 @@
-import React, {useState, useEffect, ReactElement} from 'react'
-import {DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown} from 'reactstrap'
+import React, {ReactElement, useEffect, useState} from 'react'
+import {Dropdown} from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {IconProp} from '@fortawesome/fontawesome-svg-core'
 import {ClassNames} from '../Functions'
@@ -55,14 +55,13 @@ export const SelectDD = (props: IPropsSelectDD) => {
 	}, [props.selectedID, props.items])
 
 	return (
-		<UncontrolledDropdown
-			size={props.size}
+		<Dropdown
+			// size={props.size}
 			className={
 				(props.className ?? '') + (!!props.likeSelect ? ' input-dd' : '') + (!!props.inline ? ' d-inline-block' : '')
 			}>
-			<DropdownToggle
+			<Dropdown.Toggle
 				color={props.color ?? (!!props.inline ? 'primary-outline' : 'primary')}
-				caret={!!props.caret}
 				className={(!!props.classNameBtn ? props.classNameBtn : '') + ' ' + (!!props.inline ? ' btn-link-inline' : '')}>
 				{!!(props ?? {}).faIcon ? (
 					<FontAwesomeIcon icon={props.faIcon} className="mr-1" />
@@ -79,10 +78,10 @@ export const SelectDD = (props: IPropsSelectDD) => {
 					)
 				)}
 				{(selectedItem ?? {}).name ?? 'No Selection'}
-			</DropdownToggle>
-			<DropdownMenu>
+			</Dropdown.Toggle>
+			<Dropdown.Menu>
 				{(props ?? {}).items.map((item: IPropsSelectDDItem) => (
-					<DropdownItem key={(item.id ?? -1).toString()} onClick={() => handleSelect(item)}>
+					<Dropdown.Item key={(item.id ?? -1).toString()} onClick={() => handleSelect(item)}>
 						{item.faIcon && (
 							<FontAwesomeIcon
 								icon={item.faIcon}
@@ -91,9 +90,9 @@ export const SelectDD = (props: IPropsSelectDD) => {
 							/>
 						)}
 						{item.name}
-					</DropdownItem>
+					</Dropdown.Item>
 				))}
-			</DropdownMenu>
-		</UncontrolledDropdown>
+			</Dropdown.Menu>
+		</Dropdown>
 	)
 }

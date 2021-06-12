@@ -5,7 +5,6 @@ import {IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputP
 import {CleaveOptions} from 'cleave.js/options'
 import {ClassNames} from '../Functions'
 import {InputWrapper} from './InputWrapper'
-import {InputProps} from 'reactstrap'
 
 export interface IPropsInputNumber<T = any, V = any> extends IIWInputProps<T, V> {
 	htmlRef?: (ref: any) => void
@@ -20,7 +19,7 @@ export interface IPropsInputNumber<T = any, V = any> extends IIWInputProps<T, V>
 }
 
 export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
-	const inputProps = useMemo<InputProps>(() => {
+	const inputProps = useMemo<any>(() => {
 		const subset = ReduceInputProps(props)
 		delete subset.decimalScale
 		delete subset.integerScale

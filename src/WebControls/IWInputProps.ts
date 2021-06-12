@@ -1,4 +1,4 @@
-import {InputProps} from 'reactstrap'
+import {FormControlProps} from 'react-bootstrap'
 import React, {ReactNode} from 'react'
 import {ElementCustomValue} from '../Functions'
 
@@ -22,11 +22,21 @@ export interface IIWInputAddProps<T = any, V = any> {
 	append?: ReactNode
 }
 
-export interface IIWInputProps<T = any, V = any> extends Omit<InputProps, 'value'>, IIWInputAddProps<T, V> {
+export interface IIWInputProps<T = any, V = any> extends Omit<FormControlProps, 'value'>, IIWInputAddProps<T, V> {
 	value?: V
+	style?: any
+	name?: string
+	invalid?: boolean
+	required?: boolean
+	onFocus?: any
+	inputIsValid?: any
+	onBlur?: any
+	valueOnInvalid?: any
+	placeholder?: string
+	onKeyDown?: any
 }
 
-export const ReduceInputProps = <T = any, V = any>(props: IIWInputProps<T, V> | any): InputProps => {
+export const ReduceInputProps = <T = any, V = any>(props: IIWInputProps<T, V> | any): any => {
 	const subset = {...props, value: props.value as any}
 	delete subset.plainText
 	delete subset.plainTextURL

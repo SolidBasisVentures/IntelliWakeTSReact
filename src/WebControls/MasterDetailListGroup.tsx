@@ -1,6 +1,6 @@
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
 import React, {Dispatch, ReactNode, SetStateAction, useMemo} from 'react'
-import {Badge, ListGroup, ListGroupItemHeading, Spinner} from 'reactstrap'
+import {Badge, ListGroup, Spinner} from 'react-bootstrap'
 import {IMasterDetailProps, MasterDetail, MDDetail, MDLink, MDMaster} from './MasterDetail'
 import {ToDigits, ToPascalCase} from '@solidbasisventures/intelliwaketsfoundation'
 import {ClassNames} from '../Functions'
@@ -78,7 +78,7 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 			<MDMaster width={props.mdMasterWidth} className={props.mdMasterClassName}>
 				{props.mdMasterTopNode}
 				<ListGroup
-					flush
+					variant="flush"
 					className={`fill-height-scroll ${props.noTextLargeSmaller ? '' : `text-large-${props.breakAt}-smaller`}`}>
 					{listGroupItems.map((listGroupItem, idx) => {
 						let prefix: ReactNode = null
@@ -94,7 +94,7 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 										break
 									default:
 										prefix = (
-											<ListGroupItemHeading
+											<ListGroup.Item
 												onClick={() => {
 													if (!!props.setCollapsedSections && !!listGroupItem.section) {
 														props.setCollapsedSections((prevState) => {
@@ -112,7 +112,7 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 													'cursor-pointer': !!props.setCollapsedSections && !!listGroupItem.section
 												})}>
 												{listGroupItem.sectionNode ?? listGroupItem.section}
-											</ListGroupItemHeading>
+											</ListGroup.Item>
 										)
 										break
 								}
@@ -154,7 +154,7 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 											{listGroupItem.counter !== null ? (
 												ToDigits(listGroupItem.counter, 0)
 											) : (
-												<Spinner size="sm" style={{width: '0.8em', height: '0.8em'}} />
+												<Spinner animation="border" size="sm" style={{width: '0.8em', height: '0.8em'}} />
 											)}
 										</Badge>
 									)}
