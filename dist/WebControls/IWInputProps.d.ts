@@ -25,6 +25,7 @@ export interface IIWInputProps<T = any, V = any> extends Omit<FormControlProps, 
     placeholder?: string;
     onKeyDown?: any;
     autoComplete?: string;
+    autoFocus?: boolean;
 }
 export declare const ReduceInputProps: <T = any, V = any>(props: any) => any;
 export declare const ReduceToInputAddProps: <T = any, V = any>(props: any) => IIWInputAddProps<T, V>;
