@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import moment from 'moment';
 export interface IActivityOverlayState {
     nestedCount: number;
@@ -7,7 +6,7 @@ export interface IActivityOverlayState {
 export declare const initialActivityOverlayState: IActivityOverlayState;
 interface IProps {
     activityOverlayState: IActivityOverlayState;
-    resetActivityOverlay: () => void;
+    resetActivityOverlay: (() => void);
 }
 export declare const AddActivityOverlay: (prevState: IActivityOverlayState) => IActivityOverlayState;
 export declare const RemoveActivityOverlay: (prevState: IActivityOverlayState) => IActivityOverlayState;

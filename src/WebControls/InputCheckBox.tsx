@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import {Form} from 'react-bootstrap'
+import {CustomInput} from 'reactstrap'
 import {IInputSwitchProps} from './InputSwitch'
 
 export function InputCheckBox<T>(props: IInputSwitchProps<T>) {
@@ -17,18 +17,12 @@ export function InputCheckBox<T>(props: IInputSwitchProps<T>) {
 		}
 
 		if (!!props.changeValue) {
-			props.changeValue(
-				e.target.checked,
-				e.target.name as any,
-				(e.nativeEvent as any).shiftKey,
-				(e.nativeEvent as any).ctrlKey,
-				(e.nativeEvent as any).altKey
-			)
+			props.changeValue(e.target.checked, e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
 		}
 	}
 
 	return (
-		<Form.Check
+		<CustomInput
 			type="checkbox"
 			label={props.label}
 			name={props.name as string}

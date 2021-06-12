@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import {Form} from 'react-bootstrap'
+import {CustomInput} from 'reactstrap'
 import {TChangeValueFunction} from './IWInputProps'
 
 interface IInputSwitchAlternateProps<T = unknown> {
@@ -28,18 +28,11 @@ export const InputSwitchAlternate = (props: IInputSwitchAlternateProps) => {
 
 		if (!!props.onChange) props.onChange(e)
 
-		if (!!props.changeValue)
-			props.changeValue(
-				e.target.checked,
-				e.target.name as any,
-				(e.nativeEvent as any).shiftKey,
-				(e.nativeEvent as any).ctrlKey,
-				(e.nativeEvent as any).altKey
-			)
+		if (!!props.changeValue) props.changeValue(e.target.checked, e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
 	}
 
 	return (
-		<Form.Check
+		<CustomInput
 			type="switch"
 			label={props.label}
 			name={props.name as string}

@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import {Form} from 'react-bootstrap'
+import {Input} from 'reactstrap'
 import {IconProp} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPhone} from '@fortawesome/pro-regular-svg-icons'
@@ -33,7 +33,7 @@ export function InputTel<T>(props: IProps<T>) {
 			className="inputTel"
 			append={!!faIconToShow && <FontAwesomeIcon icon={faIconToShow} />}
 			plainTextControl={FormatPhoneNumber(props.value as string)}>
-			<Form.Control type="tel" inputMode="tel" {...inputProps} />
+			<Input type="tel" inputMode="tel" {...inputProps} />
 		</InputWrapper>
 	)
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 import moment from 'moment'
-import {Spinner} from 'react-bootstrap'
+import {Spinner} from 'reactstrap'
 
 export interface IActivityOverlayState {
-	nestedCount: number
+	nestedCount: number,
 	lastStart: moment.Moment | undefined
 }
 
@@ -13,8 +13,8 @@ export const initialActivityOverlayState: IActivityOverlayState = {
 }
 
 interface IProps {
-	activityOverlayState: IActivityOverlayState
-	resetActivityOverlay: () => void
+	activityOverlayState: IActivityOverlayState,
+	resetActivityOverlay: (() => void)
 }
 
 export const AddActivityOverlay = (prevState: IActivityOverlayState): IActivityOverlayState => {
@@ -29,7 +29,7 @@ export const RemoveActivityOverlay = (prevState: IActivityOverlayState): IActivi
 		console.log('WARNING: Additional RemoveActivityOverlay called')
 		return initialActivityOverlayState
 	}
-
+	
 	return {
 		nestedCount: prevState.nestedCount - 1,
 		lastStart: moment()
@@ -48,14 +48,14 @@ export const ActivityOverlay = (props: IProps) => {
 			}
 		}
 	}
-
+	
 	if (props.activityOverlayState.nestedCount > 0) {
 		return (
 			<div className="System_ActivityOverlay" onClick={resetActivityOverlay} color="primary">
-				<Spinner animation="border" style={{width: '3rem', height: '3rem'}} />
+				<Spinner style={{width: '3rem', height: '3rem'}} />
 			</div>
 		)
 	}
-
+	
 	return null
 }

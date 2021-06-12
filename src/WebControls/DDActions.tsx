@@ -1,5 +1,5 @@
 import React, {ReactNode, useMemo} from 'react'
-import {Dropdown} from 'react-bootstrap'
+import {DropdownItem, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown} from 'reactstrap'
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
 import {faCog} from '@fortawesome/pro-regular-svg-icons'
 
@@ -25,7 +25,7 @@ export interface IPropsDDActions {
 	className?: string
 	color?: string
 	right?: boolean
-	size?: 'sm' | 'lg'
+	size?: string
 }
 
 /**
@@ -47,17 +47,16 @@ export const DDActions = (props: IPropsDDActions) => {
 	if (!showDDActions) return null
 
 	return (
-		<Dropdown>
-			<Dropdown.Toggle className={props.className} color={props.color} size={props.size}>
+		<UncontrolledButtonDropdown>
+			<DropdownToggle caret={!props.noCaret} className={props.className} color={props.color} size={props.size}>
 				{props.faProps !== null && (
 					<FontAwesomeIcon {...(props.faProps ?? {icon: faCog})} fixedWidth={!!props.buttonText} />
 				)}
 				{props.buttonText}
-				{!props.noCaret && <span className="caret" />}
-			</Dropdown.Toggle>
-			<Dropdown.Menu align={props.right ? 'right' : undefined}>
+			</DropdownToggle>
+			<DropdownMenu right={props.right}>
 				{visibleDDActions.map((ddAction, idx) => (
-					<Dropdown.Item
+					<DropdownItem
 						className={(ddAction.className ?? '') + (!!ddAction.color ? ` text-${ddAction.color}` : '')}
 						key={idx}
 						disabled={!!ddAction.disabled || !ddAction.action}
@@ -73,9 +72,9 @@ export const DDActions = (props: IPropsDDActions) => {
 							/>
 						)}
 						{ddAction.title}
-					</Dropdown.Item>
+					</DropdownItem>
 				))}
-			</Dropdown.Menu>
-		</Dropdown>
+			</DropdownMenu>
+		</UncontrolledButtonDropdown>
 	)
 }

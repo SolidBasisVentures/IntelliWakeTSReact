@@ -2,7 +2,7 @@ import React, {useMemo} from 'react'
 import {CleanNumber} from '@solidbasisventures/intelliwaketsfoundation'
 import {IIWInputAddProps, IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
 import {InputWrapper} from './InputWrapper'
-import {Form, FormControlProps} from 'react-bootstrap'
+import {Input, InputProps} from 'reactstrap'
 
 export interface IPropsSelect<T = any, V = any> extends IIWInputProps<T, V> {
 	innerRef?: (ref: any) => void
@@ -16,8 +16,8 @@ export interface IPropsSelect<T = any, V = any> extends IIWInputProps<T, V> {
 }
 
 export function InputSelect<T>(props: IPropsSelect<T>) {
-	const inputProps = useMemo<FormControlProps>(() => {
-		const subset = {...ReduceInputProps(props)} as any
+	const inputProps = useMemo<InputProps>(() => {
+		const subset = {...ReduceInputProps(props)}
 
 		delete subset.isNumeric
 		delete subset.isNumericOrNull
@@ -81,7 +81,7 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 
 				return val
 			}}>
-			<Form.Control
+			<Input
 				type="select"
 				{...inputProps}
 				value={inputProps.value ?? ''}
@@ -91,7 +91,7 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 				}}
 				tabIndex={!!props.plainText ? -1 : undefined}>
 				{props.children}
-			</Form.Control>
+			</Input>
 		</InputWrapper>
 	)
 }

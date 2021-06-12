@@ -21,7 +21,7 @@ export interface IPropsDDActions {
     className?: string;
     color?: string;
     right?: boolean;
-    size?: 'sm' | 'lg';
+    size?: string;
 }
 /**
  * An array-driven drop down control

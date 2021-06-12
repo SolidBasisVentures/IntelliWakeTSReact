@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react'
+import {Input} from 'reactstrap'
 import {IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {
 	MomentDateString,
@@ -7,7 +8,6 @@ import {
 	MomentTimeString,
 	RandomString
 } from '@solidbasisventures/intelliwaketsfoundation'
-import {Form} from 'react-bootstrap'
 
 interface IProps<T = unknown> extends IIWInputProps<T> {
 	showTime?: boolean
@@ -71,7 +71,7 @@ export function InputDate<T>(props: IProps<T>) {
 						: MomentDisplayDayDate(props.value as string)}
 				</div>
 			) : (
-				<Form.Control
+				<Input
 					type="date"
 					className="inputDate"
 					{...inputProps}

@@ -1,5 +1,5 @@
 import React, {ReactNode, useCallback, useMemo} from 'react'
-import {Button, Modal, ModalBody, ModalFooter} from 'react-bootstrap'
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import {EvaluateString, TVariables} from '@solidbasisventures/intelliwaketsfoundation'
 import {KEY_STRING_ENTER} from '../Functions'
 
@@ -114,14 +114,15 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 
 	return (
 		<Modal backdrop keyboard isOpen={isOpen} toggle={() => dismiss(true)} autoFocus={false}>
-			<Modal.Header className={'alert-' + (props.color ?? 'primary')}>{title}</Modal.Header>
+			<ModalHeader className={'alert-' + (props.color ?? 'primary')}>{title}</ModalHeader>
 			{!!messageBody && <ModalBody>{messageBody}</ModalBody>}
 			<ModalFooter>
 				<Button
 					type="button"
 					onClick={() => dismiss(true)}
-					variant={
-						(props.cancelOutline ? 'outline-' : '') + props.cancelColor ??
+					outline={props.cancelOutline}
+					color={
+						props.cancelColor ??
 						(promptResponsesAsArray.length === 0 && (!props.okLabel || !props.okAction)
 							? props.color ?? 'primary'
 							: 'link')
@@ -136,7 +137,8 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 							promptResponse.action()
 							dismiss(false)
 						}}
-						variant={(promptResponse.outline ? 'outline-' : '') + (promptResponse.color ?? props.color ?? 'primary')}
+						outline={promptResponse.outline}
+						color={promptResponse.color ?? props.color ?? 'primary'}
 						className="ml-1">
 						{promptResponse.label}
 					</Button>
