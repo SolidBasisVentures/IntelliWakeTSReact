@@ -5,7 +5,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var intelliwaketsfoundation = require('@solidbasisventures/intelliwaketsfoundation');
 var moment = require('moment');
 var React = require('react');
-var _ = require('lodash');
 var reactstrap = require('reactstrap');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
 var proRegularSvgIcons = require('@fortawesome/pro-regular-svg-icons');
@@ -18,7 +17,6 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 
 var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
-var ___default = /*#__PURE__*/_interopDefaultLegacy(_);
 var ReactDatePicker__default = /*#__PURE__*/_interopDefaultLegacy(ReactDatePicker);
 var Cleave__default = /*#__PURE__*/_interopDefaultLegacy(Cleave);
 var axios__default = /*#__PURE__*/_interopDefaultLegacy(axios);
@@ -594,14 +592,14 @@ var ResizeBase64 = function (base64Str, maxSize) {
 };
 
 function checkDeps(deps, name) {
-    var reactHookName = "React." + name.replace(/DeepCompare/, "");
+    var reactHookName = "React." + name.replace(/DeepCompare/, '');
     if (!deps || deps.length === 0) {
         throw new Error(name + " should not be used with no dependencies. Use " + reactHookName + " instead.");
     }
 }
 function useDeepCompareMemoize(value) {
     var ref = React__default['default'].useRef([]);
-    if (!___default['default'].isEqual(value, ref.current)) {
+    if (!intelliwaketsfoundation.DeepEqual(value, ref.current)) {
         ref.current = __assign({}, value);
     }
     return ref.current;
@@ -2210,7 +2208,7 @@ var IWServerData = function (props) {
             (props.response === undefined ||
                 forceRefreshRef.current !== props.forceRefresh ||
                 attemptingGet.current ||
-                (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current)));
+                (!props.noRefreshOnRequestChange && !intelliwaketsfoundation.DeepEqual(props.request, lastRequest.current)));
     }, [
         props.noExecution,
         props.item,
@@ -2244,7 +2242,7 @@ var IWServerData = function (props) {
                             console.log('Get re-run due to undefined response');
                         if (forceRefreshRef.current !== props.forceRefresh)
                             console.log('Get re-run due to forceRefresh flag');
-                        if (!props.noRefreshOnRequestChange && !___default['default'].isEqual(props.request, lastRequest.current))
+                        if (!props.noRefreshOnRequestChange && !intelliwaketsfoundation.DeepEqual(props.request, lastRequest.current))
                             console.log('Get re-run due to request change');
                         if (isUpdate)
                             console.log('Update re-run');
