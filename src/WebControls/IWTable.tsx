@@ -17,7 +17,7 @@ export interface IIWTableProps {
 	tabIndex?: number
 	hidden?: boolean
 	style?: React.CSSProperties
-	ref?: LegacyRef<HTMLTableElement>
+	innerRef?: LegacyRef<HTMLTableElement>
 	children?: any
 	onKeyDown?: React.KeyboardEventHandler<HTMLTableElement>
 }
@@ -45,7 +45,7 @@ export const IWTable = (props: IIWTableProps) => {
 			tabIndex={props.tabIndex}
 			hidden={props.hidden}
 			style={props.style}
-			ref={props.ref}
+			ref={props.innerRef}
 			onKeyDown={props.onKeyDown}>
 			{!!props.caption && <caption>{props.caption}</caption>}
 			{props.children}

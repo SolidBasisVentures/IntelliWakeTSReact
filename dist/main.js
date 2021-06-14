@@ -2146,7 +2146,7 @@ var IWButton = function (props) {
                 : "btn-" + (props.outline ? 'outline-' : '') + ((_b = props.color) !== null && _b !== void 0 ? _b : 'secondary') + " ") +
             ("" + (!!props.size ? "btn-" + props.size : '')) +
             ' ' +
-            ClassNames({ 'btn-block': !!props.block }), type: (_c = props.type) !== null && _c !== void 0 ? _c : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: props.ref, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
+            ClassNames({ 'btn-block': !!props.block }), type: (_c = props.type) !== null && _c !== void 0 ? _c : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: props.innerRef, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
 };
 
 /**
@@ -2446,7 +2446,7 @@ var IWTable = function (props) {
                 'table-sm': props.size !== 'lg',
                 small: !!props.textSmall,
                 'table-sticky': !!props.sticky
-            }), tabIndex: props.tabIndex, hidden: props.hidden, style: props.style, ref: props.ref, onKeyDown: props.onKeyDown },
+            }), tabIndex: props.tabIndex, hidden: props.hidden, style: props.style, ref: props.innerRef, onKeyDown: props.onKeyDown },
         !!props.caption && React__default['default'].createElement("caption", null, props.caption),
         props.children));
 };

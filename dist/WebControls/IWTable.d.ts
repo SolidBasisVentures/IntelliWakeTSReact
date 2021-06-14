@@ -15,7 +15,7 @@ export interface IIWTableProps {
     tabIndex?: number;
     hidden?: boolean;
     style?: React.CSSProperties;
-    ref?: LegacyRef<HTMLTableElement>;
+    innerRef?: LegacyRef<HTMLTableElement>;
     children?: any;
     onKeyDown?: React.KeyboardEventHandler<HTMLTableElement>;
 }

@@ -12,7 +12,7 @@ export interface IIWButtonProps {
     className?: string;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     tabIndex?: number;
-    ref?: LegacyRef<HTMLButtonElement>;
+    innerRef?: LegacyRef<HTMLButtonElement>;
     children?: any;
     onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
     onKeyPress?: React.KeyboardEventHandler<HTMLButtonElement>;

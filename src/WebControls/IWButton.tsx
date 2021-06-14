@@ -14,7 +14,7 @@ export interface IIWButtonProps {
 	className?: string
 	onClick?: React.MouseEventHandler<HTMLButtonElement>
 	tabIndex?: number
-	ref?: LegacyRef<HTMLButtonElement>
+	innerRef?: LegacyRef<HTMLButtonElement>
 	children?: any
 	onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>
 	onKeyPress?: React.KeyboardEventHandler<HTMLButtonElement>
@@ -37,7 +37,7 @@ export const IWButton = (props: IIWButtonProps) => {
 			type={props.type ?? 'button'}
 			onClick={props.onClick}
 			tabIndex={props.tabIndex}
-			ref={props.ref}
+			ref={props.innerRef}
 			onKeyDown={props.onKeyDown}
 			onKeyPress={props.onKeyPress}
 			autoFocus={props.autoFocus}
