@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { LegacyRef } from 'react';
 export interface IIWTableProps {
     bordered?: boolean;
     borderless?: boolean;
@@ -15,7 +15,7 @@ export interface IIWTableProps {
     tabIndex?: number;
     hidden?: boolean;
     style?: React.CSSProperties;
-    ref?: any;
+    ref?: LegacyRef<HTMLTableElement>;
     children?: any;
     onKeyDown?: React.KeyboardEventHandler<HTMLTableElement>;
 }

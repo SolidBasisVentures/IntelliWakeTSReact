@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { LegacyRef } from 'react';
 export interface IIWButtonProps {
     size?: 'sm' | 'lg';
     color?: string;
@@ -12,7 +12,7 @@ export interface IIWButtonProps {
     className?: string;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     tabIndex?: number;
-    ref?: any;
+    ref?: LegacyRef<HTMLButtonElement>;
     children?: any;
     onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
     onKeyPress?: React.KeyboardEventHandler<HTMLButtonElement>;
