@@ -163,7 +163,7 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 			let tds = ref.current.getElementsByTagName('td') as any[]
 			for (let i = 0; i < tds.length; i++) {
 				tds[i].setAttribute('copyuserselect', tds[i].style.userSelect)
-				tds[i].style.userSelect = ths[i].classList.contains('noCopy') ? 'none' : 'auto'
+				tds[i].style.userSelect = tds[i].classList.contains('noCopy') ? 'none' : 'auto'
 				if (tds[i].classList.contains('onlyCopy')) {
 					tds[i].setAttribute('copyuserdisplay', ths[i].style.display)
 					tds[i].style.display = 'inherit'
@@ -201,7 +201,7 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 				ths[i].style.userSelect = ths[i].getAttribute('copyuserselect')
 				ths[i].removeAttribute('copyuserselect')
 				if (ths[i].classList.contains('onlyCopy')) {
-					ths[i].style.display = brs[i].getAttribute('display')
+					ths[i].style.display = ths[i].getAttribute('display')
 					ths[i].removeAttribute('copyuserdisplay')
 				}
 			}
@@ -209,7 +209,7 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 				tds[i].style.userSelect = tds[i].getAttribute('copyuserselect')
 				tds[i].removeAttribute('copyuserselect')
 				if (tds[i].classList.contains('onlyCopy')) {
-					tds[i].style.display = brs[i].getAttribute('display')
+					tds[i].style.display = tds[i].getAttribute('display')
 					tds[i].removeAttribute('copyuserdisplay')
 				}
 			}
