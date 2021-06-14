@@ -154,8 +154,8 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 			let ths = ref.current.getElementsByTagName('th') as any[]
 			for (let i = 0; i < ths.length; i++) {
 				ths[i].setAttribute('copyuserselect', ths[i].style.userSelect)
-				ths[i].style.userSelect = ths[i].className.includes('noCopy') ? 'none' : 'auto'
-				if (ths[i].className.includes('onlyCopy')) {
+				ths[i].style.userSelect = ths[i].classList.includes('noCopy') ? 'none' : 'auto'
+				if (ths[i].classList.includes('onlyCopy')) {
 					ths[i].setAttribute('copyuserdisplay', ths[i].style.display)
 					ths[i].style.display = 'inherit'
 				}
@@ -163,8 +163,8 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 			let tds = ref.current.getElementsByTagName('td') as any[]
 			for (let i = 0; i < tds.length; i++) {
 				tds[i].setAttribute('copyuserselect', tds[i].style.userSelect)
-				tds[i].style.userSelect = ths[i].className.includes('noCopy') ? 'none' : 'auto'
-				if (tds[i].className.includes('onlyCopy')) {
+				tds[i].style.userSelect = ths[i].classList.includes('noCopy') ? 'none' : 'auto'
+				if (tds[i].classList.includes('onlyCopy')) {
 					tds[i].setAttribute('copyuserdisplay', ths[i].style.display)
 					tds[i].style.display = 'inherit'
 				}
@@ -200,7 +200,7 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 			for (let i = 0; i < ths.length; i++) {
 				ths[i].style.userSelect = ths[i].getAttribute('copyuserselect')
 				ths[i].removeAttribute('copyuserselect')
-				if (ths[i].className.includes('onlyCopy')) {
+				if (ths[i].classList.includes('onlyCopy')) {
 					ths[i].style.display = brs[i].getAttribute('display')
 					ths[i].removeAttribute('copyuserdisplay')
 				}
@@ -208,7 +208,7 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 			for (let i = 0; i < tds.length; i++) {
 				tds[i].style.userSelect = tds[i].getAttribute('copyuserselect')
 				tds[i].removeAttribute('copyuserselect')
-				if (tds[i].className.includes('onlyCopy')) {
+				if (tds[i].classList.includes('onlyCopy')) {
 					tds[i].style.display = brs[i].getAttribute('display')
 					tds[i].removeAttribute('copyuserdisplay')
 				}
