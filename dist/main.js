@@ -308,12 +308,12 @@ var CopyRefToClipboard = function (ref, tryFormatted) {
             var ths = ref.current.getElementsByTagName('th');
             for (var i = 0; i < ths.length; i++) {
                 ths[i].setAttribute('copyuserselect', ths[i].style.userSelect);
-                ths[i].style.userSelect = 'auto';
+                ths[i].style.userSelect = ths[i].className.includes('noCopy') ? 'none' : 'auto';
             }
             var tds = ref.current.getElementsByTagName('td');
             for (var i = 0; i < tds.length; i++) {
                 tds[i].setAttribute('copyuserselect', tds[i].style.userSelect);
-                tds[i].style.userSelect = 'auto';
+                tds[i].style.userSelect = ths[i].className.includes('noCopy') ? 'none' : 'auto';
             }
             var brs = ref.current.getElementsByTagName('br');
             for (var i = 0; i < brs.length; i++) {

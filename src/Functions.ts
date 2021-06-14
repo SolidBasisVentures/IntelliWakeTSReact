@@ -154,12 +154,12 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 			let ths = ref.current.getElementsByTagName('th') as any[]
 			for (let i = 0; i < ths.length; i++) {
 				ths[i].setAttribute('copyuserselect', ths[i].style.userSelect)
-				ths[i].style.userSelect = 'auto'
+				ths[i].style.userSelect = ths[i].className.includes('noCopy') ? 'none' : 'auto'
 			}
 			let tds = ref.current.getElementsByTagName('td') as any[]
 			for (let i = 0; i < tds.length; i++) {
 				tds[i].setAttribute('copyuserselect', tds[i].style.userSelect)
-				tds[i].style.userSelect = 'auto'
+				tds[i].style.userSelect = ths[i].className.includes('noCopy') ? 'none' : 'auto'
 			}
 			let brs = ref.current.getElementsByTagName('br') as any[]
 			for (let i = 0; i < brs.length; i++) {
