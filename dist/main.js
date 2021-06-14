@@ -309,11 +309,19 @@ var CopyRefToClipboard = function (ref, tryFormatted) {
             for (var i = 0; i < ths.length; i++) {
                 ths[i].setAttribute('copyuserselect', ths[i].style.userSelect);
                 ths[i].style.userSelect = ths[i].className.includes('noCopy') ? 'none' : 'auto';
+                if (ths[i].className.includes('onlyCopy')) {
+                    ths[i].setAttribute('copyuserdisplay', ths[i].style.display);
+                    ths[i].style.display = 'inherit';
+                }
             }
             var tds = ref.current.getElementsByTagName('td');
             for (var i = 0; i < tds.length; i++) {
                 tds[i].setAttribute('copyuserselect', tds[i].style.userSelect);
                 tds[i].style.userSelect = ths[i].className.includes('noCopy') ? 'none' : 'auto';
+                if (tds[i].className.includes('onlyCopy')) {
+                    tds[i].setAttribute('copyuserdisplay', ths[i].style.display);
+                    tds[i].style.display = 'inherit';
+                }
             }
             var brs = ref.current.getElementsByTagName('br');
             for (var i = 0; i < brs.length; i++) {
@@ -344,10 +352,18 @@ var CopyRefToClipboard = function (ref, tryFormatted) {
             for (var i = 0; i < ths.length; i++) {
                 ths[i].style.userSelect = ths[i].getAttribute('copyuserselect');
                 ths[i].removeAttribute('copyuserselect');
+                if (ths[i].className.includes('onlyCopy')) {
+                    ths[i].style.display = brs[i].getAttribute('display');
+                    ths[i].removeAttribute('copyuserdisplay');
+                }
             }
             for (var i = 0; i < tds.length; i++) {
                 tds[i].style.userSelect = tds[i].getAttribute('copyuserselect');
                 tds[i].removeAttribute('copyuserselect');
+                if (tds[i].className.includes('onlyCopy')) {
+                    tds[i].style.display = brs[i].getAttribute('display');
+                    tds[i].removeAttribute('copyuserdisplay');
+                }
             }
             for (var i = 0; i < brs.length; i++) {
                 brs[i].style.display = brs[i].getAttribute('display');
