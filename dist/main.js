@@ -2137,6 +2137,18 @@ function InputZip(props) {
         React__default['default'].createElement(reactstrap.Input, __assign({ type: "text" }, inputProps))));
 }
 
+var IWButton = function (props) {
+    var _a, _b, _c;
+    return (React__default['default'].createElement("button", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') +
+            " btn " +
+            (props.color === 'inline'
+                ? 'btn btn-link btn-link-inline '
+                : "btn-" + (props.outline ? 'outline-' : '') + ((_b = props.color) !== null && _b !== void 0 ? _b : 'secondary') + " ") +
+            ("" + (!!props.size ? "btn-" + props.size : '')) +
+            ' ' +
+            ClassNames({ 'btn-block': !!props.block }), type: (_c = props.type) !== null && _c !== void 0 ? _c : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: props.ref, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
+};
+
 /**
  * The IWServerData control is a React control that calls API's to a server and manages the state of the data in its control.
  *
@@ -2416,6 +2428,27 @@ var IWServerData = function (props) {
             !props.globalActivityOverlay &&
             props.loadingReactNodes !== null &&
             ((_l = props.loadingReactNodes) !== null && _l !== void 0 ? _l : React__default['default'].createElement(ActivityOverlayControl, { show: true }))));
+};
+
+var IWTable = function (props) {
+    var _a;
+    return (React__default['default'].createElement("table", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') +
+            ' ' +
+            ClassNames({
+                table: true,
+                'table-bordered': !!props.bordered,
+                'border-0': !!props.borderless,
+                'table-striped': !!props.striped,
+                'table-dark': !!props.dark,
+                'table-hover': !!props.hover,
+                'table-responsive': !!props.responsive,
+                'table-sortable': !!props.sortable,
+                'table-sm': props.size !== 'lg',
+                small: !!props.textSmall,
+                'table-sticky': !!props.sticky
+            }), tabIndex: props.tabIndex, hidden: props.hidden, style: props.style, ref: props.ref, onKeyDown: props.onKeyDown },
+        !!props.caption && React__default['default'].createElement("caption", null, props.caption),
+        props.children));
 };
 
 function StyleControl(props) {
@@ -2923,7 +2956,9 @@ exports.GetPathComponentAfter = GetPathComponentAfter;
 exports.GetPathThrough = GetPathThrough;
 exports.HandleChangeValue = HandleChangeValue;
 exports.HasPathComponent = HasPathComponent;
+exports.IWButton = IWButton;
 exports.IWServerData = IWServerData;
+exports.IWTable = IWTable;
 exports.InputCheckBox = InputCheckBox;
 exports.InputColor = InputColor;
 exports.InputDate = InputDate;
