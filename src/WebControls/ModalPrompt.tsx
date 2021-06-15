@@ -1,7 +1,6 @@
 import React, {ReactNode, useCallback, useMemo} from 'react'
 import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import {EvaluateString, TVariables} from '@solidbasisventures/intelliwaketsfoundation'
-import {KEY_STRING_ENTER} from '../Functions'
 import {IWButton} from './IWButton'
 
 export interface IModalPromptResponse {
@@ -92,26 +91,26 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 		dismiss(false)
 	}
 
-	const okKeyPress = (e: React.KeyboardEvent) => {
-		if (!!props.okKeys) {
-			if (Array.isArray(props.okKeys)) {
-				for (const okKey of props.okKeys) {
-					if (e.key === okKey) {
-						okAction()
-						break
-					}
-				}
-			} else {
-				if (e.key === KEY_STRING_ENTER) {
-					okAction()
-				} else if (e.key === props.okKeys) {
-					okAction()
-				}
-			}
-		} else if (e.key === KEY_STRING_ENTER) {
-			okAction()
-		}
-	}
+	// const okKeyPress = (e: React.KeyboardEvent) => {
+	// 	if (!!props.okKeys) {
+	// 		if (Array.isArray(props.okKeys)) {
+	// 			for (const okKey of props.okKeys) {
+	// 				if (e.key === okKey) {
+	// 					okAction()
+	// 					break
+	// 				}
+	// 			}
+	// 		} else {
+	// 			if (e.key === KEY_STRING_ENTER) {
+	// 				okAction()
+	// 			} else if (e.key === props.okKeys) {
+	// 				okAction()
+	// 			}
+	// 		}
+	// 	} else if (e.key === KEY_STRING_ENTER) {
+	// 		okAction()
+	// 	}
+	// }
 
 	return (
 		<Modal backdrop keyboard isOpen={isOpen} toggle={() => dismiss(true)} autoFocus={false}>
@@ -156,9 +155,9 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 				{!!props.okLabel && !!props.okAction && (
 					<IWButton
 						onClick={okAction}
-						color={props.color ?? props.color ?? 'primary'}
+						color={props.color ?? 'primary'}
 						className="ml-1"
-						onKeyPress={okKeyPress}
+						// onKeyPress={okKeyPress}
 						autoFocus
 						tabIndex={0}>
 						{props.okLabel}

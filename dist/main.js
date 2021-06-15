@@ -2772,7 +2772,7 @@ var MessageBox = function (props) {
  * <ModalPrompt {...modalPromptProps} dismiss={setModalPromptProps} />
  */
 var ModalPrompt = function (props) {
-    var _a, _b, _c, _d, _e, _f;
+    var _a, _b, _c, _d, _e;
     var promptResponsesAsArray = React.useMemo(function () {
         if (props.promptResponses === null || props.promptResponses === undefined)
             return [];
@@ -2809,30 +2809,26 @@ var ModalPrompt = function (props) {
         !!props.okAction && props.okAction();
         dismiss(false);
     };
-    var okKeyPress = function (e) {
-        if (!!props.okKeys) {
-            if (Array.isArray(props.okKeys)) {
-                for (var _i = 0, _a = props.okKeys; _i < _a.length; _i++) {
-                    var okKey = _a[_i];
-                    if (e.key === okKey) {
-                        okAction();
-                        break;
-                    }
-                }
-            }
-            else {
-                if (e.key === KEY_STRING_ENTER) {
-                    okAction();
-                }
-                else if (e.key === props.okKeys) {
-                    okAction();
-                }
-            }
-        }
-        else if (e.key === KEY_STRING_ENTER) {
-            okAction();
-        }
-    };
+    // const okKeyPress = (e: React.KeyboardEvent) => {
+    // 	if (!!props.okKeys) {
+    // 		if (Array.isArray(props.okKeys)) {
+    // 			for (const okKey of props.okKeys) {
+    // 				if (e.key === okKey) {
+    // 					okAction()
+    // 					break
+    // 				}
+    // 			}
+    // 		} else {
+    // 			if (e.key === KEY_STRING_ENTER) {
+    // 				okAction()
+    // 			} else if (e.key === props.okKeys) {
+    // 				okAction()
+    // 			}
+    // 		}
+    // 	} else if (e.key === KEY_STRING_ENTER) {
+    // 		okAction()
+    // 	}
+    // }
     return (React__default['default'].createElement(reactstrap.Modal, { backdrop: true, keyboard: true, isOpen: isOpen, toggle: function () { return dismiss(true); }, autoFocus: false },
         React__default['default'].createElement(reactstrap.ModalHeader, { className: 'alert-' + ((_a = props.color) !== null && _a !== void 0 ? _a : 'primary'), toggle: function () { return dismiss(true); }, close: React__default['default'].createElement("button", { className: "close", onClick: function () { return dismiss(true); } }, "\u00D7") }, title),
         !!messageBody && React__default['default'].createElement(reactstrap.ModalBody, null, messageBody),
@@ -2846,7 +2842,9 @@ var ModalPrompt = function (props) {
                         dismiss(false);
                     }, outline: promptResponse.outline, color: (_b = (_a = promptResponse.color) !== null && _a !== void 0 ? _a : props.color) !== null && _b !== void 0 ? _b : 'primary', className: "ml-1" }, promptResponse.label));
             }),
-            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(IWButton, { onClick: okAction, color: (_f = (_e = props.color) !== null && _e !== void 0 ? _e : props.color) !== null && _f !== void 0 ? _f : 'primary', className: "ml-1", onKeyPress: okKeyPress, autoFocus: true, tabIndex: 0 }, props.okLabel)))));
+            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(IWButton, { onClick: okAction, color: (_e = props.color) !== null && _e !== void 0 ? _e : 'primary', className: "ml-1", 
+                // onKeyPress={okKeyPress}
+                autoFocus: true, tabIndex: 0 }, props.okLabel)))));
 };
 
 function NumberFormat(props) {
