@@ -660,6 +660,21 @@ var Container = function (props) {
     return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'fluid', 'className', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({ container: true, 'container-fluid': !!props.fluid })).trim() }), props.children));
 };
 
+var Form = function (props) {
+    var _a;
+    return (React__default['default'].createElement("form", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'innerRef', 'inline', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({
+            form: true,
+            'form-inline': !!props.inline
+        })).trim(), ref: props.innerRef }), props.children));
+};
+
+var FormGroup = function (props) {
+    var _a;
+    return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({
+            'form-group': true
+        })).trim() }), props.children));
+};
+
 var Label = function (props) {
     var _a;
     var classes = ("" + ((_a = props.className) !== null && _a !== void 0 ? _a : '')).trim();
@@ -3030,6 +3045,8 @@ exports.ElementCustomValue = ElementCustomValue;
 exports.EllipsesTruncate = EllipsesTruncate;
 exports.FileToBase64 = FileToBase64;
 exports.FilterObjects = FilterObjects;
+exports.Form = Form;
+exports.FormGroup = FormGroup;
 exports.FormatValue = FormatValue;
 exports.GetOrientation = GetOrientation;
 exports.GetPathComponentAfter = GetPathComponentAfter;

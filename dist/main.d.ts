@@ -7,6 +7,8 @@ export * from './Photos';
 export * from './Bootstrap/Button';
 export * from './Bootstrap/Col';
 export * from './Bootstrap/Container';
+export * from './Bootstrap/Form';
+export * from './Bootstrap/FormGroup';
 export * from './Bootstrap/Label';
 export * from './Bootstrap/Row';
 export * from './Bootstrap/Table';
