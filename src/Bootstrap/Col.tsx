@@ -31,7 +31,10 @@ export const Col = (props: IIWColProps) => {
 	const applyColumnProp = (size: string, columnProps: IWColumnProps | null | undefined): string => {
 		if (!columnProps) return ''
 
-		let application = ` col-${size}`
+		let application = ` col`
+		if (size !== 'xs' || typeof columnProps === 'object') {
+			application += `-${size}`
+		}
 
 		if (columnProps === true) return application
 

@@ -629,7 +629,10 @@ var Col = function (props) {
     var applyColumnProp = function (size, columnProps) {
         if (!columnProps)
             return '';
-        var application = " col-" + size;
+        var application = " col";
+        if (size !== 'xs' || typeof columnProps === 'object') {
+            application += "-" + size;
+        }
         if (columnProps === true)
             return application;
         if (typeof columnProps === 'number' || typeof columnProps === 'string')
