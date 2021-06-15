@@ -115,7 +115,16 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 
 	return (
 		<Modal backdrop keyboard isOpen={isOpen} toggle={() => dismiss(true)} autoFocus={false}>
-			<ModalHeader className={'alert-' + (props.color ?? 'primary')}>{title}</ModalHeader>
+			<ModalHeader
+				className={'alert-' + (props.color ?? 'primary')}
+				toggle={() => dismiss(true)}
+				close={
+					<button className="close" onClick={() => dismiss(true)}>
+						&times;
+					</button>
+				}>
+				{title}
+			</ModalHeader>
 			{!!messageBody && <ModalBody>{messageBody}</ModalBody>}
 			<ModalFooter>
 				<IWButton
