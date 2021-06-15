@@ -620,6 +620,50 @@ var Button = function (props) {
             ClassNames({ 'btn-block': !!props.block }), type: (_c = props.type) !== null && _c !== void 0 ? _c : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: props.innerRef, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
 };
 
+var Col = function (props) {
+    var _a;
+    var classes = ("" + ((_a = props.className) !== null && _a !== void 0 ? _a : '')).trim();
+    if (!props.xs && !props.sm && !props.md && !props.lg && !props.xl) {
+        classes += ' col';
+    }
+    var applyColumnProp = function (size, columnProps) {
+        if (!columnProps)
+            return '';
+        var application = " col-" + size;
+        if (columnProps === true)
+            return application;
+        if (typeof columnProps === 'number' || typeof columnProps === 'string')
+            return application + "-" + columnProps;
+        if (typeof columnProps.size === 'number' || typeof columnProps.size === 'string') {
+            application += "" + columnProps.size;
+        }
+        if (columnProps.offset !== undefined)
+            application += " offset-" + size + "-" + columnProps.offset;
+        if (columnProps.order !== undefined)
+            application += " order-" + columnProps.order;
+        return application;
+    };
+    classes += applyColumnProp('xs', props.xs);
+    classes += applyColumnProp('sm', props.sm);
+    classes += applyColumnProp('md', props.md);
+    classes += applyColumnProp('lg', props.lg);
+    classes += applyColumnProp('xl', props.xl);
+    return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'children'), { className: classes.trim() }), props.children));
+};
+
+var Container = function (props) {
+    var _a;
+    return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'fluid', 'className', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({ container: true, 'container-fluid': !!props.fluid })).trim() }), props.children));
+};
+
+var Row = function (props) {
+    var _a;
+    return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'noGutters', 'className', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({
+            row: true,
+            'no-gutters': !!props.noGutters
+        })).trim() }), props.children));
+};
+
 var Table = function (props) {
     var _a;
     return (React__default['default'].createElement("table", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') +
@@ -2943,11 +2987,13 @@ exports.BRBefore = BRBefore;
 exports.Button = Button;
 exports.CaptureGPS = CaptureGPS;
 exports.ClassNames = ClassNames;
+exports.Col = Col;
 exports.ColumnBodyClassNames = ColumnBodyClassNames;
 exports.ColumnClassNames = ColumnClassNames;
 exports.ColumnHeadClassNames = ColumnHeadClassNames;
 exports.ColumnHeaderClick = ColumnHeaderClick;
 exports.ComputeValue = ComputeValue;
+exports.Container = Container;
 exports.CookieCreate = CookieCreate;
 exports.CookieErase = CookieErase;
 exports.CookieRead = CookieRead;
@@ -3032,6 +3078,7 @@ exports.ReduceInputProps = ReduceInputProps;
 exports.ReduceToInputAddProps = ReduceToInputAddProps;
 exports.RemoveActivityOverlay = RemoveActivityOverlay;
 exports.ResizeBase64 = ResizeBase64;
+exports.Row = Row;
 exports.ScreenFormatValue = ScreenFormatValue;
 exports.SelectDD = SelectDD;
 exports.SetSort = SetSort;
