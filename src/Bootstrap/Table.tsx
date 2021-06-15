@@ -22,7 +22,7 @@ export interface IIWTableProps {
 	onKeyDown?: React.KeyboardEventHandler<HTMLTableElement>
 }
 
-export const IWTable = (props: IIWTableProps) => {
+export const Table = (props: IIWTableProps) => {
 	return (
 		<table
 			className={

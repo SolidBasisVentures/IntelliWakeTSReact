@@ -1,7 +1,7 @@
 import React, {ReactNode, useCallback, useMemo} from 'react'
 import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import {EvaluateString, TVariables} from '@solidbasisventures/intelliwaketsfoundation'
-import {IWButton} from './IWButton'
+import {Button} from '../Bootstrap/Button'
 
 export interface IModalPromptResponse {
 	label: ReactNode
@@ -126,7 +126,7 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 			</ModalHeader>
 			{!!messageBody && <ModalBody>{messageBody}</ModalBody>}
 			<ModalFooter>
-				<IWButton
+				<Button
 					type="button"
 					onClick={() => dismiss(true)}
 					outline={props.cancelOutline}
@@ -138,9 +138,9 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 					}>
 					{props.cancelLabel ??
 						(promptResponsesAsArray.length === 0 && (!props.okLabel || !props.okAction) ? 'OK' : 'Cancel')}
-				</IWButton>
+				</Button>
 				{promptResponsesAsArray.map((promptResponse, idx) => (
-					<IWButton
+					<Button
 						key={idx}
 						onClick={() => {
 							promptResponse.action()
@@ -150,10 +150,10 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 						color={promptResponse.color ?? props.color ?? 'primary'}
 						className="ml-1">
 						{promptResponse.label}
-					</IWButton>
+					</Button>
 				))}
 				{!!props.okLabel && !!props.okAction && (
-					<IWButton
+					<Button
 						onClick={okAction}
 						color={props.color ?? 'primary'}
 						className="ml-1"
@@ -161,7 +161,7 @@ export const ModalPrompt = (props: IModalPromptProps) => {
 						autoFocus
 						tabIndex={0}>
 						{props.okLabel}
-					</IWButton>
+					</Button>
 				)}
 			</ModalFooter>
 		</Modal>

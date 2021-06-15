@@ -21,7 +21,7 @@ export interface IIWButtonProps {
 	title?: string
 }
 
-export const IWButton = (props: IIWButtonProps) => {
+export const Button = (props: IIWButtonProps) => {
 	return (
 		<button
 			className={
