@@ -1,9 +1,5 @@
 import React from 'react';
-export declare type IWColumnProps = string | boolean | number | {
-    size?: boolean | number | string;
-    offset?: string | number;
-    order?: 'first' | 'last' | number;
-};
+import { IWColumnProps } from './ColProp';
 export interface IIWColProps extends React.HTMLProps<HTMLDivElement> {
     xs?: IWColumnProps;
     sm?: IWColumnProps;

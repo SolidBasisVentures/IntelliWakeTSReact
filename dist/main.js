@@ -620,43 +620,58 @@ var Button = function (props) {
             ClassNames({ 'btn-block': !!props.block }), type: (_c = props.type) !== null && _c !== void 0 ? _c : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: props.innerRef, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
 };
 
+var ApplyColumnProp = function (size, columnProps) {
+    if (!columnProps)
+        return '';
+    var application = " col";
+    if (size !== 'xs' || typeof columnProps === 'object') {
+        application += "-" + size;
+    }
+    if (columnProps === true)
+        return application;
+    if (typeof columnProps === 'number' || typeof columnProps === 'string')
+        return application + "-" + columnProps;
+    if (typeof columnProps.size === 'number' || typeof columnProps.size === 'string') {
+        application += "" + columnProps.size;
+    }
+    if (columnProps.offset !== undefined)
+        application += " offset-" + size + "-" + columnProps.offset;
+    if (columnProps.order !== undefined)
+        application += " order-" + columnProps.order;
+    return application;
+};
+
 var Col = function (props) {
     var _a;
     var classes = ("" + ((_a = props.className) !== null && _a !== void 0 ? _a : '')).trim();
     if (!props.xs && !props.sm && !props.md && !props.lg && !props.xl) {
         classes += ' col';
     }
-    var applyColumnProp = function (size, columnProps) {
-        if (!columnProps)
-            return '';
-        var application = " col";
-        if (size !== 'xs' || typeof columnProps === 'object') {
-            application += "-" + size;
-        }
-        if (columnProps === true)
-            return application;
-        if (typeof columnProps === 'number' || typeof columnProps === 'string')
-            return application + "-" + columnProps;
-        if (typeof columnProps.size === 'number' || typeof columnProps.size === 'string') {
-            application += "" + columnProps.size;
-        }
-        if (columnProps.offset !== undefined)
-            application += " offset-" + size + "-" + columnProps.offset;
-        if (columnProps.order !== undefined)
-            application += " order-" + columnProps.order;
-        return application;
-    };
-    classes += applyColumnProp('xs', props.xs);
-    classes += applyColumnProp('sm', props.sm);
-    classes += applyColumnProp('md', props.md);
-    classes += applyColumnProp('lg', props.lg);
-    classes += applyColumnProp('xl', props.xl);
+    classes += ApplyColumnProp('xs', props.xs);
+    classes += ApplyColumnProp('sm', props.sm);
+    classes += ApplyColumnProp('md', props.md);
+    classes += ApplyColumnProp('lg', props.lg);
+    classes += ApplyColumnProp('xl', props.xl);
     return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'children'), { className: classes.trim() }), props.children));
 };
 
 var Container = function (props) {
     var _a;
     return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'fluid', 'className', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({ container: true, 'container-fluid': !!props.fluid })).trim() }), props.children));
+};
+
+var Label = function (props) {
+    var _a;
+    var classes = ("" + ((_a = props.className) !== null && _a !== void 0 ? _a : '')).trim();
+    classes += ' col-form-label';
+    if (props.check)
+        classes += ' form-check-label';
+    classes += ApplyColumnProp('xs', props.xs);
+    classes += ApplyColumnProp('sm', props.sm);
+    classes += ApplyColumnProp('md', props.md);
+    classes += ApplyColumnProp('lg', props.lg);
+    classes += ApplyColumnProp('xl', props.xl);
+    return (React__default['default'].createElement("label", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'children'), { className: classes.trim() }), props.children));
 };
 
 var Row = function (props) {
@@ -2984,6 +2999,7 @@ var TextStatus = function (props) {
 exports.ActivityOverlay = ActivityOverlay;
 exports.ActivityOverlayControl = ActivityOverlayControl;
 exports.AddActivityOverlay = AddActivityOverlay;
+exports.ApplyColumnProp = ApplyColumnProp;
 exports.ArrayTable = ArrayTable;
 exports.BRAfter = BRAfter;
 exports.BRBefore = BRBefore;
@@ -3066,6 +3082,7 @@ exports.KEY_STRING_TAB = KEY_STRING_TAB;
 exports.KEY_STRING_UP_ARROW = KEY_STRING_UP_ARROW;
 exports.KEY_TAB = KEY_TAB;
 exports.KEY_UP_ARROW = KEY_UP_ARROW;
+exports.Label = Label;
 exports.MDDetail = MDDetail;
 exports.MDLink = MDLink;
 exports.MDMaster = MDMaster;
