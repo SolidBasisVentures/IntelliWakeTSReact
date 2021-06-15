@@ -2,20 +2,25 @@ import React from 'react'
 import {OmitProperty} from '@solidbasisventures/intelliwaketsfoundation'
 import {ApplyColumnProp, IWColumnProps} from './ColProp'
 
-export interface IIWColProps extends React.HTMLProps<HTMLDivElement> {
+export interface IIWLabelProps extends React.HTMLProps<HTMLLabelElement> {
 	xs?: IWColumnProps
 	sm?: IWColumnProps
 	md?: IWColumnProps
 	lg?: IWColumnProps
 	xl?: IWColumnProps
+
+	hidden?: boolean
+	check?: boolean
+	disabled?: boolean
+	for?: string
 }
 
-export const Col = (props: IIWColProps) => {
+export const Label = (props: IIWLabelProps) => {
 	let classes = `${props.className ?? ''}`.trim()
 
-	if (!props.xs && !props.sm && !props.md && !props.lg && !props.xl) {
-		classes += ' col'
-	}
+	classes += ' col-form-label'
+
+	if (props.check) classes += ' form-check-label'
 
 	classes += ApplyColumnProp('xs', props.xs)
 	classes += ApplyColumnProp('sm', props.sm)
@@ -24,8 +29,8 @@ export const Col = (props: IIWColProps) => {
 	classes += ApplyColumnProp('xl', props.xl)
 
 	return (
-		<div {...OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'children')} className={classes.trim()}>
+		<label {...OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'children')} className={classes.trim()}>
 			{props.children}
-		</div>
+		</label>
 	)
 }
