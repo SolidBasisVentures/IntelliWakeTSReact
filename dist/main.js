@@ -734,7 +734,7 @@ var Portal = /** @class */ (function (_super) {
 }(React__default['default'].Component));
 
 var Modal = function (props) {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f;
     var divRef = React.useRef();
     var toggle = React.useCallback(function (e) { return (!!props.toggle && !props.noCancel ? props.toggle(e) : function () { }); }, [props]);
     var okAction = React.useCallback(function (e) {
@@ -781,24 +781,27 @@ var Modal = function (props) {
                 display: props.isOpen ? 'block' : 'none',
                 pointerEvents: props.isOpen ? undefined : 'none'
             }, onClick: toggle, onKeyDown: keyDown },
-            React__default['default'].createElement("div", { className: 'modal-dialog' + (!props.size ? '' : props.size === 'sm' ? ' modal-sm' : ' modal-lg'), role: "document", onClick: function (e) { return e.stopPropagation(); } },
+            React__default['default'].createElement("div", { className: 'modal-dialog' +
+                    (!props.size ? '' : props.size === 'sm' ? ' modal-sm' : ' modal-lg') +
+                    ' ' +
+                    ((_a = props.dialogClassName) !== null && _a !== void 0 ? _a : ''), role: "document", onClick: function (e) { return e.stopPropagation(); }, style: props.dialogStyle },
                 React__default['default'].createElement("div", { className: "modal-content" },
-                    !!props.title && (React__default['default'].createElement("div", { className: "alert-" + ((_a = props.color) !== null && _a !== void 0 ? _a : 'primary') + " modal-header" },
+                    !!props.title && (React__default['default'].createElement("div", { className: "alert-" + ((_b = props.color) !== null && _b !== void 0 ? _b : 'primary') + " modal-header" },
                         React__default['default'].createElement("h5", { className: "modal-title" }, props.title),
                         !props.noCancel && (React__default['default'].createElement("button", { className: "close", onClick: toggle },
                             "\u00D7",
                             ' ')))),
-                    !!props.body && (React__default['default'].createElement("div", { className: 'modal-body ' + ((_b = props.bodyClassName) !== null && _b !== void 0 ? _b : ''), style: props.bodyStyle }, props.body)),
+                    !!props.body && (React__default['default'].createElement("div", { className: 'modal-body ' + ((_c = props.bodyClassName) !== null && _c !== void 0 ? _c : ''), style: props.bodyStyle }, props.body)),
                     (!!props.okAction || !props.noCancelButton || !!props.footerLeft || !!props.footerRight) && (React__default['default'].createElement("div", { className: "modal-footer" },
                         React__default['default'].createElement("div", { className: "mr-auto" },
-                            (!props.noCancel || !props.noCancelButton) && (React__default['default'].createElement("button", { className: " btn btn-link  ", type: "button", onClick: toggle }, (_c = props.cancelLabel) !== null && _c !== void 0 ? _c : 'Cancel')),
+                            (!props.noCancel || !props.noCancelButton) && (React__default['default'].createElement("button", { className: " btn btn-link  ", type: "button", onClick: toggle }, (_d = props.cancelLabel) !== null && _d !== void 0 ? _d : 'Cancel')),
                             props.footerLeft),
                         React__default['default'].createElement("div", { className: "text-right" },
                             props.footerRight,
-                            !!props.okAction && (React__default['default'].createElement("button", { className: "ml-1 btn btn-" + ((_d = props.color) !== null && _d !== void 0 ? _d : 'primary'), type: "button", disabled: props.okDisabled, onClick: function (e) {
+                            !!props.okAction && (React__default['default'].createElement("button", { className: "ml-1 btn btn-" + ((_e = props.color) !== null && _e !== void 0 ? _e : 'primary'), type: "button", disabled: props.okDisabled, onClick: function (e) {
                                     e.stopPropagation();
                                     okAction(e);
-                                }, ref: divRef }, (_e = props.okLabel) !== null && _e !== void 0 ? _e : 'OK')))))))),
+                                }, ref: divRef }, (_f = props.okLabel) !== null && _f !== void 0 ? _f : 'OK')))))))),
         React__default['default'].createElement("div", { className: 'modal-backdrop fade' + (props.isOpen ? ' show' : ''), style: { pointerEvents: props.isOpen ? undefined : 'none' }, onClick: toggle })));
 };
 

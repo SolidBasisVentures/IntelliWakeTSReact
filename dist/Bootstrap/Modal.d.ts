@@ -7,6 +7,8 @@ export interface IWModalProps {
     color?: string;
     title?: ReactNode;
     body?: ReactNode;
+    dialogStyle?: CSSProperties;
+    dialogClassName?: string;
     bodyStyle?: CSSProperties;
     bodyClassName?: string;
     noCancel?: boolean;
