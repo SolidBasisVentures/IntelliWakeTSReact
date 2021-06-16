@@ -768,7 +768,10 @@ var Modal = function (props) {
     });
     React.useEffect(function () {
         if (props.isOpen) {
-            if (divRef.current) {
+            if (!!props.autoFocusElement.current) {
+                props.autoFocusElement.current.focus();
+            }
+            else if (divRef.current) {
                 divRef.current.focus();
             }
         }

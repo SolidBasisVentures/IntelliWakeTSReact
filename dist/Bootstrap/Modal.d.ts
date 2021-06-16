@@ -1,13 +1,14 @@
 import React, { CSSProperties, ReactNode } from 'react';
 export interface IWModalProps {
     isOpen?: boolean;
-    autoFocus?: boolean;
+    autoFocusElement?: any;
     size?: 'sm' | 'lg';
     toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
     color?: string;
     title?: ReactNode;
     body?: ReactNode;
     bodyStyle?: CSSProperties;
+    bodyClassName?: string;
     noCancel?: boolean;
     cancelLabel?: ReactNode;
     noCancelButton?: boolean;

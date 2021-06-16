@@ -4,7 +4,8 @@ import Portal from './Portal'
 
 export interface IWModalProps {
 	isOpen?: boolean
-	autoFocus?: boolean
+	// autoFocus?: boolean
+	autoFocusElement?: any
 	size?: 'sm' | 'lg'
 	toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>
 	color?: string
@@ -65,7 +66,9 @@ export const Modal = (props: IWModalProps) => {
 
 	useEffect(() => {
 		if (props.isOpen) {
-			if (divRef.current) {
+			if (!!props.autoFocusElement.current) {
+				props.autoFocusElement.current.focus()
+			} else if (divRef.current) {
 				divRef.current.focus()
 			}
 		}
