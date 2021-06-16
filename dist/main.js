@@ -792,7 +792,7 @@ var Modal = function (props) {
                             props.footerLeft),
                         React__default['default'].createElement("div", { className: "text-right" },
                             props.footerRight,
-                            !!props.okAction && (React__default['default'].createElement("button", { className: "ml-1 btn btn-" + ((_c = props.color) !== null && _c !== void 0 ? _c : 'primary'), type: "button", onClick: function (e) {
+                            !!props.okAction && (React__default['default'].createElement("button", { className: "ml-1 btn btn-" + ((_c = props.color) !== null && _c !== void 0 ? _c : 'primary'), type: "button", disabled: props.okDisabled, onClick: function (e) {
                                     e.stopPropagation();
                                     okAction(e);
                                 }, ref: divRef }, (_d = props.okLabel) !== null && _d !== void 0 ? _d : 'OK'))))))),

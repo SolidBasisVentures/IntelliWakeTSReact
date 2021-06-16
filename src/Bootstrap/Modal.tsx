@@ -15,6 +15,7 @@ export interface IWModalProps {
 	noCancelButton?: boolean
 	okAction?: () => void | false
 	okLabel?: ReactNode
+	okDisabled?: boolean
 	footerLeft?: ReactNode
 	footerRight?: ReactNode
 }
@@ -110,6 +111,7 @@ export const Modal = (props: IWModalProps) => {
 									<button
 										className={`ml-1 btn btn-${props.color ?? 'primary'}`}
 										type="button"
+										disabled={props.okDisabled}
 										onClick={(e) => {
 											e.stopPropagation()
 											okAction(e)
