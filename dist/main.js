@@ -786,11 +786,7 @@ var Modal = function (props) {
                             "\u00D7",
                             ' ')))),
                     !!props.body && (React__default['default'].createElement("div", { className: "modal-body", style: props.bodyStyle }, props.body)),
-                    (!!props.okAction ||
-                        !props.noCancel ||
-                        !props.noCancelButton ||
-                        !!props.footerLeft ||
-                        !!props.footerRight) && (React__default['default'].createElement("div", { className: "modal-footer" },
+                    (!!props.okAction || !props.noCancelButton || !!props.footerLeft || !!props.footerRight) && (React__default['default'].createElement("div", { className: "modal-footer" },
                         React__default['default'].createElement("div", { className: "mr-auto" },
                             (!props.noCancel || !props.noCancelButton) && (React__default['default'].createElement("button", { className: " btn btn-link  ", type: "button", onClick: toggle }, (_b = props.cancelLabel) !== null && _b !== void 0 ? _b : 'Cancel')),
                             props.footerLeft),

@@ -101,11 +101,7 @@ export const Modal = (props: IWModalProps) => {
 								{props.body}
 							</div>
 						)}
-						{(!!props.okAction ||
-							!props.noCancel ||
-							!props.noCancelButton ||
-							!!props.footerLeft ||
-							!!props.footerRight) && (
+						{(!!props.okAction || !props.noCancelButton || !!props.footerLeft || !!props.footerRight) && (
 							<div className="modal-footer">
 								<div className="mr-auto">
 									{(!props.noCancel || !props.noCancelButton) && (
