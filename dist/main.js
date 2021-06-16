@@ -705,35 +705,6 @@ var Label = function (props) {
     return (React__default['default'].createElement("label", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'children'), { className: classes.trim() }), props.children));
 };
 
-var Row = function (props) {
-    var _a;
-    return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'noGutters', 'className', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({
-            row: true,
-            'no-gutters': !!props.noGutters
-        })).trim() }), props.children));
-};
-
-var Table = function (props) {
-    var _a;
-    return (React__default['default'].createElement("table", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') +
-            ' ' +
-            ClassNames({
-                table: true,
-                'table-bordered': !!props.bordered,
-                'border-0': !!props.borderless,
-                'table-striped': !!props.striped,
-                'table-dark': !!props.dark,
-                'table-hover': !!props.hover,
-                'table-responsive': !!props.responsive,
-                'table-sortable': !!props.sortable,
-                'table-sm': props.size !== 'lg',
-                small: !!props.textSmall,
-                'table-sticky': !!props.sticky
-            }), tabIndex: props.tabIndex, hidden: props.hidden, style: props.style, ref: props.innerRef, onKeyDown: props.onKeyDown },
-        !!props.caption && React__default['default'].createElement("caption", null, props.caption),
-        props.children));
-};
-
 var Portal = /** @class */ (function (_super) {
     __extends(Portal, _super);
     function Portal(props) {
@@ -823,6 +794,35 @@ var Modal = function (props) {
                                     okAction(e);
                                 }, ref: divRef }, (_d = props.okLabel) !== null && _d !== void 0 ? _d : 'OK'))))))),
         React__default['default'].createElement("div", { className: 'modal-backdrop fade' + (props.isOpen ? ' show' : ''), style: { pointerEvents: props.isOpen ? undefined : 'none' }, onClick: toggle })));
+};
+
+var Row = function (props) {
+    var _a;
+    return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'noGutters', 'className', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({
+            row: true,
+            'no-gutters': !!props.noGutters
+        })).trim() }), props.children));
+};
+
+var Table = function (props) {
+    var _a;
+    return (React__default['default'].createElement("table", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') +
+            ' ' +
+            ClassNames({
+                table: true,
+                'table-bordered': !!props.bordered,
+                'border-0': !!props.borderless,
+                'table-striped': !!props.striped,
+                'table-dark': !!props.dark,
+                'table-hover': !!props.hover,
+                'table-responsive': !!props.responsive,
+                'table-sortable': !!props.sortable,
+                'table-sm': props.size !== 'lg',
+                small: !!props.textSmall,
+                'table-sticky': !!props.sticky
+            }), tabIndex: props.tabIndex, hidden: props.hidden, style: props.style, ref: props.innerRef, onKeyDown: props.onKeyDown },
+        !!props.caption && React__default['default'].createElement("caption", null, props.caption),
+        props.children));
 };
 
 function checkDeps(deps, name) {
