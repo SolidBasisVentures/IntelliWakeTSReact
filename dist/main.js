@@ -2118,12 +2118,12 @@ var InputSearch = function (props) {
         value: currentText,
         onChange: handleInputChange,
         onBlur: handleOnBlur,
-        innerRef: (function (ref) {
+        innerRef: function (ref) {
             if (!!props.innerRef) {
-                props.innerRef(ref);
+                props.innerRef = ref;
             }
             inputRef.current = ref;
-        }),
+        },
         bsSize: props.size,
         style: props.style,
         placeholder: props.placeholder,
@@ -2133,15 +2133,11 @@ var InputSearch = function (props) {
         onFocus: handleOnFocus,
         autoComplete: props.autoCompleteOn ? 'on' : "AC_" + intelliwaketsfoundation.RandomString(12)
     };
-    return (!!props.iconPrefix || !!props.reactPrefix) ? (React__default['default'].createElement(reactstrap.InputGroup, { className: "searchGroup " + ((_c = props.inputGroupClass) !== null && _c !== void 0 ? _c : '') + " " + (props.bordered ? '' : 'transparent') },
-        (!!props.iconPrefix || !!props.reactPrefix) &&
-            React__default['default'].createElement(reactstrap.InputGroupText, { onClick: function () {
-                    if (!!inputRef.current)
-                        inputRef.current.focus();
-                } }, props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
-                React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: proRegularSvgIcons.faSearch })
-                :
-                    React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, props.iconPrefix))) : props.reactPrefix),
+    return !!props.iconPrefix || !!props.reactPrefix ? (React__default['default'].createElement(reactstrap.InputGroup, { className: "searchGroup " + ((_c = props.inputGroupClass) !== null && _c !== void 0 ? _c : '') + " " + (props.bordered ? '' : 'transparent') },
+        (!!props.iconPrefix || !!props.reactPrefix) && (React__default['default'].createElement(reactstrap.InputGroupText, { onClick: function () {
+                if (!!inputRef.current)
+                    inputRef.current.focus();
+            } }, props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ? (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: proRegularSvgIcons.faSearch })) : (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, props.iconPrefix)))) : (props.reactPrefix))),
         React__default['default'].createElement(reactstrap.Input, __assign({}, inputProps)))) : (React__default['default'].createElement(reactstrap.Input, __assign({}, inputProps)));
 };
 

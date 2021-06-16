@@ -35,11 +35,11 @@ export const InputSearch = (props: IPropsInputSearch) => {
 	const triggeredText = useRef(props.initialValue ?? '')
 	const searchTimeout = useRef(setTimeout(() => {}, 100))
 	const [currentText, setCurrentText] = useState('')
-	
+
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value ?? ''
 		setCurrentText(value)
-		
+
 		if (!!props.triggerDelayAmount) {
 			clearTimeout(searchTimeout.current)
 			searchTimeout.current = setTimeout(() => {
@@ -49,41 +49,41 @@ export const InputSearch = (props: IPropsInputSearch) => {
 			props.triggerSearchText(value)
 		}
 	}
-	
+
 	const handleKeyDown = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter') {
 			clearTimeout(searchTimeout.current)
 			triggerChange(currentText, true)
 		}
-		
+
 		if (!!props.onKeyDown) {
 			props.onKeyDown(e)
 		}
 	}
-	
+
 	const handleOnBlur = () => {
 		clearTimeout(searchTimeout.current)
 		triggerChange()
 	}
-	
+
 	const triggerChange = (searchText?: string, force?: boolean) => {
 		const textToSearch = searchText ?? currentText
-		
+
 		if (!!force || textToSearch !== triggeredText.current) {
 			triggeredText.current = textToSearch
 			props.triggerSearchText(textToSearch)
 		}
 	}
-	
+
 	useEffect(() => {
 		setCurrentText(props.initialValue ?? '')
 	}, [props.initialValue])
-	
+
 	const handleOnFocus = (e: any) => {
 		if (!!props.onFocus) {
 			props.onFocus(e)
 		}
-		
+
 		if (!props.noSelectOnFocus) {
 			setTimeout(() => {
 				if (!!inputRef.current) {
@@ -92,7 +92,7 @@ export const InputSearch = (props: IPropsInputSearch) => {
 			}, 250)
 		}
 	}
-	
+
 	const inputProps: InputProps = {
 		type: 'search' as InputType,
 		inputMode: 'search',
@@ -100,13 +100,13 @@ export const InputSearch = (props: IPropsInputSearch) => {
 		value: currentText,
 		onChange: handleInputChange,
 		onBlur: handleOnBlur,
-		innerRef: ((ref: any) => {
+		innerRef: (ref: any) => {
 			if (!!props.innerRef) {
-				props.innerRef(ref)
+				props.innerRef = ref
 			}
-			
+
 			inputRef.current = ref
-		}),
+		},
 		bsSize: props.size,
 		style: props.style,
 		placeholder: props.placeholder,
@@ -116,20 +116,25 @@ export const InputSearch = (props: IPropsInputSearch) => {
 		onFocus: handleOnFocus,
 		autoComplete: props.autoCompleteOn ? 'on' : `AC_${RandomString(12)}`
 	}
-	
-	return (!!props.iconPrefix || !!props.reactPrefix) ? (
+
+	return !!props.iconPrefix || !!props.reactPrefix ? (
 		<InputGroup className={`searchGroup ${props.inputGroupClass ?? ''} ${props.bordered ? '' : 'transparent'}`}>
-			{(!!props.iconPrefix || !!props.reactPrefix) &&
-			<InputGroupText onClick={() => {
-				if (!!inputRef.current) inputRef.current.focus()
-			}}>
-				{props.iconPrefix !== undefined ? (typeof props.iconPrefix === 'boolean' ?
-						<FontAwesomeIcon icon={faSearch} />
-						:
-						<FontAwesomeIcon {...props.iconPrefix} />
-				) : props.reactPrefix}
-			</InputGroupText>
-			}
+			{(!!props.iconPrefix || !!props.reactPrefix) && (
+				<InputGroupText
+					onClick={() => {
+						if (!!inputRef.current) inputRef.current.focus()
+					}}>
+					{props.iconPrefix !== undefined ? (
+						typeof props.iconPrefix === 'boolean' ? (
+							<FontAwesomeIcon icon={faSearch} />
+						) : (
+							<FontAwesomeIcon {...props.iconPrefix} />
+						)
+					) : (
+						props.reactPrefix
+					)}
+				</InputGroupText>
+			)}
 			<Input {...inputProps} />
 		</InputGroup>
 	) : (
