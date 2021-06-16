@@ -5,7 +5,7 @@ export interface IPropsInputSearch {
     triggerSearchText: (value: string) => void;
     triggerDelayAmount?: number;
     triggerOnEnter?: boolean;
-    innerRef?: (ref: any) => void;
+    innerRef?: any;
     className?: string;
     style?: any;
     placeholder?: string;

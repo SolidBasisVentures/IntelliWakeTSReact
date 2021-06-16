@@ -11,6 +11,8 @@ export interface IWModalProps {
 	color?: string
 	title?: ReactNode
 	body?: ReactNode
+	dialogStyle?: CSSProperties
+	dialogClassName?: string
 	bodyStyle?: CSSProperties
 	bodyClassName?: string
 	noCancel?: boolean
@@ -86,9 +88,15 @@ export const Modal = (props: IWModalProps) => {
 				onClick={toggle}
 				onKeyDown={keyDown}>
 				<div
-					className={'modal-dialog' + (!props.size ? '' : props.size === 'sm' ? ' modal-sm' : ' modal-lg')}
+					className={
+						'modal-dialog' +
+						(!props.size ? '' : props.size === 'sm' ? ' modal-sm' : ' modal-lg') +
+						' ' +
+						(props.dialogClassName ?? '')
+					}
 					role="document"
-					onClick={(e) => e.stopPropagation()}>
+					onClick={(e) => e.stopPropagation()}
+					style={props.dialogStyle}>
 					<div className="modal-content">
 						{!!props.title && (
 							<div className={`alert-${props.color ?? 'primary'} modal-header`}>
