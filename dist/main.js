@@ -785,7 +785,7 @@ var Modal = function (props) {
                         !props.noCancel && (React__default['default'].createElement("button", { className: "close", onClick: toggle },
                             "\u00D7",
                             ' ')))),
-                    !!props.body && React__default['default'].createElement("div", { className: "modal-body" }, props.body),
+                    !!props.body && (React__default['default'].createElement("div", { className: "modal-body", style: props.bodyStyle }, props.body)),
                     React__default['default'].createElement("div", { className: "modal-footer" },
                         React__default['default'].createElement("div", { className: "mr-auto" },
                             (!props.noCancel || !props.noCancelButton) && (React__default['default'].createElement("button", { className: " btn btn-link  ", type: "button", onClick: toggle }, (_b = props.cancelLabel) !== null && _b !== void 0 ? _b : 'Cancel')),

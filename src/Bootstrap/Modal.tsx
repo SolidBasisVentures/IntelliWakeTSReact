@@ -1,4 +1,4 @@
-import React, {ReactNode, useCallback, useEffect, useRef} from 'react'
+import React, {CSSProperties, ReactNode, useCallback, useEffect, useRef} from 'react'
 import {KEY_ESCAPE} from '../Functions'
 import Portal from './Portal'
 
@@ -10,6 +10,7 @@ export interface IWModalProps {
 	color?: string
 	title?: ReactNode
 	body?: ReactNode
+	bodyStyle?: CSSProperties
 	noCancel?: boolean
 	cancelLabel?: ReactNode
 	noCancelButton?: boolean
@@ -95,7 +96,11 @@ export const Modal = (props: IWModalProps) => {
 								)}
 							</div>
 						)}
-						{!!props.body && <div className="modal-body">{props.body}</div>}
+						{!!props.body && (
+							<div className="modal-body" style={props.bodyStyle}>
+								{props.body}
+							</div>
+						)}
 						<div className="modal-footer">
 							<div className="mr-auto">
 								{(!props.noCancel || !props.noCancelButton) && (

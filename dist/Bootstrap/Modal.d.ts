@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 export interface IWModalProps {
     isOpen?: boolean;
     autoFocus?: boolean;
@@ -7,6 +7,7 @@ export interface IWModalProps {
     color?: string;
     title?: ReactNode;
     body?: ReactNode;
+    bodyStyle?: CSSProperties;
     noCancel?: boolean;
     cancelLabel?: ReactNode;
     noCancelButton?: boolean;
