@@ -31,7 +31,7 @@ export const Table = (props: IIWTableProps) => {
 				ClassNames({
 					table: true,
 					'table-bordered': !!props.bordered,
-					'border-0': !!props.borderless,
+					'table-borderless': !!props.borderless,
 					'table-striped': !!props.striped,
 					'table-dark': !!props.dark,
 					'table-hover': !!props.hover,
