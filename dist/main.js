@@ -673,7 +673,10 @@ var Col = function (props) {
 
 var Container = function (props) {
     var _a;
-    return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'fluid', 'className', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({ container: true, 'container-fluid': !!props.fluid })).trim() }), props.children));
+    return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'fluid', 'className', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({
+            container: !props.fluid,
+            'container-fluid': !!props.fluid
+        })).trim() }), props.children));
 };
 
 var Form = function (props) {
