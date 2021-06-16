@@ -5,6 +5,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var intelliwaketsfoundation = require('@solidbasisventures/intelliwaketsfoundation');
 var moment = require('moment');
 var React = require('react');
+var ReactDOM = require('react-dom');
 var reactstrap = require('reactstrap');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
 var proRegularSvgIcons = require('@fortawesome/pro-regular-svg-icons');
@@ -17,6 +18,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 
 var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
 var ReactDatePicker__default = /*#__PURE__*/_interopDefaultLegacy(ReactDatePicker);
 var Cleave__default = /*#__PURE__*/_interopDefaultLegacy(Cleave);
 var axios__default = /*#__PURE__*/_interopDefaultLegacy(axios);
@@ -68,6 +70,20 @@ LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
 
 var __assign = function() {
     __assign = Object.assign || function __assign(t) {
@@ -716,6 +732,97 @@ var Table = function (props) {
             }), tabIndex: props.tabIndex, hidden: props.hidden, style: props.style, ref: props.innerRef, onKeyDown: props.onKeyDown },
         !!props.caption && React__default['default'].createElement("caption", null, props.caption),
         props.children));
+};
+
+var Portal = /** @class */ (function (_super) {
+    __extends(Portal, _super);
+    function Portal(props) {
+        var _this = _super.call(this, props) || this;
+        _this.el = document.createElement('div');
+        _this.el.style.display = 'contents';
+        return _this;
+        // The <div> is a necessary container for our
+        // content, but it should not affect our layout.
+        // Only works in some browsers, but generally
+        // doesn't matter since this is at
+        // the end anyway. Feel free to delete this line.
+    }
+    Portal.prototype.componentDidMount = function () {
+        document.body.appendChild(this.el);
+    };
+    Portal.prototype.componentWillUnmount = function () {
+        document.body.removeChild(this.el);
+    };
+    Portal.prototype.render = function () {
+        return ReactDOM__default['default'].createPortal(this.props.children, this.el);
+    };
+    return Portal;
+}(React__default['default'].Component));
+
+var Modal = function (props) {
+    var _a, _b, _c, _d;
+    var divRef = React.useRef();
+    var toggle = React.useCallback(function (e) { return (!!props.toggle && !props.noCancel ? props.toggle(e) : function () { }); }, [props]);
+    var okAction = React.useCallback(function (e) {
+        if (!!props.okAction) {
+            var okResult = props.okAction();
+            if (okResult === undefined || okResult !== false) {
+                if (!!props.toggle) {
+                    props.toggle(e);
+                }
+            }
+        }
+    }, [props]);
+    var keyDown = function (e) {
+        if (props.isOpen) {
+            e.stopPropagation();
+            switch (e.keyCode) {
+                case KEY_ESCAPE:
+                    toggle(e);
+                    break;
+                // case KEY_ENTER:
+                // 	okAction(e)
+                // 	break
+            }
+        }
+    };
+    React.useEffect(function () {
+        window.addEventListener('keydown', keyDown);
+        return function () {
+            window.removeEventListener('keydown', keyDown);
+        };
+    });
+    React.useEffect(function () {
+        if (props.isOpen) {
+            if (divRef.current) {
+                divRef.current.focus();
+            }
+        }
+    }, [props.isOpen]);
+    return (React__default['default'].createElement(Portal, null,
+        React__default['default'].createElement("div", { className: 'modal fade' + (props.isOpen ? ' show' : ''), role: "dialog", style: {
+                display: props.isOpen ? 'block' : 'none',
+                pointerEvents: props.isOpen ? undefined : 'none'
+            }, onClick: toggle, onKeyDown: keyDown },
+            React__default['default'].createElement("div", { className: 'modal-dialog' + (!props.size ? '' : props.size === 'sm' ? ' modal-sm' : ' modal-lg'), role: "document", onClick: function (e) { return e.stopPropagation(); } },
+                React__default['default'].createElement("div", { className: "modal-content" },
+                    !!props.title && (React__default['default'].createElement("div", { className: "alert-" + ((_a = props.color) !== null && _a !== void 0 ? _a : 'primary') + " modal-header" },
+                        React__default['default'].createElement("h5", { className: "modal-title" }, props.title),
+                        !props.noCancel && (React__default['default'].createElement("button", { className: "close", onClick: toggle },
+                            "\u00D7",
+                            ' ')))),
+                    !!props.body && React__default['default'].createElement("div", { className: "modal-body" }, props.body),
+                    React__default['default'].createElement("div", { className: "modal-footer" },
+                        React__default['default'].createElement("div", { className: "mr-auto" },
+                            (!props.noCancel || !props.noCancelButton) && (React__default['default'].createElement("button", { className: " btn btn-link  ", type: "button", onClick: toggle }, (_b = props.cancelLabel) !== null && _b !== void 0 ? _b : 'Cancel')),
+                            props.footerLeft),
+                        React__default['default'].createElement("div", { className: "text-right" },
+                            props.footerRight,
+                            !!props.okAction && (React__default['default'].createElement("button", { className: "ml-1 btn btn-" + ((_c = props.color) !== null && _c !== void 0 ? _c : 'primary'), type: "button", onClick: function (e) {
+                                    e.stopPropagation();
+                                    okAction(e);
+                                }, ref: divRef }, (_d = props.okLabel) !== null && _d !== void 0 ? _d : 'OK'))))))),
+        React__default['default'].createElement("div", { className: 'modal-backdrop fade' + (props.isOpen ? ' show' : ''), style: { pointerEvents: props.isOpen ? undefined : 'none' }, onClick: toggle })));
 };
 
 function checkDeps(deps, name) {
@@ -3106,6 +3213,7 @@ exports.MDMaster = MDMaster;
 exports.MasterDetail = MasterDetail;
 exports.MasterDetailListGroup = MasterDetailListGroup;
 exports.MessageBox = MessageBox;
+exports.Modal = Modal;
 exports.ModalPrompt = ModalPrompt;
 exports.NumberFormat = NumberFormat;
 exports.OptionsActive = OptionsActive;

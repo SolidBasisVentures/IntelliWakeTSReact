@@ -12,6 +12,7 @@ export * from './Bootstrap/FormGroup';
 export * from './Bootstrap/Label';
 export * from './Bootstrap/Row';
 export * from './Bootstrap/Table';
+export * from './Bootstrap/Modal';
 export * from './Hooks/useDeepCompareCallback';
 export * from './Hooks/useDeepCompareEffect';
 export * from './Hooks/useDeepCompareMemo';
