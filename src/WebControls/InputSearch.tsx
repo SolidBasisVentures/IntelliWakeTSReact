@@ -10,7 +10,7 @@ export interface IPropsInputSearch {
 	triggerSearchText: (value: string) => void
 	triggerDelayAmount?: number
 	triggerOnEnter?: boolean
-	innerRef?: (ref: any) => void
+	innerRef?: any
 	className?: string
 	style?: any
 	placeholder?: string
@@ -31,7 +31,7 @@ export interface IPropsInputSearch {
  * A search input with an option to have a trigger delay or not.
  */
 export const InputSearch = (props: IPropsInputSearch) => {
-	const inputRef = useRef<HTMLInputElement | null>()
+	// const inputRef = useRef<HTMLInputElement | null>()
 	const triggeredText = useRef(props.initialValue ?? '')
 	const searchTimeout = useRef(setTimeout(() => {}, 100))
 	const [currentText, setCurrentText] = useState('')
@@ -86,8 +86,8 @@ export const InputSearch = (props: IPropsInputSearch) => {
 
 		if (!props.noSelectOnFocus) {
 			setTimeout(() => {
-				if (!!inputRef.current) {
-					inputRef.current.select()
+				if (!!props.innerRef.current) {
+					props.innerRef.current.select()
 				}
 			}, 250)
 		}
@@ -100,13 +100,14 @@ export const InputSearch = (props: IPropsInputSearch) => {
 		value: currentText,
 		onChange: handleInputChange,
 		onBlur: handleOnBlur,
-		innerRef: (ref: any) => {
-			if (!!props.innerRef) {
-				props.innerRef = ref
-			}
-
-			inputRef.current = ref
-		},
+		innerRef: props.innerRef,
+		// (ref: any) => {
+		// 		if (!!props.innerRef) {
+		// 			props.innerRef = ref
+		// 		}
+		//
+		// 		inputRef.current = ref
+		// 	},
 		bsSize: props.size,
 		style: props.style,
 		placeholder: props.placeholder,
@@ -122,7 +123,7 @@ export const InputSearch = (props: IPropsInputSearch) => {
 			{(!!props.iconPrefix || !!props.reactPrefix) && (
 				<InputGroupText
 					onClick={() => {
-						if (!!inputRef.current) inputRef.current.focus()
+						if (!!props.innerRef.current) props.innerRef.current.focus()
 					}}>
 					{props.iconPrefix !== undefined ? (
 						typeof props.iconPrefix === 'boolean' ? (
