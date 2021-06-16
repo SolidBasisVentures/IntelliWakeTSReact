@@ -11,6 +11,7 @@ export interface IWModalProps {
 	title?: ReactNode
 	body?: ReactNode
 	bodyStyle?: CSSProperties
+	bodyClassName?: string
 	noCancel?: boolean
 	cancelLabel?: ReactNode
 	noCancelButton?: boolean
@@ -97,7 +98,7 @@ export const Modal = (props: IWModalProps) => {
 							</div>
 						)}
 						{!!props.body && (
-							<div className="modal-body" style={props.bodyStyle}>
+							<div className={'modal-body ' + (props.bodyClassName ?? '')} style={props.bodyStyle}>
 								{props.body}
 							</div>
 						)}
