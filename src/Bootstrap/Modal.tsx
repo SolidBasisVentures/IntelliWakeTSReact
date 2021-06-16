@@ -101,32 +101,38 @@ export const Modal = (props: IWModalProps) => {
 								{props.body}
 							</div>
 						)}
-						<div className="modal-footer">
-							<div className="mr-auto">
-								{(!props.noCancel || !props.noCancelButton) && (
-									<button className=" btn btn-link  " type="button" onClick={toggle}>
-										{props.cancelLabel ?? 'Cancel'}
-									</button>
-								)}
-								{props.footerLeft}
+						{(!!props.okAction ||
+							!props.noCancel ||
+							!props.noCancelButton ||
+							!!props.footerLeft ||
+							!!props.footerRight) && (
+							<div className="modal-footer">
+								<div className="mr-auto">
+									{(!props.noCancel || !props.noCancelButton) && (
+										<button className=" btn btn-link  " type="button" onClick={toggle}>
+											{props.cancelLabel ?? 'Cancel'}
+										</button>
+									)}
+									{props.footerLeft}
+								</div>
+								<div className="text-right">
+									{props.footerRight}
+									{!!props.okAction && (
+										<button
+											className={`ml-1 btn btn-${props.color ?? 'primary'}`}
+											type="button"
+											disabled={props.okDisabled}
+											onClick={(e) => {
+												e.stopPropagation()
+												okAction(e)
+											}}
+											ref={divRef}>
+											{props.okLabel ?? 'OK'}
+										</button>
+									)}
+								</div>
 							</div>
-							<div className="text-right">
-								{props.footerRight}
-								{!!props.okAction && (
-									<button
-										className={`ml-1 btn btn-${props.color ?? 'primary'}`}
-										type="button"
-										disabled={props.okDisabled}
-										onClick={(e) => {
-											e.stopPropagation()
-											okAction(e)
-										}}
-										ref={divRef}>
-										{props.okLabel ?? 'OK'}
-									</button>
-								)}
-							</div>
-						</div>
+						)}
 					</div>
 				</div>
 			</div>

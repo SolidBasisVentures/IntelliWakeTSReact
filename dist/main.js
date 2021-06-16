@@ -786,7 +786,11 @@ var Modal = function (props) {
                             "\u00D7",
                             ' ')))),
                     !!props.body && (React__default['default'].createElement("div", { className: "modal-body", style: props.bodyStyle }, props.body)),
-                    React__default['default'].createElement("div", { className: "modal-footer" },
+                    (!!props.okAction ||
+                        !props.noCancel ||
+                        !props.noCancelButton ||
+                        !!props.footerLeft ||
+                        !!props.footerRight) && (React__default['default'].createElement("div", { className: "modal-footer" },
                         React__default['default'].createElement("div", { className: "mr-auto" },
                             (!props.noCancel || !props.noCancelButton) && (React__default['default'].createElement("button", { className: " btn btn-link  ", type: "button", onClick: toggle }, (_b = props.cancelLabel) !== null && _b !== void 0 ? _b : 'Cancel')),
                             props.footerLeft),
@@ -795,7 +799,7 @@ var Modal = function (props) {
                             !!props.okAction && (React__default['default'].createElement("button", { className: "ml-1 btn btn-" + ((_c = props.color) !== null && _c !== void 0 ? _c : 'primary'), type: "button", disabled: props.okDisabled, onClick: function (e) {
                                     e.stopPropagation();
                                     okAction(e);
-                                }, ref: divRef }, (_d = props.okLabel) !== null && _d !== void 0 ? _d : 'OK'))))))),
+                                }, ref: divRef }, (_d = props.okLabel) !== null && _d !== void 0 ? _d : 'OK')))))))),
         React__default['default'].createElement("div", { className: 'modal-backdrop fade' + (props.isOpen ? ' show' : ''), style: { pointerEvents: props.isOpen ? undefined : 'none' }, onClick: toggle })));
 };
 
