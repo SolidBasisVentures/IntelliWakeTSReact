@@ -633,7 +633,7 @@ var Button = function (props) {
                 : "btn-" + (props.outline ? 'outline-' : '') + ((_b = props.color) !== null && _b !== void 0 ? _b : 'secondary') + " ") +
             ("" + (!!props.size ? "btn-" + props.size : '')) +
             ' ' +
-            ClassNames({ 'btn-block': !!props.block }), type: (_c = props.type) !== null && _c !== void 0 ? _c : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: props.innerRef, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
+            ClassNames({ 'btn-block': !!props.block, caret: !!props.caret }), type: (_c = props.type) !== null && _c !== void 0 ? _c : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: props.innerRef, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
 };
 
 var ApplyColumnProp = function (size, columnProps) {
@@ -865,6 +865,18 @@ var Navbar = function (props) {
                 'sticky-top': !!props.sticky
             });
     return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'light', 'dark', 'fixed', 'sticky', 'color', 'tag', 'expand', 'className'), { className: classes.trim() })));
+};
+
+var NavItem = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'li';
+    return React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: 'nav-item ' + ((_b = props.className) !== null && _b !== void 0 ? _b : '') }));
+};
+
+var NavLink = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'a';
+    return React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: 'nav-link ' + ((_b = props.className) !== null && _b !== void 0 ? _b : '') }));
 };
 
 var NavbarBrand = function (props) {
@@ -3301,6 +3313,8 @@ exports.ModalFooter = ModalFooter;
 exports.ModalHeader = ModalHeader;
 exports.ModalPrompt = ModalPrompt;
 exports.Nav = Nav;
+exports.NavItem = NavItem;
+exports.NavLink = NavLink;
 exports.Navbar = Navbar;
 exports.NavbarBrand = NavbarBrand;
 exports.NavbarToggler = NavbarToggler;
