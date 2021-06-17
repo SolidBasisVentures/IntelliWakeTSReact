@@ -12,8 +12,13 @@ export const Collapse = (props: IIWCollapseProps) => {
 
 	return (
 		<TagToUse
-			{...OmitProperty(props, 'isOpen', 'tag', 'navbar')}
-			className={(props.className ?? '') + ' collapse' + (!!props.navbar ? ' navbar-collapse' : '')}
+			{...OmitProperty(props, 'isOpen', 'tag', 'navbar', 'className')}
+			className={
+				(props.className ?? '') +
+				' collapse' +
+				(!!props.navbar ? ' navbar-collapse' : '') +
+				(!!props.isOpen ? ' show' : '')
+			}
 		/>
 	)
 }

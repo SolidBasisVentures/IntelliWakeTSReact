@@ -674,7 +674,10 @@ var Col = function (props) {
 var Collapse = function (props) {
     var _a, _b;
     var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
-    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'isOpen', 'tag', 'navbar'), { className: ((_b = props.className) !== null && _b !== void 0 ? _b : '') + ' collapse' + (!!props.navbar ? ' navbar-collapse' : '') })));
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'isOpen', 'tag', 'navbar', 'className'), { className: ((_b = props.className) !== null && _b !== void 0 ? _b : '') +
+            ' collapse' +
+            (!!props.navbar ? ' navbar-collapse' : '') +
+            (!!props.isOpen ? ' show' : '') })));
 };
 
 var Container = function (props) {
