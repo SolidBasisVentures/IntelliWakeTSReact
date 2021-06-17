@@ -23,6 +23,7 @@ export interface IWModalProps {
 	okDisabled?: boolean
 	footerLeft?: ReactNode
 	footerRight?: ReactNode
+	children?: any
 }
 
 export const Modal = (props: IWModalProps) => {
@@ -98,48 +99,52 @@ export const Modal = (props: IWModalProps) => {
 					onClick={(e) => e.stopPropagation()}
 					style={props.dialogStyle}>
 					<div className="modal-content">
-						{!!props.title && (
-							<div className={`alert-${props.color ?? 'primary'} modal-header`}>
-								<h5 className="modal-title">{props.title}</h5>
-								{!props.noCancel && (
-									<button className="close" onClick={toggle}>
-										×{' '}
-									</button>
+						{props.children ?? (
+							<>
+								{!!props.title && (
+									<div className={`alert-${props.color ?? 'primary'} modal-header`}>
+										<h5 className="modal-title">{props.title}</h5>
+										{!props.noCancel && (
+											<button className="close" onClick={toggle}>
+												×{' '}
+											</button>
+										)}
+									</div>
 								)}
-							</div>
-						)}
-						{!!props.body && (
-							<div className={'modal-body ' + (props.bodyClassName ?? '')} style={props.bodyStyle}>
-								{props.body}
-							</div>
-						)}
-						{(!!props.okAction || !props.noCancelButton || !!props.footerLeft || !!props.footerRight) && (
-							<div className="modal-footer">
-								<div className="mr-auto">
-									{(!props.noCancel || !props.noCancelButton) && (
-										<button className=" btn btn-link  " type="button" onClick={toggle}>
-											{props.cancelLabel ?? 'Cancel'}
-										</button>
-									)}
-									{props.footerLeft}
-								</div>
-								<div className="text-right">
-									{props.footerRight}
-									{!!props.okAction && (
-										<button
-											className={`ml-1 btn btn-${props.color ?? 'primary'}`}
-											type="button"
-											disabled={props.okDisabled}
-											onClick={(e) => {
-												e.stopPropagation()
-												okAction(e)
-											}}
-											ref={divRef}>
-											{props.okLabel ?? 'OK'}
-										</button>
-									)}
-								</div>
-							</div>
+								{!!props.body && (
+									<div className={'modal-body ' + (props.bodyClassName ?? '')} style={props.bodyStyle}>
+										{props.body}
+									</div>
+								)}
+								{(!!props.okAction || !props.noCancelButton || !!props.footerLeft || !!props.footerRight) && (
+									<div className="modal-footer">
+										<div className="mr-auto">
+											{(!props.noCancel || !props.noCancelButton) && (
+												<button className=" btn btn-link  " type="button" onClick={toggle}>
+													{props.cancelLabel ?? 'Cancel'}
+												</button>
+											)}
+											{props.footerLeft}
+										</div>
+										<div className="text-right">
+											{props.footerRight}
+											{!!props.okAction && (
+												<button
+													className={`ml-1 btn btn-${props.color ?? 'primary'}`}
+													type="button"
+													disabled={props.okDisabled}
+													onClick={(e) => {
+														e.stopPropagation()
+														okAction(e)
+													}}
+													ref={divRef}>
+													{props.okLabel ?? 'OK'}
+												</button>
+											)}
+										</div>
+									</div>
+								)}
+							</>
 						)}
 					</div>
 				</div>

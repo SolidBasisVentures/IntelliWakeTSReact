@@ -744,7 +744,7 @@ var Portal = /** @class */ (function (_super) {
 }(React__default['default'].Component));
 
 var Modal = function (props) {
-    var _a, _b, _c, _d, _e, _f;
+    var _a, _b, _c, _d, _e, _f, _g;
     var divRef = React.useRef();
     var toggle = React.useCallback(function (e) { return (!!props.toggle && !props.noCancel ? props.toggle(e) : function () { }); }, [props]);
     var okAction = React.useCallback(function (e) {
@@ -796,24 +796,39 @@ var Modal = function (props) {
                     (!props.size ? '' : props.size === 'sm' ? ' modal-sm' : ' modal-lg') +
                     ' ' +
                     ((_a = props.dialogClassName) !== null && _a !== void 0 ? _a : ''), role: "document", onClick: function (e) { return e.stopPropagation(); }, style: props.dialogStyle },
-                React__default['default'].createElement("div", { className: "modal-content" },
-                    !!props.title && (React__default['default'].createElement("div", { className: "alert-" + ((_b = props.color) !== null && _b !== void 0 ? _b : 'primary') + " modal-header" },
+                React__default['default'].createElement("div", { className: "modal-content" }, (_b = props.children) !== null && _b !== void 0 ? _b : (React__default['default'].createElement(React__default['default'].Fragment, null,
+                    !!props.title && (React__default['default'].createElement("div", { className: "alert-" + ((_c = props.color) !== null && _c !== void 0 ? _c : 'primary') + " modal-header" },
                         React__default['default'].createElement("h5", { className: "modal-title" }, props.title),
                         !props.noCancel && (React__default['default'].createElement("button", { className: "close", onClick: toggle },
                             "\u00D7",
                             ' ')))),
-                    !!props.body && (React__default['default'].createElement("div", { className: 'modal-body ' + ((_c = props.bodyClassName) !== null && _c !== void 0 ? _c : ''), style: props.bodyStyle }, props.body)),
+                    !!props.body && (React__default['default'].createElement("div", { className: 'modal-body ' + ((_d = props.bodyClassName) !== null && _d !== void 0 ? _d : ''), style: props.bodyStyle }, props.body)),
                     (!!props.okAction || !props.noCancelButton || !!props.footerLeft || !!props.footerRight) && (React__default['default'].createElement("div", { className: "modal-footer" },
                         React__default['default'].createElement("div", { className: "mr-auto" },
-                            (!props.noCancel || !props.noCancelButton) && (React__default['default'].createElement("button", { className: " btn btn-link  ", type: "button", onClick: toggle }, (_d = props.cancelLabel) !== null && _d !== void 0 ? _d : 'Cancel')),
+                            (!props.noCancel || !props.noCancelButton) && (React__default['default'].createElement("button", { className: " btn btn-link  ", type: "button", onClick: toggle }, (_e = props.cancelLabel) !== null && _e !== void 0 ? _e : 'Cancel')),
                             props.footerLeft),
                         React__default['default'].createElement("div", { className: "text-right" },
                             props.footerRight,
-                            !!props.okAction && (React__default['default'].createElement("button", { className: "ml-1 btn btn-" + ((_e = props.color) !== null && _e !== void 0 ? _e : 'primary'), type: "button", disabled: props.okDisabled, onClick: function (e) {
+                            !!props.okAction && (React__default['default'].createElement("button", { className: "ml-1 btn btn-" + ((_f = props.color) !== null && _f !== void 0 ? _f : 'primary'), type: "button", disabled: props.okDisabled, onClick: function (e) {
                                     e.stopPropagation();
                                     okAction(e);
-                                }, ref: divRef }, (_f = props.okLabel) !== null && _f !== void 0 ? _f : 'OK')))))))),
+                                }, ref: divRef }, (_g = props.okLabel) !== null && _g !== void 0 ? _g : 'OK')))))))))),
         React__default['default'].createElement("div", { className: 'modal-backdrop fade' + (props.isOpen ? ' show' : ''), style: { pointerEvents: props.isOpen ? undefined : 'none' }, onClick: toggle })));
+};
+
+var ModalHeader = function (props) {
+    var _a;
+    return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'className'), { className: 'modal-header ' + (!!props.color ? "alert-" + props.color + " " : '') + ((_a = props.className) !== null && _a !== void 0 ? _a : '') })));
+};
+
+var ModalBody = function (props) {
+    var _a;
+    return React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'className'), { className: 'modal-body ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') }));
+};
+
+var ModalFooter = function (props) {
+    var _a;
+    return React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'className'), { className: 'modal-footer ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') }));
 };
 
 var Nav = function (props) {
@@ -3281,6 +3296,9 @@ exports.MasterDetail = MasterDetail;
 exports.MasterDetailListGroup = MasterDetailListGroup;
 exports.MessageBox = MessageBox;
 exports.Modal = Modal;
+exports.ModalBody = ModalBody;
+exports.ModalFooter = ModalFooter;
+exports.ModalHeader = ModalHeader;
 exports.ModalPrompt = ModalPrompt;
 exports.Nav = Nav;
 exports.Navbar = Navbar;

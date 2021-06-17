@@ -19,5 +19,6 @@ export interface IWModalProps {
     okDisabled?: boolean;
     footerLeft?: ReactNode;
     footerRight?: ReactNode;
+    children?: any;
 }
 export declare const Modal: (props: IWModalProps) => JSX.Element;
