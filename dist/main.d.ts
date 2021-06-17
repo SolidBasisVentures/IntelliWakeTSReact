@@ -11,6 +11,7 @@ export * from './Bootstrap/Form';
 export * from './Bootstrap/FormGroup';
 export * from './Bootstrap/Label';
 export * from './Bootstrap/Modal';
+export * from './Bootstrap/Nav';
 export * from './Bootstrap/Portal';
 export * from './Bootstrap/Row';
 export * from './Bootstrap/Table';

@@ -13,9 +13,12 @@ export interface IIWLabelProps extends React.HTMLProps<HTMLLabelElement> {
 	check?: boolean
 	disabled?: boolean
 	for?: string
+	tag?: string | React.ReactType
 }
 
 export const Label = (props: IIWLabelProps) => {
+	const TagToUse = props.tag ?? ('label' as React.ReactType)
+
 	let classes = `${props.className ?? ''}`.trim()
 
 	classes += ' col-form-label'
@@ -28,9 +31,5 @@ export const Label = (props: IIWLabelProps) => {
 	classes += ApplyColumnProp('lg', props.lg)
 	classes += ApplyColumnProp('xl', props.xl)
 
-	return (
-		<label {...OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'children')} className={classes.trim()}>
-			{props.children}
-		</label>
-	)
+	return <TagToUse {...OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'className')} className={classes.trim()} />
 }

@@ -695,8 +695,9 @@ var FormGroup = function (props) {
 };
 
 var Label = function (props) {
-    var _a;
-    var classes = ("" + ((_a = props.className) !== null && _a !== void 0 ? _a : '')).trim();
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'label';
+    var classes = ("" + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim();
     classes += ' col-form-label';
     if (props.check)
         classes += ' form-check-label';
@@ -705,7 +706,7 @@ var Label = function (props) {
     classes += ApplyColumnProp('md', props.md);
     classes += ApplyColumnProp('lg', props.lg);
     classes += ApplyColumnProp('xl', props.xl);
-    return (React__default['default'].createElement("label", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'children'), { className: classes.trim() }), props.children));
+    return React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'className'), { className: classes.trim() }));
 };
 
 var Portal = /** @class */ (function (_super) {
@@ -767,15 +768,16 @@ var Modal = function (props) {
         };
     });
     React.useEffect(function () {
+        var _a;
         if (props.isOpen) {
-            if (!!props.autoFocusElement.current) {
+            if (!!((_a = props.autoFocusElement) === null || _a === void 0 ? void 0 : _a.current)) {
                 props.autoFocusElement.current.focus();
             }
-            else if (divRef.current) {
+            else if (divRef === null || divRef === void 0 ? void 0 : divRef.current) {
                 divRef.current.focus();
             }
         }
-    }, [props.isOpen]);
+    }, [props.isOpen, props.autoFocusElement]);
     return (React__default['default'].createElement(Portal, null,
         React__default['default'].createElement("div", { className: 'modal fade' + (props.isOpen ? ' show' : ''), role: "dialog", style: {
                 display: props.isOpen ? 'block' : 'none',
@@ -803,6 +805,23 @@ var Modal = function (props) {
                                     okAction(e);
                                 }, ref: divRef }, (_f = props.okLabel) !== null && _f !== void 0 ? _f : 'OK')))))))),
         React__default['default'].createElement("div", { className: 'modal-backdrop fade' + (props.isOpen ? ' show' : ''), style: { pointerEvents: props.isOpen ? undefined : 'none' }, onClick: toggle })));
+};
+
+var Nav = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    var classes = ("" + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim();
+    classes +=
+        ' ' +
+            ClassNames({
+                'nav-tabs': !!props.tabs,
+                'nav-pills': !!props.pills,
+                'nav-fill': !!props.fill,
+                'nav-justified': !!props.justified,
+                'flex-column': !!props.vertical,
+                'justify-content-center': !!props.horizontal
+            });
+    return (React__default['default'].createElement(TagToUse, __assign({ role: !!props.tabs ? 'tablist' : undefined }, intelliwaketsfoundation.OmitProperty(props, 'tabs', 'pills', 'vertical', 'horizontal', 'justified', 'fill', 'navbar', 'card', 'tag', 'className'), { className: classes.trim() })));
 };
 
 var Row = function (props) {
@@ -3222,6 +3241,7 @@ exports.MasterDetailListGroup = MasterDetailListGroup;
 exports.MessageBox = MessageBox;
 exports.Modal = Modal;
 exports.ModalPrompt = ModalPrompt;
+exports.Nav = Nav;
 exports.NumberFormat = NumberFormat;
 exports.OptionsActive = OptionsActive;
 exports.OptionsActiveAll = OptionsActiveAll;
