@@ -2,7 +2,7 @@ import React from 'react'
 import {OmitProperty} from '@solidbasisventures/intelliwaketsfoundation'
 import {ClassNames} from '../Functions'
 
-export interface IIWNavProps extends React.HTMLProps<HTMLDivElement> {
+export interface IIWNavProps extends React.HTMLProps<HTMLUListElement> {
 	tabs?: boolean
 	pills?: boolean
 	vertical?: boolean | string
@@ -16,12 +16,14 @@ export interface IIWNavProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 export const Nav = (props: IIWNavProps) => {
-	const TagToUse = props.tag ?? ('div' as React.ReactType)
+	const TagToUse = props.tag ?? ('ul' as React.ReactType)
 
 	let classes = `${props.className ?? ''}`.trim()
 	classes +=
 		' ' +
 		ClassNames({
+			nav: !props.navbar,
+			'navbar-nav': !!props.navbar,
 			'nav-tabs': !!props.tabs,
 			'nav-pills': !!props.pills,
 			'nav-fill': !!props.fill,

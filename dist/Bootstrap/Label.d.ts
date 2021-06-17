@@ -10,5 +10,6 @@ export interface IIWLabelProps extends React.HTMLProps<HTMLLabelElement> {
     check?: boolean;
     disabled?: boolean;
     for?: string;
+    tag?: string | React.ReactType;
 }
 export declare const Label: (props: IIWLabelProps) => JSX.Element;

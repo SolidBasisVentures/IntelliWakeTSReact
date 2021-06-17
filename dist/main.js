@@ -809,11 +809,13 @@ var Modal = function (props) {
 
 var Nav = function (props) {
     var _a, _b;
-    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'ul';
     var classes = ("" + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim();
     classes +=
         ' ' +
             ClassNames({
+                nav: !props.navbar,
+                'navbar-nav': !!props.navbar,
                 'nav-tabs': !!props.tabs,
                 'nav-pills': !!props.pills,
                 'nav-fill': !!props.fill,
