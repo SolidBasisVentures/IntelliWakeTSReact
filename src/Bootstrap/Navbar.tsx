@@ -18,14 +18,16 @@ export const Navbar = (props: IIWNavbarProps) => {
 	const TagToUse = props.tag ?? ('nav' as React.ReactType)
 
 	let classes = `${props.className ?? ''} navbar`.trim()
-	classes += ' ' + (!!props.color ? `bg-${props.color} ` : '')
-	classes += ' ' + (!!props.expand ? `navbar-expand${typeof props.expand === 'string' ? `-${props.expand}` : ''} ` : '')
-	classes += ClassNames({
-		'navbar-light': !!props.light,
-		'navbar-dark': !!props.dark,
-		'fixed-top': !!props.fixed,
-		'sticky-top': !!props.sticky
-	})
+	classes += !!props.color ? ` bg-${props.color}` : ''
+	classes += !!props.expand ? ` navbar-expand${typeof props.expand === 'string' ? `-${props.expand}` : ''} ` : ''
+	classes +=
+		' ' +
+		ClassNames({
+			'navbar-light': !!props.light,
+			'navbar-dark': !!props.dark,
+			'fixed-top': !!props.fixed,
+			'sticky-top': !!props.sticky
+		})
 
 	return (
 		<TagToUse

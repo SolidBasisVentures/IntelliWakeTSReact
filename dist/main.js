@@ -671,6 +671,12 @@ var Col = function (props) {
     return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'children'), { className: classes.trim() }), props.children));
 };
 
+var Collapse = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'isOpen', 'tag', 'navbar'), { className: ((_b = props.className) !== null && _b !== void 0 ? _b : '') + ' collapse' + (!!props.navbar ? ' navbar-collapse' : '') })));
+};
+
 var Container = function (props) {
     var _a;
     return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'fluid', 'className', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({
@@ -830,15 +836,29 @@ var Navbar = function (props) {
     var _a, _b;
     var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'nav';
     var classes = (((_b = props.className) !== null && _b !== void 0 ? _b : '') + " navbar").trim();
-    classes += ' ' + (!!props.color ? "bg-" + props.color + " " : '');
-    classes += ' ' + (!!props.expand ? "navbar-expand" + (typeof props.expand === 'string' ? "-" + props.expand : '') + " " : '');
-    classes += ClassNames({
-        'navbar-light': !!props.light,
-        'navbar-dark': !!props.dark,
-        'fixed-top': !!props.fixed,
-        'sticky-top': !!props.sticky
-    });
+    classes += !!props.color ? " bg-" + props.color : '';
+    classes += !!props.expand ? " navbar-expand" + (typeof props.expand === 'string' ? "-" + props.expand : '') + " " : '';
+    classes +=
+        ' ' +
+            ClassNames({
+                'navbar-light': !!props.light,
+                'navbar-dark': !!props.dark,
+                'fixed-top': !!props.fixed,
+                'sticky-top': !!props.sticky
+            });
     return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'light', 'dark', 'fixed', 'sticky', 'color', 'tag', 'expand', 'className'), { className: classes.trim() })));
+};
+
+var NavbarBrand = function (props) {
+    var _a;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'a';
+    return React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag')));
+};
+
+var NavbarToggler = function (props) {
+    var _a;
+    return (React__default['default'].createElement("button", __assign({}, props, { type: "button", "aria-label": "Toggle navigation", className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') + ' navbar-toggler' }),
+        React__default['default'].createElement("span", { className: "navbar-toggler-icon" })));
 };
 
 var Row = function (props) {
@@ -3172,6 +3192,7 @@ exports.Button = Button;
 exports.CaptureGPS = CaptureGPS;
 exports.ClassNames = ClassNames;
 exports.Col = Col;
+exports.Collapse = Collapse;
 exports.ColumnBodyClassNames = ColumnBodyClassNames;
 exports.ColumnClassNames = ColumnClassNames;
 exports.ColumnHeadClassNames = ColumnHeadClassNames;
@@ -3260,6 +3281,8 @@ exports.Modal = Modal;
 exports.ModalPrompt = ModalPrompt;
 exports.Nav = Nav;
 exports.Navbar = Navbar;
+exports.NavbarBrand = NavbarBrand;
+exports.NavbarToggler = NavbarToggler;
 exports.NumberFormat = NumberFormat;
 exports.OptionsActive = OptionsActive;
 exports.OptionsActiveAll = OptionsActiveAll;
