@@ -829,11 +829,10 @@ var Nav = function (props) {
 var Navbar = function (props) {
     var _a, _b;
     var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'nav';
-    var classes = ("" + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim();
+    var classes = (((_b = props.className) !== null && _b !== void 0 ? _b : '') + " navbar").trim();
     classes += ' ' + (!!props.color ? "bg-" + props.color + " " : '');
     classes += ' ' + (!!props.expand ? "navbar-expand" + (typeof props.expand === 'string' ? "-" + props.expand : '') + " " : '');
-    ClassNames({
-        navbar: true,
+    classes += ClassNames({
         'navbar-light': !!props.light,
         'navbar-dark': !!props.dark,
         'fixed-top': !!props.fixed,

@@ -17,11 +17,10 @@ export interface IIWNavbarProps extends React.HTMLProps<HTMLBaseElement> {
 export const Navbar = (props: IIWNavbarProps) => {
 	const TagToUse = props.tag ?? ('nav' as React.ReactType)
 
-	let classes = `${props.className ?? ''}`.trim()
+	let classes = `${props.className ?? ''} navbar`.trim()
 	classes += ' ' + (!!props.color ? `bg-${props.color} ` : '')
 	classes += ' ' + (!!props.expand ? `navbar-expand${typeof props.expand === 'string' ? `-${props.expand}` : ''} ` : '')
-	ClassNames({
-		navbar: true,
+	classes += ClassNames({
 		'navbar-light': !!props.light,
 		'navbar-dark': !!props.dark,
 		'fixed-top': !!props.fixed,
