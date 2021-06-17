@@ -826,6 +826,22 @@ var Nav = function (props) {
     return (React__default['default'].createElement(TagToUse, __assign({ role: !!props.tabs ? 'tablist' : undefined }, intelliwaketsfoundation.OmitProperty(props, 'tabs', 'pills', 'vertical', 'horizontal', 'justified', 'fill', 'navbar', 'card', 'tag', 'className'), { className: classes.trim() })));
 };
 
+var Navbar = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'nav';
+    var classes = ("" + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim();
+    classes += ' ' + (!!props.color ? "bg-" + props.color + " " : '');
+    classes += ' ' + (!!props.expand ? "navbar-expand" + (typeof props.expand === 'string' ? "-" + props.expand : '') + " " : '');
+    ClassNames({
+        navbar: true,
+        'navbar-light': !!props.light,
+        'navbar-dark': !!props.dark,
+        'fixed-top': !!props.fixed,
+        'sticky-top': !!props.sticky
+    });
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'light', 'dark', 'fixed', 'sticky', 'color', 'tag', 'expand', 'className'), { className: classes.trim() })));
+};
+
 var Row = function (props) {
     var _a;
     return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'noGutters', 'className', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({
@@ -3244,6 +3260,7 @@ exports.MessageBox = MessageBox;
 exports.Modal = Modal;
 exports.ModalPrompt = ModalPrompt;
 exports.Nav = Nav;
+exports.Navbar = Navbar;
 exports.NumberFormat = NumberFormat;
 exports.OptionsActive = OptionsActive;
 exports.OptionsActiveAll = OptionsActiveAll;

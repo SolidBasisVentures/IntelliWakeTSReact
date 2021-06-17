@@ -12,7 +12,6 @@ export interface IIWNavProps extends React.HTMLProps<HTMLUListElement> {
 	navbar?: boolean
 	card?: boolean
 	tag?: string | React.ReactType
-	className?: string
 }
 
 export const Nav = (props: IIWNavProps) => {
