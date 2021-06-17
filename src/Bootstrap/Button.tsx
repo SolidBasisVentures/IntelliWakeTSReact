@@ -19,6 +19,7 @@ export interface IIWButtonProps {
 	onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>
 	onKeyPress?: React.KeyboardEventHandler<HTMLButtonElement>
 	title?: string
+	caret?: boolean
 }
 
 export const Button = (props: IIWButtonProps) => {
@@ -32,7 +33,7 @@ export const Button = (props: IIWButtonProps) => {
 					: `btn-${props.outline ? 'outline-' : ''}${props.color ?? 'secondary'} `) +
 				`${!!props.size ? `btn-${props.size}` : ''}` +
 				' ' +
-				ClassNames({'btn-block': !!props.block})
+				ClassNames({'btn-block': !!props.block, caret: !!props.caret})
 			}
 			type={props.type ?? 'button'}
 			onClick={props.onClick}
