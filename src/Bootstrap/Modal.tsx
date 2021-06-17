@@ -68,13 +68,13 @@ export const Modal = (props: IWModalProps) => {
 
 	useEffect(() => {
 		if (props.isOpen) {
-			if (!!props.autoFocusElement.current) {
+			if (!!props.autoFocusElement?.current) {
 				props.autoFocusElement.current.focus()
-			} else if (divRef.current) {
+			} else if (divRef?.current) {
 				divRef.current.focus()
 			}
 		}
-	}, [props.isOpen])
+	}, [props.isOpen, props.autoFocusElement])
 
 	return (
 		<Portal>
