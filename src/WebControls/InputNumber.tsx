@@ -36,6 +36,7 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 	}, [props])
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		console.log(1)
 		if (e.key === '-') {
 			if (!(props.lowerBound !== undefined && props.lowerBound < 0)) {
 				if (!props.allowNegative || (props.lowerBound !== undefined && props.lowerBound >= 0)) {
@@ -44,11 +45,16 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 			}
 		}
 
+		console.log(2)
+
 		if (e.key === '.' && props.decimalScale === 0) {
+			console.log(3)
 			e.preventDefault()
 		}
 
+		console.log(4)
 		if (!!props.onKeyDown) props.onKeyDown(e)
+		console.log(5)
 	}
 
 	let options: CleaveOptions = {
