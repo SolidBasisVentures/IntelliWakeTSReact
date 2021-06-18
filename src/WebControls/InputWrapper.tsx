@@ -4,7 +4,7 @@ import {InputGroupWrapper} from './InputGroupWrapper'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 import {AppendPrependWrapper} from './AppendPrependWrapper'
 import {Link} from 'react-router-dom'
-import {InputProps} from 'reactstrap'
+import {InputProps} from '../Bootstrap/BaseInputProps'
 
 interface IProps<T = any, V = any> extends IIWInputAddProps<T, V> {
 	children: ReactElement<IIWInputProps<T, V>>
@@ -125,12 +125,13 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 								if (props.children.props.onBlur) props.children.props.onBlur(e)
 							},
 							onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-								console.log(1)
 								clearTimeout(lateTrigger.current)
 
 								if (!props.children.props.plainText && !props.children.props.disabled) {
 									const isValid =
 										!props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value)
+
+									console.log('isValid', isValid)
 
 									isManagingDirtyState.current = !isValid
 
@@ -142,6 +143,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 											: ((!props.transformToValid ? e.target.value : props.transformToValid(e.target.value, e)) as any)
 									) as V
 
+									console.log('customValue', customValue)
 									;(e.target as any).customValue = customValue
 
 									const newState: IState = {
@@ -152,10 +154,14 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 										altKey: (e.nativeEvent as any).altKey
 									}
 
+									console.log('newState', newState)
+
 									if (!!props.children.props.onChange) {
+										console.log('propsOnChange')
 										props.children.props.onChange(e)
 									}
 									if (!!props.changeValue) {
+										console.log('propsChangeValue')
 										props.changeValue(
 											newState.value,
 											newState.name,
@@ -165,6 +171,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 										)
 									}
 									if (!!props.changeValueLate) {
+										console.log('changeValueLate')
 										if (isValid) {
 											lateState.current = newState
 										}
@@ -186,16 +193,19 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 											}
 										}, props.lateDelayMS ?? 500)
 										if (!props.children.props.onChange && !props.changeValue && !props.changeValueLate) {
+											console.log('sISV 1')
 											setInternalState(
 												!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value
 											)
 										}
 									} else {
+										console.log('sISV 2')
 										setInternalState(
 											!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value
 										)
 									}
 								}
+								console.log('end')
 							},
 							autoComplete: props.autoCompleteOn ? 'on' : `AC_${props.children.props.name ?? ''}_${RandomString(5)}`,
 							value: internalState
