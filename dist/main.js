@@ -1928,6 +1928,7 @@ var InputWrapper = function (props) {
                 props.children.props.onBlur(e);
         }, onChange: function (e) {
             var _a;
+            console.log(1);
             clearTimeout(lateTrigger.current);
             if (!props.children.props.plainText && !props.children.props.disabled) {
                 var isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value);
@@ -1936,9 +1937,7 @@ var InputWrapper = function (props) {
                     ? !!props.children.props.valueOnInvalid
                         ? props.children.props.valueOnInvalid(e.target.value)
                         : ''
-                    : (!props.transformToValid
-                        ? e.target.value
-                        : props.transformToValid(e.target.value, e)));
+                    : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value, e)));
                 e.target.customValue = customValue;
                 var newState = {
                     value: customValue,

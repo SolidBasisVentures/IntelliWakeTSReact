@@ -125,6 +125,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 								if (props.children.props.onBlur) props.children.props.onBlur(e)
 							},
 							onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+								console.log(1)
 								clearTimeout(lateTrigger.current)
 
 								if (!props.children.props.plainText && !props.children.props.disabled) {
@@ -133,13 +134,13 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 
 									isManagingDirtyState.current = !isValid
 
-									let customValue = (!isValid
-										? !!props.children.props.valueOnInvalid
-											? props.children.props.valueOnInvalid(e.target.value)
-											: ''
-										: ((!props.transformToValid
-												? e.target.value
-												: props.transformToValid(e.target.value, e)) as any)) as V
+									let customValue = (
+										!isValid
+											? !!props.children.props.valueOnInvalid
+												? props.children.props.valueOnInvalid(e.target.value)
+												: ''
+											: ((!props.transformToValid ? e.target.value : props.transformToValid(e.target.value, e)) as any)
+									) as V
 
 									;(e.target as any).customValue = customValue
 
