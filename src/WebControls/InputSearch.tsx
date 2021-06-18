@@ -31,7 +31,7 @@ export interface IPropsInputSearch {
  * A search input with an option to have a trigger delay or not.
  */
 export const InputSearch = (props: IPropsInputSearch) => {
-	// const inputRef = useRef<HTMLInputElement | null>()
+	const inputRef = useRef<HTMLInputElement | null>()
 	const triggeredText = useRef(props.initialValue ?? '')
 	const searchTimeout = useRef(setTimeout(() => {}, 100))
 	const [currentText, setCurrentText] = useState('')
@@ -102,14 +102,17 @@ export const InputSearch = (props: IPropsInputSearch) => {
 		value: currentText,
 		onChange: handleInputChange,
 		onBlur: handleOnBlur,
-		innerRef: props.innerRef,
-		// (ref: any) => {
-		// 		if (!!props.innerRef) {
-		// 			props.innerRef = ref
-		// 		}
-		//
-		// 		inputRef.current = ref
-		// 	},
+		// innerRef: props.innerRef,
+		innerRef: (ref: any) => {
+			if (!!props.innerRef) {
+				console.log(typeof props.innerRef)
+				if (typeof props.innerRef === 'function') {
+					props.innerRef(ref)
+				}
+			}
+
+			inputRef.current = ref
+		},
 		bsSize: props.size,
 		style: props.style,
 		placeholder: props.placeholder,

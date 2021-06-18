@@ -2144,7 +2144,7 @@ function InputRadio(props) {
  */
 var InputSearch = function (props) {
     var _a, _b, _c;
-    // const inputRef = useRef<HTMLInputElement | null>()
+    var inputRef = React.useRef();
     var triggeredText = React.useRef((_a = props.initialValue) !== null && _a !== void 0 ? _a : '');
     var searchTimeout = React.useRef(setTimeout(function () { }, 100));
     var _d = React.useState(''), currentText = _d[0], setCurrentText = _d[1];
@@ -2191,9 +2191,11 @@ var InputSearch = function (props) {
             props.onFocus(e);
         }
         if (!props.noSelectOnFocus) {
+            console.log('Focus Request');
             setTimeout(function () {
                 var _a;
                 if (!!((_a = props.innerRef) === null || _a === void 0 ? void 0 : _a.current)) {
+                    console.log('Perform Select');
                     props.innerRef.current.select();
                 }
             }, 250);
@@ -2206,14 +2208,16 @@ var InputSearch = function (props) {
         value: currentText,
         onChange: handleInputChange,
         onBlur: handleOnBlur,
-        innerRef: props.innerRef,
-        // (ref: any) => {
-        // 		if (!!props.innerRef) {
-        // 			props.innerRef = ref
-        // 		}
-        //
-        // 		inputRef.current = ref
-        // 	},
+        // innerRef: props.innerRef,
+        innerRef: function (ref) {
+            if (!!props.innerRef) {
+                console.log(typeof props.innerRef);
+                if (typeof props.innerRef === 'function') {
+                    props.innerRef(ref);
+                }
+            }
+            inputRef.current = ref;
+        },
         bsSize: props.size,
         style: props.style,
         placeholder: props.placeholder,
