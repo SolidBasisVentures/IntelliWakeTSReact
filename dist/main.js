@@ -2191,12 +2191,9 @@ var InputSearch = function (props) {
             props.onFocus(e);
         }
         if (!props.noSelectOnFocus) {
-            console.log('Focus Request');
             setTimeout(function () {
-                var _a;
-                if (!!((_a = props.innerRef) === null || _a === void 0 ? void 0 : _a.current)) {
-                    console.log('Perform Select');
-                    props.innerRef.current.select();
+                if (!!(inputRef === null || inputRef === void 0 ? void 0 : inputRef.current)) {
+                    inputRef.current.select();
                 }
             }, 250);
         }
