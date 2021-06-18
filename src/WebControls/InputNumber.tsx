@@ -65,8 +65,6 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 
 	const hasDecimals = (props.decimalScale ?? 0) > 0
 
-	console.log(options)
-
 	return (
 		<InputWrapper<T, V>
 			{...ReduceToInputAddProps(props)}

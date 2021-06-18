@@ -2068,7 +2068,7 @@ function InputGender(props) {
 }
 
 function InputNumber(props) {
-    var _a, _b, _c, _d, _e, _f;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
     var inputProps = React.useMemo(function () {
         var subset = ReduceInputProps(props);
         delete subset.decimalScale;
@@ -2100,13 +2100,13 @@ function InputNumber(props) {
         numeral: true,
         numeralThousandsGroupStyle: 'thousand'
     };
-    options.numeralDecimalScale = (_a = props.decimalScale) !== null && _a !== void 0 ? _a : options.numeralDecimalScale;
-    options.numeralIntegerScale = (_b = props.integerScale) !== null && _b !== void 0 ? _b : options.numeralIntegerScale;
+    options.numeralDecimalScale = (_b = (_a = props.decimalScale) !== null && _a !== void 0 ? _a : options.numeralDecimalScale) !== null && _b !== void 0 ? _b : undefined;
+    options.numeralIntegerScale = (_d = (_c = props.integerScale) !== null && _c !== void 0 ? _c : options.numeralIntegerScale) !== null && _d !== void 0 ? _d : undefined;
     if (!!props.currency) {
         options.prefix = '$ ';
-        options.numeralDecimalScale = props.decimalScale === undefined ? 2 : (_c = props.decimalScale) !== null && _c !== void 0 ? _c : undefined;
+        options.numeralDecimalScale = props.decimalScale === undefined ? 2 : (_e = props.decimalScale) !== null && _e !== void 0 ? _e : undefined;
     }
-    var hasDecimals = ((_d = props.decimalScale) !== null && _d !== void 0 ? _d : 0) > 0;
+    var hasDecimals = ((_f = props.decimalScale) !== null && _f !== void 0 ? _f : 0) > 0;
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { inputIsValid: function (val) { return !isNaN(intelliwaketsfoundation.CleanNumber(val)); }, valueOnInvalid: function () { return 0; }, transformToValid: function (val) {
             var cleanNumber = intelliwaketsfoundation.CleanNumber(val);
             if (props.lowerBound !== undefined && cleanNumber < props.lowerBound)
@@ -2119,8 +2119,8 @@ function InputNumber(props) {
             numerics: hasDecimals,
             integers: !hasDecimals
         }), plainTextControl: !!props.currency
-            ? intelliwaketsfoundation.ToCurrency(props.value, (_e = props.decimalScaleDisplay) !== null && _e !== void 0 ? _e : options.numeralDecimalScale)
-            : intelliwaketsfoundation.ToDigits(props.value, (_f = props.decimalScaleDisplay) !== null && _f !== void 0 ? _f : options.numeralDecimalScale), isInvalid: !!props.invalid, isEqual: function (internal, props) { return intelliwaketsfoundation.CleanNumber(internal) === intelliwaketsfoundation.CleanNumber(props); } }),
+            ? intelliwaketsfoundation.ToCurrency(props.value, (_g = props.decimalScaleDisplay) !== null && _g !== void 0 ? _g : options.numeralDecimalScale)
+            : intelliwaketsfoundation.ToDigits(props.value, (_h = props.decimalScaleDisplay) !== null && _h !== void 0 ? _h : options.numeralDecimalScale), isInvalid: !!props.invalid, isEqual: function (internal, props) { return intelliwaketsfoundation.CleanNumber(internal) === intelliwaketsfoundation.CleanNumber(props); } }),
         React__default['default'].createElement(Cleave__default['default'], __assign({ options: options, htmlRef: props.htmlRef, inputMode: hasDecimals ? 'decimal' : 'numeric', onKeyDown: handleKeyDown }, inputProps))));
 }
 
