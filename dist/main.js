@@ -2192,7 +2192,8 @@ var InputSearch = function (props) {
         }
         if (!props.noSelectOnFocus) {
             setTimeout(function () {
-                if (!!props.innerRef.current) {
+                var _a;
+                if (!!((_a = props.innerRef) === null || _a === void 0 ? void 0 : _a.current)) {
                     props.innerRef.current.select();
                 }
             }, 250);
