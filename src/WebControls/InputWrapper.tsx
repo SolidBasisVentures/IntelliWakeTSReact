@@ -141,8 +141,11 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 											: ((!props.transformToValid ? e.target.value : props.transformToValid(e.target.value, e)) as any)
 									) as V
 
-									console.log('targetValue', e.target.value)
-									console.log('customValue', customValue)
+									// console.log('targetValue', e.target.value)
+									// console.log('isValid', isValid)
+									// console.log('valueOnInvalid', props.children.props.valueOnInvalid)
+									// console.log('props.transformToValid', !!props.transformToValid)
+									// console.log('customValue', customValue)
 									;(e.target as any).customValue = customValue
 
 									const newState: IState = {

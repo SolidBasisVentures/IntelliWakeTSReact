@@ -1937,8 +1937,6 @@ var InputWrapper = function (props) {
                         ? props.children.props.valueOnInvalid(e.target.value)
                         : ''
                     : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value, e)));
-                console.log('targetValue', e.target.value);
-                console.log('customValue', customValue);
                 e.target.customValue = customValue;
                 var newState = {
                     value: customValue,
