@@ -56,14 +56,16 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 		numeralThousandsGroupStyle: 'thousand'
 	}
 
-	options.numeralDecimalScale = props.decimalScale ?? options.numeralDecimalScale
-	options.numeralIntegerScale = props.integerScale ?? options.numeralIntegerScale
+	options.numeralDecimalScale = props.decimalScale ?? options.numeralDecimalScale ?? undefined
+	options.numeralIntegerScale = props.integerScale ?? options.numeralIntegerScale ?? undefined
 	if (!!props.currency) {
 		options.prefix = '$ '
 		options.numeralDecimalScale = props.decimalScale === undefined ? 2 : props.decimalScale ?? undefined
 	}
 
 	const hasDecimals = (props.decimalScale ?? 0) > 0
+
+	console.log(options)
 
 	return (
 		<InputWrapper<T, V>
