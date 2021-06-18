@@ -1931,13 +1931,13 @@ var InputWrapper = function (props) {
             clearTimeout(lateTrigger.current);
             if (!props.children.props.plainText && !props.children.props.disabled) {
                 var isValid = !props.children.props.inputIsValid || props.children.props.inputIsValid(e.target.value);
-                console.log('isValid', isValid);
                 isManagingDirtyState.current = !isValid;
                 var customValue = (!isValid
                     ? !!props.children.props.valueOnInvalid
                         ? props.children.props.valueOnInvalid(e.target.value)
                         : ''
                     : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value, e)));
+                console.log('targetValue', e.target.value);
                 console.log('customValue', customValue);
                 e.target.customValue = customValue;
                 var newState = {
@@ -1947,17 +1947,13 @@ var InputWrapper = function (props) {
                     ctrlKey: e.nativeEvent.ctrlKey,
                     altKey: e.nativeEvent.altKey
                 };
-                console.log('newState', newState);
                 if (!!props.children.props.onChange) {
-                    console.log('propsOnChange');
                     props.children.props.onChange(e);
                 }
                 if (!!props.changeValue) {
-                    console.log('propsChangeValue');
                     props.changeValue(newState.value, newState.name, newState.shiftKey, newState.ctrlKey, newState.altKey);
                 }
                 if (!!props.changeValueLate) {
-                    console.log('changeValueLate');
                     if (isValid) {
                         lateState.current = newState;
                     }
@@ -1971,16 +1967,13 @@ var InputWrapper = function (props) {
                         }
                     }, (_a = props.lateDelayMS) !== null && _a !== void 0 ? _a : 500);
                     if (!props.children.props.onChange && !props.changeValue && !props.changeValueLate) {
-                        console.log('sISV 1');
                         setInternalState(!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value);
                     }
                 }
                 else {
-                    console.log('sISV 2');
                     setInternalState(!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value);
                 }
             }
-            console.log('end');
         }, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_e = props.children.props.name) !== null && _e !== void 0 ? _e : '') + "_" + intelliwaketsfoundation.RandomString(5), value: internalState })))))));
 };
 
