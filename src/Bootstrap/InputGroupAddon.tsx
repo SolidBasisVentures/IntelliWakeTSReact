@@ -11,7 +11,7 @@ export const InputGroupAddon = (props: IWInputGroupTextAddonProps) => {
 
 	return (
 		<TagToUse
-			{...OmitProperty(props, 'tag', 'className')}
+			{...OmitProperty(props, 'tag', 'className', 'addonType')}
 			className={`input-group-${props.addonType} ${props.className ?? ''}`.trim()}
 		/>
 	)
