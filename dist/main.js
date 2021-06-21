@@ -741,6 +741,24 @@ var FormGroup = function (props) {
         })).trim() }), props.children));
 };
 
+var InputGroup = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("input-group " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+};
+
+var InputGroupAddon = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("input-group-" + props.addonType + " " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+};
+
+var InputGroupText = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("input-group-text " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+};
+
 var Label = function (props) {
     var _a, _b;
     var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'label';
@@ -3330,6 +3348,9 @@ exports.InputDate = InputDate;
 exports.InputDatePicker = InputDatePicker;
 exports.InputEmail = InputEmail;
 exports.InputGender = InputGender;
+exports.InputGroup = InputGroup;
+exports.InputGroupAddon = InputGroupAddon;
+exports.InputGroupText = InputGroupText;
 exports.InputGroupWrapper = InputGroupWrapper;
 exports.InputNumber = InputNumber;
 exports.InputPassword = InputPassword;
