@@ -22,7 +22,7 @@ export const ApplyColumnProp = (size: string, columnProps: IWColumnProps | null 
 	if (typeof columnProps === 'number' || typeof columnProps === 'string') return `${application}-${columnProps}`
 
 	if (typeof columnProps.size === 'number' || typeof columnProps.size === 'string') {
-		application += `${columnProps.size}`
+		application += `-${columnProps.size}`
 	}
 
 	if (columnProps.offset !== undefined) application += ` offset-${size}-${columnProps.offset}`

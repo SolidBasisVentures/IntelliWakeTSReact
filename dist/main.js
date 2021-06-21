@@ -624,6 +624,20 @@ var ResizeBase64 = function (base64Str, maxSize) {
     return canvas.toDataURL();
 };
 
+var Badge = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'span';
+    var classes = (_b = props.className) !== null && _b !== void 0 ? _b : '';
+    classes += !!props.color ? " badge-" + props.color : '';
+    classes +=
+        ' ' +
+            ClassNames({
+                badge: true,
+                'badge-pill': !!props.pill
+            });
+    return React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'color', 'pill', 'className'), { className: classes.trim() }));
+};
+
 var Button = function (props) {
     var _a, _b, _c;
     return (React__default['default'].createElement("button", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') +
@@ -634,6 +648,30 @@ var Button = function (props) {
             ("" + (!!props.size ? "btn-" + props.size : '')) +
             ' ' +
             ClassNames({ 'btn-block': !!props.block, caret: !!props.caret }), type: (_c = props.type) !== null && _c !== void 0 ? _c : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: props.innerRef, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
+};
+
+var Card = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    return React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("card " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() }));
+};
+
+var CardBody = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("card-body " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+};
+
+var CardHeader = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("card-header " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+};
+
+var CardText = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'p';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("card-text " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
 };
 
 var ApplyColumnProp = function (size, columnProps) {
@@ -648,7 +686,7 @@ var ApplyColumnProp = function (size, columnProps) {
     if (typeof columnProps === 'number' || typeof columnProps === 'string')
         return application + "-" + columnProps;
     if (typeof columnProps.size === 'number' || typeof columnProps.size === 'string') {
-        application += "" + columnProps.size;
+        application += "-" + columnProps.size;
     }
     if (columnProps.offset !== undefined)
         application += " offset-" + size + "-" + columnProps.offset;
@@ -716,6 +754,32 @@ var Label = function (props) {
     classes += ApplyColumnProp('lg', props.lg);
     classes += ApplyColumnProp('xl', props.xl);
     return React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'xs', 'sm', 'md', 'lg', 'xl', 'className'), { className: classes.trim() }));
+};
+
+var ListGroup = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'ul';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className', 'flush'), { className: (ClassNames({ 'list-group-flush': !!props.flush }) + " list-group " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+};
+
+var ListGroupItem = function (props) {
+    var _a, _b;
+    var TagToUse = ((_a = props.tag) !== null && _a !== void 0 ? _a : !!props.onClick) ? 'button'
+        : !!props.href
+            ? 'a'
+            : 'li';
+    return (React__default['default'].createElement(TagToUse, __assign({ type: !!props.onClick ? 'button' : undefined }, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className', 'active', 'disabled', 'color', 'action'), { className: (ClassNames({
+            active: !!props.active,
+            disabled: !!props.disabled,
+            'list-group-item-action': !!props.action,
+            'd-flex justify-content-between align-items-center': !!props.withBadge
+        }) + " list-group-item" + (!!props.color ? " list-group-item-" + props.color : '') + " " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim(), disabled: !!props.onClick && props.disabled ? true : undefined })));
+};
+
+var ListGroupItemText = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'p';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("list-group-item-text " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
 };
 
 var Portal = /** @class */ (function (_super) {
@@ -3218,8 +3282,13 @@ exports.ApplyColumnProp = ApplyColumnProp;
 exports.ArrayTable = ArrayTable;
 exports.BRAfter = BRAfter;
 exports.BRBefore = BRBefore;
+exports.Badge = Badge;
 exports.Button = Button;
 exports.CaptureGPS = CaptureGPS;
+exports.Card = Card;
+exports.CardBody = CardBody;
+exports.CardHeader = CardHeader;
+exports.CardText = CardText;
 exports.ClassNames = ClassNames;
 exports.Col = Col;
 exports.Collapse = Collapse;
@@ -3301,6 +3370,9 @@ exports.KEY_STRING_UP_ARROW = KEY_STRING_UP_ARROW;
 exports.KEY_TAB = KEY_TAB;
 exports.KEY_UP_ARROW = KEY_UP_ARROW;
 exports.Label = Label;
+exports.ListGroup = ListGroup;
+exports.ListGroupItem = ListGroupItem;
+exports.ListGroupItemText = ListGroupItemText;
 exports.MDDetail = MDDetail;
 exports.MDLink = MDLink;
 exports.MDMaster = MDMaster;
