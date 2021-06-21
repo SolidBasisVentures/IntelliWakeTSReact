@@ -639,15 +639,15 @@ var Badge = function (props) {
 };
 
 var Button = function (props) {
-    var _a, _b, _c;
-    return (React__default['default'].createElement("button", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') +
+    var _a, _b, _c, _d;
+    return (React__default['default'].createElement("button", { className: (_a = props.classNameOverride) !== null && _a !== void 0 ? _a : ((_b = props.className) !== null && _b !== void 0 ? _b : '') +
             " btn " +
             (props.color === 'inline'
                 ? 'btn btn-link btn-link-inline '
-                : "btn-" + (props.outline ? 'outline-' : '') + ((_b = props.color) !== null && _b !== void 0 ? _b : 'secondary') + " ") +
+                : "btn-" + (props.outline ? 'outline-' : '') + ((_c = props.color) !== null && _c !== void 0 ? _c : 'secondary') + " ") +
             ("" + (!!props.size ? "btn-" + props.size : '')) +
             ' ' +
-            ClassNames({ 'btn-block': !!props.block, caret: !!props.caret }), type: (_c = props.type) !== null && _c !== void 0 ? _c : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: props.innerRef, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
+            ClassNames({ 'btn-block': !!props.block, caret: !!props.caret }), type: (_d = props.type) !== null && _d !== void 0 ? _d : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: props.innerRef, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
 };
 
 var Card = function (props) {
@@ -1937,12 +1937,12 @@ function ViewEmail(props) {
 }
 
 var InputGroupWrapper = function (props) {
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.prepend || !!props.append ? (React__default['default'].createElement(reactstrap.InputGroup, null,
-        !!props.prepend && (React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "prepend" },
-            React__default['default'].createElement(reactstrap.InputGroupText, null, props.prepend))),
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.prepend || !!props.append ? (React__default['default'].createElement(InputGroup, null,
+        !!props.prepend && (React__default['default'].createElement(InputGroupAddon, { addonType: "prepend" },
+            React__default['default'].createElement(InputGroupText, null, props.prepend))),
         props.children,
-        !!props.append && (React__default['default'].createElement(reactstrap.InputGroupAddon, { addonType: "append" },
-            React__default['default'].createElement(reactstrap.InputGroupText, null, props.append))))) : (React__default['default'].createElement(React__default['default'].Fragment, null, props.children))));
+        !!props.append && (React__default['default'].createElement(InputGroupAddon, { addonType: "append" },
+            React__default['default'].createElement(InputGroupText, null, props.append))))) : (React__default['default'].createElement(React__default['default'].Fragment, null, props.children))));
 };
 
 var AppendPrependWrapper = function (props) {

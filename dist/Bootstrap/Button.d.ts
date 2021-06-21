@@ -18,5 +18,6 @@ export interface IIWButtonProps {
     onKeyPress?: React.KeyboardEventHandler<HTMLButtonElement>;
     title?: string;
     caret?: boolean;
+    classNameOverride?: string;
 }
 export declare const Button: (props: IIWButtonProps) => JSX.Element;
