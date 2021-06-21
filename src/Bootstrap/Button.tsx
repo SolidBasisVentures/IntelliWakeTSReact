@@ -1,4 +1,4 @@
-import React, {MutableRefObject} from 'react'
+import React from 'react'
 
 export interface IIWButtonProps {
 	size?: 'sm' | 'lg'
@@ -13,7 +13,7 @@ export interface IIWButtonProps {
 	className?: string
 	onClick?: React.MouseEventHandler<HTMLButtonElement>
 	tabIndex?: number
-	innerRef?: MutableRefObject<HTMLButtonElement>
+	// innerRef?: MutableRefObject<HTMLButtonElement>
 	children?: any
 	onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>
 	onKeyPress?: React.KeyboardEventHandler<HTMLButtonElement>
@@ -22,7 +22,7 @@ export interface IIWButtonProps {
 	classNameOverride?: string
 }
 
-export const Button = (props: IIWButtonProps) => {
+export const Button = React.forwardRef<HTMLButtonElement, IIWButtonProps>((props, ref) => {
 	return (
 		<button
 			className={
@@ -39,11 +39,7 @@ export const Button = (props: IIWButtonProps) => {
 			type={props.type ?? 'button'}
 			onClick={props.onClick}
 			tabIndex={props.tabIndex}
-			ref={(ref) => {
-				if (!!props.innerRef && !!ref) {
-					props.innerRef.current = ref
-				}
-			}}
+			ref={ref}
 			onKeyDown={props.onKeyDown}
 			onKeyPress={props.onKeyPress}
 			autoFocus={props.autoFocus}
@@ -54,4 +50,4 @@ export const Button = (props: IIWButtonProps) => {
 			{props.children}
 		</button>
 	)
-}
+})
