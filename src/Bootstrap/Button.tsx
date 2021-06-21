@@ -1,5 +1,4 @@
 import React, {LegacyRef} from 'react'
-import {ClassNames} from '../Functions'
 
 export interface IIWButtonProps {
 	size?: 'sm' | 'lg'
@@ -19,7 +18,7 @@ export interface IIWButtonProps {
 	onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>
 	onKeyPress?: React.KeyboardEventHandler<HTMLButtonElement>
 	title?: string
-	caret?: boolean
+	// caret?: boolean
 	classNameOverride?: string
 }
 
@@ -33,9 +32,9 @@ export const Button = (props: IIWButtonProps) => {
 					(props.color === 'inline'
 						? 'btn btn-link btn-link-inline '
 						: `btn-${props.outline ? 'outline-' : ''}${props.color ?? 'secondary'} `) +
-					`${!!props.size ? `btn-${props.size}` : ''}` +
-					' ' +
-					ClassNames({'btn-block': !!props.block, caret: !!props.caret})
+					`${!!props.size ? `btn-${props.size}` : ''}` // +
+				// ' ' +
+				// ClassNames({'btn-block': !!props.block, caret: !!props.caret})
 			}
 			type={props.type ?? 'button'}
 			onClick={props.onClick}
