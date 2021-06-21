@@ -1,5 +1,7 @@
 import React, {ReactNode, ReactNodeArray} from 'react'
-import {InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap'
+import {InputGroup} from '../Bootstrap/InputGroup'
+import {InputGroupAddon} from '../Bootstrap/InputGroupAddon'
+import {InputGroupText} from '../Bootstrap/InputGroupText'
 
 interface IProps {
 	children?: ReactNode | ReactNodeArray
