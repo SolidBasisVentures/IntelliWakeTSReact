@@ -1,4 +1,4 @@
-import React, {LegacyRef} from 'react'
+import React, {MutableRefObject} from 'react'
 
 export interface IIWButtonProps {
 	size?: 'sm' | 'lg'
@@ -13,7 +13,7 @@ export interface IIWButtonProps {
 	className?: string
 	onClick?: React.MouseEventHandler<HTMLButtonElement>
 	tabIndex?: number
-	innerRef?: LegacyRef<HTMLButtonElement>
+	innerRef?: MutableRefObject<HTMLButtonElement>
 	children?: any
 	onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>
 	onKeyPress?: React.KeyboardEventHandler<HTMLButtonElement>
@@ -39,7 +39,11 @@ export const Button = (props: IIWButtonProps) => {
 			type={props.type ?? 'button'}
 			onClick={props.onClick}
 			tabIndex={props.tabIndex}
-			ref={props.innerRef}
+			ref={(ref) => {
+				if (!!props.innerRef && !!ref) {
+					props.innerRef.current = ref
+				}
+			}}
 			onKeyDown={props.onKeyDown}
 			onKeyPress={props.onKeyPress}
 			autoFocus={props.autoFocus}

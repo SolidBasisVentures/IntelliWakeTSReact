@@ -645,9 +645,12 @@ var Button = function (props) {
             (props.color === 'inline'
                 ? 'btn btn-link btn-link-inline '
                 : "btn-" + (props.outline ? 'outline-' : '') + ((_c = props.color) !== null && _c !== void 0 ? _c : 'secondary') + " ") +
-            ("" + (!!props.size ? "btn-" + props.size : '')) +
-            ' ' +
-            ClassNames({ 'btn-block': !!props.block, caret: !!props.caret }), type: (_d = props.type) !== null && _d !== void 0 ? _d : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: props.innerRef, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
+            ("" + (!!props.size ? "btn-" + props.size : '')) // +
+        , type: (_d = props.type) !== null && _d !== void 0 ? _d : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: function (ref) {
+            if (!!props.innerRef && !!ref) {
+                props.innerRef.current = ref;
+            }
+        }, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
 };
 
 var Card = function (props) {
