@@ -14,6 +14,7 @@ export * from './Bootstrap/Col';
 export * from './Bootstrap/Collapse';
 export * from './Bootstrap/Container';
 export * from './Bootstrap/Form';
+export * from './Bootstrap/FormFeedback';
 export * from './Bootstrap/FormGroup';
 export * from './Bootstrap/InputGroup';
 export * from './Bootstrap/InputGroupAddon';
