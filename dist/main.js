@@ -749,7 +749,7 @@ var InputGroup = function (props) {
 var InputGroupAddon = function (props) {
     var _a, _b;
     var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
-    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("input-group-" + props.addonType + " " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className', 'addonType'), { className: ("input-group-" + props.addonType + " " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
 };
 
 var InputGroupText = function (props) {
