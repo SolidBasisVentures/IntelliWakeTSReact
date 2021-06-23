@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {LegacyRef, MutableRefObject} from 'react'
 import {CleanNumber, ReplaceAll} from '@solidbasisventures/intelliwaketsfoundation'
 import moment from 'moment'
 
@@ -286,4 +286,22 @@ export const SizeAtMax = (size: TBootStrapExtendedSizes): number => {
 		case 'xxxl':
 			return 999999
 	}
+}
+
+export const useCombinedRefs = <T>(...refs: (LegacyRef<T> | null)[]): MutableRefObject<T | undefined> | null => {
+	const targetRef = React.useRef<T>()
+
+	React.useEffect(() => {
+		refs.forEach((ref: any) => {
+			if (!ref) return
+
+			if (typeof ref === 'function') {
+				ref(targetRef.current)
+			} else {
+				ref.current = targetRef.current
+			}
+		})
+	}, [refs])
+
+	return targetRef
 }

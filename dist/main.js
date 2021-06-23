@@ -3,8 +3,8 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var intelliwaketsfoundation = require('@solidbasisventures/intelliwaketsfoundation');
-var moment = require('moment');
 var React = require('react');
+var moment = require('moment');
 var ReactDOM = require('react-dom');
 var reactstrap = require('reactstrap');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
@@ -16,8 +16,8 @@ var axios = require('axios');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var moment__default = /*#__PURE__*/_interopDefaultLegacy(moment);
 var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
 var ReactDatePicker__default = /*#__PURE__*/_interopDefaultLegacy(ReactDatePicker);
 var Cleave__default = /*#__PURE__*/_interopDefaultLegacy(Cleave);
@@ -443,6 +443,26 @@ var SizeAtMax = function (size) {
         case 'xxxl':
             return 999999;
     }
+};
+var useCombinedRefs = function () {
+    var refs = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        refs[_i] = arguments[_i];
+    }
+    var targetRef = React__default['default'].useRef();
+    React__default['default'].useEffect(function () {
+        refs.forEach(function (ref) {
+            if (!ref)
+                return;
+            if (typeof ref === 'function') {
+                ref(targetRef.current);
+            }
+            else {
+                ref.current = targetRef.current;
+            }
+        });
+    }, [refs]);
+    return targetRef;
 };
 
 var GetOrientation = function (file) { return __awaiter(void 0, void 0, void 0, function () {
@@ -2238,26 +2258,6 @@ function InputRadio(props) {
     return !!props.plainText ? (props.checked ? (props.label) : null) : (React__default['default'].createElement(reactstrap.CustomInput, { type: "radio", label: props.label, name: props.name, id: newID, className: 'inputRadio ' + ((_a = props.className) !== null && _a !== void 0 ? _a : ''), checked: props.checked, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, value: props.value, onClick: props.onClick }));
 }
 
-function useCombinedRefs() {
-    var refs = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        refs[_i] = arguments[_i];
-    }
-    var targetRef = React__default['default'].useRef();
-    React__default['default'].useEffect(function () {
-        refs.forEach(function (ref) {
-            if (!ref)
-                return;
-            if (typeof ref === 'function') {
-                ref(targetRef.current);
-            }
-            else {
-                ref.current = targetRef.current;
-            }
-        });
-    }, [refs]);
-    return targetRef;
-}
 /**
  * A search input with an option to have a trigger delay or not.
  */
@@ -2312,16 +2312,11 @@ var InputSearch = React__default['default'].forwardRef(function (props, ref) {
         }
         if (!props.noSelectOnFocus) {
             setTimeout(function () {
-                var _a, _b;
-                var inputRef = ref;
-                console.log(combinedRef, combinedRef === null || combinedRef === void 0 ? void 0 : combinedRef.current);
-                if (!!((_a = inputRef === null || inputRef === void 0 ? void 0 : inputRef.current) === null || _a === void 0 ? void 0 : _a.select)) {
-                    inputRef.current.select();
-                }
-                else if (!!((_b = combinedRef === null || combinedRef === void 0 ? void 0 : combinedRef.current) === null || _b === void 0 ? void 0 : _b.select)) {
+                var _a;
+                if (!!((_a = combinedRef === null || combinedRef === void 0 ? void 0 : combinedRef.current) === null || _a === void 0 ? void 0 : _a.select)) {
                     combinedRef.current.select();
                 }
-            }, 500);
+            }, 250);
         }
     };
     var inputProps = {
@@ -3508,6 +3503,7 @@ exports.initialMessageBoxState = initialMessageBoxState;
 exports.initialSortProperties = initialSortProperties;
 exports.initialTextStatusState = initialTextStatusState;
 exports.panelClean = panelClean;
+exports.useCombinedRefs = useCombinedRefs;
 exports.useDeepCompareCallback = useDeepCompareCallback;
 exports.useDeepCompareEffect = useDeepCompareEffect;
 exports.useDeepCompareMemo = useDeepCompareMemo;

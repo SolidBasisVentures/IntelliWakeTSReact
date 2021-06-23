@@ -5,6 +5,7 @@ import {faSearch} from '@fortawesome/pro-regular-svg-icons'
 import {InputType} from 'reactstrap/lib/Input'
 import {InputGroup} from '../Bootstrap/InputGroup'
 import {InputGroupText} from '../Bootstrap/InputGroupText'
+import {useCombinedRefs} from '../Functions'
 
 export interface IPropsInputSearch {
 	initialValue?: string
@@ -25,24 +26,6 @@ export interface IPropsInputSearch {
 	onFocus?: (e: React.FocusEvent) => void
 	noSelectOnFocus?: boolean
 	autoCompleteOn?: boolean
-}
-
-function useCombinedRefs<T>(...refs: any) {
-	const targetRef = React.useRef<T>()
-
-	React.useEffect(() => {
-		refs.forEach((ref: any) => {
-			if (!ref) return
-
-			if (typeof ref === 'function') {
-				ref(targetRef.current)
-			} else {
-				ref.current = targetRef.current
-			}
-		})
-	}, [refs])
-
-	return targetRef
 }
 
 /**
@@ -105,14 +88,10 @@ export const InputSearch = React.forwardRef<HTMLInputElement, IPropsInputSearch>
 
 		if (!props.noSelectOnFocus) {
 			setTimeout(() => {
-				const inputRef = ref as any
-				console.log(combinedRef, combinedRef?.current)
-				if (!!inputRef?.current?.select) {
-					inputRef.current.select()
-				} else if (!!combinedRef?.current?.select) {
+				if (!!combinedRef?.current?.select) {
 					combinedRef.current.select()
 				}
-			}, 500)
+			}, 250)
 		}
 	}
 
