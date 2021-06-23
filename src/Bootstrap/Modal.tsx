@@ -31,9 +31,7 @@ export const Modal = (props: IWModalProps) => {
 
 	const toggle = useCallback(
 		(e: any) => {
-			console.log('Toggle', 1)
 			if (!!props.toggle && !props.noCancel) {
-				console.log('Toggle', 2)
 				props.toggle(e)
 			}
 		},
@@ -95,7 +93,13 @@ export const Modal = (props: IWModalProps) => {
 					display: props.isOpen ? 'block' : 'none',
 					pointerEvents: props.isOpen ? undefined : 'none'
 				}}
-				onClick={toggle}
+				onClick={(e) => {
+					if (props.isOpen) {
+						e.stopPropagation()
+
+						toggle(e)
+					}
+				}}
 				onKeyDown={keyDown}>
 				<div
 					className={
@@ -105,7 +109,6 @@ export const Modal = (props: IWModalProps) => {
 						(props.dialogClassName ?? '')
 					}
 					role="document"
-					onClick={toggle}
 					style={props.dialogStyle}>
 					<div className="modal-content" onClick={(e) => e.stopPropagation()}>
 						{props.children ?? (
