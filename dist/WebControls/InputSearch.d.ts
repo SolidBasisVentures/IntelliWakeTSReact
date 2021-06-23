@@ -5,7 +5,6 @@ export interface IPropsInputSearch {
     triggerSearchText: (value: string) => void;
     triggerDelayAmount?: number;
     triggerOnEnter?: boolean;
-    innerRef?: any;
     className?: string;
     style?: any;
     placeholder?: string;
@@ -24,4 +23,4 @@ export interface IPropsInputSearch {
 /**
  * A search input with an option to have a trigger delay or not.
  */
-export declare const InputSearch: (props: IPropsInputSearch) => JSX.Element;
+export declare const InputSearch: React.ForwardRefExoticComponent<IPropsInputSearch & React.RefAttributes<HTMLInputElement>>;
