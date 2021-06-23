@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { LegacyRef, MutableRefObject } from 'react';
 export declare const KEY_UP_ARROW = 38;
 export declare const KEY_DOWN_ARROW = 40;
 export declare const KEY_LEFT_ARROW = 37;
@@ -31,3 +31,4 @@ export declare type TBootStrapSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export declare type TBootStrapExtendedSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl';
 export declare const SizeAtMin: (size: TBootStrapExtendedSizes) => number;
 export declare const SizeAtMax: (size: TBootStrapExtendedSizes) => number;
+export declare const useCombinedRefs: <T>(...refs: React.LegacyRef<T>[]) => React.MutableRefObject<T | undefined> | null;

@@ -1,4 +1,4 @@
-import React, {InputHTMLAttributes, ReactNode, useEffect, useRef, useState} from 'react'
+import React, {forwardRef, InputHTMLAttributes, ReactNode, useEffect, useRef, useState} from 'react'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
 import {faSearch} from '@fortawesome/pro-regular-svg-icons'
@@ -31,7 +31,7 @@ export interface IPropsInputSearch {
 /**
  * A search input with an option to have a trigger delay or not.
  */
-export const InputSearch = React.forwardRef<HTMLInputElement, IPropsInputSearch>((props, ref) => {
+export const InputSearch = forwardRef<HTMLInputElement, IPropsInputSearch>((props, ref) => {
 	const triggeredText = useRef(props.initialValue ?? '')
 	const searchTimeout = useRef(setTimeout(() => {}, 100))
 	const [currentText, setCurrentText] = useState('')

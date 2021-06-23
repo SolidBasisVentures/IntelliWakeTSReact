@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 
 export interface IIWButtonProps {
 	size?: 'sm' | 'lg'
@@ -22,7 +22,7 @@ export interface IIWButtonProps {
 	classNameOverride?: string
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, IIWButtonProps>((props, ref) => {
+export const Button = forwardRef<HTMLButtonElement, IIWButtonProps>((props, ref) => {
 	return (
 		<button
 			className={
