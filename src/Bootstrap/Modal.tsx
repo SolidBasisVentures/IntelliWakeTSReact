@@ -1,5 +1,5 @@
 import React, {CSSProperties, ReactNode, useCallback, useEffect, useRef} from 'react'
-import {KEY_ESCAPE} from '../Functions'
+import {KEY_ENTER, KEY_ESCAPE} from '../Functions'
 import Portal from './Portal'
 
 export interface IWModalProps {
@@ -29,7 +29,16 @@ export interface IWModalProps {
 export const Modal = (props: IWModalProps) => {
 	const divRef = useRef<any>()
 
-	const toggle = useCallback((e: any) => (!!props.toggle && !props.noCancel ? props.toggle(e) : () => {}), [props])
+	const toggle = useCallback(
+		(e: any) => {
+			console.log('Toggle', 1)
+			if (!!props.toggle && !props.noCancel) {
+				console.log('Toggle', 2)
+				props.toggle(e)
+			}
+		},
+		[props]
+	)
 
 	const okAction = useCallback(
 		(e: any) => {
@@ -53,9 +62,9 @@ export const Modal = (props: IWModalProps) => {
 				case KEY_ESCAPE:
 					toggle(e)
 					break
-				// case KEY_ENTER:
-				// 	okAction(e)
-				// 	break
+				case KEY_ENTER:
+					okAction(e)
+					break
 			}
 		}
 	}
@@ -96,6 +105,7 @@ export const Modal = (props: IWModalProps) => {
 						(props.dialogClassName ?? '')
 					}
 					role="document"
+					onClick={toggle}
 					style={props.dialogStyle}>
 					<div className="modal-content" onClick={(e) => e.stopPropagation()}>
 						{props.children ?? (
