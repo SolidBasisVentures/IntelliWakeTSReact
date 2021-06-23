@@ -1,16 +1,16 @@
-import React, {ReactNode, useEffect, useRef, useState} from 'react'
-import {Input, InputGroup, InputGroupText, InputProps} from 'reactstrap'
+import React, {InputHTMLAttributes, ReactNode, useEffect, useRef, useState} from 'react'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
 import {faSearch} from '@fortawesome/pro-regular-svg-icons'
 import {InputType} from 'reactstrap/lib/Input'
+import {InputGroup} from '../Bootstrap/InputGroup'
+import {InputGroupText} from '../Bootstrap/InputGroupText'
 
 export interface IPropsInputSearch {
 	initialValue?: string
 	triggerSearchText: (value: string) => void
 	triggerDelayAmount?: number
 	triggerOnEnter?: boolean
-	innerRef?: any
 	className?: string
 	style?: any
 	placeholder?: string
@@ -30,8 +30,7 @@ export interface IPropsInputSearch {
 /**
  * A search input with an option to have a trigger delay or not.
  */
-export const InputSearch = (props: IPropsInputSearch) => {
-	const inputRef = useRef<HTMLInputElement | null>()
+export const InputSearch = React.forwardRef<HTMLInputElement, IPropsInputSearch>((props, ref) => {
 	const triggeredText = useRef(props.initialValue ?? '')
 	const searchTimeout = useRef(setTimeout(() => {}, 100))
 	const [currentText, setCurrentText] = useState('')
@@ -86,32 +85,33 @@ export const InputSearch = (props: IPropsInputSearch) => {
 
 		if (!props.noSelectOnFocus) {
 			setTimeout(() => {
-				if (!!inputRef?.current) {
-					inputRef.current.select()
+				const innerRef = ref as any
+				if (!!innerRef?.current.select) {
+					innerRef.current.select()
 				}
 			}, 250)
 		}
 	}
 
-	const inputProps: InputProps = {
+	const inputProps: InputHTMLAttributes<HTMLInputElement> & {ref: any} = {
 		type: 'search' as InputType,
 		inputMode: 'search',
-		className: `inputSearch ${props.className ?? ''} ${!!props.bordered ? '' : 'bg-transparent border-0'}`,
+		className: `form-control inputSearch ${props.className ?? ''} ${!!props.bordered ? '' : 'bg-transparent border-0'}`,
 		value: currentText,
 		onChange: handleInputChange,
 		onBlur: handleOnBlur,
+		ref: ref,
 		// innerRef: props.innerRef,
-		innerRef: (ref: any) => {
-			if (!!props.innerRef) {
-				// console.log(typeof props.innerRef)
-				if (typeof props.innerRef === 'function') {
-					props.innerRef(ref)
-				}
-			}
-
-			inputRef.current = ref
-		},
-		bsSize: props.size,
+		// innerRef: (ref: any) => {
+		// 	if (!!props.innerRef) {
+		// 		// console.log(typeof props.innerRef)
+		// 		if (typeof props.innerRef === 'function') {
+		// 			props.innerRef(ref)
+		// 		}
+		// 	}
+		//
+		// 	inputRef.current = ref
+		// },
 		style: props.style,
 		placeholder: props.placeholder,
 		onKeyDown: handleKeyDown,
@@ -126,7 +126,8 @@ export const InputSearch = (props: IPropsInputSearch) => {
 			{(!!props.iconPrefix || !!props.reactPrefix) && (
 				<InputGroupText
 					onClick={() => {
-						if (!!props.innerRef.current) props.innerRef.current.focus()
+						const innerRef = ref as any
+						if (!!innerRef?.current?.focus) innerRef.current.focus()
 					}}>
 					{props.iconPrefix !== undefined ? (
 						typeof props.iconPrefix === 'boolean' ? (
@@ -139,9 +140,9 @@ export const InputSearch = (props: IPropsInputSearch) => {
 					)}
 				</InputGroupText>
 			)}
-			<Input {...inputProps} />
+			<input {...inputProps} />
 		</InputGroup>
 	) : (
-		<Input {...inputProps} />
+		<input {...inputProps} />
 	)
-}
+})
