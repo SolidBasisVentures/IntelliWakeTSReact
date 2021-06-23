@@ -86,7 +86,7 @@ export const InputSearch = React.forwardRef<HTMLInputElement, IPropsInputSearch>
 		if (!props.noSelectOnFocus) {
 			setTimeout(() => {
 				const innerRef = ref as any
-				if (!!innerRef?.current.select) {
+				if (!!innerRef?.current?.select) {
 					innerRef.current.select()
 				}
 			}, 250)

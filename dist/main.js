@@ -2290,8 +2290,9 @@ var InputSearch = React__default['default'].forwardRef(function (props, ref) {
         }
         if (!props.noSelectOnFocus) {
             setTimeout(function () {
+                var _a;
                 var innerRef = ref;
-                if (!!(innerRef === null || innerRef === void 0 ? void 0 : innerRef.current.select)) {
+                if (!!((_a = innerRef === null || innerRef === void 0 ? void 0 : innerRef.current) === null || _a === void 0 ? void 0 : _a.select)) {
                     innerRef.current.select();
                 }
             }, 250);
