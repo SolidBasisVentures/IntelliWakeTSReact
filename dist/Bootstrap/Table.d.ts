@@ -1,4 +1,4 @@
-import React, { LegacyRef } from 'react';
+import React from 'react';
 export interface IIWTableProps {
     bordered?: boolean;
     borderless?: boolean;
@@ -15,8 +15,7 @@ export interface IIWTableProps {
     tabIndex?: number;
     hidden?: boolean;
     style?: React.CSSProperties;
-    innerRef?: LegacyRef<HTMLTableElement>;
     children?: any;
     onKeyDown?: React.KeyboardEventHandler<HTMLTableElement>;
 }
-export declare const Table: (props: IIWTableProps) => JSX.Element;
+export declare const Table: React.ForwardRefExoticComponent<IIWTableProps & React.RefAttributes<HTMLTableElement>>;

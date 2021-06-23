@@ -885,8 +885,8 @@ var Modal = function (props) {
             React__default['default'].createElement("div", { className: 'modal-dialog' +
                     (!props.size ? '' : props.size === 'sm' ? ' modal-sm' : ' modal-lg') +
                     ' ' +
-                    ((_a = props.dialogClassName) !== null && _a !== void 0 ? _a : ''), role: "document", onClick: function (e) { return e.stopPropagation(); }, style: props.dialogStyle },
-                React__default['default'].createElement("div", { className: "modal-content" }, (_b = props.children) !== null && _b !== void 0 ? _b : (React__default['default'].createElement(React__default['default'].Fragment, null,
+                    ((_a = props.dialogClassName) !== null && _a !== void 0 ? _a : ''), role: "document", style: props.dialogStyle },
+                React__default['default'].createElement("div", { className: "modal-content", onClick: function (e) { return e.stopPropagation(); } }, (_b = props.children) !== null && _b !== void 0 ? _b : (React__default['default'].createElement(React__default['default'].Fragment, null,
                     !!props.title && (React__default['default'].createElement("div", { className: "alert-" + ((_c = props.color) !== null && _c !== void 0 ? _c : 'primary') + " modal-header" },
                         React__default['default'].createElement("h5", { className: "modal-title" }, props.title),
                         !props.noCancel && (React__default['default'].createElement("button", { className: "close", onClick: toggle },
@@ -989,7 +989,7 @@ var Row = function (props) {
         })).trim() }), props.children));
 };
 
-var Table = function (props) {
+var Table = React.forwardRef(function (props, ref) {
     var _a;
     return (React__default['default'].createElement("table", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') +
             ' ' +
@@ -1005,10 +1005,10 @@ var Table = function (props) {
                 'table-sm': props.size !== 'lg',
                 small: !!props.textSmall,
                 'table-sticky': !!props.sticky
-            }), tabIndex: props.tabIndex, hidden: props.hidden, style: props.style, ref: props.innerRef, onKeyDown: props.onKeyDown },
+            }), tabIndex: props.tabIndex, hidden: props.hidden, style: props.style, ref: ref, onKeyDown: props.onKeyDown },
         !!props.caption && React__default['default'].createElement("caption", null, props.caption),
         props.children));
-};
+});
 
 function checkDeps(deps, name) {
     var reactHookName = "React." + name.replace(/DeepCompare/, '');

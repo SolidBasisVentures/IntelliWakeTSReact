@@ -96,9 +96,8 @@ export const Modal = (props: IWModalProps) => {
 						(props.dialogClassName ?? '')
 					}
 					role="document"
-					onClick={(e) => e.stopPropagation()}
 					style={props.dialogStyle}>
-					<div className="modal-content">
+					<div className="modal-content" onClick={(e) => e.stopPropagation()}>
 						{props.children ?? (
 							<>
 								{!!props.title && (
