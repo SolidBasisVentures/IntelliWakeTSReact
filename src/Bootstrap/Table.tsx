@@ -1,4 +1,4 @@
-import React, {LegacyRef} from 'react'
+import React, {forwardRef} from 'react'
 import {ClassNames} from '../Functions'
 
 export interface IIWTableProps {
@@ -17,12 +17,11 @@ export interface IIWTableProps {
 	tabIndex?: number
 	hidden?: boolean
 	style?: React.CSSProperties
-	innerRef?: LegacyRef<HTMLTableElement>
 	children?: any
 	onKeyDown?: React.KeyboardEventHandler<HTMLTableElement>
 }
 
-export const Table = (props: IIWTableProps) => {
+export const Table = forwardRef<HTMLTableElement, IIWTableProps>((props, ref) => {
 	return (
 		<table
 			className={
@@ -45,10 +44,10 @@ export const Table = (props: IIWTableProps) => {
 			tabIndex={props.tabIndex}
 			hidden={props.hidden}
 			style={props.style}
-			ref={props.innerRef}
+			ref={ref}
 			onKeyDown={props.onKeyDown}>
 			{!!props.caption && <caption>{props.caption}</caption>}
 			{props.children}
 		</table>
 	)
-}
+})
