@@ -103,7 +103,7 @@ export const InputSearch = (props: IPropsInputSearch) => {
 		// innerRef: props.innerRef,
 		innerRef: (ref: any) => {
 			if (!!props.innerRef) {
-				console.log(typeof props.innerRef)
+				// console.log(typeof props.innerRef)
 				if (typeof props.innerRef === 'function') {
 					props.innerRef(ref)
 				}

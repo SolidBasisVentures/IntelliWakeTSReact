@@ -733,6 +733,15 @@ var Form = function (props) {
         })).trim(), ref: props.innerRef }), props.children));
 };
 
+var FormFeedback = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'label';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'valid', 'tag'), { className: (((_b = props.className) !== null && _b !== void 0 ? _b : '') + " " + ClassNames({
+            'invalid-feedback': true,
+            'd-none': !!props.valid
+        })).trim() })));
+};
+
 var FormGroup = function (props) {
     var _a;
     return (React__default['default'].createElement("div", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({
@@ -2289,7 +2298,7 @@ var InputSearch = function (props) {
         // innerRef: props.innerRef,
         innerRef: function (ref) {
             if (!!props.innerRef) {
-                console.log(typeof props.innerRef);
+                // console.log(typeof props.innerRef)
                 if (typeof props.innerRef === 'function') {
                     props.innerRef(ref);
                 }
@@ -3333,6 +3342,7 @@ exports.EllipsesTruncate = EllipsesTruncate;
 exports.FileToBase64 = FileToBase64;
 exports.FilterObjects = FilterObjects;
 exports.Form = Form;
+exports.FormFeedback = FormFeedback;
 exports.FormGroup = FormGroup;
 exports.FormatValue = FormatValue;
 exports.GetOrientation = GetOrientation;
