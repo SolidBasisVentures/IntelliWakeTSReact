@@ -89,7 +89,7 @@ export const InputSearch = React.forwardRef<HTMLInputElement, IPropsInputSearch>
 				if (!!innerRef?.current?.select) {
 					innerRef.current.select()
 				}
-			}, 250)
+			}, 500)
 		}
 	}
 

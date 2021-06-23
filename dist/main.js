@@ -2295,7 +2295,7 @@ var InputSearch = React__default['default'].forwardRef(function (props, ref) {
                 if (!!((_a = innerRef === null || innerRef === void 0 ? void 0 : innerRef.current) === null || _a === void 0 ? void 0 : _a.select)) {
                     innerRef.current.select();
                 }
-            }, 250);
+            }, 500);
         }
     };
     var inputProps = {
