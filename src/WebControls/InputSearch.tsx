@@ -27,6 +27,24 @@ export interface IPropsInputSearch {
 	autoCompleteOn?: boolean
 }
 
+function useCombinedRefs<T>(...refs: any) {
+	const targetRef = React.useRef<T>()
+
+	React.useEffect(() => {
+		refs.forEach((ref: any) => {
+			if (!ref) return
+
+			if (typeof ref === 'function') {
+				ref(targetRef.current)
+			} else {
+				ref.current = targetRef.current
+			}
+		})
+	}, [refs])
+
+	return targetRef
+}
+
 /**
  * A search input with an option to have a trigger delay or not.
  */
@@ -34,6 +52,8 @@ export const InputSearch = React.forwardRef<HTMLInputElement, IPropsInputSearch>
 	const triggeredText = useRef(props.initialValue ?? '')
 	const searchTimeout = useRef(setTimeout(() => {}, 100))
 	const [currentText, setCurrentText] = useState('')
+	const innerRef = React.useRef<HTMLInputElement>(null)
+	const combinedRef = useCombinedRefs<HTMLInputElement>(ref, innerRef)
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value ?? ''
@@ -85,14 +105,12 @@ export const InputSearch = React.forwardRef<HTMLInputElement, IPropsInputSearch>
 
 		if (!props.noSelectOnFocus) {
 			setTimeout(() => {
-				const innerRef = ref as any
-				console.log('InnerRef', !!innerRef)
-				console.log('InnerRefCurrent', !!innerRef?.current)
-				console.log('InnerRefCurrentSelect', !!innerRef?.current?.select)
-				console.log('InnerRefSelect', !!innerRef?.select)
-				if (!!innerRef?.current?.select) {
-					console.log('Select Exists')
-					innerRef.current.select()
+				const inputRef = ref as any
+				console.log(combinedRef, combinedRef?.current)
+				if (!!inputRef?.current?.select) {
+					inputRef.current.select()
+				} else if (!!combinedRef?.current?.select) {
+					combinedRef.current.select()
 				}
 			}, 500)
 		}
@@ -105,7 +123,7 @@ export const InputSearch = React.forwardRef<HTMLInputElement, IPropsInputSearch>
 		value: currentText,
 		onChange: handleInputChange,
 		onBlur: handleOnBlur,
-		ref: ref,
+		ref: combinedRef,
 		// innerRef: props.innerRef,
 		// innerRef: (ref: any) => {
 		// 	if (!!props.innerRef) {

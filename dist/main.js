@@ -2238,6 +2238,26 @@ function InputRadio(props) {
     return !!props.plainText ? (props.checked ? (props.label) : null) : (React__default['default'].createElement(reactstrap.CustomInput, { type: "radio", label: props.label, name: props.name, id: newID, className: 'inputRadio ' + ((_a = props.className) !== null && _a !== void 0 ? _a : ''), checked: props.checked, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, value: props.value, onClick: props.onClick }));
 }
 
+function useCombinedRefs() {
+    var refs = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        refs[_i] = arguments[_i];
+    }
+    var targetRef = React__default['default'].useRef();
+    React__default['default'].useEffect(function () {
+        refs.forEach(function (ref) {
+            if (!ref)
+                return;
+            if (typeof ref === 'function') {
+                ref(targetRef.current);
+            }
+            else {
+                ref.current = targetRef.current;
+            }
+        });
+    }, [refs]);
+    return targetRef;
+}
 /**
  * A search input with an option to have a trigger delay or not.
  */
@@ -2246,6 +2266,8 @@ var InputSearch = React__default['default'].forwardRef(function (props, ref) {
     var triggeredText = React.useRef((_a = props.initialValue) !== null && _a !== void 0 ? _a : '');
     var searchTimeout = React.useRef(setTimeout(function () { }, 100));
     var _d = React.useState(''), currentText = _d[0], setCurrentText = _d[1];
+    var innerRef = React__default['default'].useRef(null);
+    var combinedRef = useCombinedRefs(ref, innerRef);
     var handleInputChange = function (e) {
         var _a;
         var value = (_a = e.target.value) !== null && _a !== void 0 ? _a : '';
@@ -2291,14 +2313,13 @@ var InputSearch = React__default['default'].forwardRef(function (props, ref) {
         if (!props.noSelectOnFocus) {
             setTimeout(function () {
                 var _a, _b;
-                var innerRef = ref;
-                console.log('InnerRef', !!innerRef);
-                console.log('InnerRefCurrent', !!(innerRef === null || innerRef === void 0 ? void 0 : innerRef.current));
-                console.log('InnerRefCurrentSelect', !!((_a = innerRef === null || innerRef === void 0 ? void 0 : innerRef.current) === null || _a === void 0 ? void 0 : _a.select));
-                console.log('InnerRefSelect', !!(innerRef === null || innerRef === void 0 ? void 0 : innerRef.select));
-                if (!!((_b = innerRef === null || innerRef === void 0 ? void 0 : innerRef.current) === null || _b === void 0 ? void 0 : _b.select)) {
-                    console.log('Select Exists');
-                    innerRef.current.select();
+                var inputRef = ref;
+                console.log(combinedRef, combinedRef === null || combinedRef === void 0 ? void 0 : combinedRef.current);
+                if (!!((_a = inputRef === null || inputRef === void 0 ? void 0 : inputRef.current) === null || _a === void 0 ? void 0 : _a.select)) {
+                    inputRef.current.select();
+                }
+                else if (!!((_b = combinedRef === null || combinedRef === void 0 ? void 0 : combinedRef.current) === null || _b === void 0 ? void 0 : _b.select)) {
+                    combinedRef.current.select();
                 }
             }, 500);
         }
@@ -2310,7 +2331,7 @@ var InputSearch = React__default['default'].forwardRef(function (props, ref) {
         value: currentText,
         onChange: handleInputChange,
         onBlur: handleOnBlur,
-        ref: ref,
+        ref: combinedRef,
         // innerRef: props.innerRef,
         // innerRef: (ref: any) => {
         // 	if (!!props.innerRef) {
