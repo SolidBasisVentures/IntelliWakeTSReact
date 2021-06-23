@@ -87,6 +87,9 @@ export const InputSearch = React.forwardRef<HTMLInputElement, IPropsInputSearch>
 			setTimeout(() => {
 				const innerRef = ref as any
 				console.log('InnerRef', !!innerRef)
+				console.log('InnerRefCurrent', !!innerRef?.current)
+				console.log('InnerRefCurrentSelect', !!innerRef?.current?.select)
+				console.log('InnerRefSelect', !!innerRef?.select)
 				if (!!innerRef?.current?.select) {
 					console.log('Select Exists')
 					innerRef.current.select()
