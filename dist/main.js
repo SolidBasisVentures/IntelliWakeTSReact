@@ -2292,7 +2292,9 @@ var InputSearch = React__default['default'].forwardRef(function (props, ref) {
             setTimeout(function () {
                 var _a;
                 var innerRef = ref;
+                console.log('InnerRef', !!innerRef);
                 if (!!((_a = innerRef === null || innerRef === void 0 ? void 0 : innerRef.current) === null || _a === void 0 ? void 0 : _a.select)) {
+                    console.log('Select Exists');
                     innerRef.current.select();
                 }
             }, 500);
