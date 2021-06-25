@@ -231,7 +231,7 @@ export const CopyRefToClipboard = (ref: any, tryFormatted = true): boolean => {
 export const TableIDToExcel = (tableID: string, fileName?: string, appendDateTime = true) => {
 	const downloadName = `${fileName ?? tableID}${
 		appendDateTime ? `-${moment(new Date()).format('YYYY-MM-DD_HH-mm-ss')}.xls` : ''
-	}.xls`
+	}`
 	// const dataType = 'application/vnd.ms-excel'
 	const dataType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 	const tableSelect = document.getElementById(tableID) as any
