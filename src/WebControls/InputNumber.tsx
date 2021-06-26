@@ -68,7 +68,7 @@ export function InputNumber<T = any, V = any>(props: IPropsInputNumber<T, V>) {
 	return (
 		<InputWrapper<T, V>
 			{...ReduceToInputAddProps(props)}
-			inputIsValid={(val) => !isNaN(CleanNumber(val))}
+			inputIsValid={(val) => !isNaN(CleanNumber(val, undefined, true))}
 			valueOnInvalid={() => 0}
 			transformToValid={(val) => {
 				const cleanNumber = CleanNumber(val)

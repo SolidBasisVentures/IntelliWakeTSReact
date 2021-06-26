@@ -44,7 +44,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 		console.log('IntState', props.children.props.name, ' = ', internalState)
 	}
 
-	const verbose = true
+	const verbose = false
 
 	useEffect(() => {
 		isMounted.current = true
@@ -149,7 +149,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 									if (verbose) {
 										console.log('targetValue', e.target.value)
 										console.log('isValid', isValid)
-										console.log('valueOnInvalid', props.children.props.valueOnInvalid)
+										console.log('valueOnInvalid', !!props.children.props.valueOnInvalid)
 										console.log('props.transformToValid', !!props.transformToValid)
 										console.log('customValue', customValue)
 									}

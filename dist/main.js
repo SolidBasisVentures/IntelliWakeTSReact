@@ -2228,7 +2228,7 @@ function InputNumber(props) {
         options.numeralDecimalScale = props.decimalScale === undefined ? 2 : (_e = props.decimalScale) !== null && _e !== void 0 ? _e : undefined;
     }
     var hasDecimals = ((_f = props.decimalScale) !== null && _f !== void 0 ? _f : 0) > 0;
-    return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { inputIsValid: function (val) { return !isNaN(intelliwaketsfoundation.CleanNumber(val)); }, valueOnInvalid: function () { return 0; }, transformToValid: function (val) {
+    return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { inputIsValid: function (val) { return !isNaN(intelliwaketsfoundation.CleanNumber(val, undefined, true)); }, valueOnInvalid: function () { return 0; }, transformToValid: function (val) {
             var cleanNumber = intelliwaketsfoundation.CleanNumber(val);
             if (props.lowerBound !== undefined && cleanNumber < props.lowerBound)
                 return props.lowerBound;
