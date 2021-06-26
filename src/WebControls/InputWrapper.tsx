@@ -44,6 +44,8 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 		console.log('IntState', props.children.props.name, ' = ', internalState)
 	}
 
+	const verbose = true
+
 	useEffect(() => {
 		isMounted.current = true
 
@@ -62,6 +64,9 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 			(!props.isInvalid ||
 				(!!props.valueOnInvalid && props.children.props.value !== props.valueOnInvalid(internalState)))
 		) {
+			if (verbose) {
+				console.log('UE Val', props.children.props.value)
+			}
 			setInternalState(props.children.props.value as any)
 		}
 	}, [props.children.props.value])
@@ -141,11 +146,13 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 											: ((!props.transformToValid ? e.target.value : props.transformToValid(e.target.value, e)) as any)
 									) as V
 
-									// console.log('targetValue', e.target.value)
-									// console.log('isValid', isValid)
-									// console.log('valueOnInvalid', props.children.props.valueOnInvalid)
-									// console.log('props.transformToValid', !!props.transformToValid)
-									// console.log('customValue', customValue)
+									if (verbose) {
+										console.log('targetValue', e.target.value)
+										console.log('isValid', isValid)
+										console.log('valueOnInvalid', props.children.props.valueOnInvalid)
+										console.log('props.transformToValid', !!props.transformToValid)
+										console.log('customValue', customValue)
+									}
 									;(e.target as any).customValue = customValue
 
 									const newState: IState = {
@@ -190,11 +197,21 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 											}
 										}, props.lateDelayMS ?? 500)
 										if (!props.children.props.onChange && !props.changeValue && !props.changeValueLate) {
+											if (verbose) {
+												console.log('oC Val ISV?', !!props.internalStateValue, e.target.value)
+												if (!!props.internalStateValue)
+													console.log('oC Val ISV', props.internalStateValue(e.target.value, e))
+											}
 											setInternalState(
 												!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value
 											)
 										}
 									} else {
+										if (verbose) {
+											console.log('Else Val ISV?', !!props.internalStateValue, e.target.value)
+											if (!!props.internalStateValue)
+												console.log('Else Val ISV', props.internalStateValue(e.target.value, e))
+										}
 										setInternalState(
 											!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value
 										)
