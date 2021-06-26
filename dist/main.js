@@ -2019,6 +2019,9 @@ var InputWrapper = function (props) {
                 : internalState !== props.children.props.value) &&
             (!props.isInvalid ||
                 (!!props.valueOnInvalid && props.children.props.value !== props.valueOnInvalid(internalState)))) {
+            {
+                console.log('UE Val', props.children.props.value);
+            }
             setInternalState(props.children.props.value);
         }
     }, [props.children.props.value]);
@@ -2058,6 +2061,13 @@ var InputWrapper = function (props) {
                         ? props.children.props.valueOnInvalid(e.target.value)
                         : ''
                     : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value, e)));
+                {
+                    console.log('targetValue', e.target.value);
+                    console.log('isValid', isValid);
+                    console.log('valueOnInvalid', !!props.children.props.valueOnInvalid);
+                    console.log('props.transformToValid', !!props.transformToValid);
+                    console.log('customValue', customValue);
+                }
                 e.target.customValue = customValue;
                 var newState = {
                     value: customValue,
@@ -2086,10 +2096,20 @@ var InputWrapper = function (props) {
                         }
                     }, (_a = props.lateDelayMS) !== null && _a !== void 0 ? _a : 500);
                     if (!props.children.props.onChange && !props.changeValue && !props.changeValueLate) {
+                        {
+                            console.log('oC Val ISV?', !!props.internalStateValue, e.target.value);
+                            if (!!props.internalStateValue)
+                                console.log('oC Val ISV', props.internalStateValue(e.target.value, e));
+                        }
                         setInternalState(!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value);
                     }
                 }
                 else {
+                    {
+                        console.log('Else Val ISV?', !!props.internalStateValue, e.target.value);
+                        if (!!props.internalStateValue)
+                            console.log('Else Val ISV', props.internalStateValue(e.target.value, e));
+                    }
                     setInternalState(!!props.internalStateValue ? props.internalStateValue(e.target.value, e) : e.target.value);
                 }
             }

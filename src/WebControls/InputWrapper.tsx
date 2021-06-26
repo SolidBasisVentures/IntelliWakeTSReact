@@ -44,7 +44,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 		console.log('IntState', props.children.props.name, ' = ', internalState)
 	}
 
-	const verbose = false
+	const verbose = true
 
 	useEffect(() => {
 		isMounted.current = true
