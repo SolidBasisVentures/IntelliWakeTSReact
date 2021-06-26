@@ -2481,7 +2481,7 @@ function InputTextArea(props) {
         return subset;
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null,
-        React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputTextArea", plainTextControl: React__default['default'].createElement("div", __assign({ className: 'form-control-plaintext vertical-scroll horizontal-scroll' + (!!props.bordered ? ' border' : '') }, props.plainTextProps, { dangerouslySetInnerHTML: { __html: intelliwaketsfoundation.ReplaceLinks(intelliwaketsfoundation.CleanScripts('' + props.value)) }, style: {
+        React__default['default'].createElement(InputWrapper, __assign({ doNotSelectOnFocus: true }, ReduceToInputAddProps(props), { className: "inputTextArea", plainTextControl: React__default['default'].createElement("div", __assign({ className: 'form-control-plaintext vertical-scroll horizontal-scroll' + (!!props.bordered ? ' border' : '') }, props.plainTextProps, { dangerouslySetInnerHTML: { __html: intelliwaketsfoundation.ReplaceLinks(intelliwaketsfoundation.CleanScripts('' + props.value)) }, style: {
                     maxHeight: !!props.rows ? props.rows + 'em' : '5em',
                     overflowY: 'scroll'
                 } })) }),
