@@ -22,6 +22,7 @@ export function InputTextArea<T>(props: IProps<T>) {
 	return (
 		<>
 			<InputWrapper
+				doNotSelectOnFocus
 				{...ReduceToInputAddProps(props)}
 				className="inputTextArea"
 				plainTextControl={
