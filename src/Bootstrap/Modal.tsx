@@ -137,7 +137,8 @@ export const Modal = (props: IWModalProps) => {
 												if (!props.okDisabled) {
 													okAction(e)
 												}
-											}}>
+											}}
+											onKeyDown={(e) => e.stopPropagation()}>
 											{props.body}
 											{props.children}
 											<Button className="d-none" type="submit" />

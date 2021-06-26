@@ -11,6 +11,7 @@ export interface IWModalProps {
     dialogClassName?: string;
     bodyStyle?: CSSProperties;
     bodyClassName?: string;
+    bodyContainerFormSubmit?: boolean | string;
     noCancel?: boolean;
     cancelLabel?: ReactNode;
     noCancelButton?: boolean;
