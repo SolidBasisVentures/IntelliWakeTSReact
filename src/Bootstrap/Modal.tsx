@@ -10,7 +10,6 @@ export interface IWModalProps {
 	toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>
 	color?: string
 	title?: ReactNode
-	body?: ReactNode
 	dialogStyle?: CSSProperties
 	dialogClassName?: string
 	bodyStyle?: CSSProperties
@@ -111,7 +110,7 @@ export const Modal = (props: IWModalProps) => {
 					role="document"
 					style={props.dialogStyle}>
 					<div className="modal-content" onClick={(e) => e.stopPropagation()}>
-						{props.children ?? (
+						{props.title !== undefined ? (
 							<>
 								{!!props.title && (
 									<div className={`alert-${props.color ?? 'primary'} modal-header`}>
@@ -123,11 +122,9 @@ export const Modal = (props: IWModalProps) => {
 										)}
 									</div>
 								)}
-								{!!props.body && (
-									<div className={'modal-body ' + (props.bodyClassName ?? '')} style={props.bodyStyle}>
-										{props.body}
-									</div>
-								)}
+								<div className={'modal-body ' + (props.bodyClassName ?? '')} style={props.bodyStyle}>
+									{props.children}
+								</div>
 								{(!!props.okAction || !props.noCancelButton || !!props.footerLeft || !!props.footerRight) && (
 									<div className="modal-footer">
 										<div className="mr-auto">
@@ -157,6 +154,8 @@ export const Modal = (props: IWModalProps) => {
 									</div>
 								)}
 							</>
+						) : (
+							props.children
 						)}
 					</div>
 				</div>
