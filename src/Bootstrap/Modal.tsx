@@ -1,6 +1,8 @@
 import React, {CSSProperties, ReactNode, useCallback, useEffect, useRef} from 'react'
 import {KEY_ENTER, KEY_ESCAPE} from '../Functions'
 import Portal from './Portal'
+import {Form} from './Form'
+import {Button} from './Button'
 
 export interface IWModalProps {
 	isOpen?: boolean
@@ -15,6 +17,7 @@ export interface IWModalProps {
 	dialogClassName?: string
 	bodyStyle?: CSSProperties
 	bodyClassName?: string
+	bodyContainerFormSubmit?: boolean | string
 	noCancel?: boolean
 	cancelLabel?: ReactNode
 	noCancelButton?: boolean
@@ -124,8 +127,27 @@ export const Modal = (props: IWModalProps) => {
 									</div>
 								)}
 								<div className={'modal-body ' + (props.bodyClassName ?? '')} style={props.bodyStyle}>
-									{props.body}
-									{props.children}
+									{!!props.bodyContainerFormSubmit ? (
+										<Form
+											className={`container ${
+												typeof props.bodyContainerFormSubmit === 'string' ? props.bodyContainerFormSubmit : ''
+											}`.trim()}
+											onSubmitCapture={(e) => {
+												e.preventDefault()
+												if (!props.okDisabled) {
+													okAction(e)
+												}
+											}}>
+											{props.body}
+											{props.children}
+											<Button className="d-none" type="submit" />
+										</Form>
+									) : (
+										<>
+											{props.body}
+											{props.children}
+										</>
+									)}
 								</div>
 								{(!!props.okAction || !props.noCancelButton || !!props.footerLeft || !!props.footerRight) && (
 									<div className="modal-footer">

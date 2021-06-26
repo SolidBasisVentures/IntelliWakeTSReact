@@ -921,9 +921,17 @@ var Modal = function (props) {
                         !props.noCancel && (React__default['default'].createElement("button", { className: "close", onClick: toggle },
                             "\u00D7",
                             ' ')))),
-                    React__default['default'].createElement("div", { className: 'modal-body ' + ((_c = props.bodyClassName) !== null && _c !== void 0 ? _c : ''), style: props.bodyStyle },
+                    React__default['default'].createElement("div", { className: 'modal-body ' + ((_c = props.bodyClassName) !== null && _c !== void 0 ? _c : ''), style: props.bodyStyle }, !!props.bodyContainerFormSubmit ? (React__default['default'].createElement(Form, { className: ("container " + (typeof props.bodyContainerFormSubmit === 'string' ? props.bodyContainerFormSubmit : '')).trim(), onSubmitCapture: function (e) {
+                            e.preventDefault();
+                            if (!props.okDisabled) {
+                                okAction(e);
+                            }
+                        } },
                         props.body,
-                        props.children),
+                        props.children,
+                        React__default['default'].createElement(Button, { className: "d-none", type: "submit" }))) : (React__default['default'].createElement(React__default['default'].Fragment, null,
+                        props.body,
+                        props.children))),
                     (!!props.okAction || !props.noCancelButton || !!props.footerLeft || !!props.footerRight) && (React__default['default'].createElement("div", { className: "modal-footer" },
                         React__default['default'].createElement("div", { className: "mr-auto" },
                             (!props.noCancel || !props.noCancelButton) && (React__default['default'].createElement("button", { className: " btn btn-link  ", type: "button", onClick: toggle }, (_d = props.cancelLabel) !== null && _d !== void 0 ? _d : 'Cancel')),
