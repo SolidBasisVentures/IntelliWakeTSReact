@@ -40,11 +40,11 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 	)
 	const isManagingDirtyState = useRef(false)
 
+	const verbose = props.consoleVerbose
+
 	if (props.consoleVerbose) {
 		console.log('IntState', props.children.props.name, ' = ', internalState)
 	}
-
-	const verbose = true
 
 	useEffect(() => {
 		isMounted.current = true

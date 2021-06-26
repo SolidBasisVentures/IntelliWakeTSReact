@@ -2002,6 +2002,7 @@ var InputWrapper = function (props) {
     var lateState = React.useRef(undefined);
     var _f = React.useState(props.children.props.value), internalState = _f[0], setInternalState = _f[1];
     var isManagingDirtyState = React.useRef(false);
+    var verbose = props.consoleVerbose;
     if (props.consoleVerbose) {
         console.log('IntState', props.children.props.name, ' = ', internalState);
     }
@@ -2019,7 +2020,7 @@ var InputWrapper = function (props) {
                 : internalState !== props.children.props.value) &&
             (!props.isInvalid ||
                 (!!props.valueOnInvalid && props.children.props.value !== props.valueOnInvalid(internalState)))) {
-            {
+            if (verbose) {
                 console.log('UE Val', props.children.props.value);
             }
             setInternalState(props.children.props.value);
@@ -2061,7 +2062,7 @@ var InputWrapper = function (props) {
                         ? props.children.props.valueOnInvalid(e.target.value)
                         : ''
                     : (!props.transformToValid ? e.target.value : props.transformToValid(e.target.value, e)));
-                {
+                if (verbose) {
                     console.log('targetValue', e.target.value);
                     console.log('isValid', isValid);
                     console.log('valueOnInvalid', !!props.children.props.valueOnInvalid);
@@ -2096,7 +2097,7 @@ var InputWrapper = function (props) {
                         }
                     }, (_a = props.lateDelayMS) !== null && _a !== void 0 ? _a : 500);
                     if (!props.children.props.onChange && !props.changeValue && !props.changeValueLate) {
-                        {
+                        if (verbose) {
                             console.log('oC Val ISV?', !!props.internalStateValue, e.target.value);
                             if (!!props.internalStateValue)
                                 console.log('oC Val ISV', props.internalStateValue(e.target.value, e));
@@ -2105,7 +2106,7 @@ var InputWrapper = function (props) {
                     }
                 }
                 else {
-                    {
+                    if (verbose) {
                         console.log('Else Val ISV?', !!props.internalStateValue, e.target.value);
                         if (!!props.internalStateValue)
                             console.log('Else Val ISV', props.internalStateValue(e.target.value, e));
