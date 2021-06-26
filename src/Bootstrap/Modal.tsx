@@ -10,6 +10,7 @@ export interface IWModalProps {
 	toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>
 	color?: string
 	title?: ReactNode
+	body?: ReactNode
 	dialogStyle?: CSSProperties
 	dialogClassName?: string
 	bodyStyle?: CSSProperties
@@ -123,6 +124,7 @@ export const Modal = (props: IWModalProps) => {
 									</div>
 								)}
 								<div className={'modal-body ' + (props.bodyClassName ?? '')} style={props.bodyStyle}>
+									{props.body}
 									{props.children}
 								</div>
 								{(!!props.okAction || !props.noCancelButton || !!props.footerLeft || !!props.footerRight) && (
