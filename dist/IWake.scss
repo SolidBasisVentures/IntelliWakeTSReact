@@ -163,6 +163,11 @@ table.table-hover tbody tr,
   cursor: pointer;
 }
 
+.table-hover tbody tr:hover td:hover {
+  color: #212529 !important;
+  background-color: rgba(0, 0, 0, 0.075) !important;
+}
+
 @media print {
   .fixed-bottom {
     margin-top: 2em;
