@@ -1,20 +1,23 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, ReactNode} from 'react'
 
-export interface IIWButtonProps {
-	size?: 'sm' | 'lg'
+export interface IWButtonLightProps {
 	color?: string
 	outline?: boolean
 	hidden?: boolean
 	disabled?: boolean
-	block?: boolean
 	style?: React.CSSProperties
-	type?: 'button' | 'submit' | 'reset'
-	autoFocus?: boolean
 	className?: string
 	onClick?: React.MouseEventHandler<HTMLButtonElement>
+	children?: ReactNode
+}
+
+export interface IIWButtonProps extends IWButtonLightProps {
+	size?: 'sm' | 'lg'
+	block?: boolean
+	type?: 'button' | 'submit' | 'reset'
+	autoFocus?: boolean
 	tabIndex?: number
 	// innerRef?: MutableRefObject<HTMLButtonElement>
-	children?: any
 	onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>
 	onKeyPress?: React.KeyboardEventHandler<HTMLButtonElement>
 	title?: string

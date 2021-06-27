@@ -2,7 +2,7 @@ import React, {CSSProperties, ReactNode, useCallback, useEffect, useRef} from 'r
 import {KEY_ENTER, KEY_ESCAPE} from '../Functions'
 import Portal from './Portal'
 import {Form} from './Form'
-import {Button} from './Button'
+import {Button, IWButtonLightProps} from './Button'
 
 export interface IWModalProps {
 	isOpen?: boolean
@@ -26,6 +26,8 @@ export interface IWModalProps {
 	okDisabled?: boolean
 	footerLeft?: ReactNode
 	footerRight?: ReactNode
+	leftButtons?: IWButtonLightProps[]
+	rightButtons?: IWButtonLightProps[]
 	children?: any
 }
 
@@ -162,10 +164,16 @@ export const Modal = (props: IWModalProps) => {
 													{props.cancelLabel ?? 'Cancel'}
 												</button>
 											)}
+											{(props.leftButtons ?? []).map((leftButton) => (
+												<Button {...leftButton} />
+											))}
 											{props.footerLeft}
 										</div>
 										<div className="text-right">
 											{props.footerRight}
+											{(props.rightButtons ?? []).map((rightButton) => (
+												<Button {...rightButton} />
+											))}
 											{!!props.okAction && (
 												<button
 													className={`ml-1 btn btn-${props.color ?? 'primary'}`}

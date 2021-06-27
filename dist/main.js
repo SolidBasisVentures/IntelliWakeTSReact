@@ -854,7 +854,7 @@ var Portal = /** @class */ (function (_super) {
 }(React__default['default'].Component));
 
 var Modal = function (props) {
-    var _a, _b, _c, _d, _e, _f;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
     var divRef = React.useRef();
     var toggle = React.useCallback(function (e) {
         if (!!props.toggle && !props.noCancel) {
@@ -939,13 +939,15 @@ var Modal = function (props) {
                     (!!props.okAction || !props.noCancelButton || !!props.footerLeft || !!props.footerRight) && (React__default['default'].createElement("div", { className: "modal-footer" },
                         React__default['default'].createElement("div", { className: "mr-auto" },
                             (!props.noCancel || !props.noCancelButton) && (React__default['default'].createElement("button", { className: " btn btn-link  ", type: "button", onClick: toggle }, (_d = props.cancelLabel) !== null && _d !== void 0 ? _d : 'Cancel')),
+                            ((_e = props.leftButtons) !== null && _e !== void 0 ? _e : []).map(function (leftButton) { return (React__default['default'].createElement(Button, __assign({}, leftButton))); }),
                             props.footerLeft),
                         React__default['default'].createElement("div", { className: "text-right" },
                             props.footerRight,
-                            !!props.okAction && (React__default['default'].createElement("button", { className: "ml-1 btn btn-" + ((_e = props.color) !== null && _e !== void 0 ? _e : 'primary'), type: "button", disabled: props.okDisabled, onClick: function (e) {
+                            ((_f = props.rightButtons) !== null && _f !== void 0 ? _f : []).map(function (rightButton) { return (React__default['default'].createElement(Button, __assign({}, rightButton))); }),
+                            !!props.okAction && (React__default['default'].createElement("button", { className: "ml-1 btn btn-" + ((_g = props.color) !== null && _g !== void 0 ? _g : 'primary'), type: "button", disabled: props.okDisabled, onClick: function (e) {
                                     e.stopPropagation();
                                     okAction(e);
-                                }, ref: divRef }, (_f = props.okLabel) !== null && _f !== void 0 ? _f : 'OK'))))))) : (props.children)))),
+                                }, ref: divRef }, (_h = props.okLabel) !== null && _h !== void 0 ? _h : 'OK'))))))) : (props.children)))),
         React__default['default'].createElement("div", { className: 'modal-backdrop fade' + (props.isOpen ? ' show' : ''), style: { pointerEvents: props.isOpen ? undefined : 'none' }, onClick: toggle })));
 };
 
