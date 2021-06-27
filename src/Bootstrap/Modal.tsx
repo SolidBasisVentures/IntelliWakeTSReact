@@ -138,7 +138,11 @@ export const Modal = (props: IWModalProps) => {
 													okAction(e)
 												}
 											}}
-											onKeyDown={(e) => e.stopPropagation()}>
+											onKeyDown={(e) => {
+												if (e.keyCode === KEY_ENTER) {
+													e.stopPropagation()
+												}
+											}}>
 											{props.body}
 											{props.children}
 											<Button className="d-none" type="submit" />
