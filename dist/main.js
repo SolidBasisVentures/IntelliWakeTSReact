@@ -926,7 +926,11 @@ var Modal = function (props) {
                             if (!props.okDisabled) {
                                 okAction(e);
                             }
-                        }, onKeyDown: function (e) { return e.stopPropagation(); } },
+                        }, onKeyDown: function (e) {
+                            if (e.keyCode === KEY_ENTER) {
+                                e.stopPropagation();
+                            }
+                        } },
                         props.body,
                         props.children,
                         React__default['default'].createElement(Button, { className: "d-none", type: "submit" }))) : (React__default['default'].createElement(React__default['default'].Fragment, null,
