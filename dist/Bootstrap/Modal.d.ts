@@ -1,4 +1,5 @@
 import React, { CSSProperties, ReactNode } from 'react';
+import { IWButtonLightProps } from './Button';
 export interface IWModalProps {
     isOpen?: boolean;
     autoFocusElement?: any;
@@ -20,6 +21,8 @@ export interface IWModalProps {
     okDisabled?: boolean;
     footerLeft?: ReactNode;
     footerRight?: ReactNode;
+    leftButtons?: IWButtonLightProps[];
+    rightButtons?: IWButtonLightProps[];
     children?: any;
 }
 export declare const Modal: (props: IWModalProps) => JSX.Element;
