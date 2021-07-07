@@ -745,6 +745,110 @@ var Container = function (props) {
         })).trim() }), props.children));
 };
 
+var Dropdown = function (props) {
+    var _a, _b, _c, _d, _e, _f;
+    // const buttonRef = useRef<any>()
+    // const menuRef = useRef<any>()
+    var hasOpened = React.useRef(false);
+    var _g = React.useState((_a = props.isOpen) !== null && _a !== void 0 ? _a : false), isOpen = _g[0], setIsOpen = _g[1];
+    // const [offset, setOffset] = useState(0)
+    var TagToUse = ((_b = props.tag) !== null && _b !== void 0 ? _b : !!props.inNavbar) ? 'li' : 'div';
+    var isControlled = props.isOpen !== undefined;
+    var actualIsOpen = isControlled ? !!props.isOpen : isOpen;
+    // console.log('DD', isControlled, actualIsOpen)
+    var externalClick = function (e) {
+        if (actualIsOpen) {
+            e.stopPropagation();
+            if (!!props.toggle) {
+                props.toggle(e);
+            }
+            if (!isControlled) {
+                setIsOpen(false);
+            }
+        }
+    };
+    var externalEsc = function (e) {
+        if (e.keyCode === KEY_ESCAPE && actualIsOpen) {
+            e.stopPropagation();
+            if (!!props.toggle) {
+                props.toggle(e);
+            }
+            if (!isControlled) {
+                setIsOpen(false);
+            }
+        }
+    };
+    React.useEffect(function () {
+        // if (menuRef.current) {
+        // 	console.log(1)
+        // 	menuRef.current.addEventListener('resize', onResize)
+        // }
+        // if (actualIsOpen) {
+        // 	setOffset((buttonRef?.current?.offsetWidth ?? 0) - (menuRef?.current?.offsetWidth ?? 0))
+        // }
+        window.addEventListener('click', externalClick);
+        window.addEventListener('keydown', externalEsc);
+        return function () {
+            // menuRef.current.removeEventListener('resize', onResize)
+            window.removeEventListener('click', externalClick);
+            window.removeEventListener('keydown', externalEsc);
+        };
+    });
+    var classes = (_c = props.className) !== null && _c !== void 0 ? _c : '';
+    classes +=
+        ' ' +
+            ClassNames({
+                dropdown: true,
+                show: actualIsOpen,
+                'navbar-nav': !!props.inNavbar,
+                'nav-item': !!props.nav
+            });
+    if (actualIsOpen)
+        hasOpened.current = true;
+    // console.log('Here', buttonRef?.current?.offsetWidth, menuRef?.current?.offsetWidth)
+    // console.log('buttonRef', buttonRef?.current)
+    // console.log('menuRef', menuRef?.current)
+    // console.log('Offset', offset)
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'direction', 'isOpen', 'nav', 'toggle', 'inNavbar', 'right', 'toggleButtonLabel', 'toggleButtonClassName', 'menuClassName', 'size', 'color', 'className'), { className: classes, onClick: function (e) { return e.stopPropagation(); } }),
+        React__default['default'].createElement(Button, { color: props.color, size: props.size, className: !!props.nav || !!props.inNavbar ? undefined : (((_d = props.toggleButtonClassName) !== null && _d !== void 0 ? _d : '') + " dropdown-toggle").trim(), classNameOverride: !!props.nav || !!props.inNavbar
+                ? ("text-left nav-link dropdown-toggle " + ((_e = props.toggleButtonClassName) !== null && _e !== void 0 ? _e : '')).trim()
+                : undefined, onClick: function (e) {
+                e.stopPropagation();
+                if (!!props.toggle) {
+                    props.toggle(e);
+                }
+                if (!isControlled) {
+                    setIsOpen(function (prevState) { return !prevState; });
+                }
+            }, 
+            // ref={buttonRef}
+            style: { background: 'none', border: 'none' } }, props.toggleButtonLabel),
+        React__default['default'].createElement("div", { tabIndex: -1, className: (ClassNames({ show: actualIsOpen, 'dropdown-menu-right': !!props.right }) + " dropdown-menu " + ((_f = props.menuClassName) !== null && _f !== void 0 ? _f : '')).trim(), onClick: function (e) {
+                e.stopPropagation();
+                if (!!props.toggle) {
+                    props.toggle(e);
+                }
+                if (!isControlled) {
+                    setIsOpen(function (prevState) { return !prevState; });
+                }
+            } }, hasOpened.current && props.children)));
+};
+
+var DropdownItem = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : (!!props.href ? 'a' : 'div');
+    var classes = (_b = props.className) !== null && _b !== void 0 ? _b : '';
+    classes +=
+        ' ' +
+            ClassNames({
+                'dropdown-item': !props.header && !props.divider,
+                'dropdown-header': !!props.header,
+                'dropdown-divider': !!props.divider,
+                disabled: !!props.disabled
+            });
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'divider', 'header', 'className', 'size', 'type'), { className: classes, style: { cursor: !props.disabled && (!!props.href || !!props.onClick) ? 'pointer' : undefined } })));
+};
+
 var Form = function (props) {
     var _a;
     return (React__default['default'].createElement("form", __assign({}, intelliwaketsfoundation.OmitProperty(props, 'innerRef', 'inline', 'children'), { className: (((_a = props.className) !== null && _a !== void 0 ? _a : '') + " " + ClassNames({
@@ -3408,6 +3512,8 @@ exports.DateRangeDateStringToMoment = DateRangeDateStringToMoment;
 exports.DateRangeToMoment = DateRangeToMoment;
 exports.DateRangeToString = DateRangeToString;
 exports.DownloadBase64Data = DownloadBase64Data;
+exports.Dropdown = Dropdown;
+exports.DropdownItem = DropdownItem;
 exports.ElementCustomValue = ElementCustomValue;
 exports.EllipsesTruncate = EllipsesTruncate;
 exports.FileToBase64 = FileToBase64;
