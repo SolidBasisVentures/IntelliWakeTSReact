@@ -524,7 +524,7 @@ table.table-sortable thead th {
     right: 0;
     left: 0;
     z-index: 1030;
-    height: 18px !important;
+    height: 18px;
   }
 
   table.table-scrollable {
@@ -1655,4 +1655,10 @@ br {
 
 p {
   mso-data-placement: same-cell;
+}
+
+@media (max-width: 575.98px) {
+  #root > .App.IWApp > footer {
+    height: 36px;
+  }
 }
