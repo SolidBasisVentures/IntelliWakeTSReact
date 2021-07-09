@@ -12,7 +12,7 @@ export interface IWListGroupItemProps extends Omit<React.HTMLProps<HTMLLIElement
 	href?: string
 	className?: string
 	onClick?: React.MouseEventHandler<any>
-	badge?: null | string | number | ReactNode
+	badge?: null | string | number | ReactNode | boolean
 	badgeColor?: string
 	badgeNotSmall?: boolean
 }
