@@ -800,6 +800,7 @@ var Dropdown = function (props) {
             ClassNames({
                 dropdown: true,
                 show: actualIsOpen,
+                'd-inline-block': true,
                 'navbar-nav': !!props.inNavbar,
                 'nav-item': !!props.nav
             });
@@ -809,21 +810,21 @@ var Dropdown = function (props) {
     // console.log('buttonRef', buttonRef?.current)
     // console.log('menuRef', menuRef?.current)
     // console.log('Offset', offset)
-    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'direction', 'isOpen', 'nav', 'toggle', 'inNavbar', 'right', 'toggleButtonLabel', 'toggleButtonClassName', 'menuClassName', 'size', 'color', 'className'), { className: classes, onClick: function (e) { return e.stopPropagation(); } }),
-        React__default['default'].createElement(Button, { color: props.color, size: props.size, className: !!props.nav || !!props.inNavbar ? undefined : (((_d = props.toggleButtonClassName) !== null && _d !== void 0 ? _d : '') + " dropdown-toggle").trim(), classNameOverride: !!props.nav || !!props.inNavbar
-                ? ("text-left nav-link dropdown-toggle " + ((_e = props.toggleButtonClassName) !== null && _e !== void 0 ? _e : '')).trim()
-                : undefined, onClick: function (e) {
-                e.stopPropagation();
+    //onClick={(e: any) => e.stopPropagation()}
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'direction', 'isOpen', 'nav', 'toggle', 'inNavbar', 'right', 'toggleButtonLabel', 'toggleButtonClassName', 'menuClassName', 'size', 'color', 'className'), { className: classes }),
+        React__default['default'].createElement(Button, { color: props.color, size: props.size, className: !!props.nav || !!props.inNavbar ? undefined : ("" + ((_d = props.toggleButtonClassName) !== null && _d !== void 0 ? _d : '')).trim(), classNameOverride: !!props.nav || !!props.inNavbar ? ("text-left nav-link " + ((_e = props.toggleButtonClassName) !== null && _e !== void 0 ? _e : '')).trim() : undefined, onClick: function (e) {
+                // e.stopPropagation()
                 if (!!props.toggle) {
                     props.toggle(e);
                 }
                 if (!isControlled) {
                     setIsOpen(function (prevState) { return !prevState; });
                 }
-            }, 
-            // ref={buttonRef}
-            style: { background: 'none', border: 'none' } }, props.toggleButtonLabel),
-        React__default['default'].createElement("div", { tabIndex: -1, className: (ClassNames({ show: actualIsOpen, 'dropdown-menu-right': !!props.right }) + " dropdown-menu " + ((_f = props.menuClassName) !== null && _f !== void 0 ? _f : '')).trim(), onClick: function (e) {
+            }, style: !!props.nav || !!props.inNavbar ? { background: 'none', border: 'none' } : undefined }, props.toggleButtonLabel),
+        React__default['default'].createElement("div", { tabIndex: -1, className: (ClassNames({
+                show: actualIsOpen,
+                'dropdown-menu-right': !!props.right
+            }) + " dropdown-menu " + ((_f = props.menuClassName) !== null && _f !== void 0 ? _f : '')).trim(), onClick: function (e) {
                 e.stopPropagation();
                 if (!!props.toggle) {
                     props.toggle(e);
