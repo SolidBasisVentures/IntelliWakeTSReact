@@ -5,8 +5,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var intelliwaketsfoundation = require('@solidbasisventures/intelliwaketsfoundation');
 var React = require('react');
 var moment = require('moment');
-var ReactDOM = require('react-dom');
 var reactstrap = require('reactstrap');
+var ReactDOM = require('react-dom');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
 var proRegularSvgIcons = require('@fortawesome/pro-regular-svg-icons');
 var reactRouterDom = require('react-router-dom');
@@ -919,17 +919,29 @@ var ListGroup = function (props) {
 };
 
 var ListGroupItem = function (props) {
-    var _a, _b;
+    var _a, _b, _c;
     var TagToUse = ((_a = props.tag) !== null && _a !== void 0 ? _a : !!props.onClick) ? 'button'
         : !!props.href
             ? 'a'
             : 'li';
-    return (React__default['default'].createElement(TagToUse, __assign({ type: !!props.onClick ? 'button' : undefined }, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className', 'active', 'disabled', 'color', 'action'), { className: (ClassNames({
+    return (React__default['default'].createElement(TagToUse, __assign({ type: !!props.onClick ? 'button' : undefined }, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className', 'active', 'disabled', 'color', 'action', 'children'), { className: (ClassNames({
             active: !!props.active,
             disabled: !!props.disabled,
             'list-group-item-action': !!props.action,
-            'd-flex justify-content-between align-items-center': !!props.withBadge
-        }) + " list-group-item" + (!!props.color ? " list-group-item-" + props.color : '') + " " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim(), disabled: !!props.onClick && props.disabled ? true : undefined })));
+            'd-flex justify-content-between align-items-center': props.badge !== undefined
+        }) + " list-group-item" + (!!props.color ? " list-group-item-" + props.color : '') + " " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim(), disabled: !!props.onClick && props.disabled ? true : undefined }),
+        props.children,
+        props.badge === null ? (React__default['default'].createElement("span", { className: ("badge badge-secondary badge-pill " + (!!props.badgeNotSmall ? '' : 'small mt-1')).trim() },
+            React__default['default'].createElement(reactstrap.Spinner, { style: {
+                    width: '1em',
+                    height: '1em'
+                } }))) : (!!props.badge && (React__default['default'].createElement("span", { className: ("badge badge-" + ((_c = props.badgeColor) !== null && _c !== void 0 ? _c : 'secondary') + " badge-pill " + (!!props.badgeNotSmall ? '' : 'small mt-1')).trim() }, props.badge)))));
+};
+
+var ListGroupItemHeading = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'h5';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("list-group-item-heading " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
 };
 
 var ListGroupItemText = function (props) {
@@ -3585,6 +3597,7 @@ exports.KEY_UP_ARROW = KEY_UP_ARROW;
 exports.Label = Label;
 exports.ListGroup = ListGroup;
 exports.ListGroupItem = ListGroupItem;
+exports.ListGroupItemHeading = ListGroupItemHeading;
 exports.ListGroupItemText = ListGroupItemText;
 exports.MDDetail = MDDetail;
 exports.MDLink = MDLink;

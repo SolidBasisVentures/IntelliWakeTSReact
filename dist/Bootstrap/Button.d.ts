@@ -10,6 +10,7 @@ export interface IWButtonLightProps {
     children?: ReactNode;
 }
 export interface IIWButtonProps extends IWButtonLightProps {
+    tag?: string | React.ReactType;
     size?: 'sm' | 'lg';
     block?: boolean;
     type?: 'button' | 'submit' | 'reset';
