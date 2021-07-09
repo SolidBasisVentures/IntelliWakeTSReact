@@ -19,6 +19,7 @@ export interface IWDropdownProps extends Omit<React.HTMLProps<HTMLDivElement>, '
 	toggleButtonLabel: ReactNode
 	toggleButtonClassName?: string
 	menuClassName?: string
+	noCaret?: boolean
 }
 
 export const Dropdown = (props: IWDropdownProps) => {
@@ -119,6 +120,7 @@ export const Dropdown = (props: IWDropdownProps) => {
 				'toggleButtonLabel',
 				'toggleButtonClassName',
 				'menuClassName',
+				'noCaret',
 				'size',
 				'color',
 				'className'
@@ -127,9 +129,15 @@ export const Dropdown = (props: IWDropdownProps) => {
 			<Button
 				color={props.color}
 				size={props.size}
-				className={!!props.nav || !!props.inNavbar ? undefined : `${props.toggleButtonClassName ?? ''}`.trim()}
+				className={
+					!!props.nav || !!props.inNavbar
+						? undefined
+						: `${props.toggleButtonClassName ?? ''} ${props.noCaret ? '' : 'dropdown-toggle'}`.trim()
+				}
 				classNameOverride={
-					!!props.nav || !!props.inNavbar ? `text-left nav-link ${props.toggleButtonClassName ?? ''}`.trim() : undefined
+					!!props.nav || !!props.inNavbar
+						? `text-left nav-link ${props.toggleButtonClassName ?? ''} ${props.noCaret ? '' : 'dropdown-toggle'}`.trim()
+						: undefined
 				}
 				onClick={(e: any) => {
 					// e.stopPropagation()

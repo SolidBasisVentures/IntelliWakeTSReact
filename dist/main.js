@@ -811,8 +811,12 @@ var Dropdown = function (props) {
     // console.log('menuRef', menuRef?.current)
     // console.log('Offset', offset)
     //onClick={(e: any) => e.stopPropagation()}
-    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'direction', 'isOpen', 'nav', 'toggle', 'inNavbar', 'right', 'toggleButtonLabel', 'toggleButtonClassName', 'menuClassName', 'size', 'color', 'className'), { className: classes }),
-        React__default['default'].createElement(Button, { color: props.color, size: props.size, className: !!props.nav || !!props.inNavbar ? undefined : ("" + ((_d = props.toggleButtonClassName) !== null && _d !== void 0 ? _d : '')).trim(), classNameOverride: !!props.nav || !!props.inNavbar ? ("text-left nav-link " + ((_e = props.toggleButtonClassName) !== null && _e !== void 0 ? _e : '')).trim() : undefined, onClick: function (e) {
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'direction', 'isOpen', 'nav', 'toggle', 'inNavbar', 'right', 'toggleButtonLabel', 'toggleButtonClassName', 'menuClassName', 'noCaret', 'size', 'color', 'className'), { className: classes }),
+        React__default['default'].createElement(Button, { color: props.color, size: props.size, className: !!props.nav || !!props.inNavbar
+                ? undefined
+                : (((_d = props.toggleButtonClassName) !== null && _d !== void 0 ? _d : '') + " " + (props.noCaret ? '' : 'dropdown-toggle')).trim(), classNameOverride: !!props.nav || !!props.inNavbar
+                ? ("text-left nav-link " + ((_e = props.toggleButtonClassName) !== null && _e !== void 0 ? _e : '') + " " + (props.noCaret ? '' : 'dropdown-toggle')).trim()
+                : undefined, onClick: function (e) {
                 // e.stopPropagation()
                 if (!!props.toggle) {
                     props.toggle(e);
