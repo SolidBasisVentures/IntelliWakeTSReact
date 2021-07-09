@@ -12,6 +12,7 @@ export interface IWButtonLightProps {
 }
 
 export interface IIWButtonProps extends IWButtonLightProps {
+	tag?: string | React.ReactType
 	size?: 'sm' | 'lg'
 	block?: boolean
 	type?: 'button' | 'submit' | 'reset'
@@ -26,8 +27,10 @@ export interface IIWButtonProps extends IWButtonLightProps {
 }
 
 export const Button = forwardRef<HTMLButtonElement, IIWButtonProps>((props, ref) => {
+	const TagToUse = props.tag ?? ('button' as React.ReactType)
+
 	return (
-		<button
+		<TagToUse
 			className={
 				props.classNameOverride ??
 				(props.className ?? '') +
@@ -49,8 +52,8 @@ export const Button = forwardRef<HTMLButtonElement, IIWButtonProps>((props, ref)
 			hidden={props.hidden}
 			disabled={props.disabled}
 			style={props.style}
-			title={props.title}>
-			{props.children}
-		</button>
+			title={props.title}
+			children={props.children}
+		/>
 	)
 })

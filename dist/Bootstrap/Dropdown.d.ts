@@ -14,5 +14,6 @@ export interface IWDropdownProps extends Omit<React.HTMLProps<HTMLDivElement>, '
     toggleButtonLabel: ReactNode;
     toggleButtonClassName?: string;
     menuClassName?: string;
+    noCaret?: boolean;
 }
 export declare const Dropdown: (props: IWDropdownProps) => JSX.Element;

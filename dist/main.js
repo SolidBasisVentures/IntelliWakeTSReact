@@ -659,14 +659,15 @@ var Badge = function (props) {
 };
 
 var Button = React.forwardRef(function (props, ref) {
-    var _a, _b, _c, _d;
-    return (React__default['default'].createElement("button", { className: (_a = props.classNameOverride) !== null && _a !== void 0 ? _a : ((_b = props.className) !== null && _b !== void 0 ? _b : '') +
+    var _a, _b, _c, _d, _e;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'button';
+    return (React__default['default'].createElement(TagToUse, { className: (_b = props.classNameOverride) !== null && _b !== void 0 ? _b : ((_c = props.className) !== null && _c !== void 0 ? _c : '') +
             " btn " +
             (props.color === 'inline'
                 ? 'btn btn-link btn-link-inline '
-                : "btn-" + (props.outline ? 'outline-' : '') + ((_c = props.color) !== null && _c !== void 0 ? _c : 'secondary') + " ") +
+                : "btn-" + (props.outline ? 'outline-' : '') + ((_d = props.color) !== null && _d !== void 0 ? _d : 'secondary') + " ") +
             ("" + (!!props.size ? "btn-" + props.size : '')) // +
-        , type: (_d = props.type) !== null && _d !== void 0 ? _d : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: ref, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title }, props.children));
+        , type: (_e = props.type) !== null && _e !== void 0 ? _e : 'button', onClick: props.onClick, tabIndex: props.tabIndex, ref: ref, onKeyDown: props.onKeyDown, onKeyPress: props.onKeyPress, autoFocus: props.autoFocus, hidden: props.hidden, disabled: props.disabled, style: props.style, title: props.title, children: props.children }));
 });
 
 var Card = function (props) {
