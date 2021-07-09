@@ -89,6 +89,7 @@ export const Dropdown = (props: IWDropdownProps) => {
 		ClassNames({
 			dropdown: true,
 			show: actualIsOpen,
+			'd-inline-block': true,
 			'navbar-nav': !!props.inNavbar,
 			'nav-item': !!props.nav
 		})
@@ -100,6 +101,8 @@ export const Dropdown = (props: IWDropdownProps) => {
 	// console.log('menuRef', menuRef?.current)
 
 	// console.log('Offset', offset)
+
+	//onClick={(e: any) => e.stopPropagation()}
 
 	return (
 		<TagToUse
@@ -120,21 +123,16 @@ export const Dropdown = (props: IWDropdownProps) => {
 				'color',
 				'className'
 			)}
-			className={classes}
-			onClick={(e: any) => e.stopPropagation()}>
+			className={classes}>
 			<Button
 				color={props.color}
 				size={props.size}
-				className={
-					!!props.nav || !!props.inNavbar ? undefined : `${props.toggleButtonClassName ?? ''} dropdown-toggle`.trim()
-				}
+				className={!!props.nav || !!props.inNavbar ? undefined : `${props.toggleButtonClassName ?? ''}`.trim()}
 				classNameOverride={
-					!!props.nav || !!props.inNavbar
-						? `text-left nav-link dropdown-toggle ${props.toggleButtonClassName ?? ''}`.trim()
-						: undefined
+					!!props.nav || !!props.inNavbar ? `text-left nav-link ${props.toggleButtonClassName ?? ''}`.trim() : undefined
 				}
 				onClick={(e: any) => {
-					e.stopPropagation()
+					// e.stopPropagation()
 
 					if (!!props.toggle) {
 						props.toggle(e)
@@ -144,15 +142,17 @@ export const Dropdown = (props: IWDropdownProps) => {
 						setIsOpen((prevState) => !prevState)
 					}
 				}}
+				style={!!props.nav || !!props.inNavbar ? {background: 'none', border: 'none'} : undefined}
 				// ref={buttonRef}
-				style={{background: 'none', border: 'none'}}>
+			>
 				{props.toggleButtonLabel}
 			</Button>
 			<div
 				tabIndex={-1}
-				className={`${ClassNames({show: actualIsOpen, 'dropdown-menu-right': !!props.right})} dropdown-menu ${
-					props.menuClassName ?? ''
-				}`.trim()}
+				className={`${ClassNames({
+					show: actualIsOpen,
+					'dropdown-menu-right': !!props.right
+				})} dropdown-menu ${props.menuClassName ?? ''}`.trim()}
 				onClick={(e: any) => {
 					e.stopPropagation()
 
