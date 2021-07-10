@@ -155,7 +155,7 @@ export const Dropdown = (props: IWDropdownProps) => {
 			)}
 			className={classes}>
 			<Button
-				color={props.color ?? !!props.ddActions ? 'secondary' : undefined}
+				color={props.color ?? (!!props.ddActions && !props.nav && !props.inNavbar ? 'secondary' : undefined)}
 				size={props.size}
 				className={
 					!!props.nav || !!props.inNavbar
