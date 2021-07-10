@@ -1376,25 +1376,14 @@ var ModalPrompt = function (props) {
 };
 
 var Tab = function (props) {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
     var showTabs = props.tabs.filter(function (tab) { return !tab.hide; });
     var defaultTab = (_a = showTabs.find(function (tab) { return !tab.disabled && (!props.openTab || tab.title === props.openTab); })) === null || _a === void 0 ? void 0 : _a.title;
-    var _h = useStorage(props.rememberKey, defaultTab !== null && defaultTab !== void 0 ? defaultTab : '', (_b = props.rememberType) !== null && _b !== void 0 ? _b : 'session'), openTab = _h[0], setOpenTab = _h[1];
-    var _j = React.useState(!defaultTab ? [] : [defaultTab]), loadedTabs = _j[0], setLoadedTabs = _j[1];
-    var _k = React.useState(null), modalPromptProps = _k[0], setModalPromptProps = _k[1];
+    var _j = useStorage(props.rememberKey, defaultTab !== null && defaultTab !== void 0 ? defaultTab : '', (_b = props.rememberType) !== null && _b !== void 0 ? _b : 'session'), openTab = _j[0], setOpenTab = _j[1];
+    var _k = React.useState(!defaultTab ? [] : [defaultTab]), loadedTabs = _k[0], setLoadedTabs = _k[1];
+    var _l = React.useState(null), modalPromptProps = _l[0], setModalPromptProps = _l[1];
     var actualOpenTab = React.useMemo(function () { var _a; return (_a = showTabs.find(function (tab) { return !tab.disabled && tab.title === (!!props.setOpenTab ? props.openTab : openTab); })) === null || _a === void 0 ? void 0 : _a.title; }, [props.openTab, props.setOpenTab, openTab]);
     var setActualOpenTab = React.useCallback((_c = props.setOpenTab) !== null && _c !== void 0 ? _c : setOpenTab, [props, setOpenTab]);
-    React.useEffect(function () {
-        var _a;
-        console.log('aOT', actualOpenTab);
-        if (!actualOpenTab) {
-            var gotoTab = (_a = showTabs.find(function (tab) { return !tab.disabled; })) === null || _a === void 0 ? void 0 : _a.title;
-            console.log('goto', gotoTab);
-            if (gotoTab) {
-                setActualOpenTab(gotoTab);
-            }
-        }
-    }, [defaultTab, actualOpenTab, setActualOpenTab]);
     var openTabChanged = React.useCallback((_d = props.openTabChanged) !== null && _d !== void 0 ? _d : (function () { }), [props]);
     var changeOpenTab = React.useCallback(function (tabTitle) {
         if (actualOpenTab !== tabTitle) {
@@ -1418,14 +1407,23 @@ var Tab = function (props) {
             }
         }
     }, [actualOpenTab, openTabChanged, setOpenTab, props.isDirty]);
-    if (!actualOpenTab)
+    console.log('aOT', actualOpenTab);
+    if (!actualOpenTab) {
+        var gotoTab_1 = (_e = showTabs.find(function (tab) { return !tab.disabled; })) === null || _e === void 0 ? void 0 : _e.title;
+        console.log('goto', gotoTab_1);
+        if (gotoTab_1) {
+            setActualOpenTab(gotoTab_1);
+            openTabChanged(gotoTab_1);
+            setLoadedTabs(function (prevState) { return __spreadArrays(prevState.filter(function (pS) { return pS !== gotoTab_1; }), [gotoTab_1]); });
+        }
         return null;
+    }
     console.log('showTab', actualOpenTab);
     // "px-4 mt-3 mx-0 gray-tabs"
     // p-2 background-gray overflow-hidden
-    return (React__default['default'].createElement("div", { className: ClassNames({ 'fill-height': !!((_e = props.fillHeight) !== null && _e !== void 0 ? _e : true) }) },
+    return (React__default['default'].createElement("div", { className: ClassNames({ 'fill-height': !!((_f = props.fillHeight) !== null && _f !== void 0 ? _f : true) }) },
         React__default['default'].createElement(ModalPrompt, __assign({}, modalPromptProps, { dismiss: setModalPromptProps })),
-        React__default['default'].createElement("ul", { className: "nav px-4 mt-3 mx-0 gray-tabs nav-" + ((_f = props.tabType) !== null && _f !== void 0 ? _f : 'tabs') }, showTabs.map(function (tab) { return (React__default['default'].createElement("li", { key: tab.title, className: "nav-item" },
+        React__default['default'].createElement("ul", { className: "nav px-4 mt-3 mx-0 gray-tabs nav-" + ((_g = props.tabType) !== null && _g !== void 0 ? _g : 'tabs') }, showTabs.map(function (tab) { return (React__default['default'].createElement("li", { key: tab.title, className: "nav-item" },
             React__default['default'].createElement(Button, { color: "link", className: ClassNames({
                     'nav-link': true,
                     desktopOnly: true,
@@ -1439,7 +1437,7 @@ var Tab = function (props) {
                 tab.title))); })),
         React__default['default'].createElement("div", { className: ClassNames({
                 'tab-content': true,
-                'fill-height': !!((_g = props.fillHeight) !== null && _g !== void 0 ? _g : true),
+                'fill-height': !!((_h = props.fillHeight) !== null && _h !== void 0 ? _h : true),
                 'border-left': !props.noPaneBorder,
                 'border-right': !props.noPaneBorder,
                 'border-bottom': !props.noPaneBorder

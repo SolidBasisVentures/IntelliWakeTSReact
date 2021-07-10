@@ -1,4 +1,4 @@
-import React, {Dispatch, ReactNode, SetStateAction, useCallback, useEffect, useMemo, useState} from 'react'
+import React, {Dispatch, ReactNode, SetStateAction, useCallback, useMemo, useState} from 'react'
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
 import {TStorageType, useStorage} from '../Hooks/useStorage'
 import {Button} from './Button'
@@ -52,17 +52,6 @@ export const Tab = (props: IWTabProps) => {
 
 	const setActualOpenTab = useCallback(props.setOpenTab ?? setOpenTab, [props, setOpenTab])
 
-	useEffect(() => {
-		console.log('aOT', actualOpenTab)
-		if (!actualOpenTab) {
-			const gotoTab = showTabs.find((tab) => !tab.disabled)?.title
-			console.log('goto', gotoTab)
-			if (gotoTab) {
-				setActualOpenTab(gotoTab)
-			}
-		}
-	}, [defaultTab, actualOpenTab, setActualOpenTab])
-
 	const openTabChanged = useCallback(props.openTabChanged ?? (() => {}), [props])
 
 	const changeOpenTab = useCallback(
@@ -90,7 +79,18 @@ export const Tab = (props: IWTabProps) => {
 		[actualOpenTab, openTabChanged, setOpenTab, props.isDirty]
 	)
 
-	if (!actualOpenTab) return null
+	console.log('aOT', actualOpenTab)
+	if (!actualOpenTab) {
+		const gotoTab = showTabs.find((tab) => !tab.disabled)?.title
+		console.log('goto', gotoTab)
+		if (gotoTab) {
+			setActualOpenTab(gotoTab)
+			openTabChanged(gotoTab)
+			setLoadedTabs((prevState) => [...prevState.filter((pS) => pS !== gotoTab), gotoTab])
+		}
+
+		return null
+	}
 
 	console.log('showTab', actualOpenTab)
 
