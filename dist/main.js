@@ -1377,7 +1377,7 @@ var ModalPrompt = function (props) {
 
 var Tab = function (props) {
     var _a, _b, _c, _d, _e, _f, _g;
-    var showTabs = React.useMemo(function () { return props.tabs.filter(function (tab) { return !tab.hide; }); }, [props.tabs]);
+    var showTabs = props.tabs.filter(function (tab) { return !tab.hide; });
     var defaultTab = (_a = showTabs.find(function (tab) { return !tab.disabled && (!props.openTab || tab.title === props.openTab); })) === null || _a === void 0 ? void 0 : _a.title;
     var _h = useStorage(props.rememberKey, defaultTab !== null && defaultTab !== void 0 ? defaultTab : '', (_b = props.rememberType) !== null && _b !== void 0 ? _b : 'session'), openTab = _h[0], setOpenTab = _h[1];
     var _j = React.useState(!defaultTab ? [] : [defaultTab]), loadedTabs = _j[0], setLoadedTabs = _j[1];

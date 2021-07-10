@@ -35,7 +35,7 @@ export interface IWTabProps extends Omit<React.HTMLProps<HTMLDivElement>, 'ref'>
 }
 
 export const Tab = (props: IWTabProps) => {
-	const showTabs = useMemo<IIWTab[]>(() => props.tabs.filter((tab) => !tab.hide), [props.tabs])
+	const showTabs = props.tabs.filter((tab) => !tab.hide)
 	const defaultTab = showTabs.find((tab) => !tab.disabled && (!props.openTab || tab.title === props.openTab))?.title
 	const [openTab, setOpenTab] = useStorage<string>(
 		props.rememberKey,
