@@ -44,6 +44,7 @@ export * from './Bootstrap/NavbarBrand';
 export * from './Bootstrap/NavbarToggler';
 export * from './Bootstrap/Portal';
 export * from './Bootstrap/Row';
+export * from './Bootstrap/Tab';
 export * from './Bootstrap/Table';
 export * from './Hooks/useDeepCompareCallback';
 export * from './Hooks/useDeepCompareEffect';

@@ -1211,6 +1211,242 @@ var Row = function (props) {
         })).trim() }), props.children));
 };
 
+var setStorage = function (key, newValue, remember, defaultValue) {
+    if (!!key) {
+        switch (remember) {
+            case 'local':
+                if (newValue === defaultValue) {
+                    window.localStorage.removeItem(key);
+                }
+                else {
+                    if (typeof newValue === 'string') {
+                        window.localStorage.setItem(key, newValue);
+                    }
+                    else {
+                        window.localStorage.setItem(key, intelliwaketsfoundation.ObjectToJSONString(newValue));
+                    }
+                }
+                break;
+            case 'session':
+                if (newValue === defaultValue) {
+                    window.sessionStorage.removeItem(key);
+                }
+                else {
+                    if (typeof newValue === 'string') {
+                        window.sessionStorage.setItem(key, newValue);
+                    }
+                    else {
+                        window.sessionStorage.setItem(key, intelliwaketsfoundation.ObjectToJSONString(newValue));
+                    }
+                }
+                break;
+        }
+    }
+};
+var getStorage = function (key, remember, defaultValue) {
+    var _a, _b, _c;
+    if (!key)
+        return defaultValue;
+    var newValue = (remember === 'local'
+        ? (_a = window.localStorage.getItem(key)) !== null && _a !== void 0 ? _a : defaultValue : remember === 'session'
+        ? (_b = window.sessionStorage.getItem(key)) !== null && _b !== void 0 ? _b : defaultValue : defaultValue);
+    if (!!newValue && typeof newValue === 'string' && newValue.startsWith('json:')) {
+        return (_c = intelliwaketsfoundation.JSONStringToObject(newValue)) !== null && _c !== void 0 ? _c : newValue;
+    }
+    return newValue;
+};
+var useStorage = function (key, defaultValue, remember) {
+    var _a, _b;
+    if (remember === void 0) { remember = 'local'; }
+    var _c = React.useState((_a = getStorage(key, remember, defaultValue)) !== null && _a !== void 0 ? _a : defaultValue), value = _c[0], setValue = _c[1];
+    var saveValue = React.useCallback(function (val) {
+        if (typeof val === 'function') {
+            setValue(function (prevState) {
+                if (!!key) {
+                    var newValue = val(getStorage(key, remember, prevState !== null && prevState !== void 0 ? prevState : defaultValue));
+                    setStorage(key, newValue, remember, defaultValue);
+                    return newValue;
+                }
+                else {
+                    return val(prevState);
+                }
+            });
+        }
+        else {
+            if (!!key) {
+                setStorage(key, val, remember, defaultValue);
+            }
+            setValue(val);
+        }
+    }, []);
+    var currentValue = !!key ? (_b = getStorage(key, remember, defaultValue)) !== null && _b !== void 0 ? _b : value : value;
+    return [currentValue, saveValue, function () { return saveValue(defaultValue); }];
+};
+
+/**
+ * A wrapper for Bootstrap's Modal that handles all the actions.
+ *
+ * @example
+ * const [modalPromptProps, setModalPromptProps] = useState<null | IModalPromptProps>(null)
+ *
+ * setModalPromptProps({
+ * 	title: 'Do action?',
+ * 	color: 'danger',
+ * 	messageBody: 'Are you sure you want to do the action?',
+ * 	okLabel: 'Do',
+ * 	okAction: () => {doAction()}
+ * 	})
+ *
+ * <ModalPrompt {...modalPromptProps} dismiss={setModalPromptProps} />
+ */
+var ModalPrompt = function (props) {
+    var _a, _b, _c, _d, _e;
+    var promptResponsesAsArray = React.useMemo(function () {
+        if (props.promptResponses === null || props.promptResponses === undefined)
+            return [];
+        if (props.promptResponses.constructor === Array) {
+            return props.promptResponses;
+        }
+        else {
+            return [props.promptResponses];
+        }
+    }, [props.promptResponses]);
+    var title = React.useMemo(function () {
+        if (typeof props.title !== 'string' || !props.variables)
+            return props.title;
+        return intelliwaketsfoundation.EvaluateString(props.title, props.variables);
+    }, [props.title, props.variables]);
+    var messageBody = React.useMemo(function () {
+        if (typeof props.messageBody !== 'string' || !props.variables)
+            return props.messageBody;
+        return intelliwaketsfoundation.EvaluateString(props.messageBody, props.variables);
+    }, [props.messageBody, props.variables]);
+    var isOpen = React.useMemo(function () {
+        return (!!props.promptOnly ||
+            (props.promptResponses !== null && props.promptResponses !== undefined) ||
+            (!!props.okLabel && !!props.okAction)) &&
+            !props.hidden;
+    }, [props.title, props.messageBody, props.promptResponses, props.okLabel, props.okAction, props.hidden]);
+    var dismiss = React.useCallback(function (canceled) {
+        if (!!props.dismiss)
+            props.dismiss(null, canceled);
+        if (canceled && !!props.cancelAction)
+            props.cancelAction();
+    }, [props.dismiss, props.cancelAction]);
+    var okAction = function () {
+        !!props.okAction && props.okAction();
+        dismiss(false);
+    };
+    // const okKeyPress = (e: React.KeyboardEvent) => {
+    // 	if (!!props.okKeys) {
+    // 		if (Array.isArray(props.okKeys)) {
+    // 			for (const okKey of props.okKeys) {
+    // 				if (e.key === okKey) {
+    // 					okAction()
+    // 					break
+    // 				}
+    // 			}
+    // 		} else {
+    // 			if (e.key === KEY_STRING_ENTER) {
+    // 				okAction()
+    // 			} else if (e.key === props.okKeys) {
+    // 				okAction()
+    // 			}
+    // 		}
+    // 	} else if (e.key === KEY_STRING_ENTER) {
+    // 		okAction()
+    // 	}
+    // }
+    return (React__default['default'].createElement(reactstrap.Modal, { backdrop: true, keyboard: true, isOpen: isOpen, toggle: function () { return dismiss(true); }, autoFocus: false },
+        React__default['default'].createElement(reactstrap.ModalHeader, { className: 'alert-' + ((_a = props.color) !== null && _a !== void 0 ? _a : 'primary'), toggle: function () { return dismiss(true); }, close: React__default['default'].createElement("button", { className: "close", onClick: function () { return dismiss(true); } }, "\u00D7") }, title),
+        !!messageBody && React__default['default'].createElement(reactstrap.ModalBody, null, messageBody),
+        React__default['default'].createElement(reactstrap.ModalFooter, null,
+            React__default['default'].createElement(Button, { type: "button", onClick: function () { return dismiss(true); }, outline: props.cancelOutline, color: (_b = props.cancelColor) !== null && _b !== void 0 ? _b : (promptResponsesAsArray.length === 0 && (!props.okLabel || !props.okAction)
+                    ? (_c = props.color) !== null && _c !== void 0 ? _c : 'primary' : 'link') }, (_d = props.cancelLabel) !== null && _d !== void 0 ? _d : (promptResponsesAsArray.length === 0 && (!props.okLabel || !props.okAction) ? 'OK' : 'Cancel')),
+            promptResponsesAsArray.map(function (promptResponse, idx) {
+                var _a, _b;
+                return (React__default['default'].createElement(Button, { key: idx, onClick: function () {
+                        promptResponse.action();
+                        dismiss(false);
+                    }, outline: promptResponse.outline, color: (_b = (_a = promptResponse.color) !== null && _a !== void 0 ? _a : props.color) !== null && _b !== void 0 ? _b : 'primary', className: "ml-1" }, promptResponse.label));
+            }),
+            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(Button, { onClick: okAction, color: (_e = props.color) !== null && _e !== void 0 ? _e : 'primary', className: "ml-1", 
+                // onKeyPress={okKeyPress}
+                autoFocus: true, tabIndex: 0 }, props.okLabel)))));
+};
+
+var Tab = function (props) {
+    var _a, _b, _c, _d;
+    var showTabs = React.useMemo(function () { return props.tabs.filter(function (tab) { return !tab.hide; }); }, [props.tabs]);
+    var defaultTab = (_a = showTabs.find(function (tab) { return !tab.inactive && (!props.openTab || tab.title === props.openTab); })) === null || _a === void 0 ? void 0 : _a.title;
+    var _e = useStorage(props.rememberKey, defaultTab !== null && defaultTab !== void 0 ? defaultTab : '', (_b = props.rememberType) !== null && _b !== void 0 ? _b : 'session'), openTab = _e[0], setOpenTab = _e[1];
+    var _f = React.useState(!defaultTab ? [] : [defaultTab]), loadedTabs = _f[0], setLoadedTabs = _f[1];
+    var _g = React.useState(null), modalPromptProps = _g[0], setModalPromptProps = _g[1];
+    var openTabIsValid = showTabs.some(function (tab) { return !tab.inactive && tab.title === openTab; });
+    React.useEffect(function () {
+        if (!!defaultTab && !openTabIsValid) {
+            setOpenTab(defaultTab);
+        }
+    }, [defaultTab, openTabIsValid, setOpenTab]);
+    var openTabChanged = React.useCallback((_c = props.openTabChanged) !== null && _c !== void 0 ? _c : (function () { }), [props]);
+    var changeOpenTab = React.useCallback(function (tabTitle) {
+        if (openTab !== tabTitle) {
+            if (!props.isDirty) {
+                setOpenTab(tabTitle);
+                openTabChanged(tabTitle);
+                setLoadedTabs(function (prevState) { return __spreadArrays(prevState.filter(function (pS) { return pS !== tabTitle; }), [tabTitle]); });
+            }
+            else {
+                setModalPromptProps({
+                    title: 'Abandon Changes?',
+                    messageBody: 'Are you sure you want to abandon changes?',
+                    color: 'danger',
+                    okLabel: 'Abandon',
+                    okAction: function () {
+                        setOpenTab(tabTitle);
+                        openTabChanged(tabTitle);
+                        setLoadedTabs(function (prevState) { return __spreadArrays(prevState.filter(function (pS) { return pS !== tabTitle; }), [tabTitle]); });
+                    }
+                });
+            }
+        }
+    }, [openTab, openTabChanged, setOpenTab, props.isDirty]);
+    if (!openTabIsValid)
+        return null;
+    // "px-4 mt-3 mx-0 gray-tabs"
+    // p-2 background-gray overflow-hidden
+    return (React__default['default'].createElement("div", { className: ClassNames({ 'fill-height': !!props.fillHeight }) },
+        React__default['default'].createElement(ModalPrompt, __assign({}, modalPromptProps, { dismiss: setModalPromptProps })),
+        React__default['default'].createElement("ul", { className: "nav px-4 mt-3 mx-0 gray-tabs nav-" + ((_d = props.tabType) !== null && _d !== void 0 ? _d : 'tabs') }, showTabs.map(function (tab) { return (React__default['default'].createElement("li", { key: tab.title, className: "nav-item" },
+            React__default['default'].createElement(Button, { color: "link", className: ClassNames({
+                    'nav-link': true,
+                    desktopOnly: true,
+                    active: openTab === tab.title
+                }), onClick: function () { return changeOpenTab(tab.title); } },
+                !!tab.faProps && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, tab.faProps, { fixedWidth: true })),
+                tab.title))); })),
+        React__default['default'].createElement("div", { className: ClassNames({
+                'tab-content': true,
+                'fill-height': props.fillHeight === true,
+                'fill-height-scroll': props.fillHeight === 'scroll',
+                'border-left': !props.noPaneBorder,
+                'border-right': !props.noPaneBorder,
+                'border-bottom': !props.noPaneBorder
+            }) }, showTabs
+            .filter(function (tab) {
+            return !tab.hide &&
+                (!props.paneLoading ||
+                    props.paneLoading === 'All' ||
+                    tab.title === openTab ||
+                    (props.paneLoading === 'KeepOnceLoaded' && loadedTabs.some(function (loadedTab) { return tab.title === loadedTab; })));
+        })
+            .map(function (tab) { return (React__default['default'].createElement("div", { key: tab.title, className: ClassNames({
+                show: tab.title === openTab,
+                active: tab.title === openTab,
+                'p-2': !props.noPanePadding
+            }) + ' tab-pane fade ' }, tab.pane)); }))));
+};
+
 var Table = React.forwardRef(function (props, ref) {
     var _a;
     return (React__default['default'].createElement("table", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') +
@@ -1294,78 +1530,6 @@ function useDeepCompareMemo(factory, dependencies) {
     }
     return React__default['default'].useMemo(factory, useDeepCompareMemoize(dependencies));
 }
-
-var setStorage = function (key, newValue, remember, defaultValue) {
-    if (!!key) {
-        switch (remember) {
-            case 'local':
-                if (newValue === defaultValue) {
-                    window.localStorage.removeItem(key);
-                }
-                else {
-                    if (typeof newValue === 'string') {
-                        window.localStorage.setItem(key, newValue);
-                    }
-                    else {
-                        window.localStorage.setItem(key, intelliwaketsfoundation.ObjectToJSONString(newValue));
-                    }
-                }
-                break;
-            case 'session':
-                if (newValue === defaultValue) {
-                    window.sessionStorage.removeItem(key);
-                }
-                else {
-                    if (typeof newValue === 'string') {
-                        window.sessionStorage.setItem(key, newValue);
-                    }
-                    else {
-                        window.sessionStorage.setItem(key, intelliwaketsfoundation.ObjectToJSONString(newValue));
-                    }
-                }
-                break;
-        }
-    }
-};
-var getStorage = function (key, remember, defaultValue) {
-    var _a, _b, _c;
-    if (!key)
-        return defaultValue;
-    var newValue = (remember === 'local'
-        ? (_a = window.localStorage.getItem(key)) !== null && _a !== void 0 ? _a : defaultValue : remember === 'session'
-        ? (_b = window.sessionStorage.getItem(key)) !== null && _b !== void 0 ? _b : defaultValue : defaultValue);
-    if (!!newValue && typeof newValue === 'string' && newValue.startsWith('json:')) {
-        return (_c = intelliwaketsfoundation.JSONStringToObject(newValue)) !== null && _c !== void 0 ? _c : newValue;
-    }
-    return newValue;
-};
-var useStorage = function (key, defaultValue, remember) {
-    var _a, _b;
-    if (remember === void 0) { remember = 'local'; }
-    var _c = React.useState((_a = getStorage(key, remember, defaultValue)) !== null && _a !== void 0 ? _a : defaultValue), value = _c[0], setValue = _c[1];
-    var saveValue = React.useCallback(function (val) {
-        if (typeof val === 'function') {
-            setValue(function (prevState) {
-                if (!!key) {
-                    var newValue = val(getStorage(key, remember, prevState !== null && prevState !== void 0 ? prevState : defaultValue));
-                    setStorage(key, newValue, remember, defaultValue);
-                    return newValue;
-                }
-                else {
-                    return val(prevState);
-                }
-            });
-        }
-        else {
-            if (!!key) {
-                setStorage(key, val, remember, defaultValue);
-            }
-            setValue(val);
-        }
-    }, []);
-    var currentValue = !!key ? (_b = getStorage(key, remember, defaultValue)) !== null && _b !== void 0 ? _b : value : value;
-    return [currentValue, saveValue, function () { return saveValue(defaultValue); }];
-};
 
 var initialActivityOverlayState = {
     nestedCount: 0,
@@ -3422,98 +3586,6 @@ var MessageBox = function (props) {
             : null));
 };
 
-/**
- * A wrapper for Bootstrap's Modal that handles all the actions.
- *
- * @example
- * const [modalPromptProps, setModalPromptProps] = useState<null | IModalPromptProps>(null)
- *
- * setModalPromptProps({
- * 	title: 'Do action?',
- * 	color: 'danger',
- * 	messageBody: 'Are you sure you want to do the action?',
- * 	okLabel: 'Do',
- * 	okAction: () => {doAction()}
- * 	})
- *
- * <ModalPrompt {...modalPromptProps} dismiss={setModalPromptProps} />
- */
-var ModalPrompt = function (props) {
-    var _a, _b, _c, _d, _e;
-    var promptResponsesAsArray = React.useMemo(function () {
-        if (props.promptResponses === null || props.promptResponses === undefined)
-            return [];
-        if (props.promptResponses.constructor === Array) {
-            return props.promptResponses;
-        }
-        else {
-            return [props.promptResponses];
-        }
-    }, [props.promptResponses]);
-    var title = React.useMemo(function () {
-        if (typeof props.title !== 'string' || !props.variables)
-            return props.title;
-        return intelliwaketsfoundation.EvaluateString(props.title, props.variables);
-    }, [props.title, props.variables]);
-    var messageBody = React.useMemo(function () {
-        if (typeof props.messageBody !== 'string' || !props.variables)
-            return props.messageBody;
-        return intelliwaketsfoundation.EvaluateString(props.messageBody, props.variables);
-    }, [props.messageBody, props.variables]);
-    var isOpen = React.useMemo(function () {
-        return (!!props.promptOnly ||
-            (props.promptResponses !== null && props.promptResponses !== undefined) ||
-            (!!props.okLabel && !!props.okAction)) &&
-            !props.hidden;
-    }, [props.title, props.messageBody, props.promptResponses, props.okLabel, props.okAction, props.hidden]);
-    var dismiss = React.useCallback(function (canceled) {
-        if (!!props.dismiss)
-            props.dismiss(null, canceled);
-        if (canceled && !!props.cancelAction)
-            props.cancelAction();
-    }, [props.dismiss, props.cancelAction]);
-    var okAction = function () {
-        !!props.okAction && props.okAction();
-        dismiss(false);
-    };
-    // const okKeyPress = (e: React.KeyboardEvent) => {
-    // 	if (!!props.okKeys) {
-    // 		if (Array.isArray(props.okKeys)) {
-    // 			for (const okKey of props.okKeys) {
-    // 				if (e.key === okKey) {
-    // 					okAction()
-    // 					break
-    // 				}
-    // 			}
-    // 		} else {
-    // 			if (e.key === KEY_STRING_ENTER) {
-    // 				okAction()
-    // 			} else if (e.key === props.okKeys) {
-    // 				okAction()
-    // 			}
-    // 		}
-    // 	} else if (e.key === KEY_STRING_ENTER) {
-    // 		okAction()
-    // 	}
-    // }
-    return (React__default['default'].createElement(reactstrap.Modal, { backdrop: true, keyboard: true, isOpen: isOpen, toggle: function () { return dismiss(true); }, autoFocus: false },
-        React__default['default'].createElement(reactstrap.ModalHeader, { className: 'alert-' + ((_a = props.color) !== null && _a !== void 0 ? _a : 'primary'), toggle: function () { return dismiss(true); }, close: React__default['default'].createElement("button", { className: "close", onClick: function () { return dismiss(true); } }, "\u00D7") }, title),
-        !!messageBody && React__default['default'].createElement(reactstrap.ModalBody, null, messageBody),
-        React__default['default'].createElement(reactstrap.ModalFooter, null,
-            React__default['default'].createElement(Button, { type: "button", onClick: function () { return dismiss(true); }, outline: props.cancelOutline, color: (_b = props.cancelColor) !== null && _b !== void 0 ? _b : (promptResponsesAsArray.length === 0 && (!props.okLabel || !props.okAction)
-                    ? (_c = props.color) !== null && _c !== void 0 ? _c : 'primary' : 'link') }, (_d = props.cancelLabel) !== null && _d !== void 0 ? _d : (promptResponsesAsArray.length === 0 && (!props.okLabel || !props.okAction) ? 'OK' : 'Cancel')),
-            promptResponsesAsArray.map(function (promptResponse, idx) {
-                var _a, _b;
-                return (React__default['default'].createElement(Button, { key: idx, onClick: function () {
-                        promptResponse.action();
-                        dismiss(false);
-                    }, outline: promptResponse.outline, color: (_b = (_a = promptResponse.color) !== null && _a !== void 0 ? _a : props.color) !== null && _b !== void 0 ? _b : 'primary', className: "ml-1" }, promptResponse.label));
-            }),
-            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(Button, { onClick: okAction, color: (_e = props.color) !== null && _e !== void 0 ? _e : 'primary', className: "ml-1", 
-                // onKeyPress={okKeyPress}
-                autoFocus: true, tabIndex: 0 }, props.okLabel)))));
-};
-
 function NumberFormat(props) {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
     return (React__default['default'].createElement("span", { className: ((_a = props.className) !== null && _a !== void 0 ? _a : '') + ' ' + (((_b = props.value) !== null && _b !== void 0 ? _b : 0) < 0 ? (_c = props.classNameAddOnNegative) !== null && _c !== void 0 ? _c : 'text-danger' : '') }, props.percent
@@ -3746,6 +3818,7 @@ exports.SortObjects = SortObjects;
 exports.Spinner = Spinner;
 exports.StructuredArray = StructuredArray;
 exports.StyleControl = StyleControl;
+exports.Tab = Tab;
 exports.Table = Table;
 exports.TableIDToExcel = TableIDToExcel;
 exports.TextStatus = TextStatus;

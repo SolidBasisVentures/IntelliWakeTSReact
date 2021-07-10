@@ -115,11 +115,17 @@
   -webkit-logical-height: 1em;
   /* Chrome ignores auto, so we have to use this hack to set the correct height  */
   -webkit-logical-width: auto;
-  /* Chrome ignores auto, but here for completeness */ }
+  /* Chrome ignores auto, but here for completeness */
+  outline: none !important;
+  box-shadow: none !important; }
 
 .btn-link-inline:hover,
 .btn-link-inline:focus {
   text-decoration: underline; }
+
+.nav-link.btn-link {
+  outline: none !important;
+  box-shadow: none !important; }
 
 .invisible-xs-larger,
 .invisible-sm-larger,
