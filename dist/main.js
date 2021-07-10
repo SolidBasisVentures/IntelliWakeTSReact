@@ -669,8 +669,9 @@ var Spinner = function (props) {
 
 // noinspection SuspiciousTypeOfGuard
 var BadgeItem = function (props) {
+    var _a;
     var showProps = intelliwaketsfoundation.OmitProperty(props, 'badge', 'alwaysShowValue');
-    return props.badge === null ? (React__default['default'].createElement(Badge, __assign({}, showProps, { color: "secondary" }),
+    return props.badge === null ? (React__default['default'].createElement(Badge, __assign({}, showProps, { color: "light", className: 'text-gray ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') }),
         React__default['default'].createElement(Spinner, null))) : (props.alwaysShowValue && props.badge !== undefined) || !!props.badge ? (React__default['default'].createElement(Badge, __assign({}, showProps), typeof props.badge === 'number' ? intelliwaketsfoundation.ToDigits(props.badge, 0) : props.badge)) : null;
 };
 
