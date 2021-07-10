@@ -1,7 +1,14 @@
 import React, {ReactNode} from 'react'
 import {OmitProperty} from '@solidbasisventures/intelliwaketsfoundation'
 import {ClassNames} from '../Functions'
-import {Spinner} from 'reactstrap'
+import {BadgeItem} from './BadgeItem'
+
+/**
+ * null shows spinner
+ * !value removes the badge
+ * !!value shows the badge
+ */
+export type TBadgeValues = null | string | number | ReactNode | boolean
 
 export interface IWListGroupItemProps extends Omit<React.HTMLProps<HTMLLIElement>, 'ref' | 'action' | 'onClick'> {
 	tag?: string | React.ReactType
@@ -12,7 +19,7 @@ export interface IWListGroupItemProps extends Omit<React.HTMLProps<HTMLLIElement
 	href?: string
 	className?: string
 	onClick?: React.MouseEventHandler<any>
-	badge?: null | string | number | ReactNode | boolean
+	badge?: TBadgeValues
 	badgeColor?: string
 	badgeNotSmall?: boolean
 }
@@ -33,29 +40,11 @@ export const ListGroupItem = (props: IWListGroupItemProps) => {
 				active: !!props.active,
 				disabled: !!props.disabled,
 				'list-group-item-action': !!props.action,
-				'd-flex justify-content-between align-items-center': props.badge !== undefined
+				'd-flex justify-content-between align-items-center': props.badge === null || !!props.badge
 			})} list-group-item${!!props.color ? ` list-group-item-${props.color}` : ''} ${props.className ?? ''}`.trim()}
 			disabled={!!props.onClick && props.disabled ? true : undefined}>
 			{props.children}
-			{props.badge === null ? (
-				<span className={`badge badge-secondary badge-pill ${!!props.badgeNotSmall ? '' : 'small mt-1'}`.trim()}>
-					<Spinner
-						style={{
-							width: '1em',
-							height: '1em'
-						}}
-					/>
-				</span>
-			) : (
-				!!props.badge && (
-					<span
-						className={`badge badge-${props.badgeColor ?? 'secondary'} badge-pill ${
-							!!props.badgeNotSmall ? '' : 'small mt-1'
-						}`.trim()}>
-						{props.badge}
-					</span>
-				)
-			)}
+			<BadgeItem badge={props.badge} color={props.badgeColor} className={!!props.badgeNotSmall ? '' : 'small mt-1'} />
 		</TagToUse>
 	)
 }

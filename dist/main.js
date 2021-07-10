@@ -658,6 +658,15 @@ var Badge = function (props) {
     return React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'color', 'pill', 'className'), { className: classes.trim() }));
 };
 
+var BadgeItem = function (props) {
+    var _a;
+    return props.badge === null ? (React__default['default'].createElement("span", { className: ("badge badge-secondary badge-pill " + (!!props.badgeNotSmall ? '' : 'small mt-1')).trim() },
+        React__default['default'].createElement(reactstrap.Spinner, { style: {
+                width: '1em',
+                height: '1em'
+            } }))) : !!props.badge ? (React__default['default'].createElement("span", { className: ("badge badge-" + ((_a = props.badgeColor) !== null && _a !== void 0 ? _a : 'secondary') + " badge-pill " + (!!props.badgeNotSmall ? '' : 'small mt-1')).trim() }, props.badge)) : null;
+};
+
 var Button = React.forwardRef(function (props, ref) {
     var _a, _b, _c, _d, _e;
     var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'button';
@@ -919,7 +928,7 @@ var ListGroup = function (props) {
 };
 
 var ListGroupItem = function (props) {
-    var _a, _b, _c;
+    var _a, _b;
     var TagToUse = ((_a = props.tag) !== null && _a !== void 0 ? _a : !!props.onClick) ? 'button'
         : !!props.href
             ? 'a'
@@ -928,14 +937,10 @@ var ListGroupItem = function (props) {
             active: !!props.active,
             disabled: !!props.disabled,
             'list-group-item-action': !!props.action,
-            'd-flex justify-content-between align-items-center': props.badge !== undefined
+            'd-flex justify-content-between align-items-center': props.badge === null || !!props.badge
         }) + " list-group-item" + (!!props.color ? " list-group-item-" + props.color : '') + " " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim(), disabled: !!props.onClick && props.disabled ? true : undefined }),
         props.children,
-        props.badge === null ? (React__default['default'].createElement("span", { className: ("badge badge-secondary badge-pill " + (!!props.badgeNotSmall ? '' : 'small mt-1')).trim() },
-            React__default['default'].createElement(reactstrap.Spinner, { style: {
-                    width: '1em',
-                    height: '1em'
-                } }))) : (!!props.badge && (React__default['default'].createElement("span", { className: ("badge badge-" + ((_c = props.badgeColor) !== null && _c !== void 0 ? _c : 'secondary') + " badge-pill " + (!!props.badgeNotSmall ? '' : 'small mt-1')).trim() }, props.badge)))));
+        React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: !!props.badgeNotSmall ? '' : 'small mt-1' })));
 };
 
 var ListGroupItemHeading = function (props) {
@@ -3143,7 +3148,9 @@ var MDLink = function (props) {
                     else {
                         selectItem();
                     }
-                }, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
+                }, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }),
+                props.children,
+                React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: !!props.badgeNotSmall ? '' : 'small mt-1' })));
         case 'tr':
             return (React__default['default'].createElement("tr", __assign({}, displayProps, { onClick: (_a = props.onClick) !== null && _a !== void 0 ? _a : selectItem, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
         case 'div':
@@ -3273,6 +3280,7 @@ var MasterDetailListGroup = function (props) {
                                 ((_d = listGroupItem.className) !== null && _d !== void 0 ? _d : '') },
                             !!listGroupItem.faProps && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ fixedWidth: true }, listGroupItem.faProps)),
                             listGroupItem.linkNode,
+                            React__default['default'].createElement(BadgeItem, { badge: listGroupItem.badge, color: listGroupItem.badgeColor, badgeNotSmall: listGroupItem.badgeNotSmall }),
                             listGroupItem.counter !== undefined && (React__default['default'].createElement(reactstrap.Badge, { color: listGroupItem.counterColor, className: "float-right small text-white border-round ml-2" }, listGroupItem.counter !== null ? (intelliwaketsfoundation.ToDigits(listGroupItem.counter, 0)) : (React__default['default'].createElement(reactstrap.Spinner, { size: "sm", style: { width: '0.8em', height: '0.8em' } })))))));
                 }),
                 props.mdMasterBottomNode),
@@ -3502,6 +3510,7 @@ exports.ArrayTable = ArrayTable;
 exports.BRAfter = BRAfter;
 exports.BRBefore = BRBefore;
 exports.Badge = Badge;
+exports.BadgeItem = BadgeItem;
 exports.Button = Button;
 exports.CaptureGPS = CaptureGPS;
 exports.Card = Card;

@@ -1,4 +1,10 @@
 import React, { ReactNode } from 'react';
+/**
+ * null shows spinner
+ * !value removes the badge
+ * !!value shows the badge
+ */
+export declare type TBadgeValues = null | string | number | ReactNode | boolean;
 export interface IWListGroupItemProps extends Omit<React.HTMLProps<HTMLLIElement>, 'ref' | 'action' | 'onClick'> {
     tag?: string | React.ReactType;
     active?: boolean;
@@ -8,7 +14,7 @@ export interface IWListGroupItemProps extends Omit<React.HTMLProps<HTMLLIElement
     href?: string;
     className?: string;
     onClick?: React.MouseEventHandler<any>;
-    badge?: null | string | number | ReactNode | boolean;
+    badge?: TBadgeValues;
     badgeColor?: string;
     badgeNotSmall?: boolean;
 }

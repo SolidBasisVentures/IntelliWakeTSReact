@@ -1,6 +1,7 @@
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import React, { Dispatch, ReactNode, SetStateAction } from 'react';
 import { IMasterDetailProps } from './MasterDetail';
+import { TBadgeValues } from '../Bootstrap/ListGroupItem';
 export interface IMasterDetailListGroupMDLink {
     hidden?: boolean;
     faProps?: FontAwesomeIconProps;
@@ -10,6 +11,9 @@ export interface IMasterDetailListGroupMDLink {
     /** undefined = don't show, null = show with spinner, number (0, 1, etc.) = show */
     counter?: number | null;
     counterColor?: string;
+    badge?: TBadgeValues;
+    badgeColor?: string;
+    badgeNotSmall?: boolean;
     panelTitle?: string;
     panelURL?: string;
     id?: any;

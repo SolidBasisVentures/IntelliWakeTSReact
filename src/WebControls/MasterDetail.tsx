@@ -5,6 +5,8 @@ import {Redirect, useHistory} from 'react-router-dom'
 import {GetPathComponentAfter, GetPathThrough, SizeAtMin, TBootStrapExtendedSizes} from '../Functions'
 import {RandomString, ReplaceAll} from '@solidbasisventures/intelliwaketsfoundation'
 import {StyleControl} from './StyleControl'
+import {TBadgeValues} from '../Bootstrap/ListGroupItem'
+import {BadgeItem} from '../Bootstrap/BadgeItem'
 
 export interface MenuBackItem {
 	menuBackActive: boolean
@@ -145,6 +147,9 @@ interface IPropsMasterLink {
 	noAutoScroll?: boolean
 	postPath?: string
 	blockActivate?: boolean
+	badge?: TBadgeValues
+	badgeColor?: string
+	badgeNotSmall?: boolean
 }
 
 export const panelClean = (panel?: string | null): string => ReplaceAll('/', '', (panel ?? '').replace(/\s+/g, ''))
@@ -208,6 +213,11 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 					title={props.title}
 					ref={!props.noAutoScroll && linkActive ? selectedRow : null}>
 					{props.children}
+					<BadgeItem
+						badge={props.badge}
+						color={props.badgeColor}
+						className={!!props.badgeNotSmall ? '' : 'small mt-1'}
+					/>
 				</li>
 			)
 		case 'tr':

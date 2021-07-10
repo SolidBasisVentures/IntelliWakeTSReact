@@ -5,6 +5,7 @@ export * from './Environment';
 export * from './Functions';
 export * from './Photos';
 export * from './Bootstrap/Badge';
+export * from './Bootstrap/BadgeItem';
 export * from './Bootstrap/Button';
 export * from './Bootstrap/Card';
 export * from './Bootstrap/CardBody';

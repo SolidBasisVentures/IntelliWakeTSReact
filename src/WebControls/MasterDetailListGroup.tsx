@@ -4,6 +4,8 @@ import {Badge, ListGroup, ListGroupItemHeading, Spinner} from 'reactstrap'
 import {IMasterDetailProps, MasterDetail, MDDetail, MDLink, MDMaster} from './MasterDetail'
 import {ToDigits, ToPascalCase} from '@solidbasisventures/intelliwaketsfoundation'
 import {ClassNames} from '../Functions'
+import {TBadgeValues} from '../Bootstrap/ListGroupItem'
+import {BadgeItem} from '../Bootstrap/BadgeItem'
 
 export interface IMasterDetailListGroupMDLink {
 	hidden?: boolean
@@ -14,6 +16,9 @@ export interface IMasterDetailListGroupMDLink {
 	/** undefined = don't show, null = show with spinner, number (0, 1, etc.) = show */
 	counter?: number | null
 	counterColor?: string
+	badge?: TBadgeValues
+	badgeColor?: string
+	badgeNotSmall?: boolean
 	panelTitle?: string
 	panelURL?: string
 	id?: any
@@ -147,6 +152,11 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 									}>
 									{!!listGroupItem.faProps && <FontAwesomeIcon fixedWidth {...listGroupItem.faProps} />}
 									{listGroupItem.linkNode}
+									<BadgeItem
+										badge={listGroupItem.badge}
+										color={listGroupItem.badgeColor}
+										badgeNotSmall={listGroupItem.badgeNotSmall}
+									/>
 									{listGroupItem.counter !== undefined && (
 										<Badge
 											color={listGroupItem.counterColor}

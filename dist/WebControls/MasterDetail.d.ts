@@ -1,5 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { TBootStrapExtendedSizes } from '../Functions';
+import { TBadgeValues } from '../Bootstrap/ListGroupItem';
 export interface MenuBackItem {
     menuBackActive: boolean;
     menuBackButtonTitle: ReactNode;
@@ -39,6 +40,9 @@ interface IPropsMasterLink {
     noAutoScroll?: boolean;
     postPath?: string;
     blockActivate?: boolean;
+    badge?: TBadgeValues;
+    badgeColor?: string;
+    badgeNotSmall?: boolean;
 }
 export declare const panelClean: (panel?: string | null | undefined) => string;
 export declare const MDLink: (props: IPropsMasterLink | any) => JSX.Element;
