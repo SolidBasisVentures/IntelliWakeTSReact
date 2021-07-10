@@ -1376,12 +1376,12 @@ var ModalPrompt = function (props) {
 };
 
 var Tab = function (props) {
-    var _a, _b, _c, _d, _e, _f;
+    var _a, _b, _c, _d, _e, _f, _g;
     var showTabs = React.useMemo(function () { return props.tabs.filter(function (tab) { return !tab.hide; }); }, [props.tabs]);
     var defaultTab = (_a = showTabs.find(function (tab) { return !tab.disabled && (!props.openTab || tab.title === props.openTab); })) === null || _a === void 0 ? void 0 : _a.title;
-    var _g = useStorage(props.rememberKey, defaultTab !== null && defaultTab !== void 0 ? defaultTab : '', (_b = props.rememberType) !== null && _b !== void 0 ? _b : 'session'), openTab = _g[0], setOpenTab = _g[1];
-    var _h = React.useState(!defaultTab ? [] : [defaultTab]), loadedTabs = _h[0], setLoadedTabs = _h[1];
-    var _j = React.useState(null), modalPromptProps = _j[0], setModalPromptProps = _j[1];
+    var _h = useStorage(props.rememberKey, defaultTab !== null && defaultTab !== void 0 ? defaultTab : '', (_b = props.rememberType) !== null && _b !== void 0 ? _b : 'session'), openTab = _h[0], setOpenTab = _h[1];
+    var _j = React.useState(!defaultTab ? [] : [defaultTab]), loadedTabs = _j[0], setLoadedTabs = _j[1];
+    var _k = React.useState(null), modalPromptProps = _k[0], setModalPromptProps = _k[1];
     var actualOpenTab = React.useMemo(function () { var _a; return (_a = showTabs.find(function (tab) { return !tab.disabled && tab.title === (!!props.setOpenTab ? props.openTab : openTab); })) === null || _a === void 0 ? void 0 : _a.title; }, [props.openTab, props.setOpenTab, openTab]);
     var setActualOpenTab = React.useCallback((_c = props.setOpenTab) !== null && _c !== void 0 ? _c : setOpenTab, [props, setOpenTab]);
     React.useEffect(function () {
@@ -1432,7 +1432,7 @@ var Tab = function (props) {
                 tab.title))); })),
         React__default['default'].createElement("div", { className: ClassNames({
                 'tab-content': true,
-                'fill-height': !!props.fillHeight,
+                'fill-height': !!((_g = props.fillHeight) !== null && _g !== void 0 ? _g : true),
                 'border-left': !props.noPaneBorder,
                 'border-right': !props.noPaneBorder,
                 'border-bottom': !props.noPaneBorder

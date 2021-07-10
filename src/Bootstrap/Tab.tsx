@@ -118,7 +118,7 @@ export const Tab = (props: IWTabProps) => {
 			<div
 				className={ClassNames({
 					'tab-content': true,
-					'fill-height': !!props.fillHeight,
+					'fill-height': !!(props.fillHeight ?? true),
 					'border-left': !props.noPaneBorder,
 					'border-right': !props.noPaneBorder,
 					'border-bottom': !props.noPaneBorder
