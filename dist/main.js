@@ -950,14 +950,14 @@ var ListGroupItem = function (props) {
         : !!props.href
             ? 'a'
             : 'li';
-    return (React__default['default'].createElement(TagToUse, __assign({ type: !!props.onClick ? 'button' : undefined }, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className', 'active', 'disabled', 'color', 'action', 'children'), { className: (ClassNames({
+    return (React__default['default'].createElement(TagToUse, __assign({ type: !!props.onClick ? 'button' : undefined }, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className', 'active', 'disabled', 'color', 'badgeColor', 'action', 'children'), { className: (ClassNames({
             active: !!props.active,
             disabled: !!props.disabled,
             'list-group-item-action': !!props.action
             // 'd-flex justify-content-between align-items-center': props.badge === null || !!props.badge
         }) + " list-group-item" + (!!props.color ? " list-group-item-" + props.color : '') + " " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim(), disabled: !!props.onClick && props.disabled ? true : undefined }),
         props.children,
-        React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: 'float-right' + (!!props.badgeNotSmall ? '' : 'small mt-1') })));
+        React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: "float-right" })));
 };
 
 var ListGroupItemHeading = function (props) {
@@ -3115,6 +3115,8 @@ var MDLink = function (props) {
     delete displayProps.postPath;
     delete displayProps.id;
     delete displayProps.blockActivate;
+    delete displayProps.badge;
+    delete displayProps.color;
     var selectItem = function () {
         if (!props.blockActivate) {
             window.sessionStorage.removeItem(mdContext.baseFullPath + '-LastURL');
@@ -3140,7 +3142,7 @@ var MDLink = function (props) {
                     }
                 }, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }),
                 props.children,
-                React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: 'float-right ' + (!!props.badgeNotSmall ? '' : 'small mt-1') })));
+                React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.color, className: "float-right" })));
         case 'tr':
             return (React__default['default'].createElement("tr", __assign({}, displayProps, { onClick: (_a = props.onClick) !== null && _a !== void 0 ? _a : selectItem, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
         case 'div':

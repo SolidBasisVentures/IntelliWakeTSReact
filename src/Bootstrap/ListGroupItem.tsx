@@ -21,7 +21,6 @@ export interface IWListGroupItemProps extends Omit<React.HTMLProps<HTMLLIElement
 	onClick?: React.MouseEventHandler<any>
 	badge?: TBadgeValues
 	badgeColor?: string
-	badgeNotSmall?: boolean
 }
 
 export const ListGroupItem = (props: IWListGroupItemProps) => {
@@ -35,7 +34,7 @@ export const ListGroupItem = (props: IWListGroupItemProps) => {
 	return (
 		<TagToUse
 			type={!!props.onClick ? 'button' : undefined}
-			{...OmitProperty(props, 'tag', 'className', 'active', 'disabled', 'color', 'action', 'children')}
+			{...OmitProperty(props, 'tag', 'className', 'active', 'disabled', 'color', 'badgeColor', 'action', 'children')}
 			className={`${ClassNames({
 				active: !!props.active,
 				disabled: !!props.disabled,
@@ -44,11 +43,7 @@ export const ListGroupItem = (props: IWListGroupItemProps) => {
 			})} list-group-item${!!props.color ? ` list-group-item-${props.color}` : ''} ${props.className ?? ''}`.trim()}
 			disabled={!!props.onClick && props.disabled ? true : undefined}>
 			{props.children}
-			<BadgeItem
-				badge={props.badge}
-				color={props.badgeColor}
-				className={'float-right' + (!!props.badgeNotSmall ? '' : 'small mt-1')}
-			/>
+			<BadgeItem badge={props.badge} color={props.badgeColor} className="float-right" />
 		</TagToUse>
 	)
 }

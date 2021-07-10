@@ -148,8 +148,7 @@ interface IPropsMasterLink {
 	postPath?: string
 	blockActivate?: boolean
 	badge?: TBadgeValues
-	badgeColor?: string
-	badgeNotSmall?: boolean
+	color?: string
 }
 
 export const panelClean = (panel?: string | null): string => ReplaceAll('/', '', (panel ?? '').replace(/\s+/g, ''))
@@ -181,6 +180,8 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 	delete displayProps.postPath
 	delete displayProps.id
 	delete displayProps.blockActivate
+	delete displayProps.badge
+	delete displayProps.color
 
 	const selectItem = () => {
 		if (!props.blockActivate) {
@@ -214,11 +215,7 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 					title={props.title}
 					ref={!props.noAutoScroll && linkActive ? selectedRow : null}>
 					{props.children}
-					<BadgeItem
-						badge={props.badge}
-						color={props.badgeColor}
-						className={'float-right ' + (!!props.badgeNotSmall ? '' : 'small mt-1')}
-					/>
+					<BadgeItem badge={props.badge} color={props.color} className="float-right" />
 				</li>
 			)
 		case 'tr':
