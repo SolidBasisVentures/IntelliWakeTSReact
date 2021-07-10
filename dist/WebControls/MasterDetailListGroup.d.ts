@@ -13,7 +13,6 @@ export interface IMasterDetailListGroupMDLink {
     counterColor?: string;
     badge?: TBadgeValues;
     badgeColor?: string;
-    badgeNotSmall?: boolean;
     panelTitle?: string;
     panelURL?: string;
     id?: any;

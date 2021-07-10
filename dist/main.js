@@ -3116,6 +3116,7 @@ var MDLink = function (props) {
     delete displayProps.id;
     delete displayProps.blockActivate;
     delete displayProps.badge;
+    delete displayProps.badgeColor;
     delete displayProps.color;
     var selectItem = function () {
         if (!props.blockActivate) {
