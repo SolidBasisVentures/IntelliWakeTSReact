@@ -21,7 +21,6 @@ export interface IMasterDetailListGroupMDLink {
 	counterColor?: string
 	badge?: TBadgeValues
 	badgeColor?: string
-	badgeNotSmall?: boolean
 	panelTitle?: string
 	panelURL?: string
 	id?: any
@@ -155,11 +154,7 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 									}>
 									{!!listGroupItem.faProps && <FontAwesomeIcon fixedWidth {...listGroupItem.faProps} />}
 									{listGroupItem.linkNode}
-									<BadgeItem
-										badge={listGroupItem.badge}
-										color={listGroupItem.badgeColor}
-										badgeNotSmall={listGroupItem.badgeNotSmall}
-									/>
+									<BadgeItem badge={listGroupItem.badge} color={listGroupItem.badgeColor} />
 									{listGroupItem.counter !== undefined && (
 										<Badge
 											color={listGroupItem.counterColor}

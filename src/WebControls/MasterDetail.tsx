@@ -215,7 +215,7 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 					title={props.title}
 					ref={!props.noAutoScroll && linkActive ? selectedRow : null}>
 					{props.children}
-					<BadgeItem badge={props.badge} color={props.color} className="float-right" />
+					<BadgeItem badge={props.badge} color={props.badgeColor} className="float-right" />
 				</li>
 			)
 		case 'tr':

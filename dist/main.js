@@ -3142,7 +3142,7 @@ var MDLink = function (props) {
                     }
                 }, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }),
                 props.children,
-                React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.color, className: "float-right" })));
+                React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: "float-right" })));
         case 'tr':
             return (React__default['default'].createElement("tr", __assign({}, displayProps, { onClick: (_a = props.onClick) !== null && _a !== void 0 ? _a : selectItem, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
         case 'div':
@@ -3272,7 +3272,7 @@ var MasterDetailListGroup = function (props) {
                                 ((_d = listGroupItem.className) !== null && _d !== void 0 ? _d : '') },
                             !!listGroupItem.faProps && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ fixedWidth: true }, listGroupItem.faProps)),
                             listGroupItem.linkNode,
-                            React__default['default'].createElement(BadgeItem, { badge: listGroupItem.badge, color: listGroupItem.badgeColor, badgeNotSmall: listGroupItem.badgeNotSmall }),
+                            React__default['default'].createElement(BadgeItem, { badge: listGroupItem.badge, color: listGroupItem.badgeColor }),
                             listGroupItem.counter !== undefined && (React__default['default'].createElement(Badge, { color: listGroupItem.counterColor, className: "float-right small text-white border-round ml-2" }, listGroupItem.counter !== null ? intelliwaketsfoundation.ToDigits(listGroupItem.counter, 0) : React__default['default'].createElement(Spinner, { size: "xs" }))))));
                 }),
                 props.mdMasterBottomNode),
