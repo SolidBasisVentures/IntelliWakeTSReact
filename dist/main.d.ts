@@ -50,7 +50,6 @@ export * from './Hooks/useDeepCompareEffect';
 export * from './Hooks/useDeepCompareMemo';
 export * from './Hooks/useDeepCompareMemoize';
 export * from './Hooks/useStorage';
-export * from './Hooks/useRecoilStorage';
 export * from './WebControls/ActivityOverlay';
 export * from './WebControls/ActivityOverlayControl';
 export * from './WebControls/ArrayManipulators';
