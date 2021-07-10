@@ -27,7 +27,18 @@ export const DropdownItem = (props: IWDropdownItemProps) => {
 
 	return (
 		<TagToUse
-			{...OmitProperty(props, 'tag', 'disabled', 'divider', 'header', 'className', 'size', 'type', 'children')}
+			{...OmitProperty(
+				props,
+				'tag',
+				'disabled',
+				'divider',
+				'header',
+				'className',
+				'size',
+				'type',
+				'children',
+				'loading'
+			)}
 			className={classes}
 			style={{cursor: !props.disabled && (!!props.href || !!props.onClick) ? 'pointer' : undefined}}>
 			{props.children ??

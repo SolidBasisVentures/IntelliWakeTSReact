@@ -805,7 +805,7 @@ var DropdownItem = function (props) {
                 'dropdown-divider': !!props.divider,
                 disabled: !!props.disabled
             });
-    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'divider', 'header', 'className', 'size', 'type', 'children'), { className: classes, style: { cursor: !props.disabled && (!!props.href || !!props.onClick) ? 'pointer' : undefined } }), (_c = props.children) !== null && _c !== void 0 ? _c : (!!props.loading && (React__default['default'].createElement("i", { className: "text-muted" },
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'divider', 'header', 'className', 'size', 'type', 'children', 'loading'), { className: classes, style: { cursor: !props.disabled && (!!props.href || !!props.onClick) ? 'pointer' : undefined } }), (_c = props.children) !== null && _c !== void 0 ? _c : (!!props.loading && (React__default['default'].createElement("i", { className: "text-muted" },
         React__default['default'].createElement(Spinner, { fixedWidth: true }),
         " Loading...")))));
 };
