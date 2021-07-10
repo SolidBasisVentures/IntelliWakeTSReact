@@ -1,5 +1,5 @@
-import React, {Dispatch, ReactNode, SetStateAction, useCallback, useEffect, useState, useMemo} from 'react'
-import {FontAwesomeIconProps, FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import React, {Dispatch, ReactNode, SetStateAction, useCallback, useEffect, useMemo, useState} from 'react'
+import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
 import {TStorageType, useStorage} from '../Hooks/useStorage'
 import {Button} from './Button'
 import {IModalPromptProps, ModalPrompt} from '../WebControls/ModalPrompt'
@@ -11,6 +11,7 @@ export interface IIWTab {
 	hide?: boolean
 	disabled?: boolean
 	pane: ReactNode
+	fillHeight?: boolean | 'noScroll'
 	loadedOnlyWhenActive?: boolean
 }
 
@@ -117,8 +118,6 @@ export const Tab = (props: IWTabProps) => {
 			<div
 				className={ClassNames({
 					'tab-content': true,
-					'fill-height': props.fillHeight === 'noScroll',
-					'fill-height-scroll': (props.fillHeight ?? true) === true,
 					'border-left': !props.noPaneBorder,
 					'border-right': !props.noPaneBorder,
 					'border-bottom': !props.noPaneBorder
@@ -144,6 +143,8 @@ export const Tab = (props: IWTabProps) => {
 								ClassNames({
 									show: tab.title === actualOpenTab,
 									active: tab.title === actualOpenTab,
+									'fill-height': (tab.fillHeight ?? props.fillHeight) === 'noScroll',
+									'fill-height-scroll': (tab.fillHeight ?? props.fillHeight ?? true) === true,
 									'p-2': !props.noPanePadding
 								}) +
 								' tab-pane fade '

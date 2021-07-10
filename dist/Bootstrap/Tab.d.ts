@@ -7,6 +7,7 @@ export interface IIWTab {
     hide?: boolean;
     disabled?: boolean;
     pane: ReactNode;
+    fillHeight?: boolean | 'noScroll';
     loadedOnlyWhenActive?: boolean;
 }
 export declare type TPaneLoading = 'All' | 'OnlyActive' | 'KeepOnceLoaded';
