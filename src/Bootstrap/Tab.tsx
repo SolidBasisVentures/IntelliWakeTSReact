@@ -9,7 +9,7 @@ export interface IIWTab {
 	faProps?: FontAwesomeIconProps
 	title: string
 	hide?: boolean
-	inactive?: boolean
+	disabled?: boolean
 	pane: ReactNode
 	loadedOnlyWhenActive?: boolean
 }
@@ -35,7 +35,7 @@ export interface IWTabProps extends Omit<React.HTMLProps<HTMLDivElement>, 'ref'>
 
 export const Tab = (props: IWTabProps) => {
 	const showTabs = useMemo<IIWTab[]>(() => props.tabs.filter((tab) => !tab.hide), [props.tabs])
-	const defaultTab = showTabs.find((tab) => !tab.inactive && (!props.openTab || tab.title === props.openTab))?.title
+	const defaultTab = showTabs.find((tab) => !tab.disabled && (!props.openTab || tab.title === props.openTab))?.title
 	const [openTab, setOpenTab] = useStorage<string>(
 		props.rememberKey,
 		defaultTab ?? ('' as any),
@@ -45,7 +45,7 @@ export const Tab = (props: IWTabProps) => {
 	const [modalPromptProps, setModalPromptProps] = useState<null | IModalPromptProps>(null)
 
 	const actualOpenTab = useMemo<string | undefined>(
-		() => showTabs.find((tab) => !tab.inactive && tab.title === (!!props.setOpenTab ? props.openTab : openTab))?.title,
+		() => showTabs.find((tab) => !tab.disabled && tab.title === (!!props.setOpenTab ? props.openTab : openTab))?.title,
 		[props.openTab, props.setOpenTab, openTab]
 	)
 
@@ -102,7 +102,12 @@ export const Tab = (props: IWTabProps) => {
 								desktopOnly: true,
 								active: actualOpenTab === tab.title
 							})}
-							onClick={() => changeOpenTab(tab.title)}>
+							disabled={!!tab.disabled}
+							onClick={() => {
+								if (!tab.hide && !tab.disabled) {
+									changeOpenTab(tab.title)
+								}
+							}}>
 							{!!tab.faProps && <FontAwesomeIcon {...tab.faProps} fixedWidth />}
 							{tab.title}
 						</Button>

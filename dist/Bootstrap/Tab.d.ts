@@ -5,7 +5,7 @@ export interface IIWTab {
     faProps?: FontAwesomeIconProps;
     title: string;
     hide?: boolean;
-    inactive?: boolean;
+    disabled?: boolean;
     pane: ReactNode;
     loadedOnlyWhenActive?: boolean;
 }

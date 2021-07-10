@@ -1378,11 +1378,11 @@ var ModalPrompt = function (props) {
 var Tab = function (props) {
     var _a, _b, _c, _d, _e;
     var showTabs = React.useMemo(function () { return props.tabs.filter(function (tab) { return !tab.hide; }); }, [props.tabs]);
-    var defaultTab = (_a = showTabs.find(function (tab) { return !tab.inactive && (!props.openTab || tab.title === props.openTab); })) === null || _a === void 0 ? void 0 : _a.title;
+    var defaultTab = (_a = showTabs.find(function (tab) { return !tab.disabled && (!props.openTab || tab.title === props.openTab); })) === null || _a === void 0 ? void 0 : _a.title;
     var _f = useStorage(props.rememberKey, defaultTab !== null && defaultTab !== void 0 ? defaultTab : '', (_b = props.rememberType) !== null && _b !== void 0 ? _b : 'session'), openTab = _f[0], setOpenTab = _f[1];
     var _g = React.useState(!defaultTab ? [] : [defaultTab]), loadedTabs = _g[0], setLoadedTabs = _g[1];
     var _h = React.useState(null), modalPromptProps = _h[0], setModalPromptProps = _h[1];
-    var actualOpenTab = React.useMemo(function () { var _a; return (_a = showTabs.find(function (tab) { return !tab.inactive && tab.title === (!!props.setOpenTab ? props.openTab : openTab); })) === null || _a === void 0 ? void 0 : _a.title; }, [props.openTab, props.setOpenTab, openTab]);
+    var actualOpenTab = React.useMemo(function () { var _a; return (_a = showTabs.find(function (tab) { return !tab.disabled && tab.title === (!!props.setOpenTab ? props.openTab : openTab); })) === null || _a === void 0 ? void 0 : _a.title; }, [props.openTab, props.setOpenTab, openTab]);
     var setActualOpenTab = React.useCallback((_c = props.setOpenTab) !== null && _c !== void 0 ? _c : setOpenTab, [props, setOpenTab]);
     React.useEffect(function () {
         if (!!defaultTab && !actualOpenTab) {
@@ -1423,7 +1423,11 @@ var Tab = function (props) {
                     'nav-link': true,
                     desktopOnly: true,
                     active: actualOpenTab === tab.title
-                }), onClick: function () { return changeOpenTab(tab.title); } },
+                }), disabled: !!tab.disabled, onClick: function () {
+                    if (!tab.hide && !tab.disabled) {
+                        changeOpenTab(tab.title);
+                    }
+                } },
                 !!tab.faProps && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, tab.faProps, { fixedWidth: true })),
                 tab.title))); })),
         React__default['default'].createElement("div", { className: ClassNames({
