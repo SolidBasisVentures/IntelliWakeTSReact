@@ -175,6 +175,7 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 	if (displayProps.className) classNames.push(displayProps.className)
 	if (linkActive) classNames.push('active')
 	if (linkActive && props.activeClassName) classNames.push(props.activeClassName)
+	if (!!props.badge || props.badge === null) classNames.push('d-flex justify-content-between align-items-center')
 
 	displayProps.className = classNames.join(' ')
 	delete displayProps.postPath
