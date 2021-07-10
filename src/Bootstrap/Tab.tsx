@@ -1,4 +1,4 @@
-import React, {Dispatch, ReactNode, SetStateAction, useCallback, useRef, useState} from 'react'
+import React, {Dispatch, ReactNode, SetStateAction, useCallback, useEffect, useRef, useState} from 'react'
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
 import {TStorageType, useStorage} from '../Hooks/useStorage'
 import {Button} from './Button'
@@ -74,24 +74,26 @@ export const Tab = (props: IWTabProps) => {
 				}
 			}
 		},
-		[actualOpenTab, openTabChanged, setOpenTab, props.isDirty]
+		[actualOpenTab, props.isDirty, setActualOpenTab, openTabChanged]
 	)
 
-	if (!actualOpenTab) {
-		if (!isChanging.current) {
-			const gotoTab = showTabs.find((tab) => !tab.disabled)?.title
-			if (gotoTab) {
-				isChanging.current = true
-				setActualOpenTab(gotoTab)
-				openTabChanged(gotoTab)
+	useEffect(() => {
+		if (!actualOpenTab) {
+			if (!isChanging.current) {
+				const gotoTab = showTabs.find((tab) => !tab.disabled)?.title
+				if (gotoTab) {
+					isChanging.current = true
+					setActualOpenTab(gotoTab)
+					openTabChanged(gotoTab)
+				}
 			}
+		} else {
+			isChanging.current = false
+			if (!loadedTabs.current.includes(actualOpenTab)) loadedTabs.current = [...loadedTabs.current, actualOpenTab]
 		}
+	}, [actualOpenTab, openTabChanged, setActualOpenTab, showTabs])
 
-		return null
-	} else {
-		isChanging.current = false
-		if (!loadedTabs.current.includes(actualOpenTab)) loadedTabs.current = [...loadedTabs.current, actualOpenTab]
-	}
+	if (!actualOpenTab) return null
 
 	// "px-4 mt-3 mx-0 gray-tabs"
 	// p-2 background-gray overflow-hidden
