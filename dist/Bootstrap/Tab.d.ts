@@ -20,7 +20,7 @@ export interface IWTabProps extends Omit<React.HTMLProps<HTMLDivElement>, 'ref'>
     openTabChanged?: (tab: string) => void;
     isDirty?: boolean;
     tabType?: 'tabs' | 'pills';
-    fillHeight?: boolean | 'scroll';
+    fillHeight?: boolean | 'noScroll';
     classNamePanes?: string;
     classNamePaneActive?: string;
     noPanePadding?: boolean;

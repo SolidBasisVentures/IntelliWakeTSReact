@@ -26,7 +26,7 @@ export interface IWTabProps extends Omit<React.HTMLProps<HTMLDivElement>, 'ref'>
 	openTabChanged?: (tab: string) => void
 	isDirty?: boolean
 	tabType?: 'tabs' | 'pills'
-	fillHeight?: boolean | 'scroll'
+	fillHeight?: boolean | 'noScroll'
 	classNamePanes?: string
 	classNamePaneActive?: string
 	noPanePadding?: boolean
@@ -90,7 +90,7 @@ export const Tab = (props: IWTabProps) => {
 	// p-2 background-gray overflow-hidden
 
 	return (
-		<div className={ClassNames({'fill-height': !!props.fillHeight})}>
+		<div className={ClassNames({'fill-height': !!(props.fillHeight ?? true)})}>
 			<ModalPrompt {...modalPromptProps} dismiss={setModalPromptProps} />
 			<ul className={`nav px-4 mt-3 mx-0 gray-tabs nav-${props.tabType ?? 'tabs'}`}>
 				{showTabs.map((tab) => (
@@ -117,8 +117,8 @@ export const Tab = (props: IWTabProps) => {
 			<div
 				className={ClassNames({
 					'tab-content': true,
-					'fill-height': props.fillHeight === true,
-					'fill-height-scroll': props.fillHeight === 'scroll',
+					'fill-height': props.fillHeight === 'noScroll',
+					'fill-height-scroll': (props.fillHeight ?? true) === true,
 					'border-left': !props.noPaneBorder,
 					'border-right': !props.noPaneBorder,
 					'border-bottom': !props.noPaneBorder
