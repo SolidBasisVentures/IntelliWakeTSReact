@@ -175,7 +175,7 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 	if (displayProps.className) classNames.push(displayProps.className)
 	if (linkActive) classNames.push('active')
 	if (linkActive && props.activeClassName) classNames.push(props.activeClassName)
-	if (!!props.badge || props.badge === null) classNames.push('d-flex justify-content-between align-items-center')
+	// if (!!props.badge || props.badge === null) classNames.push('d-flex justify-content-between align-items-center')
 
 	displayProps.className = classNames.join(' ')
 	delete displayProps.postPath
@@ -217,7 +217,7 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 					<BadgeItem
 						badge={props.badge}
 						color={props.badgeColor}
-						className={!!props.badgeNotSmall ? '' : 'small mt-1'}
+						className={!!props.badgeNotSmall ? '' : 'small mt-1 float-right'}
 					/>
 				</li>
 			)

@@ -4,7 +4,7 @@ import {ClassNames} from '../Functions'
 
 export interface IWBadgeProps extends Omit<React.HTMLProps<HTMLSpanElement>, 'ref'> {
 	color?: string
-	pill?: boolean
+	notPill?: boolean
 	tag?: string | React.ReactType
 	className?: string
 }
@@ -18,8 +18,8 @@ export const Badge = (props: IWBadgeProps) => {
 		' ' +
 		ClassNames({
 			badge: true,
-			'badge-pill': !!props.pill
+			'badge-pill': !props.notPill
 		})
 
-	return <TagToUse {...OmitProperty(props, 'tag', 'color', 'pill', 'className')} className={classes.trim()} />
+	return <TagToUse {...OmitProperty(props, 'tag', 'color', 'notPill', 'className')} className={classes.trim()} />
 }

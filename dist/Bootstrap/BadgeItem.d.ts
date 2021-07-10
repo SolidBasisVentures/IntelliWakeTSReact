@@ -4,5 +4,6 @@ export interface IBadgeItemProps extends IWBadgeProps {
     badge?: TBadgeValues;
     badgeColor?: string;
     badgeNotSmall?: boolean;
+    alwaysShowValue?: boolean;
 }
 export declare const BadgeItem: (props: IBadgeItemProps) => JSX.Element | null;
