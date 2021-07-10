@@ -1,6 +1,7 @@
 import React from 'react'
 import {OmitProperty} from '@solidbasisventures/intelliwaketsfoundation'
 import {ClassNames} from '../Functions'
+import {Spinner} from '../WebControls/Spinner'
 
 export interface IWDropdownItemProps extends Omit<React.HTMLProps<HTMLBaseElement>, 'ref'> {
 	disabled?: boolean
@@ -8,6 +9,7 @@ export interface IWDropdownItemProps extends Omit<React.HTMLProps<HTMLBaseElemen
 	href?: string
 	divider?: boolean
 	header?: boolean
+	loading?: boolean
 }
 
 export const DropdownItem = (props: IWDropdownItemProps) => {
@@ -25,9 +27,15 @@ export const DropdownItem = (props: IWDropdownItemProps) => {
 
 	return (
 		<TagToUse
-			{...OmitProperty(props, 'tag', 'disabled', 'divider', 'header', 'className', 'size', 'type')}
+			{...OmitProperty(props, 'tag', 'disabled', 'divider', 'header', 'className', 'size', 'type', 'children')}
 			className={classes}
-			style={{cursor: !props.disabled && (!!props.href || !!props.onClick) ? 'pointer' : undefined}}
-		/>
+			style={{cursor: !props.disabled && (!!props.href || !!props.onClick) ? 'pointer' : undefined}}>
+			{props.children ??
+				(!!props.loading && (
+					<i className="text-muted">
+						<Spinner fixedWidth /> Loading...
+					</i>
+				))}
+		</TagToUse>
 	)
 }
