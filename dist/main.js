@@ -1386,8 +1386,10 @@ var Tab = function (props) {
     var setActualOpenTab = React.useCallback((_c = props.setOpenTab) !== null && _c !== void 0 ? _c : setOpenTab, [props, setOpenTab]);
     React.useEffect(function () {
         var _a;
+        console.log('aOT', actualOpenTab);
         if (!actualOpenTab) {
             var gotoTab = (_a = showTabs.find(function (tab) { return !tab.disabled; })) === null || _a === void 0 ? void 0 : _a.title;
+            console.log('goto', gotoTab);
             if (gotoTab) {
                 setActualOpenTab(gotoTab);
             }
@@ -1418,6 +1420,7 @@ var Tab = function (props) {
     }, [actualOpenTab, openTabChanged, setOpenTab, props.isDirty]);
     if (!actualOpenTab)
         return null;
+    console.log('showTab', actualOpenTab);
     // "px-4 mt-3 mx-0 gray-tabs"
     // p-2 background-gray overflow-hidden
     return (React__default['default'].createElement("div", { className: ClassNames({ 'fill-height': !!((_e = props.fillHeight) !== null && _e !== void 0 ? _e : true) }) },

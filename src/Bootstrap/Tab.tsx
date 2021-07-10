@@ -53,8 +53,10 @@ export const Tab = (props: IWTabProps) => {
 	const setActualOpenTab = useCallback(props.setOpenTab ?? setOpenTab, [props, setOpenTab])
 
 	useEffect(() => {
+		console.log('aOT', actualOpenTab)
 		if (!actualOpenTab) {
 			const gotoTab = showTabs.find((tab) => !tab.disabled)?.title
+			console.log('goto', gotoTab)
 			if (gotoTab) {
 				setActualOpenTab(gotoTab)
 			}
@@ -89,6 +91,8 @@ export const Tab = (props: IWTabProps) => {
 	)
 
 	if (!actualOpenTab) return null
+
+	console.log('showTab', actualOpenTab)
 
 	// "px-4 mt-3 mx-0 gray-tabs"
 	// p-2 background-gray overflow-hidden
