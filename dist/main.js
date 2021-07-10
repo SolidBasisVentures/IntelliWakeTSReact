@@ -669,8 +669,9 @@ var Spinner = function (props) {
 
 // noinspection SuspiciousTypeOfGuard
 var BadgeItem = function (props) {
-    return props.badge === null ? (React__default['default'].createElement(Badge, { color: "secondary", className: !!props.badgeNotSmall ? '' : 'small mt-1' },
-        React__default['default'].createElement(Spinner, null))) : (props.alwaysShowValue && props.badge !== undefined) || !!props.badge ? (React__default['default'].createElement(Badge, { color: props.color, className: !!props.badgeNotSmall ? '' : 'small mt-1' }, typeof props.badge === 'number' ? intelliwaketsfoundation.ToDigits(props.badge, 0) : props.badge)) : null;
+    var showProps = intelliwaketsfoundation.OmitProperty(props, 'badge', 'alwaysShowValue');
+    return props.badge === null ? (React__default['default'].createElement(Badge, __assign({}, showProps, { color: "secondary" }),
+        React__default['default'].createElement(Spinner, null))) : (props.alwaysShowValue && props.badge !== undefined) || !!props.badge ? (React__default['default'].createElement(Badge, __assign({}, showProps), typeof props.badge === 'number' ? intelliwaketsfoundation.ToDigits(props.badge, 0) : props.badge)) : null;
 };
 
 var Button = React.forwardRef(function (props, ref) {
