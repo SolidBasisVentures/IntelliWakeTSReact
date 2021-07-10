@@ -44,21 +44,26 @@ export const Tab = (props: IWTabProps) => {
 	const [loadedTabs, setLoadedTabs] = useState<string[]>(!defaultTab ? [] : [defaultTab])
 	const [modalPromptProps, setModalPromptProps] = useState<null | IModalPromptProps>(null)
 
-	const openTabIsValid = showTabs.some((tab) => !tab.inactive && tab.title === openTab)
+	const actualOpenTab = useMemo<string | undefined>(
+		() => showTabs.find((tab) => !tab.inactive && tab.title === (!!props.setOpenTab ? props.openTab : openTab))?.title,
+		[props.openTab, props.setOpenTab, openTab]
+	)
+
+	const setActualOpenTab = useCallback(props.setOpenTab ?? setOpenTab, [props, setOpenTab])
 
 	useEffect(() => {
-		if (!!defaultTab && !openTabIsValid) {
-			setOpenTab(defaultTab)
+		if (!!defaultTab && !actualOpenTab) {
+			setActualOpenTab(defaultTab)
 		}
-	}, [defaultTab, openTabIsValid, setOpenTab])
+	}, [defaultTab, actualOpenTab, setActualOpenTab])
 
 	const openTabChanged = useCallback(props.openTabChanged ?? (() => {}), [props])
 
 	const changeOpenTab = useCallback(
 		(tabTitle: string) => {
-			if (openTab !== tabTitle) {
+			if (actualOpenTab !== tabTitle) {
 				if (!props.isDirty) {
-					setOpenTab(tabTitle)
+					setActualOpenTab(tabTitle)
 					openTabChanged(tabTitle)
 					setLoadedTabs((prevState) => [...prevState.filter((pS) => pS !== tabTitle), tabTitle])
 				} else {
@@ -68,7 +73,7 @@ export const Tab = (props: IWTabProps) => {
 						color: 'danger',
 						okLabel: 'Abandon',
 						okAction: () => {
-							setOpenTab(tabTitle)
+							setActualOpenTab(tabTitle)
 							openTabChanged(tabTitle)
 							setLoadedTabs((prevState) => [...prevState.filter((pS) => pS !== tabTitle), tabTitle])
 						}
@@ -76,10 +81,10 @@ export const Tab = (props: IWTabProps) => {
 				}
 			}
 		},
-		[openTab, openTabChanged, setOpenTab, props.isDirty]
+		[actualOpenTab, openTabChanged, setOpenTab, props.isDirty]
 	)
 
-	if (!openTabIsValid) return null
+	if (!actualOpenTab) return null
 
 	// "px-4 mt-3 mx-0 gray-tabs"
 	// p-2 background-gray overflow-hidden
@@ -95,7 +100,7 @@ export const Tab = (props: IWTabProps) => {
 							className={ClassNames({
 								'nav-link': true,
 								desktopOnly: true,
-								active: openTab === tab.title
+								active: actualOpenTab === tab.title
 							})}
 							onClick={() => changeOpenTab(tab.title)}>
 							{!!tab.faProps && <FontAwesomeIcon {...tab.faProps} fixedWidth />}
@@ -117,10 +122,10 @@ export const Tab = (props: IWTabProps) => {
 					.filter(
 						(tab) =>
 							!tab.hide &&
-							(!tab.loadedOnlyWhenActive || tab.title === openTab) &&
+							(!tab.loadedOnlyWhenActive || tab.title === actualOpenTab) &&
 							(!props.paneLoading ||
 								props.paneLoading === 'All' ||
-								tab.title === openTab ||
+								tab.title === actualOpenTab ||
 								(props.paneLoading === 'KeepOnceLoaded' && loadedTabs.some((loadedTab) => tab.title === loadedTab)))
 					)
 					.map((tab) => (
@@ -129,11 +134,11 @@ export const Tab = (props: IWTabProps) => {
 							className={
 								(props.classNamePanes ?? '') +
 								' ' +
-								(tab.title === openTab ? props.classNamePaneActive ?? '' : '') +
+								(tab.title === actualOpenTab ? props.classNamePaneActive ?? '' : '') +
 								' ' +
 								ClassNames({
-									show: tab.title === openTab,
-									active: tab.title === openTab,
+									show: tab.title === actualOpenTab,
+									active: tab.title === actualOpenTab,
 									'p-2': !props.noPanePadding
 								}) +
 								' tab-pane fade '
