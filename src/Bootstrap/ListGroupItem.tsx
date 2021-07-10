@@ -35,7 +35,18 @@ export const ListGroupItem = (props: IWListGroupItemProps) => {
 	return (
 		<TagToUse
 			type={!!props.onClick ? 'button' : undefined}
-			{...OmitProperty(props, 'tag', 'className', 'active', 'disabled', 'color', 'badgeColor', 'action', 'children', 'badgeClass')}
+			{...OmitProperty(
+				props,
+				'tag',
+				'className',
+				'active',
+				'disabled',
+				'color',
+				'badgeColor',
+				'action',
+				'children',
+				'badgeClass'
+			)}
 			className={`${ClassNames({
 				active: !!props.active,
 				disabled: !!props.disabled,
@@ -44,7 +55,12 @@ export const ListGroupItem = (props: IWListGroupItemProps) => {
 			})} list-group-item${!!props.color ? ` list-group-item-${props.color}` : ''} ${props.className ?? ''}`.trim()}
 			disabled={!!props.onClick && props.disabled ? true : undefined}>
 			{props.children}
-			<BadgeItem badge={props.badge} color={props.badgeColor} className={"float-right mt-1 " + (props.badgeClass ?? '')} />
+			<BadgeItem
+				badge={props.badge}
+				color={props.badgeColor}
+				className={'float-right ' + (props.badgeClass ?? '')}
+				style={{marginTop: '0.125rem'}}
+			/>
 		</TagToUse>
 	)
 }
