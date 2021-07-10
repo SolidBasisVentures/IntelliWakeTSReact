@@ -32,7 +32,7 @@ export interface IWDropdownProps extends Omit<React.HTMLProps<HTMLDivElement>, '
 	color?: string
 	inNavbar?: boolean
 	right?: boolean
-	buttonText?: ReactNode
+	buttonLabel?: ReactNode
 	buttonFAProps?: FontAwesomeIconProps
 	buttonClassName?: string
 	menuClassName?: string
@@ -143,7 +143,7 @@ export const Dropdown = (props: IWDropdownProps) => {
 				'toggle',
 				'inNavbar',
 				'right',
-				'buttonText',
+				'buttonLabel',
 				'buttonFAProps',
 				'buttonClassName',
 				'menuClassName',
@@ -180,7 +180,7 @@ export const Dropdown = (props: IWDropdownProps) => {
 				style={!!props.nav || !!props.inNavbar ? {background: 'none', border: 'none'} : undefined}
 				// ref={buttonRef}
 			>
-				{props.buttonText}
+				{props.buttonLabel}
 			</Button>
 			<div
 				tabIndex={-1}

@@ -24,7 +24,7 @@ export interface IWDropdownProps extends Omit<React.HTMLProps<HTMLDivElement>, '
     color?: string;
     inNavbar?: boolean;
     right?: boolean;
-    buttonText?: ReactNode;
+    buttonLabel?: ReactNode;
     buttonFAProps?: FontAwesomeIconProps;
     buttonClassName?: string;
     menuClassName?: string;
