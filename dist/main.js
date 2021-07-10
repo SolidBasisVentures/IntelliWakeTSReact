@@ -13,6 +13,7 @@ var reactRouterDom = require('react-router-dom');
 var ReactDatePicker = require('react-datepicker');
 var Cleave = require('cleave.js/react');
 var axios = require('axios');
+var faSpinnerThird = require('@fortawesome/pro-solid-svg-icons/faSpinnerThird');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -3474,6 +3475,14 @@ var SelectDD = function (props) {
         }))));
 };
 
+var SpinnerIW = function (props) {
+    var style = {};
+    if (!props.spin && !props.pulse) {
+        style.animation = 'fa-spin 0.75s infinite linear';
+    }
+    return React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: faSpinnerThird.faSpinnerThird, style: style }, props));
+};
+
 var initialTextStatusState = {
     message: null
 };
@@ -3640,6 +3649,7 @@ exports.SetSort = SetSort;
 exports.SizeAtMax = SizeAtMax;
 exports.SizeAtMin = SizeAtMin;
 exports.SortObjects = SortObjects;
+exports.SpinnerIW = SpinnerIW;
 exports.StructuredArray = StructuredArray;
 exports.StyleControl = StyleControl;
 exports.Table = Table;

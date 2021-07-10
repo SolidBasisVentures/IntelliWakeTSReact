@@ -88,6 +88,7 @@ export * from './WebControls/ModalPrompt';
 export * from './WebControls/NumberFormat';
 export * from './WebControls/SelectDD';
 export * from './WebControls/StyleControl';
+export * from './WebControls/Spinner';
 export * from './WebControls/TextStatus';
 export * from './WebControls/ViewEmail';
 export { ApplyColumnProp } from './Bootstrap/ColProp';
