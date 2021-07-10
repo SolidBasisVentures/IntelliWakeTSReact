@@ -24,10 +24,11 @@ export interface IIWButtonProps extends IWButtonLightProps {
 	title?: string
 	// caret?: boolean
 	classNameOverride?: string
+	to?: string
 }
 
 export const Button = forwardRef<HTMLButtonElement, IIWButtonProps>((props, ref) => {
-	const TagToUse = props.tag ?? ('button' as React.ReactType)
+	const TagToUse = props.tag ?? !!props.to ? 'a' : ('button' as React.ReactType)
 
 	return (
 		<TagToUse
@@ -46,6 +47,7 @@ export const Button = forwardRef<HTMLButtonElement, IIWButtonProps>((props, ref)
 			onClick={props.onClick}
 			tabIndex={props.tabIndex}
 			ref={ref}
+			href={props.to}
 			onKeyDown={props.onKeyDown}
 			onKeyPress={props.onKeyPress}
 			autoFocus={props.autoFocus}

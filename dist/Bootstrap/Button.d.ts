@@ -20,5 +20,6 @@ export interface IIWButtonProps extends IWButtonLightProps {
     onKeyPress?: React.KeyboardEventHandler<HTMLButtonElement>;
     title?: string;
     classNameOverride?: string;
+    to?: string;
 }
 export declare const Button: React.ForwardRefExoticComponent<IIWButtonProps & React.RefAttributes<HTMLButtonElement>>;
