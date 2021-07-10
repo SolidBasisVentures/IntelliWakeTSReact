@@ -1378,11 +1378,11 @@ var ModalPrompt = function (props) {
 var Tab = function (props) {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j;
     var isChanging = React.useRef(false);
+    var loadedTabs = React.useRef([]);
     var showTabs = props.tabs.filter(function (tab) { return !tab.hide; });
     var defaultTab = (_a = showTabs.find(function (tab) { return !tab.disabled && (!props.openTab || tab.title === props.openTab); })) === null || _a === void 0 ? void 0 : _a.title;
     var _k = useStorage(props.rememberKey, defaultTab !== null && defaultTab !== void 0 ? defaultTab : '', (_b = props.rememberType) !== null && _b !== void 0 ? _b : 'session'), openTab = _k[0], setOpenTab = _k[1];
-    var _l = React.useState(!defaultTab ? [] : [defaultTab]), loadedTabs = _l[0], setLoadedTabs = _l[1];
-    var _m = React.useState(null), modalPromptProps = _m[0], setModalPromptProps = _m[1];
+    var _l = React.useState(null), modalPromptProps = _l[0], setModalPromptProps = _l[1];
     var actualOpenTab = (_c = showTabs.find(function (tab) { return !tab.disabled && tab.title === (!!props.setOpenTab ? props.openTab : openTab); })) === null || _c === void 0 ? void 0 : _c.title;
     var setActualOpenTab = React.useCallback((_d = props.setOpenTab) !== null && _d !== void 0 ? _d : setOpenTab, [props, setOpenTab]);
     var openTabChanged = React.useCallback((_e = props.openTabChanged) !== null && _e !== void 0 ? _e : (function () { }), [props]);
@@ -1391,7 +1391,6 @@ var Tab = function (props) {
             if (!props.isDirty) {
                 setActualOpenTab(tabTitle);
                 openTabChanged(tabTitle);
-                setLoadedTabs(function (prevState) { return __spreadArrays(prevState.filter(function (pS) { return pS !== tabTitle; }), [tabTitle]); });
             }
             else {
                 setModalPromptProps({
@@ -1402,7 +1401,6 @@ var Tab = function (props) {
                     okAction: function () {
                         setActualOpenTab(tabTitle);
                         openTabChanged(tabTitle);
-                        setLoadedTabs(function (prevState) { return __spreadArrays(prevState.filter(function (pS) { return pS !== tabTitle; }), [tabTitle]); });
                     }
                 });
             }
@@ -1410,18 +1408,19 @@ var Tab = function (props) {
     }, [actualOpenTab, openTabChanged, setOpenTab, props.isDirty]);
     if (!actualOpenTab) {
         if (!isChanging.current) {
-            var gotoTab_1 = (_f = showTabs.find(function (tab) { return !tab.disabled; })) === null || _f === void 0 ? void 0 : _f.title;
-            if (gotoTab_1) {
+            var gotoTab = (_f = showTabs.find(function (tab) { return !tab.disabled; })) === null || _f === void 0 ? void 0 : _f.title;
+            if (gotoTab) {
                 isChanging.current = true;
-                setActualOpenTab(gotoTab_1);
-                openTabChanged(gotoTab_1);
-                setLoadedTabs(function (prevState) { return __spreadArrays(prevState.filter(function (pS) { return pS !== gotoTab_1; }), [gotoTab_1]); });
+                setActualOpenTab(gotoTab);
+                openTabChanged(gotoTab);
             }
         }
         return null;
     }
     else {
         isChanging.current = false;
+        if (!loadedTabs.current.includes(actualOpenTab))
+            loadedTabs.current = __spreadArrays(loadedTabs.current, [actualOpenTab]);
     }
     // "px-4 mt-3 mx-0 gray-tabs"
     // p-2 background-gray overflow-hidden
@@ -1452,7 +1451,8 @@ var Tab = function (props) {
                 (!props.paneLoading ||
                     props.paneLoading === 'All' ||
                     tab.title === actualOpenTab ||
-                    (props.paneLoading === 'KeepOnceLoaded' && loadedTabs.some(function (loadedTab) { return tab.title === loadedTab; })));
+                    (props.paneLoading === 'KeepOnceLoaded' &&
+                        loadedTabs.current.some(function (loadedTab) { return tab.title === loadedTab; })));
         })
             .map(function (tab) {
             var _a, _b, _c, _d, _e;

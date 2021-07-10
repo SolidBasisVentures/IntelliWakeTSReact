@@ -36,6 +36,7 @@ export interface IWTabProps extends Omit<React.HTMLProps<HTMLDivElement>, 'ref'>
 
 export const Tab = (props: IWTabProps) => {
 	const isChanging = useRef(false)
+	const loadedTabs = useRef<(string | undefined)[]>([])
 	const showTabs = props.tabs.filter((tab) => !tab.hide)
 	const defaultTab = showTabs.find((tab) => !tab.disabled && (!props.openTab || tab.title === props.openTab))?.title
 	const [openTab, setOpenTab] = useStorage<string>(
@@ -43,7 +44,6 @@ export const Tab = (props: IWTabProps) => {
 		defaultTab ?? ('' as any),
 		props.rememberType ?? 'session'
 	)
-	const [loadedTabs, setLoadedTabs] = useState<string[]>(!defaultTab ? [] : [defaultTab])
 	const [modalPromptProps, setModalPromptProps] = useState<null | IModalPromptProps>(null)
 
 	const actualOpenTab = showTabs.find(
@@ -60,7 +60,6 @@ export const Tab = (props: IWTabProps) => {
 				if (!props.isDirty) {
 					setActualOpenTab(tabTitle)
 					openTabChanged(tabTitle)
-					setLoadedTabs((prevState) => [...prevState.filter((pS) => pS !== tabTitle), tabTitle])
 				} else {
 					setModalPromptProps({
 						title: 'Abandon Changes?',
@@ -70,7 +69,6 @@ export const Tab = (props: IWTabProps) => {
 						okAction: () => {
 							setActualOpenTab(tabTitle)
 							openTabChanged(tabTitle)
-							setLoadedTabs((prevState) => [...prevState.filter((pS) => pS !== tabTitle), tabTitle])
 						}
 					})
 				}
@@ -86,13 +84,13 @@ export const Tab = (props: IWTabProps) => {
 				isChanging.current = true
 				setActualOpenTab(gotoTab)
 				openTabChanged(gotoTab)
-				setLoadedTabs((prevState) => [...prevState.filter((pS) => pS !== gotoTab), gotoTab])
 			}
 		}
 
 		return null
 	} else {
 		isChanging.current = false
+		if (!loadedTabs.current.includes(actualOpenTab)) loadedTabs.current = [...loadedTabs.current, actualOpenTab]
 	}
 
 	// "px-4 mt-3 mx-0 gray-tabs"
@@ -139,7 +137,8 @@ export const Tab = (props: IWTabProps) => {
 							(!props.paneLoading ||
 								props.paneLoading === 'All' ||
 								tab.title === actualOpenTab ||
-								(props.paneLoading === 'KeepOnceLoaded' && loadedTabs.some((loadedTab) => tab.title === loadedTab)))
+								(props.paneLoading === 'KeepOnceLoaded' &&
+									loadedTabs.current.some((loadedTab) => tab.title === loadedTab)))
 					)
 					.map((tab) => (
 						<div
