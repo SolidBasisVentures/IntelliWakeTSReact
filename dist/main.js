@@ -9,6 +9,7 @@ var reactFontawesome = require('@fortawesome/react-fontawesome');
 var faSpinnerThird = require('@fortawesome/pro-solid-svg-icons/faSpinnerThird');
 var proRegularSvgIcons = require('@fortawesome/pro-regular-svg-icons');
 var ReactDOM = require('react-dom');
+var recoil = require('recoil');
 var reactstrap = require('reactstrap');
 var reactRouterDom = require('react-router-dom');
 var ReactDatePicker = require('react-datepicker');
@@ -1294,6 +1295,159 @@ function useDeepCompareMemo(factory, dependencies) {
     }
     return React__default['default'].useMemo(factory, useDeepCompareMemoize(dependencies));
 }
+
+var setStorage = function (key, newValue, remember, defaultValue) {
+    switch (remember) {
+        case 'local':
+            if (newValue === defaultValue) {
+                window.localStorage.removeItem(key);
+            }
+            else {
+                if (typeof newValue === 'string') {
+                    window.localStorage.setItem(key, newValue);
+                }
+                else {
+                    window.localStorage.setItem(key, intelliwaketsfoundation.ObjectToJSONString(newValue));
+                }
+            }
+            break;
+        case 'session':
+            if (newValue === defaultValue) {
+                window.sessionStorage.removeItem(key);
+            }
+            else {
+                if (typeof newValue === 'string') {
+                    window.sessionStorage.setItem(key, newValue);
+                }
+                else {
+                    window.sessionStorage.setItem(key, intelliwaketsfoundation.ObjectToJSONString(newValue));
+                }
+            }
+            break;
+    }
+};
+var getStorage = function (key, remember, defaultValue) {
+    var _a, _b, _c;
+    var newValue = (remember === 'local'
+        ? (_a = window.localStorage.getItem(key)) !== null && _a !== void 0 ? _a : defaultValue : remember === 'session'
+        ? (_b = window.sessionStorage.getItem(key)) !== null && _b !== void 0 ? _b : defaultValue : defaultValue);
+    if (!!newValue && typeof newValue === 'string' && newValue.startsWith('json:')) {
+        return (_c = intelliwaketsfoundation.JSONStringToObject(newValue)) !== null && _c !== void 0 ? _c : newValue;
+    }
+    return newValue;
+};
+var useStorage = function (key, defaultValue, remember) {
+    var _a, _b;
+    if (remember === void 0) { remember = 'local'; }
+    var _c = React.useState((_a = getStorage(key, remember, defaultValue)) !== null && _a !== void 0 ? _a : defaultValue), value = _c[0], setValue = _c[1];
+    var saveValue = function (val) {
+        if (typeof val === 'function') {
+            setValue(function (prevState) {
+                var newValue = val(getStorage(key, remember, prevState !== null && prevState !== void 0 ? prevState : defaultValue));
+                setStorage(key, newValue, remember, defaultValue);
+                return newValue;
+            });
+        }
+        else {
+            setStorage(key, val, remember, defaultValue);
+            setValue(val);
+        }
+    };
+    var currentValue = (_b = getStorage(key, remember, defaultValue)) !== null && _b !== void 0 ? _b : value;
+    return [currentValue, saveValue, function () { return saveValue(defaultValue); }];
+};
+
+/**
+ *
+ * A Recoil-based hook that persists the value in the browsers LocalStorage (by default), or SessionStorage (optionally).  If the value is changed in one component, it will use Recoil to update all other components subscribed to it.
+ *
+ * @param atom
+ * @param {"local" | "session"} remember
+ * @returns [(TRecoilStorageStateType), ((val: React.SetStateAction<TRecoilStorageStateType>) => void), (() => void)]
+ *
+ * @example
+ *
+ * const [myValue, setMyValue, clearMyValue] = useRecoilStorageState(myAtom, 'local')
+ *
+ * setMyValue('MyNewValue') // Changes the value
+ *
+ * console.log(myValue) // Prints 'MyNewValue'
+ *
+ * clearMyValue() // Clears the value
+ *
+ */
+var useRecoilStorageState = function (atom, remember) {
+    if (remember === void 0) { remember = 'local'; }
+    var _a = recoil.useRecoilState(atom), value = _a[0], setValue = _a[1];
+    var key = atom.key;
+    var saveValue = function (val) {
+        if (typeof val === 'function') {
+            setValue(function (prevState) {
+                var newValue = val(getStorage(key, remember, prevState));
+                setStorage(key, newValue, remember, null);
+                return newValue;
+            });
+        }
+        else {
+            setStorage(key, val, remember, null);
+            setValue(val);
+        }
+    };
+    var currentValue = getStorage(key, remember, value);
+    return [currentValue, saveValue, function () { return saveValue(null); }];
+};
+/**
+ *
+ * A Recoil-based hook that returns the value that was persisted in the browsers LocalStorage (by default), or SessionStorage (optionally).  If the value is changed in one component, it will use Recoil to update all other components subscribed to it.
+ *
+ * @param atom
+ * @param {"local" | "session"} remember
+ * @returns TStorageStateType
+ *
+ * @example
+ *
+ * const myValue = useRecoilStorageValue(myAtom, 'local')
+ *
+ * console.log(myValue) // Prints 'MyNewValue'
+ *
+ */
+var useRecoilStorageValue = function (atom, remember) {
+    if (remember === void 0) { remember = 'local'; }
+    var value = recoil.useRecoilValue(atom);
+    return getStorage(atom.key, remember, value);
+};
+/**
+ *
+ * A Recoil-based hook that sets the persisted value in the browsers LocalStorage (by default), or SessionStorage (optionally) without re-rendering on every change.  If the value is changed in one component, it will use Recoil to update all other components subscribed to it.
+ *
+ * @param atom
+ * @param {"local" | "session"} remember
+ * @returns TStorageStateType
+ *
+ * @example
+ *
+ * const setMyValue = useSetRecoilStorageState(myAtom, 'local')
+ *
+ * setMyValue('MyNewValue') // Changes the value
+ *
+ */
+var useSetRecoilStorageState = function (atom, remember) {
+    if (remember === void 0) { remember = 'local'; }
+    var setValue = recoil.useSetRecoilState(atom);
+    return function (val) {
+        if (typeof val === 'function') {
+            setValue(function (prevState) {
+                var newValue = val(getStorage(atom.key, remember, prevState));
+                setStorage(atom.key, newValue, remember, null);
+                return newValue;
+            });
+        }
+        else {
+            setStorage(atom.key, val, remember, null);
+            setValue(val);
+        }
+    };
+};
 
 var initialActivityOverlayState = {
     nestedCount: 0,
@@ -3698,6 +3852,7 @@ exports.defaultRangeYear = defaultRangeYear;
 exports.defaultRanges = defaultRanges;
 exports.defaultRangesReport = defaultRangesReport;
 exports.defaultRangesReportQuarterly = defaultRangesReportQuarterly;
+exports.getStorage = getStorage;
 exports.initialActivityOverlayState = initialActivityOverlayState;
 exports.initialDateRange = initialDateRange;
 exports.initialDateRangeString = initialDateRangeString;
@@ -3706,8 +3861,13 @@ exports.initialMessageBoxState = initialMessageBoxState;
 exports.initialSortProperties = initialSortProperties;
 exports.initialTextStatusState = initialTextStatusState;
 exports.panelClean = panelClean;
+exports.setStorage = setStorage;
 exports.useCombinedRefs = useCombinedRefs;
 exports.useDeepCompareCallback = useDeepCompareCallback;
 exports.useDeepCompareEffect = useDeepCompareEffect;
 exports.useDeepCompareMemo = useDeepCompareMemo;
 exports.useDeepCompareMemoize = useDeepCompareMemoize;
+exports.useRecoilStorageState = useRecoilStorageState;
+exports.useRecoilStorageValue = useRecoilStorageValue;
+exports.useSetRecoilStorageState = useSetRecoilStorageState;
+exports.useStorage = useStorage;
