@@ -127,11 +127,16 @@ export const Tab = (props: IWTabProps) => {
 						<div
 							key={tab.title}
 							className={
+								(props.classNamePanes ?? '') +
+								' ' +
+								(tab.title === openTab ? props.classNamePaneActive ?? '' : '') +
+								' ' +
 								ClassNames({
 									show: tab.title === openTab,
 									active: tab.title === openTab,
 									'p-2': !props.noPanePadding
-								}) + ' tab-pane fade '
+								}) +
+								' tab-pane fade '
 							}>
 							{tab.pane}
 						</div>

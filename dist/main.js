@@ -1441,11 +1441,19 @@ var Tab = function (props) {
                     tab.title === openTab ||
                     (props.paneLoading === 'KeepOnceLoaded' && loadedTabs.some(function (loadedTab) { return tab.title === loadedTab; })));
         })
-            .map(function (tab) { return (React__default['default'].createElement("div", { key: tab.title, className: ClassNames({
-                show: tab.title === openTab,
-                active: tab.title === openTab,
-                'p-2': !props.noPanePadding
-            }) + ' tab-pane fade ' }, tab.pane)); }))));
+            .map(function (tab) {
+            var _a, _b;
+            return (React__default['default'].createElement("div", { key: tab.title, className: ((_a = props.classNamePanes) !== null && _a !== void 0 ? _a : '') +
+                    ' ' +
+                    (tab.title === openTab ? (_b = props.classNamePaneActive) !== null && _b !== void 0 ? _b : '' : '') +
+                    ' ' +
+                    ClassNames({
+                        show: tab.title === openTab,
+                        active: tab.title === openTab,
+                        'p-2': !props.noPanePadding
+                    }) +
+                    ' tab-pane fade ' }, tab.pane));
+        }))));
 };
 
 var Table = React.forwardRef(function (props, ref) {
