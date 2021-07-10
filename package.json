@@ -1,6 +1,6 @@
 {
   "name": "@solidbasisventures/intelliwaketsreact",
-  "version": "2.1.135",
+  "version": "2.1.136",
   "description": "NPM package for IntelliWake React Components",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -44,6 +44,7 @@
     "react-datepicker": "^3.3.0",
     "react-router-dom": "^5.2.0",
     "reactstrap": "^8.4.1",
+    "recoil": "^0.3.1",
     "rollup": "^2.10.8",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-sass": "^1.2.2",
