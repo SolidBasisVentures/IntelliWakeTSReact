@@ -3,7 +3,6 @@ import {OmitProperty} from '@solidbasisventures/intelliwaketsfoundation'
 
 export interface IWCardHeaderProps extends Omit<React.HTMLProps<HTMLDivElement>, 'ref'> {
 	tag?: string | React.ReactType
-	className?: string
 }
 
 export const CardHeader = (props: IWCardHeaderProps) => {

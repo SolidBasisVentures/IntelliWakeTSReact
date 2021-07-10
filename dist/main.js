@@ -699,6 +699,30 @@ var CardBody = function (props) {
     return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("card-body " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
 };
 
+var CardColumns = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("card-columns " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+};
+
+var CardDeck = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("card-deck " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+};
+
+var CardFooter = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("card-footer " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+};
+
+var CardGroup = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("card-group " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+};
+
 var CardHeader = function (props) {
     var _a, _b;
     var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'div';
@@ -709,6 +733,12 @@ var CardText = function (props) {
     var _a, _b;
     var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'p';
     return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("card-text " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
+};
+
+var CardTitle = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : 'h5';
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className'), { className: ("card-title " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim() })));
 };
 
 var ApplyColumnProp = function (size, columnProps) {
@@ -3510,8 +3540,13 @@ exports.Button = Button;
 exports.CaptureGPS = CaptureGPS;
 exports.Card = Card;
 exports.CardBody = CardBody;
+exports.CardColumns = CardColumns;
+exports.CardDeck = CardDeck;
+exports.CardFooter = CardFooter;
+exports.CardGroup = CardGroup;
 exports.CardHeader = CardHeader;
 exports.CardText = CardText;
+exports.CardTitle = CardTitle;
 exports.ClassNames = ClassNames;
 exports.Col = Col;
 exports.Collapse = Collapse;
