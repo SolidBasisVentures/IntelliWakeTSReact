@@ -16,5 +16,6 @@ export interface IWListGroupItemProps extends Omit<React.HTMLProps<HTMLLIElement
     onClick?: React.MouseEventHandler<any>;
     badge?: TBadgeValues;
     badgeColor?: string;
+    badgeClass?: string;
 }
 export declare const ListGroupItem: (props: IWListGroupItemProps) => JSX.Element;

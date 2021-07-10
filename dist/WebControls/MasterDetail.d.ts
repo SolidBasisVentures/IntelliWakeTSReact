@@ -42,6 +42,7 @@ interface IPropsMasterLink {
     blockActivate?: boolean;
     badge?: TBadgeValues;
     badgeColor?: string;
+    badgeClass?: string;
 }
 export declare const panelClean: (panel?: string | null | undefined) => string;
 export declare const MDLink: (props: IPropsMasterLink | any) => JSX.Element;

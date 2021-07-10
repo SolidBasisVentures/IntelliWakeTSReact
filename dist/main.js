@@ -945,19 +945,19 @@ var ListGroup = function (props) {
 };
 
 var ListGroupItem = function (props) {
-    var _a, _b;
+    var _a, _b, _c;
     var TagToUse = ((_a = props.tag) !== null && _a !== void 0 ? _a : !!props.onClick) ? 'button'
         : !!props.href
             ? 'a'
             : 'li';
-    return (React__default['default'].createElement(TagToUse, __assign({ type: !!props.onClick ? 'button' : undefined }, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className', 'active', 'disabled', 'color', 'badgeColor', 'action', 'children'), { className: (ClassNames({
+    return (React__default['default'].createElement(TagToUse, __assign({ type: !!props.onClick ? 'button' : undefined }, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className', 'active', 'disabled', 'color', 'badgeColor', 'action', 'children', 'badgeClass'), { className: (ClassNames({
             active: !!props.active,
             disabled: !!props.disabled,
             'list-group-item-action': !!props.action
             // 'd-flex justify-content-between align-items-center': props.badge === null || !!props.badge
         }) + " list-group-item" + (!!props.color ? " list-group-item-" + props.color : '') + " " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim(), disabled: !!props.onClick && props.disabled ? true : undefined }),
         props.children,
-        React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: "float-right" })));
+        React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: "float-right mt-1 " + ((_c = props.badgeClass) !== null && _c !== void 0 ? _c : '') })));
 };
 
 var ListGroupItemHeading = function (props) {
@@ -3090,7 +3090,7 @@ var MDMaster = function (props) {
 };
 var panelClean = function (panel) { return intelliwaketsfoundation.ReplaceAll('/', '', (panel !== null && panel !== void 0 ? panel : '').replace(/\s+/g, '')); };
 var MDLink = function (props) {
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
     var history = reactRouterDom.useHistory();
     var mdContext = React.useContext(MDContext);
     var selectedRow = React.useRef(null);
@@ -3117,6 +3117,7 @@ var MDLink = function (props) {
     delete displayProps.blockActivate;
     delete displayProps.badge;
     delete displayProps.badgeColor;
+    delete displayProps.badgeClass;
     delete displayProps.color;
     var selectItem = function () {
         if (!props.blockActivate) {
@@ -3143,13 +3144,13 @@ var MDLink = function (props) {
                     }
                 }, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }),
                 props.children,
-                React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: "float-right" })));
+                React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: 'float-right mt-1 ' + ((_a = props.badgeClass) !== null && _a !== void 0 ? _a : '') })));
         case 'tr':
-            return (React__default['default'].createElement("tr", __assign({}, displayProps, { onClick: (_a = props.onClick) !== null && _a !== void 0 ? _a : selectItem, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
+            return (React__default['default'].createElement("tr", __assign({}, displayProps, { onClick: (_b = props.onClick) !== null && _b !== void 0 ? _b : selectItem, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
         case 'div':
-            return (React__default['default'].createElement("div", __assign({}, displayProps, { onClick: (_b = props.onClick) !== null && _b !== void 0 ? _b : selectItem, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
+            return (React__default['default'].createElement("div", __assign({}, displayProps, { onClick: (_c = props.onClick) !== null && _c !== void 0 ? _c : selectItem, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
         default:
-            return (React__default['default'].createElement("span", __assign({}, displayProps, { onClick: (_c = props.onClick) !== null && _c !== void 0 ? _c : selectItem, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
+            return (React__default['default'].createElement("span", __assign({}, displayProps, { onClick: (_d = props.onClick) !== null && _d !== void 0 ? _d : selectItem, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
     }
 };
 var MDDetail = function (props) {
