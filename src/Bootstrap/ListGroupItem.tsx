@@ -39,12 +39,16 @@ export const ListGroupItem = (props: IWListGroupItemProps) => {
 			className={`${ClassNames({
 				active: !!props.active,
 				disabled: !!props.disabled,
-				'list-group-item-action': !!props.action,
-				'd-flex justify-content-between align-items-center': props.badge === null || !!props.badge
+				'list-group-item-action': !!props.action
+				// 'd-flex justify-content-between align-items-center': props.badge === null || !!props.badge
 			})} list-group-item${!!props.color ? ` list-group-item-${props.color}` : ''} ${props.className ?? ''}`.trim()}
 			disabled={!!props.onClick && props.disabled ? true : undefined}>
 			{props.children}
-			<BadgeItem badge={props.badge} color={props.badgeColor} className={!!props.badgeNotSmall ? '' : 'small mt-1'} />
+			<BadgeItem
+				badge={props.badge}
+				color={props.badgeColor}
+				className={'float-right' + (!!props.badgeNotSmall ? '' : 'small mt-1')}
+			/>
 		</TagToUse>
 	)
 }

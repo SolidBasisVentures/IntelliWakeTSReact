@@ -8,7 +8,6 @@ import {ToDigits} from '@solidbasisventures/intelliwaketsfoundation'
 
 export interface IBadgeItemProps extends IWBadgeProps {
 	badge?: TBadgeValues
-	badgeColor?: string
 	badgeNotSmall?: boolean
 	alwaysShowValue?: boolean
 }
@@ -19,7 +18,7 @@ export const BadgeItem = (props: IBadgeItemProps) => {
 			<Spinner />
 		</Badge>
 	) : (props.alwaysShowValue && props.badge !== undefined) || !!props.badge ? (
-		<Badge color={props.badgeColor ?? 'secondary'} className={!!props.badgeNotSmall ? '' : 'small mt-1'}>
+		<Badge color={props.color} className={!!props.badgeNotSmall ? '' : 'small mt-1'}>
 			{typeof props.badge === 'number' ? ToDigits(props.badge, 0) : props.badge}
 		</Badge>
 	) : null

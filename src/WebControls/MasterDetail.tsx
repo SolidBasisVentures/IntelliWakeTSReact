@@ -217,7 +217,7 @@ export const MDLink = (props: IPropsMasterLink | any) => {
 					<BadgeItem
 						badge={props.badge}
 						color={props.badgeColor}
-						className={!!props.badgeNotSmall ? '' : 'small mt-1 float-right'}
+						className={'float-right ' + (!!props.badgeNotSmall ? '' : 'small mt-1')}
 					/>
 				</li>
 			)

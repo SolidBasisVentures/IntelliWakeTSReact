@@ -669,9 +669,8 @@ var Spinner = function (props) {
 
 // noinspection SuspiciousTypeOfGuard
 var BadgeItem = function (props) {
-    var _a;
     return props.badge === null ? (React__default['default'].createElement(Badge, { color: "secondary", className: !!props.badgeNotSmall ? '' : 'small mt-1' },
-        React__default['default'].createElement(Spinner, null))) : (props.alwaysShowValue && props.badge !== undefined) || !!props.badge ? (React__default['default'].createElement(Badge, { color: (_a = props.badgeColor) !== null && _a !== void 0 ? _a : 'secondary', className: !!props.badgeNotSmall ? '' : 'small mt-1' }, typeof props.badge === 'number' ? intelliwaketsfoundation.ToDigits(props.badge, 0) : props.badge)) : null;
+        React__default['default'].createElement(Spinner, null))) : (props.alwaysShowValue && props.badge !== undefined) || !!props.badge ? (React__default['default'].createElement(Badge, { color: props.color, className: !!props.badgeNotSmall ? '' : 'small mt-1' }, typeof props.badge === 'number' ? intelliwaketsfoundation.ToDigits(props.badge, 0) : props.badge)) : null;
 };
 
 var Button = React.forwardRef(function (props, ref) {
@@ -953,11 +952,11 @@ var ListGroupItem = function (props) {
     return (React__default['default'].createElement(TagToUse, __assign({ type: !!props.onClick ? 'button' : undefined }, intelliwaketsfoundation.OmitProperty(props, 'tag', 'className', 'active', 'disabled', 'color', 'action', 'children'), { className: (ClassNames({
             active: !!props.active,
             disabled: !!props.disabled,
-            'list-group-item-action': !!props.action,
-            'd-flex justify-content-between align-items-center': props.badge === null || !!props.badge
+            'list-group-item-action': !!props.action
+            // 'd-flex justify-content-between align-items-center': props.badge === null || !!props.badge
         }) + " list-group-item" + (!!props.color ? " list-group-item-" + props.color : '') + " " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim(), disabled: !!props.onClick && props.disabled ? true : undefined }),
         props.children,
-        React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: !!props.badgeNotSmall ? '' : 'small mt-1' })));
+        React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: 'float-right' + (!!props.badgeNotSmall ? '' : 'small mt-1') })));
 };
 
 var ListGroupItemHeading = function (props) {
@@ -3140,7 +3139,7 @@ var MDLink = function (props) {
                     }
                 }, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }),
                 props.children,
-                React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: !!props.badgeNotSmall ? '' : 'small mt-1 float-right' })));
+                React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: 'float-right ' + (!!props.badgeNotSmall ? '' : 'small mt-1') })));
         case 'tr':
             return (React__default['default'].createElement("tr", __assign({}, displayProps, { onClick: (_a = props.onClick) !== null && _a !== void 0 ? _a : selectItem, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
         case 'div':

@@ -1,7 +1,7 @@
 import React from 'react';
 export interface IWBadgeProps extends Omit<React.HTMLProps<HTMLSpanElement>, 'ref'> {
     color?: string;
-    pill?: boolean;
+    notPill?: boolean;
     tag?: string | React.ReactType;
     className?: string;
 }
