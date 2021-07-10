@@ -5,7 +5,7 @@ export type TStorageStateType = null | string | object | number | boolean | any[
 
 export type TStorageType = 'local' | 'session'
 
-export const setStorage = <T>(key: string, newValue: T, remember: TStorageType, defaultValue: T) => {
+export const setStorage = <T>(key: string | null | undefined, newValue: T, remember: TStorageType, defaultValue: T) => {
 	if (!!key) {
 		switch (remember) {
 			case 'local':
@@ -34,7 +34,7 @@ export const setStorage = <T>(key: string, newValue: T, remember: TStorageType, 
 	}
 }
 
-export const getStorage = <T>(key: string, remember: TStorageType, defaultValue: T): T => {
+export const getStorage = <T>(key: string | null | undefined, remember: TStorageType, defaultValue: T): T => {
 	if (!key) return defaultValue
 
 	let newValue = (
@@ -53,7 +53,7 @@ export const getStorage = <T>(key: string, remember: TStorageType, defaultValue:
 }
 
 export const useStorage = <T>(
-	key: string,
+	key: string | null | undefined,
 	defaultValue: T,
 	remember: TStorageType = 'local'
 ): [T, (val: SetStateAction<T>) => void, () => void] => {
@@ -62,20 +62,26 @@ export const useStorage = <T>(
 	const saveValue = useCallback((val: SetStateAction<T>) => {
 		if (typeof val === 'function') {
 			setValue((prevState) => {
-				const newValue = (val as Function)(getStorage(key, remember, prevState ?? defaultValue))
+				if (!!key) {
+					const newValue = (val as Function)(getStorage(key, remember, prevState ?? defaultValue))
 
-				setStorage(key, newValue, remember, defaultValue)
+					setStorage(key, newValue, remember, defaultValue)
 
-				return newValue
+					return newValue
+				} else {
+					return (val as Function)(prevState)
+				}
 			})
 		} else {
-			setStorage(key, val, remember, defaultValue)
+			if (!!key) {
+				setStorage(key, val, remember, defaultValue)
+			}
 
 			setValue(val)
 		}
 	}, [])
 
-	const currentValue = getStorage<T>(key, remember, defaultValue) ?? value
+	const currentValue = !!key ? getStorage<T>(key, remember, defaultValue) ?? value : value
 
 	return [currentValue, saveValue, () => saveValue(defaultValue)]
 }

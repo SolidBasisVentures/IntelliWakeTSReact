@@ -1346,17 +1346,24 @@ var useStorage = function (key, defaultValue, remember) {
     var saveValue = React.useCallback(function (val) {
         if (typeof val === 'function') {
             setValue(function (prevState) {
-                var newValue = val(getStorage(key, remember, prevState !== null && prevState !== void 0 ? prevState : defaultValue));
-                setStorage(key, newValue, remember, defaultValue);
-                return newValue;
+                if (!!key) {
+                    var newValue = val(getStorage(key, remember, prevState !== null && prevState !== void 0 ? prevState : defaultValue));
+                    setStorage(key, newValue, remember, defaultValue);
+                    return newValue;
+                }
+                else {
+                    return val(prevState);
+                }
             });
         }
         else {
-            setStorage(key, val, remember, defaultValue);
+            if (!!key) {
+                setStorage(key, val, remember, defaultValue);
+            }
             setValue(val);
         }
     }, []);
-    var currentValue = (_b = getStorage(key, remember, defaultValue)) !== null && _b !== void 0 ? _b : value;
+    var currentValue = !!key ? (_b = getStorage(key, remember, defaultValue)) !== null && _b !== void 0 ? _b : value : value;
     return [currentValue, saveValue, function () { return saveValue(defaultValue); }];
 };
 
