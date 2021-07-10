@@ -7,6 +7,7 @@ export interface IIWTab {
     hide?: boolean;
     inactive?: boolean;
     pane: ReactNode;
+    loadedOnlyWhenActive?: boolean;
 }
 export declare type TPaneLoading = 'All' | 'OnlyActive' | 'KeepOnceLoaded';
 export interface IWTabProps extends Omit<React.HTMLProps<HTMLDivElement>, 'ref'> {

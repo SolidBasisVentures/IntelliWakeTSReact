@@ -11,6 +11,7 @@ export interface IIWTab {
 	hide?: boolean
 	inactive?: boolean
 	pane: ReactNode
+	loadedOnlyWhenActive?: boolean
 }
 
 export type TPaneLoading = 'All' | 'OnlyActive' | 'KeepOnceLoaded'
@@ -116,6 +117,7 @@ export const Tab = (props: IWTabProps) => {
 					.filter(
 						(tab) =>
 							!tab.hide &&
+							(!tab.loadedOnlyWhenActive || tab.title === openTab) &&
 							(!props.paneLoading ||
 								props.paneLoading === 'All' ||
 								tab.title === openTab ||

@@ -1435,6 +1435,7 @@ var Tab = function (props) {
             }) }, showTabs
             .filter(function (tab) {
             return !tab.hide &&
+                (!tab.loadedOnlyWhenActive || tab.title === openTab) &&
                 (!props.paneLoading ||
                     props.paneLoading === 'All' ||
                     tab.title === openTab ||
