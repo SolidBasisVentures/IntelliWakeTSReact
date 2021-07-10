@@ -15,7 +15,7 @@ export const BadgeItem = (props: IBadgeItemProps) => {
 	const showProps = OmitProperty(props, 'badge', 'alwaysShowValue')
 
 	return props.badge === null ? (
-		<Badge {...showProps} color="secondary">
+		<Badge {...showProps} color="light" className={'text-gray ' + (props.className ?? '')}>
 			<Spinner />
 		</Badge>
 	) : (props.alwaysShowValue && props.badge !== undefined) || !!props.badge ? (

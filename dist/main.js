@@ -957,7 +957,7 @@ var ListGroupItem = function (props) {
             // 'd-flex justify-content-between align-items-center': props.badge === null || !!props.badge
         }) + " list-group-item" + (!!props.color ? " list-group-item-" + props.color : '') + " " + ((_b = props.className) !== null && _b !== void 0 ? _b : '')).trim(), disabled: !!props.onClick && props.disabled ? true : undefined }),
         props.children,
-        React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: 'float-right ' + ((_c = props.badgeClass) !== null && _c !== void 0 ? _c : ''), style: { marginTop: '0.125rem' } })));
+        React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: 'float-right ' + ((_c = props.badgeClass) !== null && _c !== void 0 ? _c : ''), style: { marginTop: '0.2rem' } })));
 };
 
 var ListGroupItemHeading = function (props) {
@@ -3144,7 +3144,7 @@ var MDLink = function (props) {
                     }
                 }, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }),
                 props.children,
-                React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: 'float-right ' + ((_a = props.badgeClass) !== null && _a !== void 0 ? _a : ''), style: { marginTop: '0.125rem' } })));
+                React__default['default'].createElement(BadgeItem, { badge: props.badge, color: props.badgeColor, className: 'float-right ' + ((_a = props.badgeClass) !== null && _a !== void 0 ? _a : ''), style: { marginTop: '0.2rem' } })));
         case 'tr':
             return (React__default['default'].createElement("tr", __assign({}, displayProps, { onClick: (_b = props.onClick) !== null && _b !== void 0 ? _b : selectItem, onDoubleClick: props.onDoubleClick, style: props.style, title: props.title, ref: !props.noAutoScroll && linkActive ? selectedRow : null }), props.children));
         case 'div':

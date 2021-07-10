@@ -59,7 +59,7 @@ export const ListGroupItem = (props: IWListGroupItemProps) => {
 				badge={props.badge}
 				color={props.badgeColor}
 				className={'float-right ' + (props.badgeClass ?? '')}
-				style={{marginTop: '0.125rem'}}
+				style={{marginTop: '0.2rem'}}
 			/>
 		</TagToUse>
 	)
