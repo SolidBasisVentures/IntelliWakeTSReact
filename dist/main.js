@@ -877,7 +877,7 @@ var Dropdown = function (props) {
     // console.log('menuRef', menuRef?.current)
     // console.log('Offset', offset)
     //onClick={(e: any) => e.stopPropagation()}
-    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'direction', 'isOpen', 'nav', 'toggle', 'inNavbar', 'right', 'buttonLabel', 'buttonFAProps', 'buttonClassName', 'menuClassName', 'noCaret', 'size', 'color', 'className'), { className: classes }),
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'direction', 'ddActions', 'isOpen', 'nav', 'toggle', 'inNavbar', 'right', 'buttonLabel', 'buttonFAProps', 'buttonClassName', 'menuClassName', 'noCaret', 'size', 'color', 'className'), { className: classes }),
         React__default['default'].createElement(Button, { color: props.color, size: props.size, className: !!props.nav || !!props.inNavbar
                 ? undefined
                 : (((_d = props.buttonClassName) !== null && _d !== void 0 ? _d : '') + " " + (props.noCaret ? '' : 'dropdown-toggle')).trim(), classNameOverride: !!props.nav || !!props.inNavbar

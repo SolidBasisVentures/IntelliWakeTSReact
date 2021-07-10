@@ -138,6 +138,7 @@ export const Dropdown = (props: IWDropdownProps) => {
 				'tag',
 				'disabled',
 				'direction',
+				'ddActions',
 				'isOpen',
 				'nav',
 				'toggle',
