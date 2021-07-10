@@ -3475,7 +3475,7 @@ var SelectDD = function (props) {
         }))));
 };
 
-var SpinnerIW = function (props) {
+var Spinner = function (props) {
     var style = {};
     if (!props.spin && !props.pulse) {
         style.animation = 'fa-spin 0.75s infinite linear';
@@ -3649,7 +3649,7 @@ exports.SetSort = SetSort;
 exports.SizeAtMax = SizeAtMax;
 exports.SizeAtMin = SizeAtMin;
 exports.SortObjects = SortObjects;
-exports.SpinnerIW = SpinnerIW;
+exports.Spinner = Spinner;
 exports.StructuredArray = StructuredArray;
 exports.StyleControl = StyleControl;
 exports.Table = Table;

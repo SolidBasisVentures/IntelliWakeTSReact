@@ -4,7 +4,7 @@ import {faSpinnerThird} from '@fortawesome/pro-solid-svg-icons/faSpinnerThird'
 
 export interface IIWSpinnerProps extends Partial<FontAwesomeIconProps> {}
 
-export const SpinnerIW = (props: IIWSpinnerProps) => {
+export const Spinner = (props: IIWSpinnerProps) => {
 	let style: CSSProperties = {}
 
 	if (!props.spin && !props.pulse) {
