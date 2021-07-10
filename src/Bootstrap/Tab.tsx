@@ -1,4 +1,4 @@
-import React, {Dispatch, ReactNode, SetStateAction, useCallback, useState} from 'react'
+import React, {Dispatch, ReactNode, SetStateAction, useCallback, useRef, useState} from 'react'
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
 import {TStorageType, useStorage} from '../Hooks/useStorage'
 import {Button} from './Button'
@@ -35,6 +35,7 @@ export interface IWTabProps extends Omit<React.HTMLProps<HTMLDivElement>, 'ref'>
 }
 
 export const Tab = (props: IWTabProps) => {
+	const isChanging = useRef(false)
 	const showTabs = props.tabs.filter((tab) => !tab.hide)
 	const defaultTab = showTabs.find((tab) => !tab.disabled && (!props.openTab || tab.title === props.openTab))?.title
 	const [openTab, setOpenTab] = useStorage<string>(
@@ -79,14 +80,19 @@ export const Tab = (props: IWTabProps) => {
 	)
 
 	if (!actualOpenTab) {
-		const gotoTab = showTabs.find((tab) => !tab.disabled)?.title
-		if (gotoTab) {
-			setActualOpenTab(gotoTab)
-			openTabChanged(gotoTab)
-			setLoadedTabs((prevState) => [...prevState.filter((pS) => pS !== gotoTab), gotoTab])
+		if (!isChanging.current) {
+			const gotoTab = showTabs.find((tab) => !tab.disabled)?.title
+			if (gotoTab) {
+				isChanging.current = true
+				setActualOpenTab(gotoTab)
+				openTabChanged(gotoTab)
+				setLoadedTabs((prevState) => [...prevState.filter((pS) => pS !== gotoTab), gotoTab])
+			}
 		}
 
 		return null
+	} else {
+		isChanging.current = false
 	}
 
 	// "px-4 mt-3 mx-0 gray-tabs"

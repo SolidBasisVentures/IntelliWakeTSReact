@@ -1377,6 +1377,7 @@ var ModalPrompt = function (props) {
 
 var Tab = function (props) {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+    var isChanging = React.useRef(false);
     var showTabs = props.tabs.filter(function (tab) { return !tab.hide; });
     var defaultTab = (_a = showTabs.find(function (tab) { return !tab.disabled && (!props.openTab || tab.title === props.openTab); })) === null || _a === void 0 ? void 0 : _a.title;
     var _k = useStorage(props.rememberKey, defaultTab !== null && defaultTab !== void 0 ? defaultTab : '', (_b = props.rememberType) !== null && _b !== void 0 ? _b : 'session'), openTab = _k[0], setOpenTab = _k[1];
@@ -1408,13 +1409,19 @@ var Tab = function (props) {
         }
     }, [actualOpenTab, openTabChanged, setOpenTab, props.isDirty]);
     if (!actualOpenTab) {
-        var gotoTab_1 = (_f = showTabs.find(function (tab) { return !tab.disabled; })) === null || _f === void 0 ? void 0 : _f.title;
-        if (gotoTab_1) {
-            setActualOpenTab(gotoTab_1);
-            openTabChanged(gotoTab_1);
-            setLoadedTabs(function (prevState) { return __spreadArrays(prevState.filter(function (pS) { return pS !== gotoTab_1; }), [gotoTab_1]); });
+        if (!isChanging.current) {
+            var gotoTab_1 = (_f = showTabs.find(function (tab) { return !tab.disabled; })) === null || _f === void 0 ? void 0 : _f.title;
+            if (gotoTab_1) {
+                isChanging.current = true;
+                setActualOpenTab(gotoTab_1);
+                openTabChanged(gotoTab_1);
+                setLoadedTabs(function (prevState) { return __spreadArrays(prevState.filter(function (pS) { return pS !== gotoTab_1; }), [gotoTab_1]); });
+            }
         }
         return null;
+    }
+    else {
+        isChanging.current = false;
     }
     // "px-4 mt-3 mx-0 gray-tabs"
     // p-2 background-gray overflow-hidden
