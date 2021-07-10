@@ -1,4 +1,4 @@
-import React, {Dispatch, ReactNode, SetStateAction, useCallback, useMemo, useState} from 'react'
+import React, {Dispatch, ReactNode, SetStateAction, useCallback, useState} from 'react'
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
 import {TStorageType, useStorage} from '../Hooks/useStorage'
 import {Button} from './Button'
@@ -45,10 +45,9 @@ export const Tab = (props: IWTabProps) => {
 	const [loadedTabs, setLoadedTabs] = useState<string[]>(!defaultTab ? [] : [defaultTab])
 	const [modalPromptProps, setModalPromptProps] = useState<null | IModalPromptProps>(null)
 
-	const actualOpenTab = useMemo<string | undefined>(
-		() => showTabs.find((tab) => !tab.disabled && tab.title === (!!props.setOpenTab ? props.openTab : openTab))?.title,
-		[props.openTab, props.setOpenTab, openTab]
-	)
+	const actualOpenTab = showTabs.find(
+		(tab) => !tab.disabled && tab.title === (!!props.setOpenTab ? props.openTab : openTab)
+	)?.title
 
 	const setActualOpenTab = useCallback(props.setOpenTab ?? setOpenTab, [props, setOpenTab])
 
@@ -79,10 +78,8 @@ export const Tab = (props: IWTabProps) => {
 		[actualOpenTab, openTabChanged, setOpenTab, props.isDirty]
 	)
 
-	console.log('aOT', actualOpenTab)
 	if (!actualOpenTab) {
 		const gotoTab = showTabs.find((tab) => !tab.disabled)?.title
-		console.log('goto', gotoTab)
 		if (gotoTab) {
 			setActualOpenTab(gotoTab)
 			openTabChanged(gotoTab)
@@ -91,8 +88,6 @@ export const Tab = (props: IWTabProps) => {
 
 		return null
 	}
-
-	console.log('showTab', actualOpenTab)
 
 	// "px-4 mt-3 mx-0 gray-tabs"
 	// p-2 background-gray overflow-hidden
