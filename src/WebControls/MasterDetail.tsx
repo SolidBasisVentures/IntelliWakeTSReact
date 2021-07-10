@@ -148,7 +148,7 @@ interface IPropsMasterLink {
 	postPath?: string
 	blockActivate?: boolean
 	badge?: TBadgeValues
-	color?: string
+	badgeColor?: string
 }
 
 export const panelClean = (panel?: string | null): string => ReplaceAll('/', '', (panel ?? '').replace(/\s+/g, ''))
