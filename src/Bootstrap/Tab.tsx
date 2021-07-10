@@ -53,8 +53,11 @@ export const Tab = (props: IWTabProps) => {
 	const setActualOpenTab = useCallback(props.setOpenTab ?? setOpenTab, [props, setOpenTab])
 
 	useEffect(() => {
-		if (!!defaultTab && !actualOpenTab) {
-			setActualOpenTab(defaultTab)
+		if (!actualOpenTab) {
+			const gotoTab = showTabs.find((tab) => !tab.disabled)?.title
+			if (gotoTab) {
+				setActualOpenTab(gotoTab)
+			}
 		}
 	}, [defaultTab, actualOpenTab, setActualOpenTab])
 

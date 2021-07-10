@@ -1385,8 +1385,12 @@ var Tab = function (props) {
     var actualOpenTab = React.useMemo(function () { var _a; return (_a = showTabs.find(function (tab) { return !tab.disabled && tab.title === (!!props.setOpenTab ? props.openTab : openTab); })) === null || _a === void 0 ? void 0 : _a.title; }, [props.openTab, props.setOpenTab, openTab]);
     var setActualOpenTab = React.useCallback((_c = props.setOpenTab) !== null && _c !== void 0 ? _c : setOpenTab, [props, setOpenTab]);
     React.useEffect(function () {
-        if (!!defaultTab && !actualOpenTab) {
-            setActualOpenTab(defaultTab);
+        var _a;
+        if (!actualOpenTab) {
+            var gotoTab = (_a = showTabs.find(function (tab) { return !tab.disabled; })) === null || _a === void 0 ? void 0 : _a.title;
+            if (gotoTab) {
+                setActualOpenTab(gotoTab);
+            }
         }
     }, [defaultTab, actualOpenTab, setActualOpenTab]);
     var openTabChanged = React.useCallback((_d = props.openTabChanged) !== null && _d !== void 0 ? _d : (function () { }), [props]);
