@@ -1,9 +1,25 @@
-import React, {ReactNode, useEffect, useRef, useState} from 'react'
+import React, {ReactNode, useEffect, useMemo, useRef, useState} from 'react'
 import {OmitProperty} from '@solidbasisventures/intelliwaketsfoundation'
 import {Button} from './Button'
 import {ClassNames, KEY_ESCAPE} from '../Functions'
+import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
+import {faCog} from '@fortawesome/pro-regular-svg-icons'
+import {DropdownItem} from './DropdownItem'
 
 export type Direction = 'up' | 'down' | 'left' | 'right'
+
+export interface IDDAction {
+	hidden?: boolean
+	divider?: boolean
+	disabled?: boolean
+	header?: boolean
+	faProps?: FontAwesomeIconProps
+	faPropHidden?: boolean
+	title?: ReactNode
+	action?: () => void
+	color?: string
+	className?: string
+}
 
 export interface IWDropdownProps extends Omit<React.HTMLProps<HTMLDivElement>, 'ref' | 'size'> {
 	disabled?: boolean
@@ -16,18 +32,28 @@ export interface IWDropdownProps extends Omit<React.HTMLProps<HTMLDivElement>, '
 	color?: string
 	inNavbar?: boolean
 	right?: boolean
-	toggleButtonLabel: ReactNode
-	toggleButtonClassName?: string
+	buttonText?: ReactNode
+	buttonFAProps?: FontAwesomeIconProps
+	buttonClassName?: string
 	menuClassName?: string
 	noCaret?: boolean
+	ddActions?: IDDAction[] | (() => IDDAction[])
 }
 
 export const Dropdown = (props: IWDropdownProps) => {
-	// const buttonRef = useRef<any>()
-	// const menuRef = useRef<any>()
 	const hasOpened = useRef(false)
 	const [isOpen, setIsOpen] = useState<boolean>(props.isOpen ?? false)
-	// const [offset, setOffset] = useState(0)
+	const visibleDDActions = useMemo(
+		() =>
+			!props.ddActions
+				? []
+				: (typeof props.ddActions === 'function' ? props.ddActions() : props.ddActions).filter(
+						(ddAction) => !ddAction.hidden
+				  ),
+		[props.ddActions]
+	)
+
+	const showFAProps = useMemo(() => !!visibleDDActions.find((ddAction) => !!ddAction.faProps), [visibleDDActions])
 
 	const TagToUse = props.tag ?? !!props.inNavbar ? 'li' : ('div' as React.ReactType)
 
@@ -117,8 +143,9 @@ export const Dropdown = (props: IWDropdownProps) => {
 				'toggle',
 				'inNavbar',
 				'right',
-				'toggleButtonLabel',
-				'toggleButtonClassName',
+				'buttonText',
+				'buttonFAProps',
+				'buttonClassName',
 				'menuClassName',
 				'noCaret',
 				'size',
@@ -132,11 +159,11 @@ export const Dropdown = (props: IWDropdownProps) => {
 				className={
 					!!props.nav || !!props.inNavbar
 						? undefined
-						: `${props.toggleButtonClassName ?? ''} ${props.noCaret ? '' : 'dropdown-toggle'}`.trim()
+						: `${props.buttonClassName ?? ''} ${props.noCaret ? '' : 'dropdown-toggle'}`.trim()
 				}
 				classNameOverride={
 					!!props.nav || !!props.inNavbar
-						? `text-left nav-link ${props.toggleButtonClassName ?? ''} ${props.noCaret ? '' : 'dropdown-toggle'}`.trim()
+						? `text-left nav-link ${props.buttonClassName ?? ''} ${props.noCaret ? '' : 'dropdown-toggle'}`.trim()
 						: undefined
 				}
 				onClick={(e: any) => {
@@ -153,7 +180,7 @@ export const Dropdown = (props: IWDropdownProps) => {
 				style={!!props.nav || !!props.inNavbar ? {background: 'none', border: 'none'} : undefined}
 				// ref={buttonRef}
 			>
-				{props.toggleButtonLabel}
+				{props.buttonText}
 			</Button>
 			<div
 				tabIndex={-1}
@@ -189,7 +216,30 @@ export const Dropdown = (props: IWDropdownProps) => {
 				// ref={menuRef}
 			>
 				{/*{actualIsOpen ? props.children : undefined}*/}
-				{hasOpened.current && props.children}
+				{hasOpened.current && (
+					<>
+						{props.children}
+						{visibleDDActions.map((ddAction, idx) => (
+							<DropdownItem
+								className={(ddAction.className ?? '') + (!!ddAction.color ? ` text-${ddAction.color}` : '')}
+								key={idx}
+								disabled={!!ddAction.disabled || !ddAction.action}
+								divider={!!ddAction.divider}
+								header={!!ddAction.header}
+								onClick={() => (!!ddAction.action ? ddAction.action() : () => {})}>
+								{showFAProps && (
+									<FontAwesomeIcon
+										icon={faCog}
+										{...ddAction.faProps}
+										className={!ddAction.faProps || ddAction.faPropHidden ? 'invisible' : ''}
+										fixedWidth
+									/>
+								)}
+								{ddAction.title}
+							</DropdownItem>
+						))}
+					</>
+				)}
 			</div>
 		</TagToUse>
 	)

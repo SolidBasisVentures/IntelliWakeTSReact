@@ -1,7 +1,7 @@
 import React from 'react'
 import {IWBadgeProps} from './Badge'
 import {TBadgeValues} from './ListGroupItem'
-import {Spinner} from 'reactstrap'
+import {Spinner} from '../WebControls/Spinner'
 
 export interface IBadgeItemProps extends IWBadgeProps {
 	badge?: TBadgeValues
@@ -12,12 +12,7 @@ export interface IBadgeItemProps extends IWBadgeProps {
 export const BadgeItem = (props: IBadgeItemProps) => {
 	return props.badge === null ? (
 		<span className={`badge badge-secondary badge-pill ${!!props.badgeNotSmall ? '' : 'small mt-1'}`.trim()}>
-			<Spinner
-				style={{
-					width: '1em',
-					height: '1em'
-				}}
-			/>
+			<Spinner />
 		</span>
 	) : !!props.badge ? (
 		<span

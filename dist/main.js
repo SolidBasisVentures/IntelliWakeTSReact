@@ -5,15 +5,15 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var intelliwaketsfoundation = require('@solidbasisventures/intelliwaketsfoundation');
 var React = require('react');
 var moment = require('moment');
-var reactstrap = require('reactstrap');
-var ReactDOM = require('react-dom');
 var reactFontawesome = require('@fortawesome/react-fontawesome');
+var faSpinnerThird = require('@fortawesome/pro-solid-svg-icons/faSpinnerThird');
 var proRegularSvgIcons = require('@fortawesome/pro-regular-svg-icons');
+var ReactDOM = require('react-dom');
+var reactstrap = require('reactstrap');
 var reactRouterDom = require('react-router-dom');
 var ReactDatePicker = require('react-datepicker');
 var Cleave = require('cleave.js/react');
 var axios = require('axios');
-var faSpinnerThird = require('@fortawesome/pro-solid-svg-icons/faSpinnerThird');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -659,13 +659,18 @@ var Badge = function (props) {
     return React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'color', 'pill', 'className'), { className: classes.trim() }));
 };
 
+var Spinner = function (props) {
+    var style = {};
+    if (!props.spin && !props.pulse) {
+        style.animation = 'fa-spin 0.75s infinite linear';
+    }
+    return React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: faSpinnerThird.faSpinnerThird, style: style }, props));
+};
+
 var BadgeItem = function (props) {
     var _a;
     return props.badge === null ? (React__default['default'].createElement("span", { className: ("badge badge-secondary badge-pill " + (!!props.badgeNotSmall ? '' : 'small mt-1')).trim() },
-        React__default['default'].createElement(reactstrap.Spinner, { style: {
-                width: '1em',
-                height: '1em'
-            } }))) : !!props.badge ? (React__default['default'].createElement("span", { className: ("badge badge-" + ((_a = props.badgeColor) !== null && _a !== void 0 ? _a : 'secondary') + " badge-pill " + (!!props.badgeNotSmall ? '' : 'small mt-1')).trim() }, props.badge)) : null;
+        React__default['default'].createElement(Spinner, null))) : !!props.badge ? (React__default['default'].createElement("span", { className: ("badge badge-" + ((_a = props.badgeColor) !== null && _a !== void 0 ? _a : 'secondary') + " badge-pill " + (!!props.badgeNotSmall ? '' : 'small mt-1')).trim() }, props.badge)) : null;
 };
 
 var Button = React.forwardRef(function (props, ref) {
@@ -756,13 +761,31 @@ var Container = function (props) {
         })).trim() }), props.children));
 };
 
+var DropdownItem = function (props) {
+    var _a, _b;
+    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : (!!props.href ? 'a' : 'div');
+    var classes = (_b = props.className) !== null && _b !== void 0 ? _b : '';
+    classes +=
+        ' ' +
+            ClassNames({
+                'dropdown-item': !props.header && !props.divider,
+                'dropdown-header': !!props.header,
+                'dropdown-divider': !!props.divider,
+                disabled: !!props.disabled
+            });
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'divider', 'header', 'className', 'size', 'type'), { className: classes, style: { cursor: !props.disabled && (!!props.href || !!props.onClick) ? 'pointer' : undefined } })));
+};
+
 var Dropdown = function (props) {
     var _a, _b, _c, _d, _e, _f;
-    // const buttonRef = useRef<any>()
-    // const menuRef = useRef<any>()
     var hasOpened = React.useRef(false);
     var _g = React.useState((_a = props.isOpen) !== null && _a !== void 0 ? _a : false), isOpen = _g[0], setIsOpen = _g[1];
-    // const [offset, setOffset] = useState(0)
+    var visibleDDActions = React.useMemo(function () {
+        return !props.ddActions
+            ? []
+            : (typeof props.ddActions === 'function' ? props.ddActions() : props.ddActions).filter(function (ddAction) { return !ddAction.hidden; });
+    }, [props.ddActions]);
+    var showFAProps = React.useMemo(function () { return !!visibleDDActions.find(function (ddAction) { return !!ddAction.faProps; }); }, [visibleDDActions]);
     var TagToUse = ((_b = props.tag) !== null && _b !== void 0 ? _b : !!props.inNavbar) ? 'li' : 'div';
     var isControlled = props.isOpen !== undefined;
     var actualIsOpen = isControlled ? !!props.isOpen : isOpen;
@@ -822,11 +845,11 @@ var Dropdown = function (props) {
     // console.log('menuRef', menuRef?.current)
     // console.log('Offset', offset)
     //onClick={(e: any) => e.stopPropagation()}
-    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'direction', 'isOpen', 'nav', 'toggle', 'inNavbar', 'right', 'toggleButtonLabel', 'toggleButtonClassName', 'menuClassName', 'noCaret', 'size', 'color', 'className'), { className: classes }),
+    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'direction', 'isOpen', 'nav', 'toggle', 'inNavbar', 'right', 'buttonText', 'buttonFAProps', 'buttonClassName', 'menuClassName', 'noCaret', 'size', 'color', 'className'), { className: classes }),
         React__default['default'].createElement(Button, { color: props.color, size: props.size, className: !!props.nav || !!props.inNavbar
                 ? undefined
-                : (((_d = props.toggleButtonClassName) !== null && _d !== void 0 ? _d : '') + " " + (props.noCaret ? '' : 'dropdown-toggle')).trim(), classNameOverride: !!props.nav || !!props.inNavbar
-                ? ("text-left nav-link " + ((_e = props.toggleButtonClassName) !== null && _e !== void 0 ? _e : '') + " " + (props.noCaret ? '' : 'dropdown-toggle')).trim()
+                : (((_d = props.buttonClassName) !== null && _d !== void 0 ? _d : '') + " " + (props.noCaret ? '' : 'dropdown-toggle')).trim(), classNameOverride: !!props.nav || !!props.inNavbar
+                ? ("text-left nav-link " + ((_e = props.buttonClassName) !== null && _e !== void 0 ? _e : '') + " " + (props.noCaret ? '' : 'dropdown-toggle')).trim()
                 : undefined, onClick: function (e) {
                 // e.stopPropagation()
                 if (!!props.toggle) {
@@ -835,7 +858,7 @@ var Dropdown = function (props) {
                 if (!isControlled) {
                     setIsOpen(function (prevState) { return !prevState; });
                 }
-            }, style: !!props.nav || !!props.inNavbar ? { background: 'none', border: 'none' } : undefined }, props.toggleButtonLabel),
+            }, style: !!props.nav || !!props.inNavbar ? { background: 'none', border: 'none' } : undefined }, props.buttonText),
         React__default['default'].createElement("div", { tabIndex: -1, className: (ClassNames({
                 show: actualIsOpen,
                 'dropdown-menu-right': !!props.right
@@ -847,22 +870,14 @@ var Dropdown = function (props) {
                 if (!isControlled) {
                     setIsOpen(function (prevState) { return !prevState; });
                 }
-            } }, hasOpened.current && props.children)));
-};
-
-var DropdownItem = function (props) {
-    var _a, _b;
-    var TagToUse = (_a = props.tag) !== null && _a !== void 0 ? _a : (!!props.href ? 'a' : 'div');
-    var classes = (_b = props.className) !== null && _b !== void 0 ? _b : '';
-    classes +=
-        ' ' +
-            ClassNames({
-                'dropdown-item': !props.header && !props.divider,
-                'dropdown-header': !!props.header,
-                'dropdown-divider': !!props.divider,
-                disabled: !!props.disabled
-            });
-    return (React__default['default'].createElement(TagToUse, __assign({}, intelliwaketsfoundation.OmitProperty(props, 'tag', 'disabled', 'divider', 'header', 'className', 'size', 'type'), { className: classes, style: { cursor: !props.disabled && (!!props.href || !!props.onClick) ? 'pointer' : undefined } })));
+            } }, hasOpened.current && (React__default['default'].createElement(React__default['default'].Fragment, null,
+            props.children,
+            visibleDDActions.map(function (ddAction, idx) {
+                var _a;
+                return (React__default['default'].createElement(DropdownItem, { className: ((_a = ddAction.className) !== null && _a !== void 0 ? _a : '') + (!!ddAction.color ? " text-" + ddAction.color : ''), key: idx, disabled: !!ddAction.disabled || !ddAction.action, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return (!!ddAction.action ? ddAction.action() : function () { }); } },
+                    showFAProps && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, ddAction.faProps, { className: !ddAction.faProps || ddAction.faPropHidden ? 'invisible' : '', fixedWidth: true }))),
+                    ddAction.title));
+            }))))));
 };
 
 var Form = function (props) {
@@ -1270,6 +1285,7 @@ var RemoveActivityOverlay = function (prevState) {
  * An overlay with a black background and a spinner that covers the entire screen.
  */
 var ActivityOverlay = function (props) {
+    var _a;
     function resetActivityOverlay() {
         var _a;
         if (props.activityOverlayState.nestedCount > 0) {
@@ -1281,7 +1297,7 @@ var ActivityOverlay = function (props) {
     }
     if (props.activityOverlayState.nestedCount > 0) {
         return (React__default['default'].createElement("div", { className: "System_ActivityOverlay", onClick: resetActivityOverlay, color: "primary" },
-            React__default['default'].createElement(reactstrap.Spinner, { style: { width: '3rem', height: '3rem' } })));
+            React__default['default'].createElement(Spinner, { size: (_a = props.size) !== null && _a !== void 0 ? _a : '3x' })));
     }
     return null;
 };
@@ -1290,11 +1306,9 @@ var ActivityOverlay = function (props) {
  * An overlay with a white background and a spinner that covers the entire surface of it's parent component.
  */
 var ActivityOverlayControl = function (props) {
-    var _a, _b;
-    return props.show ? React__default['default'].createElement("div", { className: "System_ActivityOverlay_Control" },
-        React__default['default'].createElement(reactstrap.Spinner, { style: { width: (_a = props.spinnerSize) !== null && _a !== void 0 ? _a : '2rem', height: (_b = props.spinnerSize) !== null && _b !== void 0 ? _b : '2rem' } }))
-        :
-            null;
+    var _a;
+    return props.show ? (React__default['default'].createElement("div", { className: "System_ActivityOverlay_Control" },
+        React__default['default'].createElement(Spinner, { size: (_a = props.size) !== null && _a !== void 0 ? _a : '2x' }))) : null;
 };
 
 var initialSortProperties = {
@@ -1514,7 +1528,7 @@ var ArrayTable = function (props) {
     if (props.minWidth) {
         styleSettings.minWidth = props.minWidth;
     }
-    return (React__default['default'].createElement(reactstrap.Table, { size: "sm", bordered: props.bordered, className: ClassNames((_a = {
+    return (React__default['default'].createElement(Table, { size: "sm", bordered: props.bordered, className: ClassNames((_a = {
                 'table-scrollable': !!props.scrollable
             },
             _a[(_c = 'table-col-min-' + props.arrayStructure.minColSize) !== null && _c !== void 0 ? _c : ''] = !!props.arrayStructure.minColSize,
@@ -1523,10 +1537,7 @@ var ArrayTable = function (props) {
         React__default['default'].createElement("tbody", null, SortObjects((_d = props.arrayData) !== null && _d !== void 0 ? _d : [], sorter).map(function (row, idx) {
             return WriteBodyTR(row, idx, props.arrayStructure, validColumns, !!props.hideCosts, sumsInFooter);
         })),
-        Object.keys(sumsInFooter).length > 0 ?
-            React__default['default'].createElement("tfoot", null, WriteFootTR(validColumns, sumsInFooter, !!props.hideCosts))
-            :
-                null));
+        Object.keys(sumsInFooter).length > 0 ? (React__default['default'].createElement("tfoot", null, WriteFootTR(validColumns, sumsInFooter, !!props.hideCosts))) : null));
 };
 
 var BRAfter = function (props) {
@@ -1939,30 +1950,6 @@ var defaultRangeString = DateRangeToString(defaultRange);
 // 	showCaret: true,
 // 	borderless: false
 // } as Partial<IPropsDateRange>
-
-/**
- * An array-driven drop down control
- */
-var DDActions = function (props) {
-    var _a;
-    var visibleDDActions = React.useMemo(function () {
-        return (typeof props.ddActions === 'function' ? props.ddActions() : props.ddActions).filter(function (ddAction) { return !ddAction.hidden; });
-    }, [props.ddActions]);
-    var showDDActions = React.useMemo(function () { return !props.hidden && visibleDDActions.length > 0; }, [visibleDDActions, props.hidden]);
-    var showFAProps = React.useMemo(function () { return !!visibleDDActions.find(function (ddAction) { return !!ddAction.faProps; }); }, [visibleDDActions]);
-    if (!showDDActions)
-        return null;
-    return (React__default['default'].createElement(reactstrap.UncontrolledButtonDropdown, null,
-        React__default['default'].createElement(reactstrap.DropdownToggle, { caret: !props.noCaret, className: props.className, color: props.color, size: props.size },
-            props.faProps !== null && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({}, ((_a = props.faProps) !== null && _a !== void 0 ? _a : { icon: proRegularSvgIcons.faCog }), { fixedWidth: !!props.buttonText }))),
-            props.buttonText),
-        React__default['default'].createElement(reactstrap.DropdownMenu, { right: props.right }, visibleDDActions.map(function (ddAction, idx) {
-            var _a;
-            return (React__default['default'].createElement(reactstrap.DropdownItem, { className: ((_a = ddAction.className) !== null && _a !== void 0 ? _a : '') + (!!ddAction.color ? " text-" + ddAction.color : ''), key: idx, disabled: !!ddAction.disabled || !ddAction.action, divider: !!ddAction.divider, header: !!ddAction.header, onClick: function () { return (!!ddAction.action ? ddAction.action() : function () { }); } },
-                showFAProps && (React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: proRegularSvgIcons.faCog }, ddAction.faProps, { className: !ddAction.faProps || ddAction.faPropHidden ? 'invisible' : '', fixedWidth: true }))),
-                ddAction.title));
-        }))));
-};
 
 var EllipsesTruncate = function (props) {
     var _a;
@@ -3234,7 +3221,7 @@ var MasterDetailListGroup = function (props) {
     return (React__default['default'].createElement(MasterDetail, { setMenuBackItemState: props.setMenuBackItemState, mdPath: props.mdPath, breakAt: props.breakAt, backText: props.backText, rememberLast: props.rememberLast, className: props.className },
         React__default['default'].createElement(MDMaster, { width: props.mdMasterWidth, className: props.mdMasterClassName },
             props.mdMasterTopNode,
-            React__default['default'].createElement(reactstrap.ListGroup, { flush: true, className: "fill-height-scroll " + (props.noTextLargeSmaller ? '' : "text-large-" + props.breakAt + "-smaller") },
+            React__default['default'].createElement(ListGroup, { flush: true, className: "fill-height-scroll " + (props.noTextLargeSmaller ? '' : "text-large-" + props.breakAt + "-smaller") },
                 listGroupItems.map(function (listGroupItem, idx) {
                     var _a, _b, _c, _d;
                     var prefix = null;
@@ -3248,7 +3235,7 @@ var MasterDetailListGroup = function (props) {
                                     prefix = idx > 0 ? '' : null;
                                     break;
                                 default:
-                                    prefix = (React__default['default'].createElement(reactstrap.ListGroupItemHeading, { onClick: function () {
+                                    prefix = (React__default['default'].createElement(ListGroupItemHeading, { onClick: function () {
                                             if (!!props.setCollapsedSections && !!listGroupItem.section) {
                                                 props.setCollapsedSections(function (prevState) {
                                                     if (!listGroupItem.section)
@@ -3282,7 +3269,7 @@ var MasterDetailListGroup = function (props) {
                             !!listGroupItem.faProps && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ fixedWidth: true }, listGroupItem.faProps)),
                             listGroupItem.linkNode,
                             React__default['default'].createElement(BadgeItem, { badge: listGroupItem.badge, color: listGroupItem.badgeColor, badgeNotSmall: listGroupItem.badgeNotSmall }),
-                            listGroupItem.counter !== undefined && (React__default['default'].createElement(reactstrap.Badge, { color: listGroupItem.counterColor, className: "float-right small text-white border-round ml-2" }, listGroupItem.counter !== null ? (intelliwaketsfoundation.ToDigits(listGroupItem.counter, 0)) : (React__default['default'].createElement(reactstrap.Spinner, { size: "sm", style: { width: '0.8em', height: '0.8em' } })))))));
+                            listGroupItem.counter !== undefined && (React__default['default'].createElement(Badge, { color: listGroupItem.counterColor, className: "float-right small text-white border-round ml-2" }, listGroupItem.counter !== null ? intelliwaketsfoundation.ToDigits(listGroupItem.counter, 0) : React__default['default'].createElement(Spinner, { size: "xs" }))))));
                 }),
                 props.mdMasterBottomNode),
             props.mdMasterBottomOutsideNode),
@@ -3475,14 +3462,6 @@ var SelectDD = function (props) {
         }))));
 };
 
-var Spinner = function (props) {
-    var style = {};
-    if (!props.spin && !props.pulse) {
-        style.animation = 'fa-spin 0.75s infinite linear';
-    }
-    return React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, __assign({ icon: faSpinnerThird.faSpinnerThird, style: style }, props));
-};
-
 var initialTextStatusState = {
     message: null
 };
@@ -3540,7 +3519,6 @@ exports.CookieErase = CookieErase;
 exports.CookieRead = CookieRead;
 exports.CopyRefToClipboard = CopyRefToClipboard;
 exports.CreateCustomDateRange = CreateCustomDateRange;
-exports.DDActions = DDActions;
 exports.DateRange = DateRange;
 exports.DateRangeCalendar = DateRangeCalendar;
 exports.DateRangeDateMomentToString = DateRangeDateMomentToString;

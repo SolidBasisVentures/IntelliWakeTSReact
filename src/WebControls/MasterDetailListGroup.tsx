@@ -1,11 +1,14 @@
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
 import React, {Dispatch, ReactNode, SetStateAction, useMemo} from 'react'
-import {Badge, ListGroup, ListGroupItemHeading, Spinner} from 'reactstrap'
 import {IMasterDetailProps, MasterDetail, MDDetail, MDLink, MDMaster} from './MasterDetail'
 import {ToDigits, ToPascalCase} from '@solidbasisventures/intelliwaketsfoundation'
 import {ClassNames} from '../Functions'
 import {TBadgeValues} from '../Bootstrap/ListGroupItem'
 import {BadgeItem} from '../Bootstrap/BadgeItem'
+import {ListGroup} from '../Bootstrap/ListGroup'
+import {ListGroupItemHeading} from '../Bootstrap/ListGroupItemHeading'
+import {Badge} from '../Bootstrap/Badge'
+import {Spinner} from './Spinner'
 
 export interface IMasterDetailListGroupMDLink {
 	hidden?: boolean
@@ -161,11 +164,7 @@ export const MasterDetailListGroup = (props: IMasterDetailListGroupProps) => {
 										<Badge
 											color={listGroupItem.counterColor}
 											className="float-right small text-white border-round ml-2">
-											{listGroupItem.counter !== null ? (
-												ToDigits(listGroupItem.counter, 0)
-											) : (
-												<Spinner size="sm" style={{width: '0.8em', height: '0.8em'}} />
-											)}
+											{listGroupItem.counter !== null ? ToDigits(listGroupItem.counter, 0) : <Spinner size="xs" />}
 										</Badge>
 									)}
 								</MDLink>
