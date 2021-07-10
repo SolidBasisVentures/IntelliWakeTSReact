@@ -155,7 +155,7 @@ export const Dropdown = (props: IWDropdownProps) => {
 			)}
 			className={classes}>
 			<Button
-				color={props.color ?? !!props.ddActions ? 'link-underline' : undefined}
+				color={props.color ?? !!props.ddActions ? 'secondary' : undefined}
 				size={props.size}
 				className={
 					!!props.nav || !!props.inNavbar
@@ -181,7 +181,7 @@ export const Dropdown = (props: IWDropdownProps) => {
 				style={!!props.nav || !!props.inNavbar ? {background: 'none', border: 'none'} : undefined}
 				// ref={buttonRef}
 			>
-				{props.buttonLabel ?? <FontAwesomeIcon icon={faCog}/>}
+				{props.buttonLabel ?? <FontAwesomeIcon icon={faCog} />}
 			</Button>
 			<div
 				tabIndex={-1}
