@@ -35,9 +35,7 @@ export const ElementCustomValue = (e: React.ChangeEvent<any>): any => {
 	return null
 }
 
-export type TClassNames = {[key: string]: boolean}
-
-export const ClassNames = (classes: TClassNames): string => {
+export const ClassNames = (classes: {[key: string]: boolean}): string => {
 	return (Object.keys(classes).filter((classitem) => classes[classitem]) ?? []).join(' ')
 }
 
