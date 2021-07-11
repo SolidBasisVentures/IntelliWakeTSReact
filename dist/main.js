@@ -1370,7 +1370,7 @@ var ModalPrompt = function (props) {
                         dismiss(false);
                     }, outline: promptResponse.outline, color: (_b = (_a = promptResponse.color) !== null && _a !== void 0 ? _a : props.color) !== null && _b !== void 0 ? _b : 'primary', className: "ml-1" }, promptResponse.label));
             }),
-            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(Button, { onClick: okAction, color: (_e = props.color) !== null && _e !== void 0 ? _e : 'primary', className: "ml-1",
+            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(Button, { onClick: okAction, color: (_e = props.color) !== null && _e !== void 0 ? _e : 'primary', className: "ml-1", 
                 // onKeyPress={okKeyPress}
                 autoFocus: true, tabIndex: 0 }, props.okLabel)))));
 };
@@ -2919,7 +2919,7 @@ function InputTel(props) {
 
 function InputText(props) {
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputText" }),
-        React__default['default'].createElement("input", __assign({ type: "text" }, ReduceInputProps(props, 'form-control inputText')))));
+        React__default['default'].createElement("input", __assign({ type: "text" }, ReduceInputProps(props, 'form-control')))));
 }
 
 function InputTextArea(props) {

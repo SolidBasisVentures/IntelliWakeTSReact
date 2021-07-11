@@ -1,7 +1,6 @@
 import * as React from 'react'
-import {THTMLChangeElements} from '../WebControls/IWInputProps'
 
-export interface InputProps extends React.InputHTMLAttributes<THTMLChangeElements> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	// [key: string]: any;
 	// type?: InputType;
 	// bsSize?: 'lg' | 'sm';
