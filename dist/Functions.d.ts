@@ -17,9 +17,10 @@ export declare const KEY_STRING_TAB = "Tab";
 export declare const KEY_STRING_BACKSPACE = "Backspace";
 export declare const KEY_STRING_ESCAPE = "Escape";
 export declare const ElementCustomValue: (e: React.ChangeEvent<HTMLInputElement>) => any;
-export declare const ClassNames: (classes: {
+export declare type TClassNames = {
     [key: string]: boolean;
-}) => string;
+};
+export declare const ClassNames: (classes: TClassNames) => string;
 export declare const HasPathComponent: (search: string) => boolean;
 export declare const GetPathComponentAfter: (search: string) => any | undefined;
 export declare const GetPathThrough: (search: string) => any | undefined;

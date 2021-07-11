@@ -1,5 +1,4 @@
 import React from 'react'
-import {Input} from 'reactstrap'
 import {IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
 import {InputWrapper} from './InputWrapper'
 
@@ -11,7 +10,7 @@ export function InputState<T>(props: IProps<T>) {
 			{...ReduceToInputAddProps(props)}
 			className="inputText inputState"
 			transformToValid={(val) => val.toUpperCase()}>
-			<Input type="text" {...ReduceInputProps(props)} />
+			<input type="text" {...ReduceInputProps(props, 'form-control')} />
 		</InputWrapper>
 	)
 }

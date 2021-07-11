@@ -1,5 +1,4 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react'
-import {Input} from 'reactstrap'
 import {IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {
 	MOMENT_FORMAT_TIME_NO_SECONDS,
@@ -60,7 +59,13 @@ export function InputTime<T>(props: IProps<T>) {
 		}
 
 		if (!!props.changeValue) {
-			props.changeValue(customValue, e.target.name as any, (e.nativeEvent as any).shiftKey, (e.nativeEvent as any).ctrlKey, (e.nativeEvent as any).altKey)
+			props.changeValue(
+				customValue,
+				e.target.name as any,
+				(e.nativeEvent as any).shiftKey,
+				(e.nativeEvent as any).ctrlKey,
+				(e.nativeEvent as any).altKey
+			)
 		}
 	}
 
@@ -71,9 +76,9 @@ export function InputTime<T>(props: IProps<T>) {
 					{MomentDisplayTime(props.value as string)}
 				</div>
 			) : (
-				<Input
+				<input
 					type="time"
-					className="inputTime"
+					className="inputTime form-control"
 					{...inputProps}
 					value={overrideValue}
 					onChange={handleInputChange}

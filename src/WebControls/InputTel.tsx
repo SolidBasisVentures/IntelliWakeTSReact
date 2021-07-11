@@ -1,5 +1,4 @@
 import React, {useMemo} from 'react'
-import {Input} from 'reactstrap'
 import {IconProp} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPhone} from '@fortawesome/pro-regular-svg-icons'
@@ -13,7 +12,7 @@ interface IProps<T = unknown> extends IIWInputProps<T> {
 
 export function InputTel<T>(props: IProps<T>) {
 	const inputProps = useMemo(() => {
-		const subset = ReduceInputProps(props)
+		const subset = ReduceInputProps(props, 'form-control')
 		delete subset.showFAIcon
 
 		return subset
@@ -33,7 +32,7 @@ export function InputTel<T>(props: IProps<T>) {
 			className="inputTel"
 			append={!!faIconToShow && <FontAwesomeIcon icon={faIconToShow} />}
 			plainTextControl={FormatPhoneNumber(props.value as string)}>
-			<Input type="tel" inputMode="tel" {...inputProps} />
+			<input type="tel" inputMode="tel" {...inputProps} />
 		</InputWrapper>
 	)
 }

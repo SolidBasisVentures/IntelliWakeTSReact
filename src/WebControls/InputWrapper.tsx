@@ -1,5 +1,5 @@
 import React, {ReactElement, ReactNode, useEffect, useRef, useState} from 'react'
-import {IIWInputAddProps, IIWInputProps, ReduceInputProps} from './IWInputProps'
+import {IIWInputAddProps, IIWInputProps, ReduceInputProps, THTMLChangeElements} from './IWInputProps'
 import {InputGroupWrapper} from './InputGroupWrapper'
 import {RandomString} from '@solidbasisventures/intelliwaketsfoundation'
 import {AppendPrependWrapper} from './AppendPrependWrapper'
@@ -107,11 +107,11 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 								(props.children.props.invalid || props.isInvalid ? ' is_invalid' : '') +
 								(props.children.props.required ? ' is-required' : '')
 							).trim(),
-							onFocus: (e: React.FocusEvent<HTMLInputElement>) => {
-								if (!props.doNotSelectOnFocus && !!e.target.select) e.target.select()
+							onFocus: (e: React.FocusEvent<THTMLChangeElements>) => {
+								if (!props.doNotSelectOnFocus && 'select' in e.target) e.target.select()
 								if (props.children.props.onFocus) props.children.props.onFocus(e)
 							},
-							onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
+							onBlur: (e: React.FocusEvent<THTMLChangeElements>) => {
 								clearTimeout(lateTrigger.current)
 								if (
 									!!props.changeValueLate &&
@@ -129,7 +129,7 @@ export const InputWrapper = <T, V>(props: IProps<T, V>) => {
 								}
 								if (props.children.props.onBlur) props.children.props.onBlur(e)
 							},
-							onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+							onChange: (e: React.ChangeEvent<THTMLChangeElements>) => {
 								clearTimeout(lateTrigger.current)
 
 								if (!props.children.props.plainText && !props.children.props.disabled) {

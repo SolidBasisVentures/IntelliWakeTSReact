@@ -1,5 +1,4 @@
 import React, {useMemo} from 'react'
-import {Input} from 'reactstrap'
 import {IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
 import {CleanScripts, ReplaceLinks} from '@solidbasisventures/intelliwaketsfoundation'
 import {InputWrapper} from './InputWrapper'
@@ -24,7 +23,7 @@ export function InputTextArea<T>(props: IProps<T>) {
 			<InputWrapper
 				doNotSelectOnFocus
 				{...ReduceToInputAddProps(props)}
-				className="inputTextArea"
+				className="inputTextArea form-control"
 				plainTextControl={
 					<div
 						className={'form-control-plaintext vertical-scroll horizontal-scroll' + (!!props.bordered ? ' border' : '')}
@@ -36,7 +35,7 @@ export function InputTextArea<T>(props: IProps<T>) {
 						}}
 					/>
 				}>
-				<Input type="textarea" {...inputProps} />
+				<input type="textarea" {...inputProps} />
 			</InputWrapper>
 		</>
 	)

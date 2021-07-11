@@ -21,7 +21,7 @@ export const KEY_STRING_TAB = 'Tab'
 export const KEY_STRING_BACKSPACE = 'Backspace'
 export const KEY_STRING_ESCAPE = 'Escape'
 
-export const ElementCustomValue = (e: React.ChangeEvent<HTMLInputElement>): any => {
+export const ElementCustomValue = (e: React.ChangeEvent<any>): any => {
 	const target: any = e.target
 
 	if (!!target) {

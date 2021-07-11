@@ -1,5 +1,4 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react'
-import {Input} from 'reactstrap'
 import {IIWInputProps, ReduceInputProps} from './IWInputProps'
 import {
 	MomentDateString,
@@ -71,7 +70,7 @@ export function InputDate<T>(props: IProps<T>) {
 						: MomentDisplayDayDate(props.value as string)}
 				</div>
 			) : (
-				<Input
+				<input
 					type="date"
 					className="inputDate"
 					{...inputProps}

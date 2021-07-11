@@ -1,10 +1,15 @@
 import React, {useMemo} from 'react'
 import {CleanNumber} from '@solidbasisventures/intelliwaketsfoundation'
-import {IIWInputAddProps, IIWInputProps, ReduceInputProps, ReduceToInputAddProps} from './IWInputProps'
+import {
+	IIWInputAddProps,
+	IIWInputProps,
+	ILegacyInputProps,
+	ReduceInputProps,
+	ReduceToInputAddProps
+} from './IWInputProps'
 import {InputWrapper} from './InputWrapper'
-import {Input, InputProps} from 'reactstrap'
 
-export interface IPropsSelect<T = any, V = any> extends IIWInputProps<T, V> {
+export interface IPropsSelect<T = any, V = any, H = HTMLSelectElement> extends IIWInputProps<T, V, H> {
 	innerRef?: (ref: any) => void
 	children?: any
 	isNumeric?: boolean
@@ -15,8 +20,8 @@ export interface IPropsSelect<T = any, V = any> extends IIWInputProps<T, V> {
 	required?: boolean
 }
 
-export function InputSelect<T>(props: IPropsSelect<T>) {
-	const inputProps = useMemo<InputProps>(() => {
+export function InputSelect<T, V>(props: IPropsSelect<T, V>) {
+	const inputProps = useMemo<ILegacyInputProps>(() => {
 		const subset = {...ReduceInputProps(props)}
 
 		delete subset.isNumeric
@@ -81,8 +86,7 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 
 				return val
 			}}>
-			<Input
-				type="select"
+			<select
 				{...inputProps}
 				value={inputProps.value ?? ''}
 				style={{
@@ -91,7 +95,7 @@ export function InputSelect<T>(props: IPropsSelect<T>) {
 				}}
 				tabIndex={!!props.plainText ? -1 : undefined}>
 				{props.children}
-			</Input>
+			</select>
 		</InputWrapper>
 	)
 }
