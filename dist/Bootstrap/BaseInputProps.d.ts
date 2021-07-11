@@ -1,3 +1,4 @@
 import * as React from 'react';
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+import { THTMLChangeElements } from '../WebControls/IWInputProps';
+export interface InputProps extends React.InputHTMLAttributes<THTMLChangeElements> {
 }

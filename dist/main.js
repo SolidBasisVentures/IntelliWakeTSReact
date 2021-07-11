@@ -1370,7 +1370,7 @@ var ModalPrompt = function (props) {
                         dismiss(false);
                     }, outline: promptResponse.outline, color: (_b = (_a = promptResponse.color) !== null && _a !== void 0 ? _a : props.color) !== null && _b !== void 0 ? _b : 'primary', className: "ml-1" }, promptResponse.label));
             }),
-            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(Button, { onClick: okAction, color: (_e = props.color) !== null && _e !== void 0 ? _e : 'primary', className: "ml-1",
+            !!props.okLabel && !!props.okAction && (React__default['default'].createElement(Button, { onClick: okAction, color: (_e = props.color) !== null && _e !== void 0 ? _e : 'primary', className: "ml-1", 
                 // onKeyPress={okKeyPress}
                 autoFocus: true, tabIndex: 0 }, props.okLabel)))));
 };
@@ -2261,10 +2261,7 @@ var EllipsesTruncate = function (props) {
 
 function InputCheckBox(props) {
     var _a;
-    var newID = React.useMemo(function () { var _a; return (_a = props.id) !== null && _a !== void 0 ? _a : 'cb' + props.name + Math.floor(Math.random() * 100000 + 1); }, [
-        props.name,
-        props.id
-    ]);
+    var newID = React.useMemo(function () { var _a; return (_a = props.id) !== null && _a !== void 0 ? _a : 'cb' + props.name + Math.floor(Math.random() * 100000 + 1); }, [props.name, props.id]);
     var handleInputChange = function (e) {
         e.target.value = e.target.checked.toString();
         e.target.customValue = e.target.checked;
@@ -2328,10 +2325,10 @@ function InputColor(props) {
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (!!props.plainTextURL ? (React__default['default'].createElement(reactRouterDom.Link, { to: props.plainTextURL },
         React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
-            React__default['default'].createElement(reactstrap.Input, __assign({ type: "color", className: (_a = 'inputText ' + props.className) !== null && _a !== void 0 ? _a : '' }, inputProps, { disabled: true })),
+            React__default['default'].createElement("input", __assign({ type: "color", className: (_a = 'inputText ' + props.className) !== null && _a !== void 0 ? _a : '' }, inputProps, { disabled: true })),
             props.value))) : (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps),
-        React__default['default'].createElement(reactstrap.Input, __assign({ type: "color", className: (_b = 'inputText ' + props.className) !== null && _b !== void 0 ? _b : '' }, inputProps, { disabled: true })),
-        props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "color", className: (_c = 'inputText ' + props.className) !== null && _c !== void 0 ? _c : '' }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
+        React__default['default'].createElement("input", __assign({ type: "color", className: (_b = 'inputText ' + props.className) !== null && _b !== void 0 ? _b : '' }, inputProps, { disabled: true })),
+        props.value))) : (React__default['default'].createElement("input", __assign({ type: "color", className: (_c = 'inputText ' + props.className) !== null && _c !== void 0 ? _c : '' }, inputProps, { onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); } })))));
 }
 
 var originalValue$1 = ' ';
@@ -2372,7 +2369,7 @@ function InputDate(props) {
     };
     return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), !!props.showTime && !!intelliwaketsfoundation.MomentTimeString(props.value)
         ? intelliwaketsfoundation.MomentDisplayDayDateTime(props.value)
-        : intelliwaketsfoundation.MomentDisplayDayDate(props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "date", className: "inputDate" }, inputProps, { placeholder: "yyyy-mm-dd", value: overrideValue !== null && overrideValue !== void 0 ? overrideValue : '', onChange: handleInputChange, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
+        : intelliwaketsfoundation.MomentDisplayDayDate(props.value))) : (React__default['default'].createElement("input", __assign({ type: "date", className: "inputDate" }, inputProps, { placeholder: "yyyy-mm-dd", value: overrideValue !== null && overrideValue !== void 0 ? overrideValue : '', onChange: handleInputChange, autoComplete: props.autoCompleteOn ? 'on' : "AC_" + ((_a = props.name) !== null && _a !== void 0 ? _a : '') + "_" + intelliwaketsfoundation.RandomString(5) })))));
 }
 
 /**
@@ -2467,7 +2464,7 @@ var InputWrapper = function (props) {
             ((_d = props.className) !== null && _d !== void 0 ? _d : '') +
             (props.children.props.invalid || props.isInvalid ? ' is_invalid' : '') +
             (props.children.props.required ? ' is-required' : '')).trim(), onFocus: function (e) {
-            if (!props.doNotSelectOnFocus && !!e.target.select)
+            if (!props.doNotSelectOnFocus && 'select' in e.target)
                 e.target.select();
             if (props.children.props.onFocus)
                 props.children.props.onFocus(e);
@@ -2619,7 +2616,7 @@ function InputSelect(props) {
             }
             return val;
         } }),
-        React__default['default'].createElement(reactstrap.Input, __assign({ type: "select" }, inputProps, { value: (_a = inputProps.value) !== null && _a !== void 0 ? _a : '', style: __assign(__assign({}, props.style), { pointerEvents: !!props.plainText ? 'none' : undefined }), tabIndex: !!props.plainText ? -1 : undefined }), props.children)));
+        React__default['default'].createElement("select", __assign({}, inputProps, { value: (_a = inputProps.value) !== null && _a !== void 0 ? _a : '', style: __assign(__assign({}, props.style), { pointerEvents: !!props.plainText ? 'none' : undefined }), tabIndex: !!props.plainText ? -1 : undefined }), props.children)));
 }
 
 function InputGender(props) {
@@ -2854,13 +2851,13 @@ function InputSSN(props) {
         }
         return subset;
     }, [props]);
-    return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputSSN", plainTextControl: !!props.plainTextLast4Only ? '...-' + ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString().substr(-4) : props.value }),
-        React__default['default'].createElement(reactstrap.Input, __assign({ type: "text" }, inputProps, { pattern: "\\d{3}-?\\d{2}-?\\d{4}" }))));
+    return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputSSN form-control", plainTextControl: !!props.plainTextLast4Only ? '...-' + ((_a = props.value) !== null && _a !== void 0 ? _a : '').toString().substr(-4) : props.value }),
+        React__default['default'].createElement("input", __assign({ type: "text" }, inputProps, { pattern: "\\d{3}-?\\d{2}-?\\d{4}" }))));
 }
 
 function InputState(props) {
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputText inputState", transformToValid: function (val) { return val.toUpperCase(); } }),
-        React__default['default'].createElement(reactstrap.Input, __assign({ type: "text" }, ReduceInputProps(props)))));
+        React__default['default'].createElement("input", __assign({ type: "text" }, ReduceInputProps(props, 'form-control')))));
 }
 
 function InputSwitch(props) {
@@ -2902,7 +2899,7 @@ var InputSwitchAlternate = function (props) {
 
 function InputTel(props) {
     var inputProps = React.useMemo(function () {
-        var subset = ReduceInputProps(props);
+        var subset = ReduceInputProps(props, 'form-control');
         delete subset.showFAIcon;
         return subset;
     }, [props]);
@@ -2914,12 +2911,12 @@ function InputTel(props) {
         return props.showFAIcon;
     }, [props.showFAIcon]);
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputTel", append: !!faIconToShow && React__default['default'].createElement(reactFontawesome.FontAwesomeIcon, { icon: faIconToShow }), plainTextControl: intelliwaketsfoundation.FormatPhoneNumber(props.value) }),
-        React__default['default'].createElement(reactstrap.Input, __assign({ type: "tel", inputMode: "tel" }, inputProps))));
+        React__default['default'].createElement("input", __assign({ type: "tel", inputMode: "tel" }, inputProps))));
 }
 
 function InputText(props) {
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputText" }),
-        React__default['default'].createElement("input", __assign({ type: "text" }, ReduceInputProps(props, 'form-control inputText')))));
+        React__default['default'].createElement("input", __assign({ type: "text" }, ReduceInputProps(props, 'form-control')))));
 }
 
 function InputTextArea(props) {
@@ -2931,11 +2928,11 @@ function InputTextArea(props) {
         return subset;
     }, [props]);
     return (React__default['default'].createElement(React__default['default'].Fragment, null,
-        React__default['default'].createElement(InputWrapper, __assign({ doNotSelectOnFocus: true }, ReduceToInputAddProps(props), { className: "inputTextArea", plainTextControl: React__default['default'].createElement("div", __assign({ className: 'form-control-plaintext vertical-scroll horizontal-scroll' + (!!props.bordered ? ' border' : '') }, props.plainTextProps, { dangerouslySetInnerHTML: { __html: intelliwaketsfoundation.ReplaceLinks(intelliwaketsfoundation.CleanScripts('' + props.value)) }, style: {
+        React__default['default'].createElement(InputWrapper, __assign({ doNotSelectOnFocus: true }, ReduceToInputAddProps(props), { className: "inputTextArea form-control", plainTextControl: React__default['default'].createElement("div", __assign({ className: 'form-control-plaintext vertical-scroll horizontal-scroll' + (!!props.bordered ? ' border' : '') }, props.plainTextProps, { dangerouslySetInnerHTML: { __html: intelliwaketsfoundation.ReplaceLinks(intelliwaketsfoundation.CleanScripts('' + props.value)) }, style: {
                     maxHeight: !!props.rows ? props.rows + 'em' : '5em',
                     overflowY: 'scroll'
                 } })) }),
-            React__default['default'].createElement(reactstrap.Input, __assign({ type: "textarea" }, inputProps)))));
+            React__default['default'].createElement("input", __assign({ type: "textarea" }, inputProps)))));
 }
 
 var originalValue = ' ';
@@ -2974,7 +2971,7 @@ function InputTime(props) {
             props.changeValue(customValue, e.target.name, e.nativeEvent.shiftKey, e.nativeEvent.ctrlKey, e.nativeEvent.altKey);
         }
     };
-    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.MomentDisplayTime(props.value))) : (React__default['default'].createElement(reactstrap.Input, __assign({ type: "time", className: "inputTime" }, inputProps, { value: overrideValue, onChange: handleInputChange, step: !!props.editSeconds ? 1 : 60 })))));
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, !!props.plainText ? (React__default['default'].createElement("div", __assign({ className: "form-control-plaintext" }, props.plainTextProps), intelliwaketsfoundation.MomentDisplayTime(props.value))) : (React__default['default'].createElement("input", __assign({ type: "time", className: "inputTime form-control" }, inputProps, { value: overrideValue, onChange: handleInputChange, step: !!props.editSeconds ? 1 : 60 })))));
 }
 
 function InputTimeZone(props) {
