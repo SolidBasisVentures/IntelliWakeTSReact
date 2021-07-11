@@ -35,7 +35,9 @@ export const ElementCustomValue = (e: React.ChangeEvent<HTMLInputElement>): any 
 	return null
 }
 
-export const ClassNames = (classes: {[key: string]: boolean}): string => {
+export type TClassNames = {[key: string]: boolean}
+
+export const ClassNames = (classes: TClassNames): string => {
 	return (Object.keys(classes).filter((classitem) => classes[classitem]) ?? []).join(' ')
 }
 

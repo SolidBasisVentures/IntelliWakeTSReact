@@ -1,6 +1,7 @@
 import {InputProps} from 'reactstrap'
 import React, {ReactNode} from 'react'
-import {ElementCustomValue} from '../Functions'
+import {ClassNames, ElementCustomValue, TClassNames} from '../Functions'
+import {OmitProperty} from '@solidbasisventures/intelliwaketsfoundation'
 
 export type TChangeValueFunction<T = any, V = any> = (
 	value: V,
@@ -26,17 +27,31 @@ export interface IIWInputProps<T = any, V = any> extends Omit<InputProps, 'value
 	value?: V
 }
 
-export const ReduceInputProps = <T = any, V = any>(props: IIWInputProps<T, V> | any): InputProps => {
-	const subset = {...props, value: props.value as any}
-	delete subset.plainText
-	delete subset.plainTextURL
-	delete subset.plainTextProps
-	delete subset.changeValue
-	delete subset.changeValueLate
-	delete subset.autoCompleteOn
-	delete subset.append
-	delete subset.prepend
-	// delete subset.onChange
+export const ReduceInputProps = <T = any, V = any>(
+	props: IIWInputProps<T, V> | any,
+	classNameAdd?: string | string[] | TClassNames
+): InputProps => {
+	const subset = OmitProperty(
+		props,
+		'plainText',
+		'plainTextURL',
+		'plainTextProps',
+		'changeValue',
+		'changeValueLate',
+		'autoCompleteOn',
+		'append',
+		'prepend'
+	)
+
+	if (!!classNameAdd) {
+		if (typeof classNameAdd === 'string') {
+			subset.className = `${subset.className ?? ''} ${classNameAdd}`.trim()
+		} else if (Array.isArray(classNameAdd)) {
+			subset.className = `${subset.className ?? ''} ${classNameAdd.join(' ')}`.trim()
+		} else {
+			subset.className = `${subset.className ?? ''} ${ClassNames(classNameAdd)}`.trim()
+		}
+	}
 
 	return subset
 }

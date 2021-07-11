@@ -2278,17 +2278,20 @@ function InputCheckBox(props) {
     return (React__default['default'].createElement(reactstrap.CustomInput, { type: "checkbox", label: props.label, name: props.name, className: 'inputCheckbox ' + ((_a = props.className) !== null && _a !== void 0 ? _a : '') + (props.plainText ? ' plainText' : ''), id: newID, hidden: props.hidden, checked: props.checked, onChange: !props.plainText ? handleInputChange : function () { }, disabled: props.plainText, onClick: props.onClick }));
 }
 
-var ReduceInputProps = function (props) {
-    var subset = __assign(__assign({}, props), { value: props.value });
-    delete subset.plainText;
-    delete subset.plainTextURL;
-    delete subset.plainTextProps;
-    delete subset.changeValue;
-    delete subset.changeValueLate;
-    delete subset.autoCompleteOn;
-    delete subset.append;
-    delete subset.prepend;
-    // delete subset.onChange
+var ReduceInputProps = function (props, classNameAdd) {
+    var _a, _b, _c;
+    var subset = intelliwaketsfoundation.OmitProperty(props, 'plainText', 'plainTextURL', 'plainTextProps', 'changeValue', 'changeValueLate', 'autoCompleteOn', 'append', 'prepend');
+    if (!!classNameAdd) {
+        if (typeof classNameAdd === 'string') {
+            subset.className = (((_a = subset.className) !== null && _a !== void 0 ? _a : '') + " " + classNameAdd).trim();
+        }
+        else if (Array.isArray(classNameAdd)) {
+            subset.className = (((_b = subset.className) !== null && _b !== void 0 ? _b : '') + " " + classNameAdd.join(' ')).trim();
+        }
+        else {
+            subset.className = (((_c = subset.className) !== null && _c !== void 0 ? _c : '') + " " + ClassNames(classNameAdd)).trim();
+        }
+    }
     return subset;
 };
 var ReduceToInputAddProps = function (props) {
@@ -2701,11 +2704,10 @@ function InputPassword(props) {
 
 function InputRadio(props) {
     var _a;
-    var newID = React.useMemo(function () { var _a; return (_a = props.id) !== null && _a !== void 0 ? _a : 'r' + props.name + Math.floor(Math.random() * 100000 + 1); }, [
-        props.name,
-        props.id
-    ]);
-    return !!props.plainText ? (props.checked ? (props.label) : null) : (React__default['default'].createElement(reactstrap.CustomInput, { type: "radio", label: props.label, name: props.name, id: newID, className: 'inputRadio ' + ((_a = props.className) !== null && _a !== void 0 ? _a : ''), checked: props.checked, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, value: props.value, onClick: props.onClick }));
+    return !!props.plainText ? (props.checked ? (props.label) : null) : (React__default['default'].createElement("label", { className: "cursor-pointer" },
+        React__default['default'].createElement("input", { type: "radio", value: props.value, checked: props.checked, className: 'inputRadio ' + ((_a = props.className) !== null && _a !== void 0 ? _a : ''), name: props.name, onChange: function (e) { return HandleChangeValue(e, props.changeValue, props.onChange); }, onClick: props.onClick }),
+        ' ',
+        props.label));
 }
 
 /**
@@ -2917,7 +2919,7 @@ function InputTel(props) {
 
 function InputText(props) {
     return (React__default['default'].createElement(InputWrapper, __assign({}, ReduceToInputAddProps(props), { className: "inputText" }),
-        React__default['default'].createElement(reactstrap.Input, __assign({ type: "text" }, ReduceInputProps(props)))));
+        React__default['default'].createElement("input", __assign({ type: "text" }, ReduceInputProps(props, 'form-control')))));
 }
 
 function InputTextArea(props) {
