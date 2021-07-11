@@ -1,4 +1,5 @@
 import React, {useMemo} from 'react'
+import {Input} from 'reactstrap'
 import {Link} from 'react-router-dom'
 import {HandleChangeValue, IIWInputProps, ReduceInputProps} from './IWInputProps'
 
